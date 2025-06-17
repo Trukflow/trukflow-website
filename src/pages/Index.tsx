@@ -30,44 +30,54 @@ const Index = () => {
     "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=600&h=400&fit=crop"
   ];
 
+  const feedbacks = [
+    {
+      rating: 5,
+      comment: "TRUK has revolutionized our agricultural logistics. Fast, reliable, and efficient service every time.",
+      photo: "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=80&h=80&fit=crop&crop=face",
+      name: "Sarah Johnson",
+      role: "Farm Manager"
+    },
+    {
+      rating: 4,
+      comment: "Excellent cargo transportation services. They handle our shipments with utmost care and professionalism.",
+      photo: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=80&h=80&fit=crop&crop=face",
+      name: "Michael Chen",
+      role: "Supply Chain Director"
+    },
+    {
+      rating: 5,
+      comment: "Outstanding logistics solutions for our business. TRUK understands our needs perfectly.",
+      photo: "https://images.unsplash.com/photo-1517022812141-23620dba5c23?w=80&h=80&fit=crop&crop=face",
+      name: "Emma Williams",
+      role: "Operations Manager"
+    }
+  ];
+
+  const renderStars = (rating: number) => {
+    return Array.from({ length: 5 }, (_, i) => (
+      <span key={i} className={`text-yellow-400 ${i < rating ? 'fill-current' : 'text-gray-300'}`}>
+        ★
+      </span>
+    ));
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar />
       
-      {/* Hero Section */}
-      <div className="pt-16 min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-        <div className="text-center max-w-4xl mx-auto px-4">
-          <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
-            Welcome to <span className="text-indigo-600">TRUK</span>
-          </h1>
-          <p className="text-xl md:text-2xl text-gray-700 mb-8">
-            Your trusted logistics partner for agricultural and cargo transportation
-          </p>
-          <div className="space-y-4 md:space-y-0 md:space-x-4 md:flex justify-center">
-            <div className="bg-white/20 backdrop-blur-md rounded-lg p-6 border border-white/30 shadow-lg">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">agriTRUK</h3>
-              <p className="text-gray-700">Specialized agricultural logistics solutions</p>
-            </div>
-            <div className="bg-white/20 backdrop-blur-md rounded-lg p-6 border border-white/30 shadow-lg">
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">cargoTRUK</h3>
-              <p className="text-gray-700">Reliable cargo transportation services</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Emerald Green Section */}
-      <section className="min-h-screen bg-emerald-600 relative overflow-hidden">
+      {/* Jungle Green Section */}
+      <section className="min-h-screen bg-green-800 relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center">
           <div className="grid md:grid-cols-2 gap-8 items-center w-full relative z-10">
             {/* Left Content */}
             <div className="space-y-8">
               {/* User Stats with Circles */}
               <div className="flex items-center space-x-4">
-                <div className="flex flex-col space-y-1">
-                  <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
-                  <div className="w-3 h-3 bg-black rounded-full"></div>
-                  <div className="w-3 h-3 bg-yellow-400 rounded-full"></div>
+                <div className="flex items-center -space-x-2">
+                  <div className="w-6 h-6 bg-yellow-400 rounded-full border-2 border-white z-30"></div>
+                  <div className="w-6 h-6 bg-black rounded-full border-2 border-white z-20"></div>
+                  <div className="w-6 h-6 bg-yellow-400 rounded-full border-2 border-white z-10"></div>
                 </div>
                 <span className="text-white text-lg font-semibold">10,000+ active users</span>
               </div>
@@ -93,14 +103,15 @@ const Index = () => {
                 <Button className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full text-lg font-medium">
                   Join as a transporter
                 </Button>
-                <Button className="bg-white hover:bg-gray-100 text-emerald-600 px-8 py-3 rounded-full text-lg font-medium">
+                <Button className="bg-white hover:bg-gray-100 text-green-800 px-8 py-3 rounded-full text-lg font-medium">
                   Request demo
                 </Button>
               </div>
             </div>
 
-            {/* Right Side - Animated Images */}
+            {/* Right Side - Images with Fade Effect */}
             <div className="relative h-96 md:h-full">
+              <div className="absolute inset-0 bg-gradient-to-r from-green-800 via-green-800/50 to-transparent z-20 pointer-events-none"></div>
               <Carousel
                 setApi={setApi}
                 className="w-full h-full"
@@ -118,13 +129,93 @@ const Index = () => {
                           alt={`Logistics image ${index + 1}`}
                           className="w-full h-full object-cover rounded-lg shadow-2xl transform transition-transform duration-1000 hover:scale-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-emerald-600/20 rounded-lg"></div>
                       </div>
                     </CarouselItem>
                   ))}
                 </CarouselContent>
               </Carousel>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How it works Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl md:text-5xl font-bold text-red-500 text-center mb-16">
+            How it works
+          </h2>
+          <div className="grid md:grid-cols-3 gap-12">
+            <div className="text-center">
+              <img
+                src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop"
+                alt="Step 1"
+                className="w-full h-64 object-cover rounded-lg mb-6 shadow-lg"
+              />
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Request Transport</h3>
+              <p className="text-gray-600">
+                Submit your logistics request through our platform with detailed information about your cargo or agricultural products.
+              </p>
+            </div>
+            <div className="text-center">
+              <img
+                src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop"
+                alt="Step 2"
+                className="w-full h-64 object-cover rounded-lg mb-6 shadow-lg"
+              />
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Match with Transporters</h3>
+              <p className="text-gray-600">
+                Our smart system connects you with verified transporters who specialize in your type of cargo.
+              </p>
+            </div>
+            <div className="text-center">
+              <img
+                src="https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=300&fit=crop"
+                alt="Step 3"
+                className="w-full h-64 object-cover rounded-lg mb-6 shadow-lg"
+              />
+              <h3 className="text-xl font-semibold text-gray-900 mb-4">Track & Deliver</h3>
+              <p className="text-gray-600">
+                Monitor your shipment in real-time and receive updates until safe delivery to your destination.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Customer Feedback Section */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl md:text-5xl font-bold text-red-500 text-center mb-16">
+            Customer Feedback
+          </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {feedbacks.map((feedback, index) => (
+              <div key={index} className="bg-white rounded-lg p-6 shadow-lg">
+                {/* Rating Stars */}
+                <div className="flex mb-4">
+                  {renderStars(feedback.rating)}
+                </div>
+                
+                {/* Comment */}
+                <p className="text-gray-700 mb-6 italic">
+                  "{feedback.comment}"
+                </p>
+                
+                {/* Customer Info */}
+                <div className="flex items-center">
+                  <img
+                    src={feedback.photo}
+                    alt={feedback.name}
+                    className="w-12 h-12 rounded-full object-cover mr-4"
+                  />
+                  <div>
+                    <h4 className="font-semibold text-gray-900">{feedback.name}</h4>
+                    <p className="text-gray-600 text-sm">{feedback.role}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
