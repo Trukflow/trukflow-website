@@ -61,7 +61,7 @@ const Navbar = () => {
             </a>
 
             {/* Get Started Button */}
-            <Button className="bg-black text-white hover:bg-gray-800 transition-colors duration-200 font-medium px-6">
+            <Button className="bg-black text-white hover:bg-gray-800 transition-colors duration-200 font-medium px-6 rounded-full">
               Get Started
             </Button>
           </div>
@@ -138,7 +138,7 @@ const Navbar = () => {
                 Contact Us
               </a>
               <div className="px-3 py-2">
-                <Button className="w-full bg-black text-white hover:bg-gray-800 transition-colors duration-200 font-medium">
+                <Button className="w-full bg-black text-white hover:bg-gray-800 transition-colors duration-200 font-medium rounded-full">
                   Get Started
                 </Button>
               </div>
