@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import {
@@ -128,7 +127,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      <style jsx global>{`
+      <style>{`
         html {
           scroll-behavior: smooth;
         }
@@ -147,10 +146,36 @@ const Index = () => {
       
       {/* Jungle Green Hero Section */}
       <section className="min-h-screen bg-gradient-to-br from-green-800 via-green-700 to-green-900 relative overflow-hidden">
+        {/* Background Images covering full section */}
+        <div className="absolute inset-0 z-0">
+          <Carousel
+            className="w-full h-full"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+          >
+            <CarouselContent className="h-full">
+              {images.map((image, index) => (
+                <CarouselItem key={index} className="h-full">
+                  <div className="relative h-full">
+                    <img
+                      src={image}
+                      alt={`Background ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-green-800/95 via-green-800/80 to-transparent"></div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-20">
-          <div className="grid lg:grid-cols-2 gap-8 items-center w-full">
+          <div className="w-full">
             {/* Left Content */}
-            <div className="space-y-6 md:space-y-8 animate-on-scroll">
+            <div className="max-w-2xl space-y-6 md:space-y-8 animate-on-scroll">
               {/* User Stats with Overlapping Circles */}
               <div className="flex items-center space-x-4">
                 <div className="flex items-center">
@@ -172,27 +197,27 @@ const Index = () => {
               </div>
 
               {/* Services - Vertical Layout with Descriptions */}
-              <div className="space-y-3 md:space-y-4">
-                <div className="space-y-1">
-                  <span className="text-white text-lg md:text-xl font-semibold block">agriTRUK</span>
-                  <span className="text-white/80 text-sm md:text-base">Agricultural produce transportation solutions</span>
+              <div className="space-y-4 md:space-y-6">
+                <div className="space-y-2">
+                  <span className="text-white text-xl md:text-2xl font-semibold block">agriTRUK</span>
+                  <span className="text-white/80 text-base md:text-lg">Agricultural produce transportation solutions</span>
                 </div>
-                <div className="space-y-1">
-                  <span className="text-white text-lg md:text-xl font-semibold block">cargoTRUK</span>
-                  <span className="text-white/80 text-sm md:text-base">General cargo and freight services</span>
+                <div className="space-y-2">
+                  <span className="text-white text-xl md:text-2xl font-semibold block">cargoTRUK</span>
+                  <span className="text-white/80 text-base md:text-lg">General cargo and freight services</span>
                 </div>
               </div>
 
               {/* Buttons - Larger Size */}
-              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                 <Button 
-                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-3 md:py-4 rounded-full text-lg md:text-xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
                   onClick={() => window.location.href = '/download'}
                 >
                   Join as a transporter
                 </Button>
                 <Button 
-                  className="bg-white hover:bg-gray-100 text-green-800 px-8 md:px-12 py-3 md:py-4 rounded-full text-lg md:text-xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+                  className="bg-white hover:bg-gray-100 text-green-800 px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
                   onClick={() => window.location.href = '/download'}
                 >
                   Request demo
@@ -200,63 +225,11 @@ const Index = () => {
               </div>
 
               {/* Dial Option */}
-              <div className="text-white text-base md:text-lg">
+              <div className="text-white text-lg md:text-xl">
                 Or dial *000# to book your transport
               </div>
             </div>
-
-            {/* Right Side - Background Images */}
-            <div className="relative h-96 md:h-full w-full lg:block hidden">
-              <Carousel
-                setApi={setApi}
-                className="w-full h-full"
-                opts={{
-                  align: "start",
-                  loop: true,
-                }}
-              >
-                <CarouselContent className="h-full">
-                  {images.map((image, index) => (
-                    <CarouselItem key={index} className="h-full">
-                      <div className="relative h-full">
-                        <img
-                          src={image}
-                          alt={`Logistics image ${index + 1}`}
-                          className="w-full h-full object-cover rounded-lg shadow-2xl transform transition-transform duration-1000 hover:scale-105"
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </Carousel>
-            </div>
           </div>
-        </div>
-
-        {/* Background Images covering full section */}
-        <div className="absolute inset-0 z-0">
-          <Carousel
-            className="w-full h-full"
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-          >
-            <CarouselContent className="h-full">
-              {images.map((image, index) => (
-                <CarouselItem key={index} className="h-full">
-                  <div className="relative h-full">
-                    <img
-                      src={image}
-                      alt={`Background ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-green-800/90 via-green-800/70 to-green-800/40"></div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
         </div>
       </section>
 
