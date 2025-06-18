@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import {
@@ -23,11 +22,8 @@ const Navbar = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      const howItWorksSection = document.getElementById('how-it-works');
-      if (howItWorksSection) {
-        const rect = howItWorksSection.getBoundingClientRect();
-        setIsScrolled(rect.top <= 0);
-      }
+      const scrollY = window.scrollY;
+      setIsScrolled(scrollY > 50);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -100,7 +96,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             {/* Services Dropdown */}
             <DropdownMenu>
-              <DropdownMenuTrigger className={`flex items-center transition-colors duration-200 font-medium focus:outline-none ${
+              <DropdownMenuTrigger className={`flex items-center transition-colors duration-200 font-medium focus:outline-none focus:ring-0 focus:border-none ${
                 isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
               }`}>
                 Services

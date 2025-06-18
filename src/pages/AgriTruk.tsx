@@ -128,6 +128,56 @@ const AgriTruk = () => {
         </div>
       </section>
 
+      {/* How it Works Section */}
+      <section className="py-16 md:py-20 bg-white relative overflow-hidden" id="how-it-works">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
+            How it works
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+            <div className="text-center animate-on-scroll bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-green-100 to-green-200 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop"
+                  alt="Request Transport"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Request Transport</h3>
+              <p className="text-gray-600 text-sm md:text-base">
+                Submit your agricultural transport request through our platform with detailed information about your produce.
+              </p>
+            </div>
+            <div className="text-center animate-on-scroll bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop"
+                  alt="Match with Transporters"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Match with Transporters</h3>
+              <p className="text-gray-600 text-sm md:text-base">
+                Our smart system connects you with verified transporters who specialize in agricultural produce.
+              </p>
+            </div>
+            <div className="text-center animate-on-scroll md:col-span-2 lg:col-span-1 bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-red-100 to-red-200 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=300&fit=crop"
+                  alt="Track & Deliver"
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Track & Deliver</h3>
+              <p className="text-gray-600 text-sm md:text-base">
+                Monitor your shipment in real-time and receive updates until safe delivery to your destination.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-green-800 via-green-700 to-green-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
