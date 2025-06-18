@@ -25,6 +25,13 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
@@ -35,9 +42,9 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <div className="text-2xl font-bold text-gray-900">
+            <a href="/" className="text-2xl font-bold text-gray-900 cursor-pointer">
               TRUK
-            </div>
+            </a>
           </div>
 
           {/* Desktop Navigation */}
@@ -55,6 +62,9 @@ const Navbar = () => {
                 <DropdownMenuItem className="cursor-pointer hover:bg-gray-100">
                   cargoTRUK
                 </DropdownMenuItem>
+                <DropdownMenuItem className="cursor-pointer hover:bg-gray-100">
+                  Driver enlistment
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
@@ -65,21 +75,24 @@ const Navbar = () => {
             >
               About Us
             </a>
-            <a
-              href="#faqs"
+            <button
+              onClick={() => scrollToSection('faqs')}
               className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
             >
               FAQs
-            </a>
-            <a
-              href="#contact"
+            </button>
+            <button
+              onClick={() => scrollToSection('contact')}
               className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
             >
               Contact Us
-            </a>
+            </button>
 
             {/* Get Started Button */}
-            <Button className="bg-black text-white hover:bg-gray-800 transition-colors duration-200 font-medium px-6 rounded-full">
+            <Button 
+              className="bg-black text-white hover:bg-gray-800 transition-colors duration-200 font-medium px-6 rounded-full"
+              onClick={() => window.location.href = '/download'}
+            >
               Get Started
             </Button>
           </div>
@@ -124,18 +137,15 @@ const Navbar = () => {
                 Services
               </div>
               <div className="pl-6 space-y-1">
-                <a
-                  href="#agritruk"
-                  className="block px-3 py-2 text-gray-600 hover:text-gray-900"
-                >
+                <button className="block px-3 py-2 text-gray-600 hover:text-gray-900">
                   agriTRUK
-                </a>
-                <a
-                  href="#cargotruk"
-                  className="block px-3 py-2 text-gray-600 hover:text-gray-900"
-                >
+                </button>
+                <button className="block px-3 py-2 text-gray-600 hover:text-gray-900">
                   cargoTRUK
-                </a>
+                </button>
+                <button className="block px-3 py-2 text-gray-600 hover:text-gray-900">
+                  Driver enlistment
+                </button>
               </div>
               <a
                 href="/about"
@@ -143,20 +153,23 @@ const Navbar = () => {
               >
                 About Us
               </a>
-              <a
-                href="#faqs"
+              <button
+                onClick={() => scrollToSection('faqs')}
                 className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900"
               >
                 FAQs
-              </a>
-              <a
-                href="#contact"
+              </button>
+              <button
+                onClick={() => scrollToSection('contact')}
                 className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900"
               >
                 Contact Us
-              </a>
+              </button>
               <div className="px-3 py-2">
-                <Button className="w-full bg-black text-white hover:bg-gray-800 transition-colors duration-200 font-medium rounded-full">
+                <Button 
+                  className="w-full bg-black text-white hover:bg-gray-800 transition-colors duration-200 font-medium rounded-full"
+                  onClick={() => window.location.href = '/download'}
+                >
                   Get Started
                 </Button>
               </div>

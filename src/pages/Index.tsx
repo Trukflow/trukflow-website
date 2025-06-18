@@ -13,7 +13,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
-import { Facebook, Twitter, Instagram, Linkedin, Youtube, MapPin, Mail, Phone } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Youtube, MapPin, Mail, Phone } from "lucide-react";
 
 const Index = () => {
   const [api, setApi] = useState<any>();
@@ -134,18 +134,34 @@ const Index = () => {
                 </h2>
               </div>
 
-              {/* Services */}
-              <div className="flex space-x-6">
-                <span className="text-white text-lg">agriTRUK</span>
-                <span className="text-white text-lg">cargoTRUK</span>
+              {/* Services - Vertical Layout with Descriptions */}
+              <div className="space-y-4">
+                <div className="flex items-center space-x-4">
+                  <span className="text-white text-xl font-semibold">agriTRUK</span>
+                  <span className="text-white/80 text-sm">- Agricultural produce transportation</span>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <span className="text-white text-xl font-semibold">cargoTRUK</span>
+                  <span className="text-white/80 text-sm">- General cargo and freight services</span>
+                </div>
+                <div className="flex items-center space-x-4">
+                  <span className="text-white text-xl font-semibold">Driver enlistment</span>
+                  <span className="text-white/80 text-sm">- Join our verified transporter network</span>
+                </div>
               </div>
 
-              {/* Buttons */}
+              {/* Buttons - Larger Size */}
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                <Button className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full text-lg font-medium">
+                <Button 
+                  className="bg-red-500 hover:bg-red-600 text-white px-12 py-4 rounded-full text-xl font-medium"
+                  onClick={() => window.location.href = '/download'}
+                >
                   Join as a transporter
                 </Button>
-                <Button className="bg-white hover:bg-gray-100 text-green-800 px-8 py-3 rounded-full text-lg font-medium">
+                <Button 
+                  className="bg-white hover:bg-gray-100 text-green-800 px-12 py-4 rounded-full text-xl font-medium"
+                  onClick={() => window.location.href = '/download'}
+                >
                   Request demo
                 </Button>
               </div>
@@ -156,10 +172,11 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Right Side - Images with Blur Effect */}
-            <div className="relative h-96 md:h-full">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-800 via-green-800/30 to-transparent z-20 pointer-events-none"></div>
-              <div className="absolute inset-0 backdrop-blur-sm z-10"></div>
+            {/* Right Side - Images covering 80% with left blur */}
+            <div className="relative h-96 md:h-full w-full">
+              {/* Gradient overlay for blur effect on left side */}
+              <div className="absolute inset-0 bg-gradient-to-r from-green-800 via-green-800/60 to-transparent z-20 pointer-events-none"></div>
+              <div className="absolute left-0 top-0 bottom-0 w-1/2 backdrop-blur-md z-10"></div>
               <Carousel
                 setApi={setApi}
                 className="w-full h-full"
@@ -231,18 +248,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Customer Feedback Section */}
+      {/* Customer Feedback Section - Vertical 3/4 and 1/4 layout */}
       <section className="py-20 relative">
-        <div className="absolute inset-0 bg-green-800"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-green-800 to-white" style={{background: 'linear-gradient(to right, #065f46 75%, white 75%)'}}></div>
-        
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-4xl md:text-5xl font-bold text-red-500 text-center mb-16">
-            Customer Feedback
-          </h2>
-          <div className="flex">
-            {/* Feedback Carousel - 3/4 width */}
-            <div className="w-3/4 pr-8">
+        <div className="flex flex-col h-full">
+          {/* Top 3/4 - Jungle Green */}
+          <div className="bg-green-800 h-3/4 pb-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-red-500 text-center mb-16">
+                Customer Feedback
+              </h2>
               <Carousel
                 setApi={setFeedbackApi}
                 className="w-full"
@@ -283,20 +297,20 @@ const Index = () => {
                 </CarouselContent>
               </Carousel>
             </div>
+          </div>
 
-            {/* Navigation Bullets - 1/4 width */}
-            <div className="w-1/4 flex items-center justify-center">
-              <div className="flex space-x-2">
-                {feedbacks.map((_, index) => (
-                  <button
-                    key={index}
-                    className={`w-3 h-3 rounded-full transition-colors ${
-                      index === current ? 'bg-purple-500' : 'bg-gray-300'
-                    }`}
-                    onClick={() => feedbackApi?.scrollTo(index)}
-                  />
-                ))}
-              </div>
+          {/* Bottom 1/4 - White with Navigation Bullets */}
+          <div className="bg-white h-1/4 flex items-center justify-center pt-8">
+            <div className="flex space-x-3">
+              {feedbacks.map((_, index) => (
+                <button
+                  key={index}
+                  className={`w-4 h-4 rounded-full transition-colors ${
+                    index === current ? 'bg-purple-500' : 'bg-gray-300'
+                  }`}
+                  onClick={() => feedbackApi?.scrollTo(index)}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -312,7 +326,10 @@ const Index = () => {
             <p className="text-xl mb-8">
               Earn 25% more on verified bookings. Sign-up only takes 2 minutes.
             </p>
-            <Button className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full text-lg font-medium">
+            <Button 
+              className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full text-lg font-medium"
+              onClick={() => window.location.href = '/download'}
+            >
               Join our Transporter Network
             </Button>
           </div>
@@ -341,7 +358,7 @@ const Index = () => {
       </section>
 
       {/* FAQs Section */}
-      <section className="py-20 bg-gray-100">
+      <section className="py-20 bg-gray-100" id="faqs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-16 items-start">
             {/* Left Side - Chat Image */}
@@ -386,7 +403,10 @@ const Index = () => {
             <h2 className="text-3xl md:text-4xl font-bold mb-8">
               East Africa moves smarter with TRUK
             </h2>
-            <Button className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full text-lg font-medium">
+            <Button 
+              className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full text-lg font-medium"
+              onClick={() => window.location.href = '/download'}
+            >
               Get Early Access
             </Button>
           </div>
@@ -394,7 +414,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-16">
+      <footer className="bg-black text-white py-16" id="contact">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8">
             {/* Column 1 - Logo & Description */}
@@ -431,10 +451,16 @@ const Index = () => {
               <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
               <div className="flex space-x-4 mb-6">
                 <Facebook className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" />
-                <Twitter className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+                {/* X logo (formerly Twitter) */}
+                <svg className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
                 <Instagram className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" />
                 <Linkedin className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" />
-                <Youtube className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+                {/* TikTok logo */}
+                <svg className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                </svg>
               </div>
               <div className="space-y-2 text-gray-400 text-sm">
                 <div className="flex items-center">
@@ -454,7 +480,7 @@ const Index = () => {
           </div>
 
           <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
-            <p>&copy; 2024 TRUK. All rights reserved.</p>
+            <p>&copy; 2025 TRUK. All rights reserved.</p>
           </div>
         </div>
       </footer>
