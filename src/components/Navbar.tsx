@@ -32,6 +32,16 @@ const Navbar = () => {
     }
   };
 
+  const handleNavigation = (path: string) => {
+    if (window.location.pathname === '/' && path.startsWith('#')) {
+      scrollToSection(path.substring(1));
+    } else if (path.startsWith('#')) {
+      window.location.href = '/' + path;
+    } else {
+      window.location.href = path;
+    }
+  };
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
@@ -42,7 +52,12 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a href="/" className="text-2xl font-bold text-gray-900 cursor-pointer">
+            <a 
+              href="/" 
+              className={`text-2xl font-bold cursor-pointer transition-colors duration-200 ${
+                isScrolled ? 'text-white' : 'text-gray-900'
+              }`}
+            >
               TRUK
             </a>
           </div>
@@ -51,39 +66,56 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             {/* Services Dropdown */}
             <DropdownMenu>
-              <DropdownMenuTrigger className="flex items-center text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium">
+              <DropdownMenuTrigger className={`flex items-center transition-colors duration-200 font-medium ${
+                isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
+              }`}>
                 Services
                 <ChevronDown className="ml-1 h-4 w-4" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white border border-gray-200 shadow-lg">
-                <DropdownMenuItem className="cursor-pointer hover:bg-gray-100">
+              <DropdownMenuContent className="bg-white border border-gray-200 shadow-lg z-50">
+                <DropdownMenuItem 
+                  className="cursor-pointer hover:bg-gray-100"
+                  onClick={() => window.location.href = '/agritruk'}
+                >
                   agriTRUK
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer hover:bg-gray-100">
+                <DropdownMenuItem 
+                  className="cursor-pointer hover:bg-gray-100"
+                  onClick={() => window.location.href = '/cargotruk'}
+                >
                   cargoTRUK
                 </DropdownMenuItem>
-                <DropdownMenuItem className="cursor-pointer hover:bg-gray-100">
+                <DropdownMenuItem 
+                  className="cursor-pointer hover:bg-gray-100"
+                  onClick={() => window.location.href = '/driver-enlistment'}
+                >
                   Driver enlistment
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
             {/* Other Navigation Items */}
-            <a
-              href="/about"
-              className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
+            <button
+              onClick={() => handleNavigation('/about')}
+              className={`transition-colors duration-200 font-medium ${
+                isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
+              }`}
             >
               About Us
-            </a>
+            </button>
             <button
-              onClick={() => scrollToSection('faqs')}
-              className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
+              onClick={() => handleNavigation('#faqs')}
+              className={`transition-colors duration-200 font-medium ${
+                isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
+              }`}
             >
               FAQs
             </button>
             <button
-              onClick={() => scrollToSection('contact')}
-              className="text-gray-700 hover:text-gray-900 transition-colors duration-200 font-medium"
+              onClick={() => handleNavigation('#contact')}
+              className={`transition-colors duration-200 font-medium ${
+                isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
+              }`}
             >
               Contact Us
             </button>
@@ -101,7 +133,9 @@ const Navbar = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 hover:text-gray-900 focus:outline-none"
+              className={`focus:outline-none transition-colors duration-200 ${
+                isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
+              }`}
             >
               <svg
                 className="h-6 w-6"
@@ -137,31 +171,40 @@ const Navbar = () => {
                 Services
               </div>
               <div className="pl-6 space-y-1">
-                <button className="block px-3 py-2 text-gray-600 hover:text-gray-900">
+                <button 
+                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
+                  onClick={() => window.location.href = '/agritruk'}
+                >
                   agriTRUK
                 </button>
-                <button className="block px-3 py-2 text-gray-600 hover:text-gray-900">
+                <button 
+                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
+                  onClick={() => window.location.href = '/cargotruk'}
+                >
                   cargoTRUK
                 </button>
-                <button className="block px-3 py-2 text-gray-600 hover:text-gray-900">
+                <button 
+                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
+                  onClick={() => window.location.href = '/driver-enlistment'}
+                >
                   Driver enlistment
                 </button>
               </div>
-              <a
-                href="/about"
-                className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900"
+              <button
+                onClick={() => handleNavigation('/about')}
+                className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
               >
                 About Us
-              </a>
+              </button>
               <button
-                onClick={() => scrollToSection('faqs')}
-                className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900"
+                onClick={() => handleNavigation('#faqs')}
+                className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
               >
                 FAQs
               </button>
               <button
-                onClick={() => scrollToSection('contact')}
-                className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900"
+                onClick={() => handleNavigation('#contact')}
+                className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
               >
                 Contact Us
               </button>

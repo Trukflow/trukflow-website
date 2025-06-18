@@ -13,7 +13,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
-import { Facebook, Instagram, Linkedin, Youtube, MapPin, Mail, Phone } from "lucide-react";
+import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone } from "lucide-react";
 
 const Index = () => {
   const [api, setApi] = useState<any>();
@@ -44,6 +44,28 @@ const Index = () => {
 
     return () => feedbackApi?.off("select", onSelect);
   }, [feedbackApi]);
+
+  // Smooth scroll and animation observer
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+          entry.target.classList.remove('opacity-0', 'translate-y-8');
+        }
+      });
+    }, observerOptions);
+
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    animateElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
 
   const images = [
     "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop",
@@ -106,27 +128,42 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
+      <style jsx global>{`
+        html {
+          scroll-behavior: smooth;
+        }
+        .animate-on-scroll {
+          opacity: 0;
+          transform: translateY(2rem);
+          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .animate-fade-in {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+      `}</style>
+      
       <Navbar />
       
       {/* Jungle Green Hero Section */}
-      <section className="min-h-screen bg-green-800 relative overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center">
-          <div className="grid md:grid-cols-2 gap-8 items-center w-full relative z-10">
+      <section className="min-h-screen bg-gradient-to-br from-green-800 via-green-700 to-green-900 relative overflow-hidden">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-20">
+          <div className="grid lg:grid-cols-2 gap-8 items-center w-full">
             {/* Left Content */}
-            <div className="space-y-8 relative z-20">
+            <div className="space-y-6 md:space-y-8 animate-on-scroll">
               {/* User Stats with Overlapping Circles */}
               <div className="flex items-center space-x-4">
                 <div className="flex items-center">
-                  <div className="w-6 h-6 bg-yellow-400 rounded-full z-30 relative"></div>
-                  <div className="w-6 h-6 bg-black rounded-full z-20 relative -ml-3"></div>
-                  <div className="w-6 h-6 bg-yellow-400 rounded-full z-10 relative -ml-3"></div>
+                  <div className="w-4 h-4 md:w-6 md:h-6 bg-yellow-400 rounded-full z-30 relative shadow-lg"></div>
+                  <div className="w-4 h-4 md:w-6 md:h-6 bg-black rounded-full z-20 relative -ml-2 md:-ml-3 shadow-lg"></div>
+                  <div className="w-4 h-4 md:w-6 md:h-6 bg-yellow-400 rounded-full z-10 relative -ml-2 md:-ml-3 shadow-lg"></div>
                 </div>
-                <span className="text-white text-lg font-semibold">10,000+ active users</span>
+                <span className="text-white text-sm md:text-lg font-semibold">10,000+ active users</span>
               </div>
 
               {/* Main Heading */}
               <div className="space-y-2">
-                <h2 className="text-4xl md:text-6xl font-bold">
+                <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight">
                   <span className="text-red-500">TRUK</span>
                   <span className="text-white">, East Africa's </span>
                   <span className="text-red-500">Smartest</span>
@@ -135,31 +172,27 @@ const Index = () => {
               </div>
 
               {/* Services - Vertical Layout with Descriptions */}
-              <div className="space-y-4">
-                <div className="flex items-center space-x-4">
-                  <span className="text-white text-xl font-semibold">agriTRUK</span>
-                  <span className="text-white/80 text-sm">- Agricultural produce transportation</span>
+              <div className="space-y-3 md:space-y-4">
+                <div className="space-y-1">
+                  <span className="text-white text-lg md:text-xl font-semibold block">agriTRUK</span>
+                  <span className="text-white/80 text-sm md:text-base">Agricultural produce transportation solutions</span>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <span className="text-white text-xl font-semibold">cargoTRUK</span>
-                  <span className="text-white/80 text-sm">- General cargo and freight services</span>
-                </div>
-                <div className="flex items-center space-x-4">
-                  <span className="text-white text-xl font-semibold">Driver enlistment</span>
-                  <span className="text-white/80 text-sm">- Join our verified transporter network</span>
+                <div className="space-y-1">
+                  <span className="text-white text-lg md:text-xl font-semibold block">cargoTRUK</span>
+                  <span className="text-white/80 text-sm md:text-base">General cargo and freight services</span>
                 </div>
               </div>
 
               {/* Buttons - Larger Size */}
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
                 <Button 
-                  className="bg-red-500 hover:bg-red-600 text-white px-12 py-4 rounded-full text-xl font-medium"
+                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-3 md:py-4 rounded-full text-lg md:text-xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
                   onClick={() => window.location.href = '/download'}
                 >
                   Join as a transporter
                 </Button>
                 <Button 
-                  className="bg-white hover:bg-gray-100 text-green-800 px-12 py-4 rounded-full text-xl font-medium"
+                  className="bg-white hover:bg-gray-100 text-green-800 px-8 md:px-12 py-3 md:py-4 rounded-full text-lg md:text-xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
                   onClick={() => window.location.href = '/download'}
                 >
                   Request demo
@@ -167,16 +200,13 @@ const Index = () => {
               </div>
 
               {/* Dial Option */}
-              <div className="text-white text-lg">
+              <div className="text-white text-base md:text-lg">
                 Or dial *000# to book your transport
               </div>
             </div>
 
-            {/* Right Side - Images covering 80% with left blur */}
-            <div className="relative h-96 md:h-full w-full">
-              {/* Gradient overlay for blur effect on left side */}
-              <div className="absolute inset-0 bg-gradient-to-r from-green-800 via-green-800/60 to-transparent z-20 pointer-events-none"></div>
-              <div className="absolute left-0 top-0 bottom-0 w-1/2 backdrop-blur-md z-10"></div>
+            {/* Right Side - Background Images */}
+            <div className="relative h-96 md:h-full w-full lg:block hidden">
               <Carousel
                 setApi={setApi}
                 className="w-full h-full"
@@ -202,45 +232,71 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        {/* Background Images covering full section */}
+        <div className="absolute inset-0 z-0">
+          <Carousel
+            className="w-full h-full"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+          >
+            <CarouselContent className="h-full">
+              {images.map((image, index) => (
+                <CarouselItem key={index} className="h-full">
+                  <div className="relative h-full">
+                    <img
+                      src={image}
+                      alt={`Background ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-green-800/90 via-green-800/70 to-green-800/40"></div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
       </section>
 
       {/* How it works Section */}
-      <section className="py-20 bg-white" id="how-it-works">
+      <section className="py-16 md:py-20 bg-white" id="how-it-works">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-red-500 text-center mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
             How it works
           </h2>
-          <div className="grid md:grid-cols-3 gap-12">
-            <div className="text-center">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+            <div className="text-center animate-on-scroll">
               <img
                 src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop"
                 alt="Step 1"
-                className="w-full h-64 object-cover rounded-lg mb-6 shadow-lg"
+                className="w-full h-48 md:h-64 object-cover rounded-lg mb-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
               />
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Request Transport</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Request Transport</h3>
+              <p className="text-gray-600 text-sm md:text-base">
                 Submit your logistics request through our platform with detailed information about your cargo or agricultural products.
               </p>
             </div>
-            <div className="text-center">
+            <div className="text-center animate-on-scroll">
               <img
                 src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop"
                 alt="Step 2"
-                className="w-full h-64 object-cover rounded-lg mb-6 shadow-lg"
+                className="w-full h-48 md:h-64 object-cover rounded-lg mb-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
               />
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Match with Transporters</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Match with Transporters</h3>
+              <p className="text-gray-600 text-sm md:text-base">
                 Our smart system connects you with verified transporters who specialize in your type of cargo.
               </p>
             </div>
-            <div className="text-center">
+            <div className="text-center animate-on-scroll md:col-span-2 lg:col-span-1">
               <img
                 src="https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=300&fit=crop"
                 alt="Step 3"
-                className="w-full h-64 object-cover rounded-lg mb-6 shadow-lg"
+                className="w-full h-48 md:h-64 object-cover rounded-lg mb-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
               />
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Track & Deliver</h3>
-              <p className="text-gray-600">
+              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Track & Deliver</h3>
+              <p className="text-gray-600 text-sm md:text-base">
                 Monitor your shipment in real-time and receive updates until safe delivery to your destination.
               </p>
             </div>
@@ -249,14 +305,14 @@ const Index = () => {
       </section>
 
       {/* Customer Feedback Section - Vertical 3/4 and 1/4 layout */}
-      <section className="py-20 relative">
-        <div className="flex flex-col h-full">
-          {/* Top 3/4 - Jungle Green */}
-          <div className="bg-green-800 h-3/4 pb-16">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-red-500 text-center mb-16">
-                Customer Feedback
-              </h2>
+      <section className="min-h-screen flex flex-col">
+        {/* Top 3/4 - Jungle Green */}
+        <div className="flex-grow bg-gradient-to-br from-green-800 via-green-700 to-green-900 pb-8 md:pb-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
+              Customer Feedback
+            </h2>
+            <div className="animate-on-scroll">
               <Carousel
                 setApi={setFeedbackApi}
                 className="w-full"
@@ -268,14 +324,14 @@ const Index = () => {
                 <CarouselContent>
                   {feedbacks.map((feedback, index) => (
                     <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                      <div className="bg-white rounded-lg p-6 shadow-lg mx-2">
+                      <div className="bg-white rounded-lg p-4 md:p-6 shadow-lg mx-2 transform hover:scale-105 transition-transform duration-300">
                         {/* Rating Stars */}
                         <div className="flex mb-4">
                           {renderStars(feedback.rating)}
                         </div>
                         
                         {/* Comment */}
-                        <p className="text-gray-700 mb-6 italic">
+                        <p className="text-gray-700 mb-6 italic text-sm md:text-base">
                           "{feedback.comment}"
                         </p>
                         
@@ -284,11 +340,11 @@ const Index = () => {
                           <img
                             src={feedback.photo}
                             alt={feedback.name}
-                            className="w-12 h-12 rounded-full object-cover mr-4"
+                            className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover mr-4"
                           />
                           <div>
-                            <h4 className="font-semibold text-gray-900">{feedback.name}</h4>
-                            <p className="text-gray-600 text-sm">{feedback.role}</p>
+                            <h4 className="font-semibold text-gray-900 text-sm md:text-base">{feedback.name}</h4>
+                            <p className="text-gray-600 text-xs md:text-sm">{feedback.role}</p>
                           </div>
                         </div>
                       </div>
@@ -298,36 +354,36 @@ const Index = () => {
               </Carousel>
             </div>
           </div>
+        </div>
 
-          {/* Bottom 1/4 - White with Navigation Bullets */}
-          <div className="bg-white h-1/4 flex items-center justify-center pt-8">
-            <div className="flex space-x-3">
-              {feedbacks.map((_, index) => (
-                <button
-                  key={index}
-                  className={`w-4 h-4 rounded-full transition-colors ${
-                    index === current ? 'bg-purple-500' : 'bg-gray-300'
-                  }`}
-                  onClick={() => feedbackApi?.scrollTo(index)}
-                />
-              ))}
-            </div>
+        {/* Bottom 1/4 - White with Navigation Bullets */}
+        <div className="bg-white flex items-center justify-center py-6 md:py-8">
+          <div className="flex space-x-3">
+            {feedbacks.map((_, index) => (
+              <button
+                key={index}
+                className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-colors duration-300 ${
+                  index === current ? 'bg-purple-500 shadow-lg' : 'bg-gray-300 hover:bg-gray-400'
+                }`}
+                onClick={() => feedbackApi?.scrollTo(index)}
+              />
+            ))}
           </div>
         </div>
       </section>
 
       {/* Mid-Page CTA Section */}
-      <section className="py-20 bg-gray-100">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-green-800 rounded-lg p-12 text-white">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <div className="bg-gradient-to-br from-green-800 to-green-900 rounded-lg p-8 md:p-12 text-white shadow-2xl animate-on-scroll">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
               Ready to transform your logistics?
             </h2>
-            <p className="text-xl mb-8">
+            <p className="text-lg md:text-xl mb-8">
               Earn 25% more on verified bookings. Sign-up only takes 2 minutes.
             </p>
             <Button 
-              className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full text-lg font-medium"
+              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 md:px-8 py-3 rounded-full text-lg font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
               onClick={() => window.location.href = '/download'}
             >
               Join our Transporter Network
@@ -337,55 +393,55 @@ const Index = () => {
       </section>
 
       {/* Partners Section */}
-      <section className="py-20 bg-white">
+      <section className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-red-500 mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-12 md:mb-16 animate-on-scroll">
             Our Partners
           </h2>
-          <div className="flex justify-center items-center space-x-12">
+          <div className="flex flex-col sm:flex-row justify-center items-center space-y-8 sm:space-y-0 sm:space-x-12 animate-on-scroll">
             <img
               src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=200&h=100&fit=crop"
               alt="Partner 1"
-              className="h-24 object-contain grayscale hover:grayscale-0 transition-all"
+              className="h-16 md:h-24 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
             />
             <img
               src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=200&h=100&fit=crop"
               alt="Partner 2"
-              className="h-24 object-contain grayscale hover:grayscale-0 transition-all"
+              className="h-16 md:h-24 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
             />
           </div>
         </div>
       </section>
 
       {/* FAQs Section */}
-      <section className="py-20 bg-gray-100" id="faqs">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200" id="faqs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-16 items-start">
+          <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-start">
             {/* Left Side - Chat Image */}
-            <div className="relative">
+            <div className="relative animate-on-scroll">
               <img
                 src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=500&fit=crop"
                 alt="Chat Support"
                 className="w-full max-w-md mx-auto rounded-lg shadow-lg"
               />
-              <div className="absolute -top-4 -right-4 bg-white p-4 rounded-lg shadow-lg border">
-                <p className="text-green-800 font-medium">Ask Us Anything</p>
+              <div className="absolute -top-2 md:-top-4 -right-2 md:-right-4 bg-white p-3 md:p-4 rounded-lg shadow-lg border">
+                <p className="text-green-800 font-medium text-sm md:text-base">Ask Us Anything</p>
               </div>
             </div>
 
             {/* Right Side - FAQs */}
-            <div>
+            <div className="animate-on-scroll">
               <p className="text-sm text-gray-600 mb-2">FAQs</p>
-              <h2 className="text-4xl font-bold text-red-500 mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-6 md:mb-8">
                 How can we help you?
               </h2>
               <Accordion type="single" collapsible className="space-y-4">
                 {faqs.map((faq, index) => (
-                  <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border">
-                    <AccordionTrigger className="px-6 py-4 text-left font-medium">
+                  <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border shadow-sm">
+                    <AccordionTrigger className="px-4 md:px-6 py-4 text-left font-medium text-sm md:text-base">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="px-6 pb-4 text-gray-600">
+                    <AccordionContent className="px-4 md:px-6 pb-4 text-gray-600 text-sm md:text-base">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
@@ -397,14 +453,14 @@ const Index = () => {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-20 bg-gray-100">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-green-800 rounded-lg p-12 text-white">
-            <h2 className="text-3xl md:text-4xl font-bold mb-8">
+          <div className="bg-gradient-to-br from-green-800 to-green-900 rounded-lg p-8 md:p-12 text-white shadow-2xl animate-on-scroll">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8">
               East Africa moves smarter with TRUK
             </h2>
             <Button 
-              className="bg-red-500 hover:bg-red-600 text-white px-8 py-3 rounded-full text-lg font-medium"
+              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 md:px-8 py-3 rounded-full text-lg font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
               onClick={() => window.location.href = '/download'}
             >
               Get Early Access
@@ -414,72 +470,72 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-black text-white py-16" id="contact">
+      <footer className="bg-gradient-to-br from-black to-gray-900 text-white py-12 md:py-16" id="contact">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Column 1 - Logo & Description */}
-            <div>
-              <div className="text-2xl font-bold mb-4">TRUK</div>
+            <div className="animate-on-scroll">
+              <div className="text-xl md:text-2xl font-bold mb-4">TRUK</div>
               <p className="text-gray-400 text-sm">
                 East Africa's smartest logistics platform connecting cargo owners with verified transporters for efficient and reliable transportation solutions.
               </p>
             </div>
 
             {/* Column 2 - Services */}
-            <div>
+            <div className="animate-on-scroll">
               <h3 className="text-lg font-semibold mb-4">Services</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white transition-colors">agriTRUK</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">cargoTRUK</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Driver Enlistment</a></li>
+                <li><a href="/agritruk" className="hover:text-white transition-colors text-sm">agriTRUK</a></li>
+                <li><a href="/cargotruk" className="hover:text-white transition-colors text-sm">cargoTRUK</a></li>
+                <li><a href="/driver-enlistment" className="hover:text-white transition-colors text-sm">Driver Enlistment</a></li>
               </ul>
             </div>
 
             {/* Column 3 - Company */}
-            <div>
+            <div className="animate-on-scroll">
               <h3 className="text-lg font-semibold mb-4">Company</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="/about" className="hover:text-white transition-colors">About Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">FAQs</a></li>
-                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+                <li><a href="/about" className="hover:text-white transition-colors text-sm">About Us</a></li>
+                <li><a href="#contact" className="hover:text-white transition-colors text-sm">Contact Us</a></li>
+                <li><a href="#faqs" className="hover:text-white transition-colors text-sm">FAQs</a></li>
+                <li><a href="#" className="hover:text-white transition-colors text-sm">Careers</a></li>
               </ul>
             </div>
 
             {/* Column 4 - Follow Us */}
-            <div>
+            <div className="animate-on-scroll">
               <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
-              <div className="flex space-x-4 mb-6">
-                <Facebook className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+              <div className="flex flex-wrap gap-4 mb-6">
+                <Facebook className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" />
                 {/* X logo (formerly Twitter) */}
-                <svg className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
-                <Instagram className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" />
-                <Linkedin className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+                <Instagram className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+                <Linkedin className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" />
                 {/* TikTok logo */}
-                <svg className="w-6 h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
                 </svg>
               </div>
               <div className="space-y-2 text-gray-400 text-sm">
                 <div className="flex items-center">
-                  <MapPin className="w-4 h-4 mr-2" />
-                  Nairobi, Kenya
+                  <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+                  <span>Nairobi, Kenya</span>
                 </div>
                 <div className="flex items-center">
-                  <Mail className="w-4 h-4 mr-2" />
-                  hello@truk.co.ke
+                  <Mail className="w-4 h-4 mr-2 flex-shrink-0" />
+                  <span>hello@truk.co.ke</span>
                 </div>
                 <div className="flex items-center">
-                  <Phone className="w-4 h-4 mr-2" />
-                  +254 700 000 000
+                  <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
+                  <span>+254 700 000 000</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400 text-sm">
+          <div className="border-t border-gray-800 mt-8 md:mt-12 pt-6 md:pt-8 text-center text-gray-400 text-sm">
             <p>&copy; 2025 TRUK. All rights reserved.</p>
           </div>
         </div>
