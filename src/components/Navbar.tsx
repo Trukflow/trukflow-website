@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import {
@@ -7,10 +8,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,6 +51,31 @@ const Navbar = () => {
     }
   };
 
+  const handleLogoClick = () => {
+    if (window.location.pathname !== '/') {
+      window.location.href = '/';
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <Skeleton className="h-8 w-16" />
+            <div className="hidden md:flex items-center space-x-8">
+              <Skeleton className="h-6 w-16" />
+              <Skeleton className="h-6 w-20" />
+              <Skeleton className="h-6 w-16" />
+              <Skeleton className="h-6 w-24" />
+              <Skeleton className="h-10 w-24" />
+            </div>
+          </div>
+        </div>
+      </nav>
+    );
+  }
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
@@ -52,21 +86,21 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <a 
-              href="/" 
+            <button 
+              onClick={handleLogoClick}
               className={`text-2xl font-bold cursor-pointer transition-colors duration-200 ${
-                isScrolled ? 'text-white' : 'text-gray-900'
+                isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-900 hover:text-red-500'
               }`}
             >
               TRUK
-            </a>
+            </button>
           </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {/* Services Dropdown */}
             <DropdownMenu>
-              <DropdownMenuTrigger className={`flex items-center transition-colors duration-200 font-medium ${
+              <DropdownMenuTrigger className={`flex items-center transition-colors duration-200 font-medium focus:outline-none ${
                 isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
               }`}>
                 Services
@@ -122,7 +156,7 @@ const Navbar = () => {
 
             {/* Get Started Button */}
             <Button 
-              className="bg-black text-white hover:bg-gray-800 transition-colors duration-200 font-medium px-6 rounded-full"
+              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white transition-all duration-200 font-medium px-6 rounded-full transform hover:scale-105"
               onClick={() => window.location.href = '/download'}
             >
               Get Started
@@ -210,7 +244,7 @@ const Navbar = () => {
               </button>
               <div className="px-3 py-2">
                 <Button 
-                  className="w-full bg-black text-white hover:bg-gray-800 transition-colors duration-200 font-medium rounded-full"
+                  className="w-full bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white transition-all duration-200 font-medium rounded-full"
                   onClick={() => window.location.href = '/download'}
                 >
                   Get Started

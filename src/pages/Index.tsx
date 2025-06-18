@@ -17,9 +17,10 @@ import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone } from "lucide-react
 const Index = () => {
   const [api, setApi] = useState<any>();
   const [feedbackApi, setFeedbackApi] = useState<any>();
+  const [howItWorksApi, setHowItWorksApi] = useState<any>();
   const [current, setCurrent] = useState(0);
 
-  // Auto-scroll the carousel
+  // Auto-scroll the hero carousel
   useEffect(() => {
     if (!api) return;
 
@@ -29,6 +30,17 @@ const Index = () => {
 
     return () => clearInterval(interval);
   }, [api]);
+
+  // Auto-scroll the how it works carousel
+  useEffect(() => {
+    if (!howItWorksApi) return;
+
+    const interval = setInterval(() => {
+      howItWorksApi.scrollNext();
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, [howItWorksApi]);
 
   // Track feedback carousel current slide
   useEffect(() => {
@@ -72,6 +84,12 @@ const Index = () => {
     "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=400&fit=crop",
     "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop",
     "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=600&h=400&fit=crop"
+  ];
+
+  const howItWorksImages = [
+    "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop",
+    "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop",
+    "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=300&fit=crop"
   ];
 
   const feedbacks = [
@@ -127,20 +145,22 @@ const Index = () => {
 
   return (
     <div className="min-h-screen">
-      <style>{`
-        html {
-          scroll-behavior: smooth;
-        }
-        .animate-on-scroll {
-          opacity: 0;
-          transform: translateY(2rem);
-          transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-        }
-        .animate-fade-in {
-          opacity: 1 !important;
-          transform: translateY(0) !important;
-        }
-      `}</style>
+      <style>
+        {`
+          html {
+            scroll-behavior: smooth;
+          }
+          .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+          }
+          .animate-fade-in {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+          }
+        `}
+      </style>
       
       <Navbar />
       
@@ -149,6 +169,7 @@ const Index = () => {
         {/* Background Images covering full section */}
         <div className="absolute inset-0 z-0">
           <Carousel
+            setApi={setApi}
             className="w-full h-full"
             opts={{
               align: "start",
@@ -233,41 +254,62 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How it works Section */}
-      <section className="py-16 md:py-20 bg-white" id="how-it-works">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* How it works Section with Interchanging Background */}
+      <section className="py-16 md:py-20 bg-white relative overflow-hidden" id="how-it-works">
+        {/* Background Images */}
+        <div className="absolute inset-0 z-0">
+          <Carousel
+            setApi={setHowItWorksApi}
+            className="w-full h-full"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+          >
+            <CarouselContent className="h-full">
+              {howItWorksImages.map((image, index) => (
+                <CarouselItem key={index} className="h-full">
+                  <div className="relative h-full">
+                    <img
+                      src={image}
+                      alt={`How it works ${index + 1}`}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-white/90"></div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
             How it works
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            <div className="text-center animate-on-scroll">
-              <img
-                src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop"
-                alt="Step 1"
-                className="w-full h-48 md:h-64 object-cover rounded-lg mb-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
-              />
+            <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg">
+              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-green-100 to-green-200 rounded-lg mb-6 flex items-center justify-center">
+                <span className="text-green-800 text-6xl font-bold">1</span>
+              </div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Request Transport</h3>
               <p className="text-gray-600 text-sm md:text-base">
                 Submit your logistics request through our platform with detailed information about your cargo or agricultural products.
               </p>
             </div>
-            <div className="text-center animate-on-scroll">
-              <img
-                src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop"
-                alt="Step 2"
-                className="w-full h-48 md:h-64 object-cover rounded-lg mb-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
-              />
+            <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg">
+              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-6 flex items-center justify-center">
+                <span className="text-blue-800 text-6xl font-bold">2</span>
+              </div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Match with Transporters</h3>
               <p className="text-gray-600 text-sm md:text-base">
                 Our smart system connects you with verified transporters who specialize in your type of cargo.
               </p>
             </div>
-            <div className="text-center animate-on-scroll md:col-span-2 lg:col-span-1">
-              <img
-                src="https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=300&fit=crop"
-                alt="Step 3"
-                className="w-full h-48 md:h-64 object-cover rounded-lg mb-6 shadow-lg transform hover:scale-105 transition-transform duration-300"
-              />
+            <div className="text-center animate-on-scroll md:col-span-2 lg:col-span-1 bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg">
+              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-red-100 to-red-200 rounded-lg mb-6 flex items-center justify-center">
+                <span className="text-red-800 text-6xl font-bold">3</span>
+              </div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Track & Deliver</h3>
               <p className="text-gray-600 text-sm md:text-base">
                 Monitor your shipment in real-time and receive updates until safe delivery to your destination.
@@ -278,11 +320,11 @@ const Index = () => {
       </section>
 
       {/* Customer Feedback Section - Vertical 3/4 and 1/4 layout */}
-      <section className="min-h-screen flex flex-col">
+      <section className="flex flex-col h-screen">
         {/* Top 3/4 - Jungle Green */}
-        <div className="flex-grow bg-gradient-to-br from-green-800 via-green-700 to-green-900 pb-8 md:pb-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 md:pt-16">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
+        <div className="flex-[3] bg-gradient-to-br from-green-800 via-green-700 to-green-900 flex flex-col justify-center py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-8 animate-on-scroll">
               Customer Feedback
             </h2>
             <div className="animate-on-scroll">
@@ -330,7 +372,7 @@ const Index = () => {
         </div>
 
         {/* Bottom 1/4 - White with Navigation Bullets */}
-        <div className="bg-white flex items-center justify-center py-6 md:py-8">
+        <div className="flex-1 bg-white flex items-center justify-center">
           <div className="flex space-x-3">
             {feedbacks.map((_, index) => (
               <button

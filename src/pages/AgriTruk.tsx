@@ -1,72 +1,127 @@
 
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
 const AgriTruk = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Smooth scroll and animation observer
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate-fade-in');
+          entry.target.classList.remove('opacity-0', 'translate-y-8');
+        }
+      });
+    }, observerOptions);
+
+    const animateElements = document.querySelectorAll('.animate-on-scroll');
+    animateElements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
+  if (isLoading) {
+    return <LoadingSkeleton type="hero" />;
+  }
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="min-h-screen">
+      <style>
+        {`
+          html {
+            scroll-behavior: smooth;
+          }
+          .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+          }
+          .animate-fade-in {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+          }
+        `}
+      </style>
+
       <Navbar />
       
-      {/* Hero Section */}
-      <section className="pt-24 pb-16 bg-gradient-to-br from-green-800 via-green-700 to-green-900 text-white relative overflow-hidden">
+      {/* Hero Section with Background */}
+      <section className="min-h-screen bg-gradient-to-br from-green-800 via-green-700 to-green-900 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&h=800&fit=crop"
-            alt="Agricultural landscape"
-            className="w-full h-full object-cover opacity-30"
+            src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=1200&h=800&fit=crop"
+            alt="Agricultural background"
+            className="w-full h-full object-cover"
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-green-800/90 via-green-800/75 to-green-800/60"></div>
         </div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-          <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-6">
-            <span className="text-red-500">agri</span><span className="text-white">TRUK</span>
-          </h1>
-          <p className="text-lg md:text-xl lg:text-2xl mb-8">
-            Specialized agricultural produce transportation solutions
-          </p>
-          <p className="text-base md:text-lg opacity-90 mb-8">
-            Connecting farmers with markets efficiently and reliably
-          </p>
-          <Button 
-            className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg"
-            onClick={() => window.location.href = '/download'}
-          >
-            Get Started
-          </Button>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-20">
+          <div className="w-full text-center text-white">
+            <div className="animate-on-scroll">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
+                <span className="text-red-500">agri</span>TRUK
+              </h1>
+              <p className="text-xl md:text-2xl lg:text-3xl mb-8 max-w-4xl mx-auto">
+                Specialized agricultural transportation solutions for farmers and agribusinesses across East Africa
+              </p>
+              <Button 
+                className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+                onClick={() => window.location.href = '/download'}
+              >
+                Start Moving Your Produce
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Features Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
             Why Choose agriTRUK?
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="text-center p-6 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-lg">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-800 to-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-white text-2xl">🚛</span>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
+            <div className="text-center animate-on-scroll bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-white text-2xl">🚚</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Specialized Vehicles</h3>
-              <p className="text-gray-600">
-                Temperature-controlled and specialized vehicles for fresh produce transportation
+              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Specialized Vehicles</h3>
+              <p className="text-gray-600 text-sm md:text-base">
+                Our fleet includes refrigerated trucks, covered vehicles, and specialized equipment for different agricultural products.
               </p>
             </div>
-            <div className="text-center p-6 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-lg">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-800 to-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center animate-on-scroll bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-2xl">⏰</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Fast Delivery</h3>
-              <p className="text-gray-600">
-                Quick turnaround times to ensure freshness from farm to market
+              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Time-Sensitive Delivery</h3>
+              <p className="text-gray-600 text-sm md:text-base">
+                We understand that fresh produce has a limited shelf life. Our logistics ensure timely delivery to preserve quality.
               </p>
             </div>
-            <div className="text-center p-6 rounded-lg bg-gradient-to-br from-gray-50 to-gray-100 shadow-lg md:col-span-2 lg:col-span-1">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-800 to-green-900 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="text-center animate-on-scroll md:col-span-2 lg:col-span-1 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="w-16 h-16 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-2xl">📱</span>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Easy Booking</h3>
-              <p className="text-gray-600">
-                Simple mobile app interface designed specifically for farmers
+              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Real-Time Tracking</h3>
+              <p className="text-gray-600 text-sm md:text-base">
+                Track your agricultural shipments in real-time from farm to market with our advanced GPS monitoring system.
               </p>
             </div>
           </div>
@@ -74,20 +129,20 @@ const AgriTruk = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-gray-100 to-gray-200">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-green-800 via-green-700 to-green-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-gradient-to-br from-green-800 to-green-900 rounded-lg p-12 text-white shadow-2xl">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Ready to transport your produce?
+          <div className="animate-on-scroll">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
+              Ready to Transform Your Agricultural Logistics?
             </h2>
-            <p className="text-xl mb-8">
-              Join thousands of farmers using agriTRUK
+            <p className="text-xl md:text-2xl mb-8">
+              Join thousands of farmers and agribusinesses using agriTRUK
             </p>
             <Button 
-              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-3 rounded-full text-lg font-medium shadow-lg"
+              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
               onClick={() => window.location.href = '/download'}
             >
-              Download agriTRUK
+              Get Started Today
             </Button>
           </div>
         </div>
