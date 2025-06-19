@@ -128,6 +128,67 @@ const DriverEnlistment = () => {
         </div>
       </section>
 
+      {/* Requirements Section */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
+            Driver Requirements
+          </h2>
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 max-w-6xl mx-auto">
+            <div className="animate-on-scroll bg-white p-8 rounded-lg shadow-lg">
+              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-6">Basic Requirements</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 mt-1">✓</span>
+                  <span className="text-gray-600">Valid driver's license (minimum 2 years)</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 mt-1">✓</span>
+                  <span className="text-gray-600">Age 21 or older</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 mt-1">✓</span>
+                  <span className="text-gray-600">Clean driving record</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 mt-1">✓</span>
+                  <span className="text-gray-600">Vehicle registration and insurance</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 mt-1">✓</span>
+                  <span className="text-gray-600">Smartphone with internet access</span>
+                </li>
+              </ul>
+            </div>
+            <div className="animate-on-scroll bg-white p-8 rounded-lg shadow-lg">
+              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-6">Vehicle Requirements</h3>
+              <ul className="space-y-4">
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 mt-1">✓</span>
+                  <span className="text-gray-600">Commercial vehicle (truck/van)</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 mt-1">✓</span>
+                  <span className="text-gray-600">Vehicle model 2010 or newer</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 mt-1">✓</span>
+                  <span className="text-gray-600">Regular maintenance records</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 mt-1">✓</span>
+                  <span className="text-gray-600">Commercial insurance coverage</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-green-500 mr-3 mt-1">✓</span>
+                  <span className="text-gray-600">Vehicle inspection certificate</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* How it Works Section */}
       <section className="py-16 md:py-20 bg-white relative overflow-hidden" id="how-it-works">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
