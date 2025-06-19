@@ -1,4 +1,4 @@
-# Welcome to your Lovable project
+# TRUK Website
 
 ## Project info
 
