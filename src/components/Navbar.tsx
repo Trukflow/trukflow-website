@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import {
@@ -155,9 +154,9 @@ const Navbar = () => {
               Contact Us
             </button>
 
-            {/* Get Started Button */}
+            {/* Get Started Button - Fixed to be black */}
             <Button 
-              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white transition-all duration-200 font-medium px-6 rounded-full transform hover:scale-105"
+              className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white transition-all duration-200 font-medium px-6 rounded-full transform hover:scale-105"
               onClick={() => window.location.href = '/download'}
             >
               Get Started
@@ -245,15 +244,7 @@ const Navbar = () => {
               </button>
               <div className="px-3 py-2">
                 <Button 
-                  className="
-                            w-full 
-                            bg-gradient-to-r from-gray-900 to-black 
-                            hover:bg-gradient-to-r hover:from-green-600 hover:to-green-700 
-                            text-white 
-                            transition-all duration-200 
-                            font-medium 
-                            rounded-full
-                          "
+                  className="w-full bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white transition-all duration-200 font-medium rounded-full"
                   onClick={() => window.location.href = '/download'}
                 >
                   Get Started

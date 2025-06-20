@@ -87,9 +87,9 @@ const Index = () => {
   ];
 
   const howItWorksImages = [
-     "/agriTrukImg7.jpg",
-     "/agriTrukImg3.jpg",
-     "/agriTrukImg9.jpg"
+     "/agriTrukImg6.jpg",
+     "/agriTrukImg9.jpg",
+     "/agrTrukImg3.jpg"
   ];
 
   const feedbacks = [
@@ -224,14 +224,14 @@ const Index = () => {
                 </h2>
               </div>
 
-              {/* Services - Vertical Layout with Descriptions */}
+              {/* Services - Vertical Layout with Descriptions - Made Bold */}
               <div className="space-y-4 md:space-y-6">
                 <div className="space-y-2">
-                  <span className="text-black text-xl md:text-2xl font-semibold block">agriTRUK</span>
+                  <span className="text-black text-xl md:text-2xl font-bold block">agriTRUK</span>
                   <span className="text-white/80 text-base md:text-lg">Agricultural produce transportation solutions</span>
                 </div>
                 <div className="space-y-2">
-                  <span className="text-black text-xl md:text-2xl font-semibold block">cargoTRUK</span>
+                  <span className="text-black text-xl md:text-2xl font-bold block">cargoTRUK</span>
                   <span className="text-white/80 text-base md:text-lg">General cargo and freight services</span>
                 </div>
               </div>
