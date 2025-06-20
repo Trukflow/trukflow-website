@@ -28,9 +28,6 @@ const About = () => {
     }
   ];
 
-  // Rest of your component...
-};
-
   // Smooth scroll and animation observer
   useEffect(() => {
     const observerOptions = {
