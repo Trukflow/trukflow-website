@@ -1,7 +1,6 @@
 
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import googlePlaystoreSvg from "@/../public/Google_PlayStore.png;
 
 const Download = () => {
   return (
@@ -31,7 +30,7 @@ const Download = () => {
             <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-6 md:p-8 text-center shadow-lg">
               <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-6 flex items-center justify-center">
                 <img 
-                  src={googlePlaystoreSvg} 
+                  src="/Google_PlayStore.png"
                   alt="Get TRUK on Google Play" 
                   className="w-full h-full"
                 />
