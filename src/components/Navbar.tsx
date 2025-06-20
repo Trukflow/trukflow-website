@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import {
@@ -8,7 +9,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import Logo from "@/../public/TRUK Logo3.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -90,7 +90,7 @@ const Navbar = () => {
               }`}
             >
               <img 
-                src={Logo} 
+                src="/TRUK Logo3.png" 
                 alt="TRUK Logo"
                 className={`h-10 w-auto ${isScrolled ? 'brightness-100' : 'brightness-90'}`}
               />

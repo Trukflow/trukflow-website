@@ -2,28 +2,25 @@
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
-import AbisaiPhoto from "../../public/AbisaiPhoto.jpg";
-import JosephinePhoto from "../../public/photo_2025-06-19 23.37.40.jpeg";
-import IsaacPhoto from "../../public/Official Photo.jpg";
 
 const About = () => {
   const team = [
   {
     name: "Abisai Nandi",
     role: "Co-founder & Chief Executive Officer",
-    image: AbisaiPhoto,
+    image: "/AbisaiPhoto.jpg",
     bio: "Logistics and agribusiness entrepreneur with 10+ years transforming East Africa's supply chains through technology."
   },
   {
     name: "Josephine Mumbua",
     role: "Co-founder & Chief Technology Officer", 
-    image: JosephinePhoto,
+    image: "/photo_2025-06-19 23.37.40.jpeg",
     bio: "Senior Software Engineer specializing in scalable backend systems and cloud infrastructure for the logistics platforms."
   },
   {
     name: "Mititi Isaac",
     role: "Co-founder & Chief Marketing Officer",
-    image: IsaacPhoto,
+    image: "/Official Photo.jpg",
     bio: "Full-stack Software Engineer and UX designer; part of the team building TRUK's customer-facing interfaces and brand systems."
   }
 ];
@@ -117,11 +114,13 @@ const About = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
             {team.map((member, index) => (
               <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 animate-on-scroll">
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-64 object-cover"
-                />
+                <div className="w-full h-64 overflow-hidden bg-gray-100">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
                     {member.name}
