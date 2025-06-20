@@ -2,28 +2,34 @@
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
+import AbisaiPhoto from "../../public/AbisaiPhoto.jpg";
+import JosephinePhoto from "../../public/photo_2025-06-19 23.37.40.jpeg;
+import IsaacPhoto from "../../public/Official Photo.jpg";
 
 const About = () => {
   const team = [
     {
-      name: "David Kimani",
-      role: "Chief Executive Officer",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&h=300&fit=crop&crop=face",
-      bio: "Visionary leader with 15+ years in logistics and technology."
+      name: "Abisai Nandi",
+      role: "Co-founder & Chief Executive Officer",
+      image: AbisaiPhoto,
+      bio: "Visionary leader with 10+ years in logistics and technology."
     },
     {
-      name: "Sarah Wanjiku",
-      role: "Chief Technology Officer",
-      image: "https://images.unsplash.com/photo-1494790108755-2616b612b5bc?w=300&h=300&fit=crop&crop=face",
+      name: "Josephine Mumbua",
+      role: "Co-founder & Chief Technology Officer",
+      image: JosephinePhoto,
       bio: "Tech innovator driving TRUK's smart logistics solutions."
     },
     {
-      name: "Michael Ochieng",
-      role: "Chief Operations Officer",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&crop=face",
+      name: "Mitiit Isaac",
+      role: "Co-founder & Chief Marketing Officer",
+      image: IsaacPhoto,
       bio: "Operations expert ensuring seamless logistics execution."
     }
   ];
+
+  // Rest of your component...
+};
 
   // Smooth scroll and animation observer
   useEffect(() => {

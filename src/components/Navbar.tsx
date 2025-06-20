@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import Logo from "@/../../public/TRUK Logo3.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -82,13 +83,17 @@ const Navbar = () => {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <button 
+            <button
               onClick={handleLogoClick}
-              className={`text-2xl font-bold cursor-pointer transition-colors duration-200 ${
-                isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-900 hover:text-red-500'
+              className={`cursor-pointer transition-colors duration-200 ${
+                isScrolled ? 'hover:opacity-80' : 'hover:opacity-90'
               }`}
             >
-              TRUK
+              <img 
+                src={Logo} 
+                alt="TRUK Logo"
+                className={`h-10 w-auto ${isScrolled ? 'brightness-100' : 'brightness-90'}`}
+              />
             </button>
           </div>
 

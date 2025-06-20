@@ -13,6 +13,14 @@ import {
 } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
 import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone } from "lucide-react";
+import backgroundPhoto1 from "../../public/agriTrukImg4.jpg";
+import backgroundPhoto2 from "../../public/agriTrukImg5.jpg";
+import backgroundPhoto3 from "../../public/agriTrukImg1.jpg";
+import backgroundPhoto4 from "../../public/agriTrukImg2.jpg";
+import backgroundPhoto5 from "../../public/agriTrukImg8.jpg";
+import backgroundPhoto6 from "../../public/agriTrukImg7.jpg";
+import backgroundPhoto7 from "../../public/agriTrukImg3.jpg";
+import backgroundPhoto8 from "../../public/agriTrukImg9.jpg";
 
 const Index = () => {
   const [api, setApi] = useState<any>();
@@ -79,17 +87,17 @@ const Index = () => {
   }, []);
 
   const images = [
-    "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=600&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=600&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&h=400&fit=crop",
-    "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=600&h=400&fit=crop"
+    "backgroundPhoto1",
+    "backgroundPhoto2", 
+    "backgroundPhoto3",
+    "backgroundPhoto4",
+    "backgroundPhoto5"
   ];
 
   const howItWorksImages = [
-    "https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop",
-    "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop",
-    "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=300&fit=crop"
+     "backgroundPhoto6",
+     "backgroundPhoto7",
+     "backgroundPhoto8"
   ];
 
   const feedbacks = [
@@ -97,21 +105,21 @@ const Index = () => {
       rating: 5,
       comment: "TRUK has revolutionized our agricultural logistics. Fast, reliable, and efficient service every time.",
       photo: "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=80&h=80&fit=crop&crop=face",
-      name: "Sarah Johnson",
+      name: "Sarah Kariuki",
       role: "Farm Manager"
     },
     {
       rating: 4,
       comment: "Excellent cargo transportation services. They handle our shipments with utmost care and professionalism.",
       photo: "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=80&h=80&fit=crop&crop=face",
-      name: "Michael Chen",
+      name: "Michael Odongo",
       role: "Supply Chain Director"
     },
     {
       rating: 5,
       comment: "Outstanding logistics solutions for our business. TRUK understands our needs perfectly.",
       photo: "https://images.unsplash.com/photo-1517022812141-23620dba5c23?w=80&h=80&fit=crop&crop=face",
-      name: "Emma Williams",
+      name: "Emma Nyaboke",
       role: "Operations Manager"
     }
   ];
@@ -153,7 +161,7 @@ const Index = () => {
           .animate-on-scroll {
             opacity: 0;
             transform: translateY(2rem);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            transition: opacity 1s ease-out, transform 1s ease-out;
           }
           .animate-fade-in {
             opacity: 1 !important;
@@ -540,11 +548,11 @@ const Index = () => {
                 </div>
                 <div className="flex items-center">
                   <Mail className="w-4 h-4 mr-2 flex-shrink-0" />
-                  <span>hello@truk.co.ke</span>
+                  <span>hello@truk.com</span>
                 </div>
                 <div className="flex items-center">
                   <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
-                  <span>+254 700 000 000</span>
+                  <span>+254 734 260 077</span>
                 </div>
               </div>
             </div>
