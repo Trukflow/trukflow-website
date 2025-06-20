@@ -514,7 +514,7 @@ const Index = () => {
                 <img 
                   src="/TRUK Logo3.png"
                   alt="TRUK Logo"
-                  className="h-12 w-auto md:h-16"
+                  className="h-16 w-auto md:h-16"
                 />
               </div>
               <p className="text-gray-400 text-sm">

@@ -183,7 +183,8 @@ const About = () => {
           <p className="text-xl mb-8 animate-on-scroll">
             Be part of East Africa's logistics revolution
           </p>
-          <Button className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll">
+          <Button className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll"
+                  onClick={() => window.location.href = '/download'}>
             Get Started Today
           </Button>
         </div>
