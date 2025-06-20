@@ -13,14 +13,6 @@ import {
 } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
 import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone } from "lucide-react";
-import backgroundPhoto1 from "../../public/agriTrukImg4.jpg";
-import backgroundPhoto2 from "../../public/agriTrukImg5.jpg";
-import backgroundPhoto3 from "../../public/agriTrukImg1.jpg";
-import backgroundPhoto4 from "../../public/agriTrukImg2.jpg";
-import backgroundPhoto5 from "../../public/agriTrukImg8.jpg";
-import backgroundPhoto6 from "../../public/agriTrukImg7.jpg";
-import backgroundPhoto7 from "../../public/agriTrukImg3.jpg";
-import backgroundPhoto8 from "../../public/agriTrukImg9.jpg";
 
 const Index = () => {
   const [api, setApi] = useState<any>();
@@ -87,17 +79,17 @@ const Index = () => {
   }, []);
 
   const images = [
-    "backgroundPhoto1",
-    "backgroundPhoto2", 
-    "backgroundPhoto3",
-    "backgroundPhoto4",
-    "backgroundPhoto5"
+    "/agriTrukImg4.jpg",
+    "/agriTrukImg5.jpg", 
+    "/agriTrukImg1.jpg",
+    "/agriTrukImg2.jpg",
+    "/agriTrukImg8.jpg"
   ];
 
   const howItWorksImages = [
-     "backgroundPhoto6",
-     "backgroundPhoto7",
-     "backgroundPhoto8"
+     "/agriTrukImg7.jpg",
+     "/agriTrukImg3.jpg",
+     "/agriTrukImg9.jpg"
   ];
 
   const feedbacks = [

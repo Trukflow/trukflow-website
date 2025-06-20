@@ -1,29 +1,25 @@
-
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
-import AbisaiPhoto from "../../public/AbisaiPhoto.jpg";
-import JosephinePhoto from "../../public/photo_2025-06-19 23.37.40.jpeg";
-import IsaacPhoto from "../../public/Official Photo.jpg";
 
 const About = () => {
   const team = [
     {
       name: "Abisai Nandi",
       role: "Co-founder & Chief Executive Officer",
-      image: AbisaiPhoto,
+      image: "/AbisaiPhoto.jpg",
       bio: "Visionary leader with 10+ years in logistics and technology."
     },
     {
       name: "Josephine Mumbua",
       role: "Co-founder & Chief Technology Officer",
-      image: JosephinePhoto,
+      image: "/photo_2025-06-19 23.37.40.jpeg",
       bio: "Tech innovator driving TRUK's smart logistics solutions."
     },
     {
       name: "Mititi Isaac",
       role: "Co-founder & Chief Marketing Officer",
-      image: IsaacPhoto,
+      image: "/Official Photo.jpg",
       bio: "Operations expert ensuring seamless logistics execution."
     }
   ];
