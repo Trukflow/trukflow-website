@@ -21,7 +21,7 @@ const About = () => {
       bio: "Tech innovator driving TRUK's smart logistics solutions."
     },
     {
-      name: "Mitiit Isaac",
+      name: "Mititi Isaac",
       role: "Co-founder & Chief Marketing Officer",
       image: IsaacPhoto,
       bio: "Operations expert ensuring seamless logistics execution."
@@ -120,7 +120,7 @@ const About = () => {
                 <img
                   src={member.image}
                   alt={member.name}
-                  className="w-full h-64 object-cover"
+                  className="w-full h-40 object-cover"
                 />
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
