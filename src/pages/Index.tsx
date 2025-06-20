@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import {
@@ -236,7 +237,7 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* Buttons - Larger Size */}
+              {/* Buttons - Larger Size - All lead to /download */}
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                 <Button 
                   className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
@@ -261,7 +262,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* How it works Section with Interchanging Background */}
+      {/* How it works Section with Interchanging Background and Real Images */}
       <section className="py-16 md:py-20 bg-white relative overflow-hidden" id="how-it-works">
         {/* Background Images */}
         <div className="absolute inset-0 z-0">
@@ -296,8 +297,12 @@ const Index = () => {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg">
-              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-green-100 to-green-200 rounded-lg mb-6 flex items-center justify-center">
-                <span className="text-green-800 text-6xl font-bold">1</span>
+              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-green-100 to-green-200 rounded-lg mb-6 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop"
+                  alt="Person using phone"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Request Transport</h3>
               <p className="text-gray-600 text-sm md:text-base">
@@ -305,8 +310,12 @@ const Index = () => {
               </p>
             </div>
             <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg">
-              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-6 flex items-center justify-center">
-                <span className="text-blue-800 text-6xl font-bold">2</span>
+              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-6 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400&h=300&fit=crop"
+                  alt="Two people talking with vehicle"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Match with Transporters</h3>
               <p className="text-gray-600 text-sm md:text-base">
@@ -314,8 +323,12 @@ const Index = () => {
               </p>
             </div>
             <div className="text-center animate-on-scroll md:col-span-2 lg:col-span-1 bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg">
-              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-red-100 to-red-200 rounded-lg mb-6 flex items-center justify-center">
-                <span className="text-red-800 text-6xl font-bold">3</span>
+              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-red-100 to-red-200 rounded-lg mb-6 overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop"
+                  alt="Map with live tracking"
+                  className="w-full h-full object-cover"
+                />
               </div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Track & Deliver</h3>
               <p className="text-gray-600 text-sm md:text-base">
@@ -491,7 +504,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* Footer - Increased Logo Size */}
       <footer className="bg-gradient-to-br from-black to-gray-900 text-white py-12 md:py-16" id="contact">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -501,7 +514,7 @@ const Index = () => {
                 <img 
                   src="/TRUK Logo3.png"
                   alt="TRUK Logo"
-                  className="h-8 w-auto md:h-10"
+                  className="h-12 w-auto md:h-16"
                 />
               </div>
               <p className="text-gray-400 text-sm">

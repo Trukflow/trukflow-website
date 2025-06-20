@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -99,5 +100,15 @@
 
   body {
     @apply bg-background text-foreground;
+  }
+
+  /* Smooth scrolling for all pages */
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  /* Smooth scrolling for anchor links */
+  a[href^="#"] {
+    scroll-behavior: smooth;
   }
 }

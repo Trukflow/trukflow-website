@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import {
@@ -58,7 +59,7 @@ const Navbar = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            <Skeleton className="h-8 w-16" />
+            <Skeleton className="h-12 w-20" />
             <div className="hidden md:flex items-center space-x-8">
               <Skeleton className="h-6 w-16" />
               <Skeleton className="h-6 w-20" />
@@ -80,7 +81,7 @@ const Navbar = () => {
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
+          {/* Logo - Increased Size */}
           <div className="flex-shrink-0">
             <button
               onClick={handleLogoClick}
@@ -91,7 +92,7 @@ const Navbar = () => {
               <img 
                 src="/TRUK Logo3.png" 
                 alt="TRUK Logo"
-                className={`h-10 w-auto ${isScrolled ? 'brightness-100' : 'brightness-90'}`}
+                className={`h-14 w-auto ${isScrolled ? 'brightness-100' : 'brightness-90'}`}
               />
             </button>
           </div>
@@ -101,7 +102,7 @@ const Navbar = () => {
             {/* Services Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger className={`flex items-center transition-colors duration-200 font-medium focus:outline-none focus:ring-0 focus:border-none ${
-                isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
+                isScrolled ? 'text-white hover:text-red-500' : 'text-gray-700 hover:text-red-500'
               }`}>
                 Services
                 <ChevronDown className="ml-1 h-4 w-4" />
@@ -132,7 +133,7 @@ const Navbar = () => {
             <button
               onClick={() => handleNavigation('/about')}
               className={`transition-colors duration-200 font-medium ${
-                isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
+                isScrolled ? 'text-white hover:text-red-500' : 'text-gray-700 hover:text-red-500'
               }`}
             >
               About Us
@@ -140,7 +141,7 @@ const Navbar = () => {
             <button
               onClick={() => handleNavigation('#faqs')}
               className={`transition-colors duration-200 font-medium ${
-                isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
+                isScrolled ? 'text-white hover:text-red-500' : 'text-gray-700 hover:text-red-500'
               }`}
             >
               FAQs
@@ -148,7 +149,7 @@ const Navbar = () => {
             <button
               onClick={() => handleNavigation('#contact')}
               className={`transition-colors duration-200 font-medium ${
-                isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
+                isScrolled ? 'text-white hover:text-red-500' : 'text-gray-700 hover:text-red-500'
               }`}
             >
               Contact Us
