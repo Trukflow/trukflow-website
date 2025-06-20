@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import Logo from "@/../../public/TRUK Logo3.png";
+import Logo from "@/../public/TRUK Logo3.png";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
