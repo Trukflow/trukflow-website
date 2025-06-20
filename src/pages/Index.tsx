@@ -497,7 +497,13 @@ const Index = () => {
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Column 1 - Logo & Description */}
             <div className="animate-on-scroll">
-              <div className="text-xl md:text-2xl font-bold mb-4">TRUK</div>
+              <div className="mb-4 flex items-center justify-start">
+                <img 
+                  src="/TRUK Logo3.png"
+                  alt="TRUK Logo"
+                  className="h-8 w-auto md:h-10"
+                />
+              </div>
               <p className="text-gray-400 text-sm">
                 East Africa's smartest logistics platform connecting cargo owners with verified transporters for efficient and reliable transportation solutions.
               </p>
