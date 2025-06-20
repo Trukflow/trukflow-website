@@ -435,12 +435,12 @@ const Index = () => {
           </h2>
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-8 sm:space-y-0 sm:space-x-12 animate-on-scroll">
             <img
-              src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=200&h=100&fit=crop"
+              src="/M-PESA_LOGO-01.svg.png"
               alt="Partner 1"
               className="h-16 md:h-24 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
             />
             <img
-              src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=200&h=100&fit=crop"
+              src="/CIC insurance.png"
               alt="Partner 2"
               className="h-16 md:h-24 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
             />
