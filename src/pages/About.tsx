@@ -3,7 +3,7 @@ import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
 import AbisaiPhoto from "../../public/AbisaiPhoto.jpg";
-import JosephinePhoto from "../../public/photo_2025-06-19 23.37.40.jpeg;
+import JosephinePhoto from "../../public/photo_2025-06-19 23.37.40.jpeg";
 import IsaacPhoto from "../../public/Official Photo.jpg";
 
 const About = () => {
