@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
@@ -113,11 +114,13 @@ const About = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
             {team.map((member, index) => (
               <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 animate-on-scroll">
-                <img
-                  src={member.image}
-                  alt={member.name}
-                  className="w-full h-64 object-cover"
-                />
+                <div className="w-full h-64 overflow-hidden bg-gray-100">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
                 <div className="p-6">
                   <h3 className="text-xl font-bold text-gray-900 mb-2">
                     {member.name}
