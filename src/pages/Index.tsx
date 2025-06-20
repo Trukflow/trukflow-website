@@ -121,6 +121,13 @@ const Index = () => {
       photo: "https://images.unsplash.com/photo-1517022812141-23620dba5c23?w=80&h=80&fit=crop&crop=face",
       name: "Emma Nyaboke",
       role: "Operations Manager"
+    },
+    {
+      rating: 4,
+      comment: "The promptness of getting transportation through the TRUK App ensures my farm produce reaches the market fresh.",
+      photo: "https://images.unsplash.com/photo-1517022812141-23620dba5c23?w=80&h=80&fit=crop&crop=face",
+      name: "Karen Nasimiyu",
+      role: "Operations Manager"
     }
   ];
 
@@ -228,11 +235,11 @@ const Index = () => {
               {/* Services - Vertical Layout with Descriptions */}
               <div className="space-y-4 md:space-y-6">
                 <div className="space-y-2">
-                  <span className="text-white text-xl md:text-2xl font-semibold block">agriTRUK</span>
+                  <span className="text-black text-xl md:text-2xl font-semibold block">agriTRUK</span>
                   <span className="text-white/80 text-base md:text-lg">Agricultural produce transportation solutions</span>
                 </div>
                 <div className="space-y-2">
-                  <span className="text-white text-xl md:text-2xl font-semibold block">cargoTRUK</span>
+                  <span className="text-black text-xl md:text-2xl font-semibold block">cargoTRUK</span>
                   <span className="text-white/80 text-base md:text-lg">General cargo and freight services</span>
                 </div>
               </div>

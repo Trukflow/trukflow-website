@@ -1,6 +1,7 @@
 
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
+import googlePlaystoreSvg from "@/../public/Google_PlayStore.png;
 
 const Download = () => {
   return (
@@ -29,12 +30,11 @@ const Download = () => {
             {/* Google Play Store */}
             <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-6 md:p-8 text-center shadow-lg">
               <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-6 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-full h-full">
-                  <path fill="#34A853" d="M3.609 1.814L13.792 12L3.609 22.186a1.964 1.964 0 01-.322-1.09V2.904c0-.4.12-.773.322-1.09z"/>
-                  <path fill="#FBBC04" d="m13.792 12l6.659-6.66L17.7 3.8a1.967 1.967 0 00-2.78 0L3.61 14.904z"/>
-                  <path fill="#EA4335" d="M20.451 5.34L13.792 12l6.659 6.66a1.967 1.967 0 001.967-1.967V7.307a1.967 1.967 0 00-1.967-1.967z"/>
-                  <path fill="#4285F4" d="M13.792 12L3.609 1.814a1.964 1.964 0 012.78 0L17.7 20.2a1.967 1.967 0 01-2.78 0z"/>
-                </svg>
+                <img 
+                  src={googlePlaystoreSvg} 
+                  alt="Get TRUK on Google Play" 
+                  className="w-full h-full"
+                />
               </div>
               <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">
                 Google Play Store

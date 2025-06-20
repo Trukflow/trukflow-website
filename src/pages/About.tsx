@@ -8,25 +8,25 @@ import IsaacPhoto from "../../public/Official Photo.jpg";
 
 const About = () => {
   const team = [
-    {
-      name: "Abisai Nandi",
-      role: "Co-founder & Chief Executive Officer",
-      image: AbisaiPhoto,
-      bio: "Visionary leader with 10+ years in logistics and technology."
-    },
-    {
-      name: "Josephine Mumbua",
-      role: "Co-founder & Chief Technology Officer",
-      image: JosephinePhoto,
-      bio: "Tech innovator driving TRUK's smart logistics solutions."
-    },
-    {
-      name: "Mititi Isaac",
-      role: "Co-founder & Chief Marketing Officer",
-      image: IsaacPhoto,
-      bio: "Operations expert ensuring seamless logistics execution."
-    }
-  ];
+  {
+    name: "Abisai Nandi",
+    role: "Co-founder & Chief Executive Officer",
+    image: AbisaiPhoto,
+    bio: "Logistics and agribusiness entrepreneur with 10+ years transforming East Africa's supply chains through technology."
+  },
+  {
+    name: "Josephine Mumbua",
+    role: "Co-founder & Chief Technology Officer", 
+    image: JosephinePhoto,
+    bio: "Senior Software Engineer specializing in scalable backend systems and cloud infrastructure for the logistics platforms."
+  },
+  {
+    name: "Mititi Isaac",
+    role: "Co-founder & Chief Marketing Officer",
+    image: IsaacPhoto,
+    bio: "Full-stack Software Engineer and UX designer; part of the team building TRUK's customer-facing interfaces and brand systems."
+  }
+];
 
   // Smooth scroll and animation observer
   useEffect(() => {
