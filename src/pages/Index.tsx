@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import {
@@ -248,7 +247,7 @@ const Index = () => {
               {/* Buttons - Larger Size - All lead to /download */}
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                 <Button 
-                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+                  className="bg-black hover:bg-gray-900 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
                   onClick={() => window.location.href = '/download'}
                 >
                   Join as a transporter
@@ -372,7 +371,7 @@ const Index = () => {
       </section>
 
       {/* Industry Statistics Info Section */}
-      <section className="h-20 bg-gradient-to-r from-gray-800 to-gray-900 text-white">
+      <section className="h-20 bg-black text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
             {industryStats.map((stat, index) => (
