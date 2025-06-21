@@ -13,12 +13,13 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
-import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone } from "lucide-react";
+import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone, ArrowRight } from "lucide-react";
 
 const Index = () => {
   const [api, setApi] = useState<any>();
   const [feedbackApi, setFeedbackApi] = useState<any>();
   const [howItWorksApi, setHowItWorksApi] = useState<any>();
+  const [faqCarouselApi, setFaqCarouselApi] = useState<any>();
   const [current, setCurrent] = useState(0);
 
   // Auto-scroll the hero carousel
@@ -90,7 +91,7 @@ const Index = () => {
   const howItWorksImages = [
      "/agriTrukImg6.jpg",
      "/agriTrukImg9.jpg",
-     "/agrTrukImg3.jpg"
+     "/agriTrukImg3.jpg"
   ];
 
   const feedbacks = [
@@ -141,6 +142,13 @@ const Index = () => {
       question: "Is my cargo insured during transport?",
       answer: "Yes, all shipments through TRUK are covered by our comprehensive insurance policy to ensure your cargo is protected throughout the journey."
     }
+  ];
+
+  const industryStats = [
+    { number: "2.5B", label: "East Africa Logistics Market Value (USD)", sublabel: "Annual market size" },
+    { number: "15%", label: "Agricultural GDP Contribution", sublabel: "Across East African countries" },
+    { number: "60%", label: "Employment in Agriculture", sublabel: "Regional workforce dependency" },
+    { number: "80%", label: "Post-harvest Losses", sublabel: "Due to poor logistics" }
   ];
 
   const renderStars = (rating: number) => {
@@ -295,8 +303,12 @@ const Index = () => {
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
             How it works
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg">
+          <div className="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
+            {/* Step 1 */}
+            <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg relative">
+              <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                1
+              </div>
               <div className="w-full h-48 md:h-64 bg-gradient-to-br from-green-100 to-green-200 rounded-lg mb-6 overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop"
@@ -309,7 +321,17 @@ const Index = () => {
                 Submit your logistics request through our platform with detailed information about your cargo or agricultural products.
               </p>
             </div>
-            <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg">
+
+            {/* Arrow 1 */}
+            <div className="hidden md:flex justify-center">
+              <ArrowRight className="w-8 h-8 text-red-500" />
+            </div>
+
+            {/* Step 2 */}
+            <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg relative">
+              <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                2
+              </div>
               <div className="w-full h-48 md:h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-6 overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400&h=300&fit=crop"
@@ -322,7 +344,17 @@ const Index = () => {
                 Our smart system connects you with verified transporters who specialize in your type of cargo.
               </p>
             </div>
-            <div className="text-center animate-on-scroll md:col-span-2 lg:col-span-1 bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg">
+
+            {/* Arrow 2 */}
+            <div className="hidden md:flex justify-center md:col-start-2">
+              <ArrowRight className="w-8 h-8 text-red-500" />
+            </div>
+
+            {/* Step 3 */}
+            <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg relative md:col-start-3">
+              <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                3
+              </div>
               <div className="w-full h-48 md:h-64 bg-gradient-to-br from-red-100 to-red-200 rounded-lg mb-6 overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop"
@@ -339,66 +371,76 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Customer Feedback Section - Vertical 3/4 and 1/4 layout */}
-      <section className="flex flex-col h-screen">
-        {/* Top 3/4 - Jungle Green */}
-        <div className="flex-[3] bg-gradient-to-br from-green-800 via-green-700 to-green-900 flex flex-col justify-center py-8">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-8 animate-on-scroll">
-              Customer Feedback
-            </h2>
-            <div className="animate-on-scroll">
-              <Carousel
-                setApi={setFeedbackApi}
-                className="w-full"
-                opts={{
-                  align: "start",
-                  loop: true,
-                }}
-              >
-                <CarouselContent>
-                  {feedbacks.map((feedback, index) => (
-                    <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                      <div className="bg-white rounded-lg p-4 md:p-6 shadow-lg mx-2 transform hover:scale-105 transition-transform duration-300">
-                        {/* Rating Stars */}
-                        <div className="flex mb-4">
-                          {renderStars(feedback.rating)}
-                        </div>
-                        
-                        {/* Comment */}
-                        <p className="text-gray-700 mb-6 italic text-sm md:text-base">
-                          "{feedback.comment}"
-                        </p>
-                        
-                        {/* Customer Info */}
-                        <div className="flex items-center">
-                          <img
-                            src={feedback.photo}
-                            alt={feedback.name}
-                            className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover mr-4"
-                          />
-                          <div>
-                            <h4 className="font-semibold text-gray-900 text-sm md:text-base">{feedback.name}</h4>
-                            <p className="text-gray-600 text-xs md:text-sm">{feedback.role}</p>
-                          </div>
-                        </div>
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </Carousel>
-            </div>
+      {/* Industry Statistics Info Section */}
+      <section className="h-20 bg-gradient-to-r from-gray-800 to-gray-900 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+            {industryStats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-lg md:text-2xl font-bold text-yellow-400">{stat.number}</div>
+                <div className="text-xs md:text-sm font-medium">{stat.label}</div>
+                <div className="text-xs text-gray-400 hidden md:block">{stat.sublabel}</div>
+              </div>
+            ))}
           </div>
         </div>
+      </section>
 
-        {/* Bottom 1/4 - White with Navigation Bullets */}
-        <div className="flex-1 bg-white flex items-center justify-center">
-          <div className="flex space-x-3">
+      {/* Customer Feedback Section - Full Green with Dots */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-green-800 via-green-700 to-green-900">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-8 animate-on-scroll">
+            Experiences shared by our clients
+          </h2>
+          <div className="animate-on-scroll">
+            <Carousel
+              setApi={setFeedbackApi}
+              className="w-full"
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+            >
+              <CarouselContent>
+                {feedbacks.map((feedback, index) => (
+                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                    <div className="bg-white rounded-lg p-4 md:p-6 shadow-lg mx-2 transform hover:scale-105 transition-transform duration-300">
+                      {/* Rating Stars */}
+                      <div className="flex mb-4">
+                        {renderStars(feedback.rating)}
+                      </div>
+                      
+                      {/* Comment */}
+                      <p className="text-gray-700 mb-6 italic text-sm md:text-base">
+                        "{feedback.comment}"
+                      </p>
+                      
+                      {/* Customer Info */}
+                      <div className="flex items-center">
+                        <img
+                          src={feedback.photo}
+                          alt={feedback.name}
+                          className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover mr-4"
+                        />
+                        <div>
+                          <h4 className="font-semibold text-gray-900 text-sm md:text-base">{feedback.name}</h4>
+                          <p className="text-gray-600 text-xs md:text-sm">{feedback.role}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
+          </div>
+          
+          {/* Navigation Dots */}
+          <div className="flex justify-center space-x-3 mt-8">
             {feedbacks.map((_, index) => (
               <button
                 key={index}
                 className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-colors duration-300 ${
-                  index === current ? 'bg-purple-500 shadow-lg' : 'bg-gray-300 hover:bg-gray-400'
+                  index === current ? 'bg-red-500 shadow-lg' : 'bg-white/50 hover:bg-white/70'
                 }`}
                 onClick={() => feedbackApi?.scrollTo(index)}
               />
@@ -407,10 +449,18 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Mid-Page CTA Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-gradient-to-br from-green-800 to-green-900 rounded-lg p-8 md:p-12 text-white shadow-2xl animate-on-scroll">
+      {/* Mid-Page CTA Section with Background */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/agriTrukImg7.jpg"
+            alt="CTA Background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <div className="text-white animate-on-scroll">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
               Ready to transform your logistics?
             </h2>
@@ -436,32 +486,61 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-8 sm:space-y-0 sm:space-x-12 animate-on-scroll">
             <img
               src="/M-PESA_LOGO-01.svg.png"
-              alt="Partner 1"
-              className="h-16 md:h-24 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
+              alt="M-PESA"
+              className="h-16 md:h-24 object-contain hover:scale-110 transition-all duration-300"
             />
             <img
               src="/CIC insurance.png"
-              alt="Partner 2"
-              className="h-16 md:h-24 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"
+              alt="CIC Insurance"
+              className="h-16 md:h-24 object-contain hover:scale-110 transition-all duration-300"
             />
           </div>
         </div>
       </section>
 
-      {/* FAQs Section */}
+      {/* FAQs Section with Carousel */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200" id="faqs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-start">
-            {/* Left Side - Chat Image */}
+            {/* Left Side - FAQ Carousel */}
             <div className="relative animate-on-scroll">
-              <img
-                src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=500&fit=crop"
-                alt="Chat Support"
-                className="w-full max-w-md mx-auto rounded-lg shadow-lg"
-              />
-              <div className="absolute -top-2 md:-top-4 -right-2 md:-right-4 bg-white p-3 md:p-4 rounded-lg shadow-lg border">
-                <p className="text-green-800 font-medium text-sm md:text-base">Ask Us Anything</p>
-              </div>
+              <Carousel
+                setApi={setFaqCarouselApi}
+                className="w-full"
+                opts={{
+                  align: "start",
+                  loop: true,
+                }}
+              >
+                <CarouselContent>
+                  <CarouselItem>
+                    <div className="bg-gradient-to-br from-green-800 to-green-900 text-white p-8 rounded-lg shadow-lg relative">
+                      <h3 className="text-2xl font-bold mb-4">Have a different question?</h3>
+                      <p className="mb-6">Contact us through our customer care</p>
+                      <div className="flex items-center space-x-2 mb-6">
+                        <Phone className="w-5 h-5" />
+                        <span className="text-lg font-semibold">+254 734 260 077</span>
+                      </div>
+                      <Button 
+                        className="bg-white text-green-800 hover:bg-gray-100 px-6 py-2 rounded-full font-medium transform hover:scale-105 transition-all duration-200 absolute -bottom-4 right-4 shadow-lg"
+                        onClick={() => window.location.href = '/download'}
+                      >
+                        Contact Us
+                      </Button>
+                    </div>
+                  </CarouselItem>
+                  <CarouselItem>
+                    <div className="bg-gradient-to-br from-blue-800 to-blue-900 text-white p-8 rounded-lg shadow-lg relative">
+                      <h3 className="text-2xl font-bold mb-4">Need Support?</h3>
+                      <p className="mb-6">Our team is ready to help you 24/7</p>
+                      <div className="flex items-center space-x-2 mb-6">
+                        <Mail className="w-5 h-5" />
+                        <span className="text-lg font-semibold">hello@truk.com</span>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                </CarouselContent>
+              </Carousel>
             </div>
 
             {/* Right Side - FAQs */}
@@ -487,10 +566,18 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-gradient-to-br from-green-800 to-green-900 rounded-lg p-8 md:p-12 text-white shadow-2xl animate-on-scroll">
+      {/* Final CTA Section with Background */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/agriTrukImg10.jpg"
+            alt="Final CTA Background"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/60"></div>
+        </div>
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <div className="text-white animate-on-scroll">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8">
               East Africa moves smarter with TRUK
             </h2>
@@ -514,7 +601,7 @@ const Index = () => {
                 <img 
                   src="/TRUK Logo3.png"
                   alt="TRUK Logo"
-                  className="h-16 w-auto md:h-16"
+                  className="h-20 w-auto md:h-24"
                 />
               </div>
               <p className="text-gray-400 text-sm">

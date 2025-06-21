@@ -58,8 +58,8 @@ const Navbar = () => {
     return (
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Skeleton className="h-12 w-20" />
+          <div className="flex justify-between items-center h-20">
+            <Skeleton className="h-16 w-24" />
             <div className="hidden md:flex items-center space-x-8">
               <Skeleton className="h-6 w-16" />
               <Skeleton className="h-6 w-20" />
@@ -80,7 +80,7 @@ const Navbar = () => {
         : 'bg-white border-b border-gray-200 shadow-sm'
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-18">
+        <div className="flex justify-between items-center h-20">
           {/* Logo - Increased Size */}
           <div className="flex-shrink-0">
             <button
@@ -92,7 +92,7 @@ const Navbar = () => {
               <img 
                 src="/TRUK Logo3.png" 
                 alt="TRUK Logo"
-                className={`h-14 w-auto ${isScrolled ? 'brightness-100' : 'brightness-90'}`}
+                className="h-16 w-auto"
               />
             </button>
           </div>
