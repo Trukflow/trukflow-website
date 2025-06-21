@@ -247,7 +247,7 @@ const Index = () => {
               {/* Buttons - Larger Size - All lead to /download */}
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                 <Button 
-                  className="bg-black hover:bg-gray-900 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
                   onClick={() => window.location.href = '/download'}
                 >
                   Join as a transporter
@@ -321,11 +321,6 @@ const Index = () => {
               </p>
             </div>
 
-            {/* Arrow 1 */}
-            <div className="hidden md:flex justify-center">
-              <ArrowRight className="w-8 h-8 text-red-500" />
-            </div>
-
             {/* Step 2 */}
             <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg relative">
               <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
@@ -344,13 +339,8 @@ const Index = () => {
               </p>
             </div>
 
-            {/* Arrow 2 */}
-            <div className="hidden md:flex justify-center md:col-start-2">
-              <ArrowRight className="w-8 h-8 text-red-500" />
-            </div>
-
             {/* Step 3 */}
-            <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg relative md:col-start-3">
+            <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg relative">
               <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
                 3
               </div>
