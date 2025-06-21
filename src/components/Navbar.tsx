@@ -245,7 +245,17 @@ const Navbar = () => {
               </button>
               <div className="px-3 py-2">
                 <Button 
-                  className="w-full bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white transition-all duration-200 font-medium rounded-full"
+                  className="
+                              w-full 
+                              bg-black
+                              hover:bg-gradient-to-r hover:from-green-800 hover:to-green-900
+                              text-white 
+                              transition-all duration-200 
+                              font-medium 
+                              rounded-full
+                              hover:shadow-lg hover:shadow-green-400/30
+                              transform hover:scale-[1.02]
+                            "
                   onClick={() => window.location.href = '/download'}
                 >
                   Get Started

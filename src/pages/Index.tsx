@@ -310,7 +310,7 @@ const Index = () => {
               </div>
               <div className="w-full h-48 md:h-64 bg-gradient-to-br from-green-100 to-green-200 rounded-lg mb-6 overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=400&h=300&fit=crop"
+                  src="/OrderingImg.jpg"
                   alt="Person using phone"
                   className="w-full h-full object-cover"
                 />
@@ -328,7 +328,7 @@ const Index = () => {
               </div>
               <div className="w-full h-48 md:h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-6 overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=400&h=300&fit=crop"
+                  src="/MatchingImg.jpg"
                   alt="Two people talking with vehicle"
                   className="w-full h-full object-cover"
                 />
@@ -346,7 +346,7 @@ const Index = () => {
               </div>
               <div className="w-full h-48 md:h-64 bg-gradient-to-br from-red-100 to-red-200 rounded-lg mb-6 overflow-hidden">
                 <img
-                  src="https://images.unsplash.com/photo-1531297484001-80022131f5a1?w=400&h=300&fit=crop"
+                  src="/LiveTracking.jpg"
                   alt="Map with live tracking"
                   className="w-full h-full object-cover"
                 />
