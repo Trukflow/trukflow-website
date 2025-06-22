@@ -12,7 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
-import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone, ArrowRight } from "lucide-react";
+import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone, ArrowRight, Shield, Clock, Users, Award, CheckCircle } from "lucide-react";
 
 const Index = () => {
   const [api, setApi] = useState<any>();
@@ -355,6 +355,108 @@ const Index = () => {
               <p className="text-gray-600 text-sm md:text-base">
                 Monitor your shipment in real-time and receive updates until safe delivery to your destination.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Who We Are Section */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <img
+            src="/agriTrukImg8.jpg"
+            alt="Who we are background"
+            className="w-full h-full object-cover opacity-10"
+          />
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="text-center mb-12 md:mb-16 animate-on-scroll">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-4">
+              Who We Are
+            </h2>
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
+              We're revolutionizing East Africa's logistics landscape, connecting communities and empowering businesses through smart transportation solutions.
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-center mb-16">
+            {/* Left Side - Our Story */}
+            <div className="animate-on-scroll">
+              <div className="bg-white rounded-2xl p-6 md:p-8 shadow-xl">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-full flex items-center justify-center mb-6">
+                  <Users className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4">Our Mission</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  Born from the heart of East Africa, TRUK emerged to solve the region's most pressing logistics challenges. We understand the farmer who loses crops due to delayed transport, the business owner struggling with unreliable cargo services, and the transporter looking for consistent income opportunities.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">10,000+ active users across East Africa</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">95% on-time delivery rate</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="w-5 h-5 text-green-500 mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">Verified transporter network</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - Why Choose Us */}
+            <div className="space-y-6 animate-on-scroll">
+              <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mb-4">
+                  <Shield className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="text-xl font-bold text-gray-900 mb-2">Trust & Security</h4>
+                <p className="text-gray-600">Every transporter is verified, insured, and monitored. Your cargo's safety is our top priority.</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 bg-green-500 rounded-lg flex items-center justify-center mb-4">
+                  <Clock className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="text-xl font-bold text-gray-900 mb-2">Speed & Reliability</h4>
+                <p className="text-gray-600">Real-time tracking, instant booking, and guaranteed delivery windows ensure your business never stops.</p>
+              </div>
+
+              <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 transform hover:scale-105 transition-all duration-300">
+                <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center mb-4">
+                  <Award className="w-6 h-6 text-white" />
+                </div>
+                <h4 className="text-xl font-bold text-gray-900 mb-2">Local Expertise</h4>
+                <p className="text-gray-600">Built by East Africans, for East Africans. We understand your unique logistics challenges and cultural nuances.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Section - Values */}
+          <div className="text-center animate-on-scroll">
+            <div className="bg-gradient-to-r from-green-800 to-green-900 rounded-2xl p-8 md:p-12 text-white">
+              <h3 className="text-2xl md:text-3xl font-bold mb-6">Why Thousands Choose TRUK</h3>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-yellow-400 mb-2">25%</div>
+                  <div className="text-lg font-medium mb-2">Higher Earnings</div>
+                  <div className="text-sm opacity-90">For verified transporters</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-yellow-400 mb-2">24/7</div>
+                  <div className="text-lg font-medium mb-2">Support Available</div>
+                  <div className="text-sm opacity-90">Customer care when you need it</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl md:text-4xl font-bold text-yellow-400 mb-2">100%</div>
+                  <div className="text-lg font-medium mb-2">Cargo Insurance</div>
+                  <div className="text-sm opacity-90">Complete protection guarantee</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
