@@ -360,7 +360,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Who We Are Section */}
+      {/* Who We Are Section - MOVED HERE */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
