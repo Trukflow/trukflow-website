@@ -70,7 +70,7 @@ const AgriTruk = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-green-800/90 via-green-800/75 to-green-800/60"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-10">
           <div className="w-full text-center text-white">
             <div className="animate-on-scroll">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
@@ -91,7 +91,7 @@ const AgriTruk = () => {
       </section>
 
       {/* Video Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
             See agriTRUK in Action
@@ -124,7 +124,7 @@ const AgriTruk = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
             Why Choose agriTRUK?
@@ -162,7 +162,7 @@ const AgriTruk = () => {
       </section>
 
       {/* How it Works Section */}
-      <section className="py-16 md:py-20 bg-white relative overflow-hidden" id="how-it-works">
+      <section className="py-16 md:py-20 bg-white relative overflow-hidden z-10" id="how-it-works">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
             How it works
@@ -212,7 +212,7 @@ const AgriTruk = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-green-800 via-green-700 to-green-900 text-white">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-green-800 via-green-700 to-green-900 text-white relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-on-scroll">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
@@ -235,3 +235,4 @@ const AgriTruk = () => {
 };
 
 export default AgriTruk;
+

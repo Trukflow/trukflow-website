@@ -27,6 +27,13 @@ const About = () => {
   }
 ];
 
+  const industryStats = [
+    { number: "2.5B", label: "East Africa Logistics Market Value (USD)", sublabel: "Annual market size" },
+    { number: "15%", label: "Agricultural GDP Contribution", sublabel: "Across East African countries" },
+    { number: "60%", label: "Employment in Agriculture", sublabel: "Regional workforce dependency" },
+    { number: "80%", label: "Post-harvest Losses", sublabel: "Due to poor logistics" }
+  ];
+
   // Smooth scroll and animation observer
   useEffect(() => {
     const observerOptions = {
@@ -79,6 +86,29 @@ const About = () => {
           <p className="text-xl md:text-2xl max-w-3xl mx-auto animate-on-scroll">
             We're revolutionizing logistics across East Africa with smart technology 
             that connects cargo owners with verified transporters.
+          </p>
+        </div>
+      </section>
+
+      {/* Industry Statistics Section */}
+      <section className="py-16 bg-black text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12 animate-on-scroll">
+            The Challenge We're Solving
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {industryStats.map((stat, index) => (
+              <div key={index} className="text-center animate-on-scroll">
+                <div className="text-2xl md:text-4xl font-bold text-yellow-400 mb-2">{stat.number}</div>
+                <div className="text-sm md:text-base font-medium mb-1">{stat.label}</div>
+                <div className="text-xs md:text-sm text-gray-400">{stat.sublabel}</div>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-gray-300 max-w-4xl mx-auto mt-8 animate-on-scroll">
+            East Africa's logistics sector faces significant challenges with massive post-harvest losses 
+            and inefficient transportation systems. TRUK is transforming this landscape with innovative 
+            technology solutions that connect stakeholders and optimize supply chains.
           </p>
         </div>
       </section>

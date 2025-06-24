@@ -269,6 +269,52 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Why Choose TRUK Section - UPDATED with convincing messaging */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-6 animate-on-scroll">
+            Why TRUK is East Africa's #1 Choice
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto mb-12 animate-on-scroll">
+            Join 10,000+ satisfied users who trust TRUK for reliable, efficient, and intelligent logistics solutions. 
+            Our proven track record, cutting-edge technology, and unmatched network make us the undisputed leader in East African logistics.
+          </p>
+          
+          {/* Key advantages */}
+          <div className="grid md:grid-cols-3 gap-8 mb-12 animate-on-scroll">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Market Leader</h3>
+              <p className="text-gray-600">Trusted by 10,000+ users across East Africa with the largest verified transporter network</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">100% Insured</h3>
+              <p className="text-gray-600">Complete insurance coverage and verified transporters ensure your cargo is always protected</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Lightning Fast</h3>
+              <p className="text-gray-600">Smart matching technology connects you with transporters in minutes, not hours</p>
+            </div>
+          </div>
+
+          <Button 
+            className="bg-gradient-to-r from-green-700 to-green-800 hover:from-green-800 hover:to-green-900 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll"
+            onClick={() => window.location.href = '/about'}
+          >
+            Learn More About Us
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
+        </div>
+      </section>
+
       {/* How it works Section with Interchanging Background and Real Images */}
       <section className="py-16 md:py-20 bg-white relative overflow-hidden" id="how-it-works">
         {/* Background Images */}
@@ -357,25 +403,6 @@ const Index = () => {
               </p>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Who We Are Section - MOVED HERE and SIMPLIFIED */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-6 animate-on-scroll">
-            Who We Are
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8 animate-on-scroll">
-            We're revolutionizing East Africa's logistics landscape, connecting communities and empowering businesses through smart transportation solutions.
-          </p>
-          <Button 
-            className="bg-gradient-to-r from-green-700 to-green-800 hover:from-green-800 hover:to-green-900 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll"
-            onClick={() => window.location.href = '/about'}
-          >
-            Learn More About Us
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
         </div>
       </section>
 
@@ -506,7 +533,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FAQs Section with Carousel */}
+      {/* FAQs Section with Carousel - UPDATED Contact Us button positioning */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200" id="faqs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-start">
@@ -522,7 +549,7 @@ const Index = () => {
               >
                 <CarouselContent>
                   <CarouselItem>
-                    <div className="bg-gradient-to-br from-green-800 to-green-900 text-white p-8 rounded-lg shadow-lg relative">
+                    <div className="bg-gradient-to-br from-green-800 to-green-900 text-white p-8 rounded-lg shadow-lg relative overflow-visible">
                       <h3 className="text-2xl font-bold mb-4">Have a different question?</h3>
                       <p className="mb-6">Contact us through our customer care</p>
                       <div className="flex items-center space-x-2 mb-6">
@@ -530,7 +557,7 @@ const Index = () => {
                         <span className="text-lg font-semibold">+254 734 260 077</span>
                       </div>
                       <Button 
-                        className="bg-white text-green-800 hover:bg-gray-100 px-6 py-2 rounded-full font-medium transform hover:scale-105 transition-all duration-200 absolute -bottom-4 right-4 shadow-lg"
+                        className="bg-white text-green-800 hover:bg-gray-100 px-6 py-2 rounded-full font-medium transform hover:scale-105 transition-all duration-200 absolute -bottom-2 right-4 shadow-lg z-10"
                         onClick={() => window.location.href = '/download'}
                       >
                         Contact Us

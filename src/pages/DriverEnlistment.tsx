@@ -70,7 +70,7 @@ const DriverEnlistment = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-orange-800/90 via-orange-800/75 to-red-800/60"></div>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-10">
           <div className="w-full text-center text-white">
             <div className="animate-on-scroll">
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
@@ -91,7 +91,7 @@ const DriverEnlistment = () => {
       </section>
 
       {/* Benefits Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
             Why Drive with TRUK?
@@ -129,7 +129,7 @@ const DriverEnlistment = () => {
       </section>
 
       {/* Requirements Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
             Driver Requirements
@@ -190,7 +190,7 @@ const DriverEnlistment = () => {
       </section>
 
       {/* How it Works Section */}
-      <section className="py-16 md:py-20 bg-white relative overflow-hidden" id="how-it-works">
+      <section className="py-16 md:py-20 bg-white relative overflow-hidden z-10" id="how-it-works">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
             How it works
@@ -240,7 +240,7 @@ const DriverEnlistment = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-orange-800 via-orange-700 to-red-800 text-white">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-orange-800 via-orange-700 to-red-800 text-white relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="animate-on-scroll">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
@@ -263,3 +263,4 @@ const DriverEnlistment = () => {
 };
 
 export default DriverEnlistment;
+
