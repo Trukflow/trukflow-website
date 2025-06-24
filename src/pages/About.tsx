@@ -1,6 +1,7 @@
 
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
+import { Linkedin } from "lucide-react";
 import { useEffect } from "react";
 
 const About = () => {
@@ -9,19 +10,22 @@ const About = () => {
     name: "Abisai Nandi",
     role: "Co-founder & Chief Executive Officer",
     image: "/AbisaiPhoto.jpg",
-    bio: "Logistics and agribusiness entrepreneur with 10+ years transforming East Africa's supply chains through technology."
+    bio: "Logistics and agribusiness entrepreneur with 10+ years transforming East Africa's supply chains through technology.",
+    linkedin: "https://www.linkedin.com/in/abisai-nandi-443405145/"
   },
   {
     name: "Josephine Mumbua",
     role: "Co-founder & Chief Technology Officer", 
     image: "/photo_2025-06-19 23.37.40.jpeg",
-    bio: "Senior Software Engineer specializing in scalable backend systems and cloud infrastructure for the logistics platforms."
+    bio: "Senior Software Engineer specializing in scalable backend systems and cloud infrastructure for the logistics platforms.",
+    linkedin: "https://www.linkedin.com/in/mumbuamutuku/"
   },
   {
     name: "Mititi Isaac",
     role: "Co-founder & Chief Marketing Officer",
     image: "/Official Photo.jpg",
-    bio: "Full-stack Software Engineer and UX designer; part of the team building TRUK's customer-facing interfaces and brand systems."
+    bio: "Full-stack Software Engineer and UX designer; part of the team building TRUK's customer-facing interfaces and brand systems.",
+    linkedin: "https://www.linkedin.com/in/io-mititi/"
   }
 ];
 
@@ -122,9 +126,15 @@ const About = () => {
                   />
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">
-                    {member.name}
-                  </h3>
+                  <div className="flex items-center justify-between mb-2">
+                    <h3 className="text-xl font-bold text-gray-900">
+                      {member.name}
+                    </h3>
+                    <Linkedin 
+                      className="w-5 h-5 text-blue-600 hover:text-blue-800 cursor-pointer transition-colors"
+                      onClick={() => window.open(member.linkedin, '_blank')}
+                    />
+                  </div>
                   <p className="text-red-500 font-medium mb-3">
                     {member.role}
                   </p>
