@@ -244,22 +244,23 @@ const Navbar = () => {
                 Contact Us
               </button>
               <div className="px-3 py-2">
-                <Button 
-                  className="
-                              w-full 
-                              bg-black
-                              hover:bg-gradient-to-r hover:from-green-800 hover:to-green-900
-                              text-white 
-                              transition-all duration-200 
-                              font-medium 
-                              rounded-full
-                              hover:shadow-lg hover:shadow-green-400/30
-                              transform hover:scale-[1.02]
-                            "
-                  onClick={() => window.location.href = '/download'}
-                >
-                  Get Started
-                </Button>
+              <button
+                className="
+                  w-full 
+                  bg-gray-900  // Deeper black than 'bg-black'
+                  hover:bg-gradient-to-r hover:from-green-800 hover:to-green-900
+                  text-white 
+                  font-medium 
+                  rounded-full
+                  transition-colors duration-300  // Smoother for color changes
+                  hover:shadow-lg hover:shadow-green-400/30
+                  transform hover:scale-[1.02]
+                  active:scale-100  // Optional: Add a click effect
+                "
+                onClick={() => window.location.href = '/download'}
+              >
+                Get Started
+              </button>
               </div>
             </div>
           </div>

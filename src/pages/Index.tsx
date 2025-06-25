@@ -81,7 +81,8 @@ const Index = () => {
 
   const images = [
     "/agriTrukImg4.jpg",
-    "/agriTrukImg5.jpg", 
+    "/agriTrukImg5.jpg",
+    "/CargoImage7.jpg", 
     "/agriTrukImg1.jpg",
     "/agriTrukImg2.jpg",
     "/agriTrukImg8.jpg"
@@ -89,6 +90,7 @@ const Index = () => {
 
   const howItWorksImages = [
      "/agriTrukImg6.jpg",
+     "/CargoImage1.png",
      "/agriTrukImg9.jpg",
      "/agriTrukImg3.jpg"
   ];
@@ -236,11 +238,11 @@ const Index = () => {
               <div className="space-y-4 md:space-y-6">
                 <div className="space-y-2">
                   <span className="text-black text-xl md:text-2xl font-bold block">agriTRUK</span>
-                  <span className="text-white/80 text-base md:text-lg">Agricultural produce transportation solutions</span>
+                  <span className="text-white/80 text-base md:text-lg">Farm-to-Market: <br/> For smallholder farmers, agribusinesses, and cooperatives</span>
                 </div>
                 <div className="space-y-2">
                   <span className="text-black text-xl md:text-2xl font-bold block">cargoTRUK</span>
-                  <span className="text-white/80 text-base md:text-lg">General cargo and freight services</span>
+                  <span className="text-white/80 text-base md:text-lg">Urban and inter-city logistics simplified: <br/> For businesses, retailers, and individuals</span>
                 </div>
               </div>
 
@@ -266,52 +268,6 @@ const Index = () => {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Why Choose TRUK Section - UPDATED with convincing messaging */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-6 animate-on-scroll">
-            Why TRUK is East Africa's #1 Choice
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto mb-12 animate-on-scroll">
-            Join 10,000+ satisfied users who trust TRUK for reliable, efficient, and intelligent logistics solutions. 
-            Our proven track record, cutting-edge technology, and unmatched network make us the undisputed leader in East African logistics.
-          </p>
-          
-          {/* Key advantages */}
-          <div className="grid md:grid-cols-3 gap-8 mb-12 animate-on-scroll">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Award className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Market Leader</h3>
-              <p className="text-gray-600">Trusted by 10,000+ users across East Africa with the largest verified transporter network</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">100% Insured</h3>
-              <p className="text-gray-600">Complete insurance coverage and verified transporters ensure your cargo is always protected</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Lightning Fast</h3>
-              <p className="text-gray-600">Smart matching technology connects you with transporters in minutes, not hours</p>
-            </div>
-          </div>
-
-          <Button 
-            className="bg-gradient-to-r from-green-700 to-green-800 hover:from-green-800 hover:to-green-900 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll"
-            onClick={() => window.location.href = '/about'}
-          >
-            Learn More About Us
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
         </div>
       </section>
 
@@ -403,6 +359,52 @@ const Index = () => {
               </p>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Why Choose TRUK Section - UPDATED with convincing messaging */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-6 animate-on-scroll">
+            Why TRUK is East Africa's #1 Choice
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto mb-12 animate-on-scroll">
+            Join 10,000+ satisfied users who trust TRUK for reliable, efficient, and intelligent logistics solutions. 
+            Our proven track record, cutting-edge technology, and unmatched network make us the undisputed leader in East African logistics.
+          </p>
+          
+          {/* Key advantages */}
+          <div className="grid md:grid-cols-3 gap-8 mb-12 animate-on-scroll">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Market Leader</h3>
+              <p className="text-gray-600">Trusted by 10,000+ users across East Africa with the largest verified transporter network</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">100% Insured</h3>
+              <p className="text-gray-600">Complete insurance coverage and verified transporters ensure your cargo is always protected</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Lightning Fast</h3>
+              <p className="text-gray-600">Smart matching technology connects you with transporters in minutes, not hours</p>
+            </div>
+          </div>
+
+          <Button 
+            className="bg-gradient-to-r from-green-700 to-green-800 hover:from-green-800 hover:to-green-900 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll"
+            onClick={() => window.location.href = '/about'}
+          >
+            Learn More About Us
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
         </div>
       </section>
 
