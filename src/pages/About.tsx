@@ -27,12 +27,44 @@ const About = () => {
   }
 ];
 
-  const industryStats = [
-    { number: "2.5B", label: "East Africa Logistics Market Value (USD)", sublabel: "Annual market size" },
-    { number: "15%", label: "Agricultural GDP Contribution", sublabel: "Across East African countries" },
-    { number: "60%", label: "Employment in Agriculture", sublabel: "Regional workforce dependency" },
-    { number: "80%", label: "Post-harvest Losses", sublabel: "Due to poor logistics" }
-  ];
+const industryStats = [
+  { 
+    number: "2.5B", 
+    label: "East Africa Logistics Market Value (USD)", 
+    sublabel: "Annual market size (2023)",
+    detail: "Projected to grow at 7.2% CAGR through 2030 due to rising trade and infrastructure investments."
+  },
+  { 
+    number: "15%", 
+    label: "Agricultural GDP Contribution", 
+    sublabel: "Across East African countries",
+    detail: "Agriculture drives logistics demand, but inefficiencies cost the region ~$1.5B yearly."
+  },
+  { 
+    number: "60%", 
+    label: "Employment in Agriculture", 
+    sublabel: "Regional workforce dependency",
+    detail: "Highlights the need for cold-chain logistics to reduce post-harvest losses."
+  },
+  { 
+    number: "80%", 
+    label: "Post-harvest Losses", 
+    sublabel: "Due to poor logistics",
+    detail: "Lack of storage, poor roads, and limited cold transport worsen food insecurity."
+  },
+  { 
+    number: "40%", 
+    label: "Intra-African Trade Costs", 
+    sublabel: "Above global average",
+    detail: "AfCFTA aims to reduce tariffs, but non-tariff barriers (e.g., customs delays) persist."
+  },
+  { 
+    number: "70%", 
+    label: "Cargo Transported by Road", 
+    sublabel: "Dominant mode in East Africa",
+    detail: "Rail and maritime underutilized; Mombasa and Dar es Salaam ports handle 90% of trade."
+  }
+];
 
   // Smooth scroll and animation observer
   useEffect(() => {
