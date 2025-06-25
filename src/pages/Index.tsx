@@ -213,8 +213,8 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-20">
           <div className="w-full">
             {/* Left Content */}
-            <div className="max-w-2xl space-y-6 md:space-y-8 animate-on-scroll">
-              {/* User Stats with Overlapping Circles */}
+            <div className="max-w-2xl space-y-6 md:space-y-8 animate-on-scroll pt-20 lg:pt-32">
+              {/* User Stats with Overlapping Circles - Improved spacing for large screens */}
               <div className="flex items-center space-x-4">
                 <div className="flex items-center">
                   <div className="w-4 h-4 md:w-6 md:h-6 bg-yellow-400 rounded-full z-30 relative shadow-lg"></div>
@@ -268,6 +268,52 @@ const Index = () => {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Who We Are Section - Moved after Hero */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-6 animate-on-scroll">
+            Why TRUK is East Africa's #1 Choice
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto mb-12 animate-on-scroll">
+            Join 10,000+ satisfied users who trust TRUK for reliable, efficient, and intelligent logistics solutions. 
+            Our proven track record, cutting-edge technology, and unmatched network make us the undisputed leader in East African logistics.
+          </p>
+          
+          {/* Key advantages */}
+          <div className="grid md:grid-cols-3 gap-8 mb-12 animate-on-scroll">
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Award className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Market Leader</h3>
+              <p className="text-gray-600">Trusted by 10,000+ users across East Africa with the largest verified transporter network</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Shield className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">100% Insured</h3>
+              <p className="text-gray-600">Complete insurance coverage and verified transporters ensure your cargo is always protected</p>
+            </div>
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Clock className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-3">Lightning Fast</h3>
+              <p className="text-gray-600">Smart matching technology connects you with transporters in minutes, not hours</p>
+            </div>
+          </div>
+
+          <Button 
+            className="bg-gradient-to-r from-green-700 to-green-800 hover:from-green-800 hover:to-green-900 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll"
+            onClick={() => window.location.href = '/about'}
+          >
+            Learn More About Us
+            <ArrowRight className="w-5 h-5 ml-2" />
+          </Button>
         </div>
       </section>
 
@@ -362,61 +408,15 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Why Choose TRUK Section - UPDATED with convincing messaging */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-6 animate-on-scroll">
-            Why TRUK is East Africa's #1 Choice
-          </h2>
-          <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto mb-12 animate-on-scroll">
-            Join 10,000+ satisfied users who trust TRUK for reliable, efficient, and intelligent logistics solutions. 
-            Our proven track record, cutting-edge technology, and unmatched network make us the undisputed leader in East African logistics.
-          </p>
-          
-          {/* Key advantages */}
-          <div className="grid md:grid-cols-3 gap-8 mb-12 animate-on-scroll">
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Award className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Market Leader</h3>
-              <p className="text-gray-600">Trusted by 10,000+ users across East Africa with the largest verified transporter network</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Shield className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">100% Insured</h3>
-              <p className="text-gray-600">Complete insurance coverage and verified transporters ensure your cargo is always protected</p>
-            </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-600 to-purple-800 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Clock className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Lightning Fast</h3>
-              <p className="text-gray-600">Smart matching technology connects you with transporters in minutes, not hours</p>
-            </div>
-          </div>
-
-          <Button 
-            className="bg-gradient-to-r from-green-700 to-green-800 hover:from-green-800 hover:to-green-900 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll"
-            onClick={() => window.location.href = '/about'}
-          >
-            Learn More About Us
-            <ArrowRight className="w-5 h-5 ml-2" />
-          </Button>
-        </div>
-      </section>
-
-      {/* Industry Statistics Info Section */}
-      <section className="h-20 bg-black text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 w-full">
+      {/* Industry Statistics Info Section - Improved responsive layout */}
+      <section className="py-8 bg-black text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-4">
             {industryStats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-lg md:text-2xl font-bold text-yellow-400">{stat.number}</div>
-                <div className="text-xs md:text-sm font-medium">{stat.label}</div>
-                <div className="text-xs text-gray-400 hidden md:block">{stat.sublabel}</div>
+                <div className="text-xl sm:text-lg md:text-2xl font-bold text-yellow-400">{stat.number}</div>
+                <div className="text-sm md:text-sm font-medium px-2">{stat.label}</div>
+                <div className="text-xs text-gray-400 hidden md:block px-2">{stat.sublabel}</div>
               </div>
             ))}
           </div>
@@ -535,7 +535,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FAQs Section with Carousel - UPDATED Contact Us button positioning */}
+      {/* FAQs Section with Carousel - Contact Us button with hanging feel */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200" id="faqs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-start">
@@ -559,7 +559,7 @@ const Index = () => {
                         <span className="text-lg font-semibold">+254 734 260 077</span>
                       </div>
                       <Button 
-                        className="bg-white text-green-800 hover:bg-gray-100 px-6 py-2 rounded-full font-medium transform hover:scale-105 transition-all duration-200 absolute -bottom-2 right-4 shadow-lg z-10"
+                        className="bg-white text-green-800 hover:bg-gray-100 px-6 py-2 rounded-full font-medium transform hover:scale-105 transition-all duration-200 absolute -bottom-4 right-4 shadow-lg z-20"
                         onClick={() => window.location.href = '/download'}
                       >
                         Contact Us
@@ -628,13 +628,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Footer - Increased Logo Size */}
+      {/* Footer - Improved responsive design */}
       <footer className="bg-gradient-to-br from-black to-gray-900 text-white py-12 md:py-16" id="contact">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center sm:text-left">
             {/* Column 1 - Logo & Description */}
-            <div className="animate-on-scroll">
-              <div className="mb-4 flex items-center justify-start">
+            <div className="animate-on-scroll sm:col-span-2 lg:col-span-1">
+              <div className="mb-4 flex items-center justify-center sm:justify-start">
                 <img 
                   src="/TRUK Logo3.png"
                   alt="TRUK Logo"
@@ -670,7 +670,7 @@ const Index = () => {
             {/* Column 4 - Follow Us */}
             <div className="animate-on-scroll">
               <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
-              <div className="flex flex-wrap gap-4 mb-6">
+              <div className="flex flex-wrap gap-4 mb-6 justify-center sm:justify-start">
                 <Facebook 
                   className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" 
                   onClick={() => window.open('https://web.facebook.com/profile.php?id=61577130358564', '_blank')}
@@ -703,15 +703,15 @@ const Index = () => {
                 </svg>
               </div>
               <div className="space-y-2 text-gray-400 text-sm">
-                <div className="flex items-center">
+                <div className="flex items-center justify-center sm:justify-start">
                   <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
                   <span>Nairobi, Kenya</span>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center justify-center sm:justify-start">
                   <Mail className="w-4 h-4 mr-2 flex-shrink-0" />
                   <span>hello@truk.com</span>
                 </div>
-                <div className="flex items-center">
+                <div className="flex items-center justify-center sm:justify-start">
                   <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
                   <span>+254 734 260 077</span>
                 </div>

@@ -164,11 +164,11 @@ const Navbar = () => {
             </Button>
           </div>
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
+          {/* Mobile menu button - Improved visibility */}
+          <div className="md:hidden z-50">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`focus:outline-none transition-colors duration-200 ${
+              className={`focus:outline-none transition-colors duration-200 p-2 ${
                 isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
               }`}
             >
@@ -198,9 +198,9 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Improved positioning and visibility */}
         {isOpen && (
-          <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
+          <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40">
             <div className="px-2 pt-2 pb-3 space-y-1">
               <div className="block px-3 py-2 text-gray-700 font-medium">
                 Services
@@ -208,59 +208,81 @@ const Navbar = () => {
               <div className="pl-6 space-y-1">
                 <button 
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
-                  onClick={() => window.location.href = '/agritruk'}
+                  onClick={() => {
+                    setIsOpen(false);
+                    window.location.href = '/agritruk';
+                  }}
                 >
                   agriTRUK
                 </button>
                 <button 
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
-                  onClick={() => window.location.href = '/cargotruk'}
+                  onClick={() => {
+                    setIsOpen(false);
+                    window.location.href = '/cargotruk';
+                  }}
                 >
                   cargoTRUK
                 </button>
                 <button 
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
-                  onClick={() => window.location.href = '/driver-enlistment'}
+                  onClick={() => {
+                    setIsOpen(false);
+                    window.location.href = '/driver-enlistment';
+                  }}
                 >
                   Driver enlistment
                 </button>
               </div>
               <button
-                onClick={() => handleNavigation('/about')}
+                onClick={() => {
+                  setIsOpen(false);
+                  handleNavigation('/about');
+                }}
                 className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
               >
                 About Us
               </button>
               <button
-                onClick={() => handleNavigation('#faqs')}
+                onClick={() => {
+                  setIsOpen(false);
+                  handleNavigation('#faqs');
+                }}
                 className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
               >
                 FAQs
               </button>
               <button
-                onClick={() => handleNavigation('#contact')}
+                onClick={() => {
+                  setIsOpen(false);
+                  handleNavigation('#contact');
+                }}
                 className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
               >
                 Contact Us
               </button>
               <div className="px-3 py-2">
-              <button
-                className="
-                  w-full 
-                  bg-gray-900  // Deeper black than 'bg-black'
-                  hover:bg-gradient-to-r hover:from-green-800 hover:to-green-900
-                  text-white 
-                  font-medium 
-                  rounded-full
-                  transition-colors duration-300  // Smoother for color changes
-                  hover:shadow-lg hover:shadow-green-400/30
-                  transform hover:scale-[1.02]
-                  active:scale-100  // Optional: Add a click effect
-                "
-                onClick={() => window.location.href = '/download'}
-              >
-                Get Started
-              </button>
+                <button
+                  className="
+                    w-full 
+                    bg-gray-900
+                    hover:bg-gradient-to-r hover:from-green-800 hover:to-green-900
+                    text-white 
+                    font-medium 
+                    rounded-full
+                    py-2
+                    transition-colors duration-300
+                    hover:shadow-lg hover:shadow-green-400/30
+                    transform hover:scale-[1.02]
+                    active:scale-100
+                  "
+                  onClick={() => {
+                    setIsOpen(false);
+                    window.location.href = '/download';
+                  }}
+                >
+                  Get Started
+                </button>
               </div>
             </div>
           </div>
