@@ -81,16 +81,18 @@ const Index = () => {
 
   const images = [
     "/agriTrukImg4.jpg",
-    "/agriTrukImg5.jpg", 
+    "/CargoImage2.jpg",
+    "/agriTrukImg5.jpg",
+    "/CargoImage5.jpg", 
     "/agriTrukImg1.jpg",
+    "/CargoImage3.jpg",
     "/agriTrukImg2.jpg",
+    "/CargoImage4.jpg",
     "/agriTrukImg8.jpg"
   ];
 
   const howItWorksImages = [
-     "/agriTrukImg6.jpg",
-     "/agriTrukImg9.jpg",
-     "/agriTrukImg3.jpg"
+     "/CargoImage7.jpg"
   ];
 
   const feedbacks = [
@@ -174,6 +176,23 @@ const Index = () => {
             opacity: 1 !important;
             transform: translateY(0) !important;
           }
+          .parallax-bg {
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+          }
+          .hover-grow {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+          }
+          .hover-grow:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+          }
+          @media (max-width: 768px) {
+            .parallax-bg {
+              background-attachment: scroll;
+            }
+          }
         `}
       </style>
       
@@ -236,11 +255,11 @@ const Index = () => {
               <div className="space-y-4 md:space-y-6">
                 <div className="space-y-2">
                   <span className="text-black text-xl md:text-2xl font-bold block">agriTRUK</span>
-                  <span className="text-white/80 text-base md:text-lg">Farm-to-Market: <br/> For smallholder farmers, agribusinesses, and cooperatives</span>
+                  <span className="text-white/80 text-base md:text-lg">Farm-to-Market Solutions for Farmers & Agribusinesses</span>
                 </div>
                 <div className="space-y-2">
                   <span className="text-black text-xl md:text-2xl font-bold block">cargoTRUK</span>
-                  <span className="text-white/80 text-base md:text-lg">Urban and inter-city logistics simplified: <br/> For businesses, retailers, and individuals</span>
+                  <span className="text-white/80 text-base md:text-lg">Seamless Urban & Inter-City Logistics for Businessess</span>
                 </div>
               </div>
 
@@ -272,31 +291,8 @@ const Index = () => {
       {/* How it works Section with Interchanging Background and Real Images */}
       <section className="py-16 md:py-20 bg-white relative overflow-hidden" id="how-it-works">
         {/* Background Images */}
-        <div className="absolute inset-0 z-0">
-          <Carousel
-            setApi={setHowItWorksApi}
-            className="w-full h-full"
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-          >
-            <CarouselContent className="h-full">
-              {howItWorksImages.map((image, index) => (
-                <CarouselItem key={index} className="h-full">
-                  <div className="relative h-full">
-                    <img
-                      src={image}
-                      alt={`How it works ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-white/90"></div>
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
+        <div className="absolute inset-0 z-0 parallax-bg" style={{ backgroundImage: `url(${howItWorksImages[0]})` }}></div>
+        <div className="absolute inset-0 bg-white/85"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
@@ -407,7 +403,7 @@ const Index = () => {
       </section>
 
       {/* Industry Statistics Info Section - Improved responsive layout */}
-      <section className="py-8 bg-black text-white">
+      <section className="py-1 bg-black text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-4">
             {industryStats.map((stat, index) => (
@@ -487,17 +483,13 @@ const Index = () => {
       {/* Mid-Page CTA Section with Background */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <img
-            src="/agriTrukImg7.jpg"
-            alt="CTA Background"
-            className="w-full h-full object-cover"
-          />
+          <div className="absolute inset-0 parallax-bg" style={{ backgroundImage: `url(/CargoImage2.jpg)` }}></div>
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="text-white animate-on-scroll">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4">
-              Ready to transform your logistics?
+              Transform Your Logistics Today!
             </h2>
             <p className="text-lg md:text-xl mb-8">
               Earn 25% more on verified bookings. Sign-up only takes 2 minutes.
@@ -605,7 +597,7 @@ const Index = () => {
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/agriTrukImg10.jpg"
+            src="/CargoImage8.jpg"
             alt="Final CTA Background"
             className="w-full h-full object-cover"
           />
