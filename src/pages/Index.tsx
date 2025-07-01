@@ -152,6 +152,23 @@ const Index = () => {
     { number: "70%", label: "Cargo Transported by Road", sublabel: "Dominant mode in East Africa" }
   ];
 
+  const scrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleNavigation = (path: string) => {
+    if (window.location.pathname === '/' && path.startsWith('#')) {
+      scrollToSection(path.substring(1));
+    } else if (path.startsWith('#')) {
+      window.location.href = '/' + path;
+    } else {
+      window.location.href = path;
+    }
+  };
+
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (
       <span key={i} className={`text-yellow-400 ${i < rating ? 'fill-current' : 'text-gray-300'}`}>
@@ -292,7 +309,7 @@ const Index = () => {
       <section className="py-16 md:py-20 bg-white relative overflow-hidden" id="how-it-works">
         {/* Background Images */}
         <div className="absolute inset-0 z-0 parallax-bg" style={{ backgroundImage: `url(${howItWorksImages[0]})` }}></div>
-        <div className="absolute inset-0 bg-white/85"></div>
+        {/* <div className="absolute inset-0 bg-white/85"></div> */}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
@@ -313,7 +330,7 @@ const Index = () => {
               </div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Request Transport</h3>
               <p className="text-gray-600 text-sm md:text-base">
-                Submit your logistics request through our platform with detailed information about your cargo or agricultural products.
+                Submit your logistics request via our App or USSD with detailed information about your cargo or agricultural products.
               </p>
             </div>
 
@@ -324,14 +341,14 @@ const Index = () => {
               </div>
               <div className="w-full h-48 md:h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-6 overflow-hidden">
                 <img
-                  src="/MatchingImg.jpg"
+                  src="/CargoImage2.jpg"
                   alt="Two people talking with vehicle"
                   className="w-full h-full object-cover"
                 />
               </div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Match with Transporters</h3>
               <p className="text-gray-600 text-sm md:text-base">
-                Our smart system connects you with verified transporters who specialize in your type of cargo.
+                Our smart system connects you with verified transporters near you who specialize in your type of cargo.
               </p>
             </div>
 
@@ -418,72 +435,87 @@ const Index = () => {
       </section>
 
       {/* Customer Feedback Section - Full Green with Dots */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-green-800 via-green-700 to-green-900">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-8 animate-on-scroll">
-            Experiences shared by our clients
-          </h2>
-          <div className="animate-on-scroll">
-            <Carousel
-              setApi={setFeedbackApi}
-              className="w-full"
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-            >
-              <CarouselContent>
-                {feedbacks.map((feedback, index) => (
-                  <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
-                    <div className="bg-white rounded-lg p-4 md:p-6 shadow-lg mx-2 transform hover:scale-105 transition-transform duration-300">
-                      {/* Rating Stars */}
-                      <div className="flex mb-4">
-                        {renderStars(feedback.rating)}
-                      </div>
-                      
-                      {/* Comment */}
-                      <p className="text-gray-700 mb-6 italic text-sm md:text-base">
-                        "{feedback.comment}"
-                      </p>
-                      
-                      {/* Customer Info */}
-                      <div className="flex items-center">
-                        <img
-                          src={feedback.photo}
-                          alt={feedback.name}
-                          className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover mr-4"
-                        />
-                        <div>
-                          <h4 className="font-semibold text-gray-900 text-sm md:text-base">{feedback.name}</h4>
-                          <p className="text-gray-600 text-xs md:text-sm">{feedback.role}</p>
-                        </div>
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <div
+          className="absolute inset-0 parallax-bg"
+          style={{ backgroundImage: `url(/CargoImage2.jpg)` }}
+          onLoad={() => console.log('Feedback section background image loaded')}
+          onError={() => console.log('Feedback section background image failed to load')}
+        ></div>
+        <div className="absolute inset-0 bg-black/60"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 section-content">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-8">
+          Experiences shared by our clients
+        </h2>
+        <div className="section-content">
+          <Carousel
+            setApi={setFeedbackApi}
+            className="w-full"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+          >
+            <CarouselContent>
+              {feedbacks.map((feedback, index) => (
+                <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+                  <div className="bg-white rounded-lg p-4 md:p-6 shadow-lg mx-2 transform hover:scale-105 transition-transform duration-300">
+                    {/* Rating Stars */}
+                    <div className="flex mb-4">
+                      {renderStars(feedback.rating)}
+                    </div>
+
+                    {/* Comment */}
+                    <p className="text-gray-700 mb-6 italic text-sm md:text-base">
+                      "{feedback.comment}"
+                    </p>
+
+                    {/* Customer Info */}
+                    <div className="flex items-center">
+                      <img
+                        src={feedback.photo}
+                        alt={feedback.name}
+                        className="w-10 h-10 md:w-12 md:h-12 rounded-full object-cover mr-4"
+                        onLoad={() => console.log(`Feedback photo ${index} loaded`)}
+                        onError={() => console.log(`Feedback photo ${index} failed to load`)}
+                      />
+                      <div>
+                        <h4 className="font-semibold text-gray-900 text-sm md:text-base">{feedback.name}</h4>
+                        <p className="text-gray-600 text-xs md:text-sm">{feedback.role}</p>
                       </div>
                     </div>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
-          </div>
-          
-          {/* Navigation Dots */}
-          <div className="flex justify-center space-x-3 mt-8">
-            {feedbacks.map((_, index) => (
-              <button
-                key={index}
-                className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-colors duration-300 ${
-                  index === current ? 'bg-red-500 shadow-lg' : 'bg-white/50 hover:bg-white/70'
-                }`}
-                onClick={() => feedbackApi?.scrollTo(index)}
-              />
-            ))}
-          </div>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </div>
-      </section>
+
+        {/* Navigation Dots */}
+        <div className="flex justify-center space-x-3 mt-8 carousel-dots">
+          {feedbacks.map((_, index) => (
+            <button
+              key={index}
+              className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-colors duration-300 ${
+                index === current ? 'bg-red-500 shadow-lg' : 'bg-white/50 hover:bg-white/70'
+              }`}
+              onClick={() => {
+                console.log(`Nav dot ${index} clicked`);
+                feedbackApi?.scrollTo(index);
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
 
       {/* Mid-Page CTA Section with Background */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 parallax-bg" style={{ backgroundImage: `url(/CargoImage2.jpg)` }}></div>
+          <div className="absolute inset-0 parallax-bg" style={{ backgroundImage: `url(/CTAImage3.jpg)` }}></div>
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -549,8 +581,8 @@ const Index = () => {
                         <span className="text-lg font-semibold">+254 734 260 077</span>
                       </div>
                       <Button 
-                        className="bg-white text-green-800 hover:bg-gray-100 px-6 py-2 rounded-full font-medium transform hover:scale-105 transition-all duration-200 absolute -bottom-4 right-4 shadow-lg z-20"
-                        onClick={() => window.location.href = '/download'}
+                        className="bg-white text-green-800 hover:bg-gray-100 px-6 py-0 rounded-full font-medium transform hover:scale-105 transition-all duration-200 absolute -bottom-4 right-4 shadow-lg z-20"
+                        onClick={() => handleNavigation('#contact')}
                       >
                         Contact Us
                       </Button>
