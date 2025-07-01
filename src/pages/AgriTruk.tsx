@@ -1,40 +1,115 @@
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { ArrowDown } from "lucide-react";
 
 const AgriTruk = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+  const [isManuallyPlaying, setIsManuallyPlaying] = useState(false);
+  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+  const navigate = useNavigate();
+  const intervalRef = useRef<NodeJS.Timeout | null>(null);
 
-  const videoImages = [
-    "/agriTrukImg8.jpg",
-    "/agriTrukImg1.jpg",
-    "/agriTrukImg2.jpg",
-    "/agriTrukImg5.jpg"
+  const videos: string[] = [
+    "/AgriTrukVideo1.mp4",
+    "/AgriTrukVideo2.mp4",
+    "/AgriTrukVideo3.mp4",
+    "/AgriTrukVideo4.mp4",
   ];
 
   // Simulate loading for initial render
   useEffect(() => {
-    console.log('Starting loading timer');
+    console.log("Starting loading timer");
     const timer = setTimeout(() => {
-      console.log('Loading complete');
+      console.log("Loading complete");
       setIsLoading(false);
     }, 1500);
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-switch videos
+  // Manage video playback and auto-switching
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentVideoIndex((prev) => (prev + 1) % videoImages.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [videoImages.length]);
+    // Pause all videos except the current one during auto-play
+    const updateVideoPlayback = () => {
+      videoRefs.current.forEach((video, index) => {
+        if (!video) {
+          console.log(`Video ${index} ref is null`);
+          return;
+        }
+        if (index === currentVideoIndex && !isManuallyPlaying) {
+          console.log(`Attempting to play video ${index} automatically`);
+          video.play().catch((error) => {
+            console.error(`Error playing video ${index} automatically:`, error);
+          });
+        } else {
+          console.log(`Pausing video ${index}`);
+          video.pause();
+          video.currentTime = 0;
+        }
+      });
+    };
+
+    // Clear any existing interval
+    if (intervalRef.current) {
+      console.log("Clearing existing auto-switching interval");
+      clearInterval(intervalRef.current);
+    }
+
+    // Start auto-switching if not manually playing
+    if (!isManuallyPlaying) {
+      console.log("Starting auto-switching interval");
+      updateVideoPlayback();
+      intervalRef.current = setInterval(() => {
+        console.log(`Auto-switching to video ${currentVideoIndex + 1}`);
+        setCurrentVideoIndex((prev) => (prev + 1) % videos.length);
+      }, 4000);
+    }
+
+    // Cleanup on unmount or state change
+    return () => {
+      if (intervalRef.current) {
+        console.log("Clearing auto-switching interval on cleanup");
+        clearInterval(intervalRef.current);
+      }
+      videoRefs.current.forEach((video, index) => {
+        if (video) {
+          console.log(`Pausing video ${index} on cleanup`);
+          video.pause();
+        }
+      });
+    };
+  }, [currentVideoIndex, isManuallyPlaying, videos.length]);
+
+  const handlePlayVideo = () => {
+    console.log(`Play button clicked for video ${currentVideoIndex}`);
+    setIsManuallyPlaying(true);
+    const currentVideo = videoRefs.current[currentVideoIndex];
+    if (currentVideo) {
+      console.log(`Starting manual playback for video ${currentVideoIndex}`);
+      currentVideo.currentTime = 0; // Reset to start
+      currentVideo.play().catch((error) => {
+        console.error(`Error playing video ${currentVideoIndex} manually:`, error);
+        setIsManuallyPlaying(false); // Resume auto-switching if play fails
+      });
+    } else {
+      console.log(`Video ref ${currentVideoIndex} is null`);
+      setIsManuallyPlaying(false);
+    }
+  };
+
+  const handleVideoEnd = (index: number) => {
+    if (isManuallyPlaying && index === currentVideoIndex) {
+      console.log(`Video ${index} ended, resuming auto-switching`);
+      setIsManuallyPlaying(false);
+      setCurrentVideoIndex((prev) => (prev + 1) % videos.length);
+    }
+  };
 
   if (isLoading) {
-    console.log('Rendering LoadingSkeleton');
+    console.log("Rendering LoadingSkeleton");
     return <LoadingSkeleton type="hero" />;
   }
 
@@ -58,6 +133,20 @@ const AgriTruk = () => {
             font-size: 1rem;
             text-align: center;
           }
+          .video-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+          }
+          .video-container video {
+            display: none;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+          .video-container video.active {
+            display: block;
+          }
         `}
       </style>
 
@@ -70,8 +159,8 @@ const AgriTruk = () => {
             src="/agriTrukImg4.jpg"
             alt="Agricultural background"
             className="w-full h-full object-cover"
-            onLoad={() => console.log('Hero image loaded')}
-            onError={() => console.log('Hero image failed to load')}
+            onLoad={() => console.log("Hero image loaded")}
+            onError={() => console.log("Hero image failed to load")}
           />
           <div className="absolute inset-0 bg-green-800/60"></div>
         </div>
@@ -84,11 +173,11 @@ const AgriTruk = () => {
             <p className="text-xl md:text-2xl lg:text-3xl mb-8 max-w-4xl mx-auto">
               Specialized agricultural produce transportation solutions for farmers across East Africa
             </p>
-            <Button 
+            <Button
               className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
               onClick={() => {
-                console.log('Transport Your Harvest button clicked');
-                window.location.href = '/download';
+                console.log("Transport Your Harvest button clicked");
+                navigate("/download");
               }}
             >
               Transport Your Harvest
@@ -103,45 +192,61 @@ const AgriTruk = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left Side - Video Section */}
             <div className="section-content">
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-8">
                 See agriTRUK in Action
               </h2>
               <div className="relative w-full">
-                <div className="aspect-video bg-gradient-to-br from-green-100 to-green-200 rounded-lg overflow-hidden shadow-2xl relative">
-                  <img
-                    src={videoImages[currentVideoIndex]}
-                    alt="agriTRUK video preview"
-                    className="w-full h-full object-cover transition-opacity duration-500"
-                    onLoad={() => console.log('Video section image loaded')}
-                    onError={() => console.log('Video section image failed to load')}
-                  />
+                <div className="aspect-video bg-gradient-to-br from-green-100 to-green-200 rounded-lg overflow-hidden shadow-2xl relative video-container">
+                  {videos.map((videoSrc, index) => (
+                    <video
+                      key={index}
+                      ref={(el) => (videoRefs.current[index] = el)}
+                      src={videoSrc}
+                      className={`w-full h-full object-cover transition-opacity duration-500 ${
+                        index === currentVideoIndex ? "active" : ""
+                      }`}
+                      muted
+                      playsInline
+                      onLoadedData={() => console.log(`Video ${index} loaded`)}
+                      onError={() => console.log(`Video ${index} failed to load`)}
+                      onEnded={() => handleVideoEnd(index)}
+                    />
+                  ))}
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                    <Button 
+                    <Button
                       className="bg-white/90 hover:bg-white text-green-800 rounded-full p-4 transform hover:scale-110 transition-all duration-200 shadow-lg"
-                      onClick={() => {
-                        console.log('Video play button clicked');
-                        window.location.href = '/download';
-                      }}
+                      onClick={handlePlayVideo}
                     >
                       <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M8 5v14l11-7z"/>
+                        <path d="M8 5v14l11-7z" />
                       </svg>
                     </Button>
                   </div>
                 </div>
-                <p className="text-center text-gray-600 mt-4 text-sm md:text-base">
-                  Watch how farmers are transforming their logistics with agriTRUK
-                </p>
-                
+                {isManuallyPlaying && (
+                  <p className="text-center text-gray-600 mt-4 text-sm md:text-base">
+                    Playing video {currentVideoIndex + 1}. Auto-switching will resume after playback.
+                  </p>
+                )}
+                {!isManuallyPlaying && (
+                  <p className="text-center text-gray-600 mt-4 text-sm md:text-base">
+                    Watch how farmers are transforming their logistics with agriTRUK
+                  </p>
+                )}
+
                 {/* Video Navigation Dots */}
                 <div className="flex justify-center space-x-2 mt-4">
-                  {videoImages.map((_, index) => (
+                  {videos.map((_, index) => (
                     <button
                       key={index}
                       className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                        index === currentVideoIndex ? 'bg-red-500' : 'bg-gray-300 hover:bg-gray-400'
+                        index === currentVideoIndex ? "bg-red-500" : "bg-gray-300 hover:bg-gray-400"
                       }`}
-                      onClick={() => setCurrentVideoIndex(index)}
+                      onClick={() => {
+                        console.log(`Video dot ${index} clicked`);
+                        setIsManuallyPlaying(false);
+                        setCurrentVideoIndex(index);
+                      }}
                     />
                   ))}
                 </div>
@@ -261,11 +366,11 @@ const AgriTruk = () => {
           <p className="text-xl md:text-2xl mb-8">
             Join thousands of farmers already using agriTRUK for their produce transportation
           </p>
-          <Button 
+          <Button
             className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
             onClick={() => {
-              console.log('Get Started Today button clicked');
-              window.location.href = '/download';
+              console.log("Get Started Today button clicked");
+              navigate("/download");
             }}
           >
             Get Started Today

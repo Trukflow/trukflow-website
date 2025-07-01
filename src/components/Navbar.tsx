@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ChevronDown } from "lucide-react";
 import {
   DropdownMenu,
@@ -14,10 +15,15 @@ const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isOverWhiteSection, setIsOverWhiteSection] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // Simulate loading
-    const timer = setTimeout(() => setIsLoading(false), 1000);
+    const timer = setTimeout(() => {
+      console.log("Navbar loading complete");
+      setIsLoading(false);
+    }, 1000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -25,132 +31,103 @@ const Navbar = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setIsScrolled(scrollY > 50);
-      
+
       // Check if navbar is over a white background section
-      const sections = document.querySelectorAll('section');
+      const sections = document.querySelectorAll("section");
       const navbarHeight = 80; // Approximate navbar height
-      
+
       let overWhite = false;
-      sections.forEach(section => {
+      sections.forEach((section) => {
         const rect = section.getBoundingClientRect();
         const sectionTop = rect.top;
         const sectionBottom = rect.bottom;
-        
-        // Check if navbar is overlapping with this section
+
         if (sectionTop <= navbarHeight && sectionBottom >= 0) {
           const computedStyle = window.getComputedStyle(section);
           const bgColor = computedStyle.backgroundColor;
           const bgImage = computedStyle.backgroundImage;
-          
-          // More comprehensive check for white/light backgrounds
-          if (bgColor === 'rgb(255, 255, 255)' || 
-              bgColor === 'white' || 
-              bgColor.includes('248, 250, 252') || // gray-50
-              bgColor.includes('249, 250, 251') || // gray-50 alternative
-              bgColor.includes('250, 250, 250') || // whitesmoke
-              bgColor.includes('248, 248, 248') || // light gray
-              section.classList.contains('bg-white') ||
-              section.classList.contains('bg-gray-50') ||
-              section.classList.contains('from-white') ||
-              section.classList.contains('to-gray-50') ||
-              section.classList.contains('from-gray-50') ||
-              section.classList.contains('to-white') ||
-              (bgImage === 'none' && (bgColor === 'rgba(0, 0, 0, 0)' || bgColor === 'transparent'))) {
+
+          if (
+            bgColor === "rgb(255, 255, 255)" ||
+            bgColor === "white" ||
+            bgColor.includes("248, 250, 252") ||
+            bgColor.includes("249, 250, 251") ||
+            bgColor.includes("250, 250, 250") ||
+            bgColor.includes("248, 248, 248") ||
+            section.classList.contains("bg-white") ||
+            section.classList.contains("bg-gray-50") ||
+            section.classList.contains("from-white") ||
+            section.classList.contains("to-gray-50") ||
+            section.classList.contains("from-gray-50") ||
+            section.classList.contains("to-white") ||
+            (bgImage === "none" && (bgColor === "rgba(0, 0, 0, 0)" || bgColor === "transparent"))
+          ) {
             overWhite = true;
           }
         }
       });
-      
+
       setIsOverWhiteSection(overWhite);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Call once on mount
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleNavigation = (path: string) => {
-    if (window.location.pathname === '/' && path.startsWith('#')) {
-      scrollToSection(path.substring(1));
-    } else if (path.startsWith('#')) {
-      window.location.href = '/' + path;
+    console.log(`Attempting to navigate to section: ${sectionId}`);
+    if (location.pathname === "/") {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        console.log(`Scrolling to section ${sectionId} on current page`);
+        section.scrollIntoView({ behavior: "smooth" });
+      } else {
+        console.log(`Section ${sectionId} not found on /, navigating to /#${sectionId}`);
+        navigate(`/#${sectionId}`);
+      }
     } else {
-      window.location.href = path;
+      console.log(`Not on /, navigating to /#${sectionId}`);
+      navigate(`/#${sectionId}`);
     }
   };
 
-  const handleLogoClick = () => {
-    if (window.location.pathname !== '/') {
-      window.location.href = '/';
-    }
-  };
-
-  if (isLoading) {
-    return (
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-20">
-            <Skeleton className="h-16 w-24" />
-            <div className="hidden md:flex items-center space-x-8">
-              <Skeleton className="h-6 w-16" />
-              <Skeleton className="h-6 w-20" />
-              <Skeleton className="h-6 w-16" />
-              <Skeleton className="h-6 w-24" />
-              <Skeleton className="h-10 w-24" />
-            </div>
-          </div>
-        </div>
-      </nav>
-    );
-  }
-
-  // Determine text colors based on background
   const getTextColor = () => {
     if (isScrolled) {
-      return isOverWhiteSection ? 'text-red-500' : 'text-white';
+      return isOverWhiteSection ? "text-red-500" : "text-white";
     }
-    return isOverWhiteSection ? 'text-red-500' : 'text-gray-700';
+    return isOverWhiteSection ? "text-red-500" : "text-gray-700";
   };
 
   const getHoverColor = () => {
     if (isScrolled) {
-      return isOverWhiteSection ? 'hover:text-red-600' : 'hover:text-red-500';
+      return isOverWhiteSection ? "hover:text-red-600" : "hover:text-red-500";
     }
-    return isOverWhiteSection ? 'hover:text-red-600' : 'hover:text-red-500';
+    return isOverWhiteSection ? "hover:text-red-600" : "hover:text-red-500";
   };
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled 
-        ? 'bg-white/10 backdrop-blur-md border-b border-white/20 shadow-lg' 
-        : 'bg-white border-b border-gray-200 shadow-sm'
-    }`}>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/10 backdrop-blur-md border-b border-white/20 shadow-lg"
+          : "bg-white border-b border-gray-200 shadow-sm"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
-          {/* Logo - Increased Size */}
+          {/* Logo */}
           <div className="flex-shrink-0">
             <button
               onClick={() => {
-                if (window.location.pathname !== '/') {
-                  window.location.href = '/';
-                }
+                console.log("Navigating to /");
+                navigate("/");
               }}
               className={`cursor-pointer transition-colors duration-200 ${
-                isScrolled ? 'hover:opacity-80' : 'hover:opacity-90'
+                isScrolled ? "hover:opacity-80" : "hover:opacity-90"
               }`}
             >
-              <img 
-                src="/TRUK Logo3.png" 
-                alt="TRUK Logo"
-                className="h-16 w-auto"
-              />
+              <img src="/TRUK Logo3.png" alt="TRUK Logo" className="h-16 w-auto" />
             </button>
           </div>
 
@@ -158,26 +135,37 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             {/* Services Dropdown */}
             <DropdownMenu>
-              <DropdownMenuTrigger className={`flex items-center transition-colors duration-200 font-medium focus:outline-none focus:ring-0 focus:border-none ${getTextColor()} ${getHoverColor()}`}>
+              <DropdownMenuTrigger
+                className={`flex items-center transition-colors duration-200 font-medium focus:outline-none focus:ring-0 focus:border-none ${getTextColor()} ${getHoverColor()}`}
+              >
                 Services
                 <ChevronDown className="ml-1 h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-white border border-gray-200 shadow-lg z-50">
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   className="cursor-pointer hover:bg-gray-100"
-                  onClick={() => window.location.href = '/agritruk'}
+                  onClick={() => {
+                    console.log("Navigating to /agritruk");
+                    navigate("/agritruk");
+                  }}
                 >
                   agriTRUK
                 </DropdownMenuItem>
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   className="cursor-pointer hover:bg-gray-100"
-                  onClick={() => window.location.href = '/cargotruk'}
+                  onClick={() => {
+                    console.log("Navigating to /cargotruk");
+                    navigate("/cargotruk");
+                  }}
                 >
                   cargoTRUK
                 </DropdownMenuItem>
-                <DropdownMenuItem 
+                <DropdownMenuItem
                   className="cursor-pointer hover:bg-gray-100"
-                  onClick={() => window.location.href = '/driver-enlistment'}
+                  onClick={() => {
+                    console.log("Navigating to /driver-enlistment");
+                    navigate("/driver-enlistment");
+                  }}
                 >
                   Driver enlistment
                 </DropdownMenuItem>
@@ -187,81 +175,53 @@ const Navbar = () => {
             {/* Other Navigation Items */}
             <button
               onClick={() => {
-                if (window.location.pathname === '/' && '#about'.startsWith('#')) {
-                  const section = document.getElementById('about'.substring(1));
-                  if (section) {
-                    section.scrollIntoView({ behavior: 'smooth' });
-                  }
-                } else if ('#about'.startsWith('#')) {
-                  window.location.href = '/' + '#about';
-                } else {
-                  window.location.href = '/about';
-                }
+                console.log("Navigating to /about");
+                navigate("/about");
               }}
               className={`transition-colors duration-200 font-medium ${getTextColor()} ${getHoverColor()}`}
             >
               About Us
             </button>
             <button
-              onClick={() => {
-                if (window.location.pathname === '/' && '#faqs'.startsWith('#')) {
-                  const section = document.getElementById('faqs'.substring(1));
-                  if (section) {
-                    section.scrollIntoView({ behavior: 'smooth' });
-                  }
-                } else if ('#faqs'.startsWith('#')) {
-                  window.location.href = '/' + '#faqs';
-                } else {
-                  window.location.href = '#faqs';
-                }
-              }}
+              onClick={() => scrollToSection("faqs")}
               className={`transition-colors duration-200 font-medium ${getTextColor()} ${getHoverColor()}`}
             >
               FAQs
             </button>
             <button
-              onClick={() => {
-                if (window.location.pathname === '/' && '#contact'.startsWith('#')) {
-                  const section = document.getElementById('contact'.substring(1));
-                  if (section) {
-                    section.scrollIntoView({ behavior: 'smooth' });
-                  }
-                } else if ('#contact'.startsWith('#')) {
-                  window.location.href = '/' + '#contact';
-                } else {
-                  window.location.href = '#contact';
-                }
-              }}
+              onClick={() => scrollToSection("contact")}
               className={`transition-colors duration-200 font-medium ${getTextColor()} ${getHoverColor()}`}
             >
               Contact Us
             </button>
 
-            {/* Get Started Button - Enhanced styling */}
-            <Button 
+            {/* Get Started Button */}
+            <Button
               className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white transition-all duration-300 font-medium px-6 rounded-full transform hover:scale-105 shadow-2xl hover:shadow-gray-500/30"
-              onClick={() => window.location.href = '/download'}
+              onClick={() => {
+                console.log("Navigating to /download");
+                navigate("/download");
+              }}
             >
               Get Started
             </Button>
           </div>
 
-          {/* Mobile menu button - Improved visibility */}
+          {/* Mobile menu button */}
           <div className="md:hidden z-50">
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`focus:outline-none transition-colors duration-200 p-2 ${
-                isScrolled 
-                  ? (isOverWhiteSection ? 'text-red-500 hover:text-red-600' : 'text-white hover:text-gray-200')
-                  : (isOverWhiteSection ? 'text-red-500 hover:text-red-600' : 'text-gray-700 hover:text-gray-900')
+                isScrolled
+                  ? isOverWhiteSection
+                    ? "text-red-500 hover:text-red-600"
+                    : "text-white hover:text-gray-200"
+                  : isOverWhiteSection
+                  ? "text-red-500 hover:text-red-600"
+                  : "text-gray-700 hover:text-gray-900"
               }`}
             >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 {isOpen ? (
                   <path
                     strokeLinecap="round"
@@ -282,37 +242,38 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation - Improved positioning and visibility */}
+        {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <div className="block px-3 py-2 text-gray-700 font-medium">
-                Services
-              </div>
+              <div className="block px-3 py-2 text-gray-700 font-medium">Services</div>
               <div className="pl-6 space-y-1">
-                <button 
+                <button
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
                   onClick={() => {
+                    console.log("Navigating to /agritruk");
                     setIsOpen(false);
-                    window.location.href = '/agritruk';
+                    navigate("/agritruk");
                   }}
                 >
                   agriTRUK
                 </button>
-                <button 
+                <button
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
                   onClick={() => {
+                    console.log("Navigating to /cargotruk");
                     setIsOpen(false);
-                    window.location.href = '/cargotruk';
+                    navigate("/cargotruk");
                   }}
                 >
                   cargoTRUK
                 </button>
-                <button 
+                <button
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
                   onClick={() => {
+                    console.log("Navigating to /driver-enlistment");
                     setIsOpen(false);
-                    window.location.href = '/driver-enlistment';
+                    navigate("/driver-enlistment");
                   }}
                 >
                   Driver enlistment
@@ -320,8 +281,9 @@ const Navbar = () => {
               </div>
               <button
                 onClick={() => {
+                  console.log("Navigating to /about");
                   setIsOpen(false);
-                  window.location.href = '/about';
+                  navigate("/about");
                 }}
                 className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
               >
@@ -329,17 +291,9 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => {
+                  console.log("Navigating to /#faqs");
                   setIsOpen(false);
-                  if (window.location.pathname === '/' && '#faqs'.startsWith('#')) {
-                    const section = document.getElementById('faqs'.substring(1));
-                    if (section) {
-                      section.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  } else if ('#faqs'.startsWith('#')) {
-                    window.location.href = '/' + '#faqs';
-                  } else {
-                    window.location.href = '#faqs';
-                  }
+                  scrollToSection("faqs");
                 }}
                 className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
               >
@@ -347,17 +301,9 @@ const Navbar = () => {
               </button>
               <button
                 onClick={() => {
+                  console.log("Navigating to /#contact");
                   setIsOpen(false);
-                  if (window.location.pathname === '/' && '#contact'.startsWith('#')) {
-                    const section = document.getElementById('contact'.substring(1));
-                    if (section) {
-                      section.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  } else if ('#contact'.startsWith('#')) {
-                    window.location.href = '/' + '#contact';
-                  } else {
-                    window.location.href = '#contact';
-                  }
+                  scrollToSection("contact");
                 }}
                 className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
               >
@@ -379,8 +325,9 @@ const Navbar = () => {
                     active:scale-100
                   "
                   onClick={() => {
+                    console.log("Navigating to /download");
                     setIsOpen(false);
-                    window.location.href = '/download';
+                    navigate("/download");
                   }}
                 >
                   Get Started
