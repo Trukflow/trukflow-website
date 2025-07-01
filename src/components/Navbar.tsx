@@ -42,10 +42,19 @@ const Navbar = () => {
           const bgColor = computedStyle.backgroundColor;
           const bgImage = computedStyle.backgroundImage;
           
-          // Check if section has white/light background
+          // More comprehensive check for white/light backgrounds
           if (bgColor === 'rgb(255, 255, 255)' || 
               bgColor === 'white' || 
               bgColor.includes('248, 250, 252') || // gray-50
+              bgColor.includes('249, 250, 251') || // gray-50 alternative
+              bgColor.includes('250, 250, 250') || // whitesmoke
+              bgColor.includes('248, 248, 248') || // light gray
+              section.classList.contains('bg-white') ||
+              section.classList.contains('bg-gray-50') ||
+              section.classList.contains('from-white') ||
+              section.classList.contains('to-gray-50') ||
+              section.classList.contains('from-gray-50') ||
+              section.classList.contains('to-white') ||
               (bgImage === 'none' && (bgColor === 'rgba(0, 0, 0, 0)' || bgColor === 'transparent'))) {
             overWhite = true;
           }
@@ -56,6 +65,7 @@ const Navbar = () => {
     };
 
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Call once on mount
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -106,14 +116,14 @@ const Navbar = () => {
     if (isScrolled) {
       return isOverWhiteSection ? 'text-red-500' : 'text-white';
     }
-    return 'text-gray-700';
+    return isOverWhiteSection ? 'text-red-500' : 'text-gray-700';
   };
 
   const getHoverColor = () => {
     if (isScrolled) {
       return isOverWhiteSection ? 'hover:text-red-600' : 'hover:text-red-500';
     }
-    return 'hover:text-red-500';
+    return isOverWhiteSection ? 'hover:text-red-600' : 'hover:text-red-500';
   };
 
   return (
@@ -127,7 +137,11 @@ const Navbar = () => {
           {/* Logo - Increased Size */}
           <div className="flex-shrink-0">
             <button
-              onClick={handleLogoClick}
+              onClick={() => {
+                if (window.location.pathname !== '/') {
+                  window.location.href = '/';
+                }
+              }}
               className={`cursor-pointer transition-colors duration-200 ${
                 isScrolled ? 'hover:opacity-80' : 'hover:opacity-90'
               }`}
@@ -172,19 +186,52 @@ const Navbar = () => {
 
             {/* Other Navigation Items */}
             <button
-              onClick={() => handleNavigation('/about')}
+              onClick={() => {
+                if (window.location.pathname === '/' && '#about'.startsWith('#')) {
+                  const section = document.getElementById('about'.substring(1));
+                  if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                  }
+                } else if ('#about'.startsWith('#')) {
+                  window.location.href = '/' + '#about';
+                } else {
+                  window.location.href = '/about';
+                }
+              }}
               className={`transition-colors duration-200 font-medium ${getTextColor()} ${getHoverColor()}`}
             >
               About Us
             </button>
             <button
-              onClick={() => handleNavigation('#faqs')}
+              onClick={() => {
+                if (window.location.pathname === '/' && '#faqs'.startsWith('#')) {
+                  const section = document.getElementById('faqs'.substring(1));
+                  if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                  }
+                } else if ('#faqs'.startsWith('#')) {
+                  window.location.href = '/' + '#faqs';
+                } else {
+                  window.location.href = '#faqs';
+                }
+              }}
               className={`transition-colors duration-200 font-medium ${getTextColor()} ${getHoverColor()}`}
             >
               FAQs
             </button>
             <button
-              onClick={() => handleNavigation('#contact')}
+              onClick={() => {
+                if (window.location.pathname === '/' && '#contact'.startsWith('#')) {
+                  const section = document.getElementById('contact'.substring(1));
+                  if (section) {
+                    section.scrollIntoView({ behavior: 'smooth' });
+                  }
+                } else if ('#contact'.startsWith('#')) {
+                  window.location.href = '/' + '#contact';
+                } else {
+                  window.location.href = '#contact';
+                }
+              }}
               className={`transition-colors duration-200 font-medium ${getTextColor()} ${getHoverColor()}`}
             >
               Contact Us
@@ -192,7 +239,7 @@ const Navbar = () => {
 
             {/* Get Started Button - Enhanced styling */}
             <Button 
-              className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white transition-all duration-300 font-medium px-6 rounded-full transform hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-gray-500/30"
+              className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white transition-all duration-300 font-medium px-6 rounded-full transform hover:scale-105 shadow-2xl hover:shadow-gray-500/30"
               onClick={() => window.location.href = '/download'}
             >
               Get Started
@@ -206,7 +253,7 @@ const Navbar = () => {
               className={`focus:outline-none transition-colors duration-200 p-2 ${
                 isScrolled 
                   ? (isOverWhiteSection ? 'text-red-500 hover:text-red-600' : 'text-white hover:text-gray-200')
-                  : 'text-gray-700 hover:text-gray-900'
+                  : (isOverWhiteSection ? 'text-red-500 hover:text-red-600' : 'text-gray-700 hover:text-gray-900')
               }`}
             >
               <svg
@@ -274,7 +321,7 @@ const Navbar = () => {
               <button
                 onClick={() => {
                   setIsOpen(false);
-                  handleNavigation('/about');
+                  window.location.href = '/about';
                 }}
                 className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
               >
@@ -283,7 +330,16 @@ const Navbar = () => {
               <button
                 onClick={() => {
                   setIsOpen(false);
-                  handleNavigation('#faqs');
+                  if (window.location.pathname === '/' && '#faqs'.startsWith('#')) {
+                    const section = document.getElementById('faqs'.substring(1));
+                    if (section) {
+                      section.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  } else if ('#faqs'.startsWith('#')) {
+                    window.location.href = '/' + '#faqs';
+                  } else {
+                    window.location.href = '#faqs';
+                  }
                 }}
                 className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
               >
@@ -292,7 +348,16 @@ const Navbar = () => {
               <button
                 onClick={() => {
                   setIsOpen(false);
-                  handleNavigation('#contact');
+                  if (window.location.pathname === '/' && '#contact'.startsWith('#')) {
+                    const section = document.getElementById('contact'.substring(1));
+                    if (section) {
+                      section.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  } else if ('#contact'.startsWith('#')) {
+                    window.location.href = '/' + '#contact';
+                  } else {
+                    window.location.href = '#contact';
+                  }
                 }}
                 className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
               >
@@ -309,10 +374,9 @@ const Navbar = () => {
                     rounded-full
                     py-2
                     transition-all duration-300
-                    hover:shadow-lg hover:shadow-green-400/30
+                    shadow-2xl hover:shadow-green-400/30
                     transform hover:scale-[1.02]
                     active:scale-100
-                    shadow-md
                   "
                   onClick={() => {
                     setIsOpen(false);
