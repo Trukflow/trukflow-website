@@ -120,60 +120,60 @@ const CargoTruk = () => {
         </div>
       </section>
 
-      {/* How it Works Section - Vertical Format */}
+      {/* How it Works Section - Horizontal Format */}
       <section className="py-16 md:py-20 bg-white relative overflow-hidden z-10" id="how-it-works">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 section-content">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 section-content">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16">
             How it works
           </h2>
-          <div className="space-y-8">
+          <div className="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
             {/* Step 1 */}
-            <div className="flex items-center justify-center">
-              <div className="text-center bg-white p-6 rounded-lg shadow-lg max-w-md">
-                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
-                  1
-                </div>
-                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Request Transport</h3>
-                <p className="text-gray-600 text-sm md:text-base">
-                  Submit your cargo transport request through our platform with detailed information about your shipment.
-                </p>
+            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+                1
               </div>
+              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Request Transport</h3>
+              <p className="text-gray-600 text-sm md:text-base">
+                Submit your cargo transport request through our platform with detailed information about your shipment.
+              </p>
             </div>
             
-            {/* Arrow Down */}
-            <div className="flex justify-center">
+            {/* Arrow Right for desktop, down for mobile */}
+            <div className="hidden md:flex justify-center">
+              <ArrowDown className="w-8 h-8 text-green-600 rotate-270" style={{transform: 'rotate(-90deg)'}} />
+            </div>
+            <div className="flex justify-center md:hidden">
               <ArrowDown className="w-8 h-8 text-green-600" />
             </div>
 
             {/* Step 2 */}
-            <div className="flex items-center justify-center">
-              <div className="text-center bg-white p-6 rounded-lg shadow-lg max-w-md">
-                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
-                  2
-                </div>
-                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Match with Transporters</h3>
-                <p className="text-gray-600 text-sm md:text-base">
-                  Our smart system connects you with verified transporters who specialize in cargo shipping.
-                </p>
+            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+                2
               </div>
+              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Match with Transporters</h3>
+              <p className="text-gray-600 text-sm md:text-base">
+                Our smart system connects you with verified transporters who specialize in cargo shipping.
+              </p>
             </div>
 
-            {/* Arrow Down */}
-            <div className="flex justify-center">
+            {/* Arrow Right for desktop, down for mobile */}
+            <div className="hidden md:flex justify-center">
+              <ArrowDown className="w-8 h-8 text-green-600 rotate-270" style={{transform: 'rotate(-90deg)'}} />
+            </div>
+            <div className="flex justify-center md:hidden">
               <ArrowDown className="w-8 h-8 text-green-600" />
             </div>
 
             {/* Step 3 */}
-            <div className="flex items-center justify-center">
-              <div className="text-center bg-white p-6 rounded-lg shadow-lg max-w-md">
-                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
-                  3
-                </div>
-                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Track & Deliver</h3>
-                <p className="text-gray-600 text-sm md:text-base">
-                  Monitor your shipment in real-time and receive updates until safe delivery to your destination.
-                </p>
+            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+                3
               </div>
+              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Track & Deliver</h3>
+              <p className="text-gray-600 text-sm md:text-base">
+                Monitor your shipment in real-time and receive updates until safe delivery to your destination.
+              </p>
             </div>
           </div>
         </div>

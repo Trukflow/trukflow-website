@@ -273,11 +273,6 @@ const Index = () => {
                 </div>
               </div>
 
-              {/* Dial Option - Moved up */}
-              <div className="text-white text-lg md:text-xl">
-                Or dial *000# to book your transport
-              </div>
-
               {/* Buttons - Larger Size - All lead to /download */}
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                 <Button 
@@ -292,6 +287,11 @@ const Index = () => {
                 >
                   Request demo
                 </Button>
+              </div>
+
+              {/* Dial Option - Moved back to original position */}
+              <div className="text-white text-lg md:text-xl">
+                Or dial *000# to book your transport
               </div>
             </div>
           </div>
@@ -310,7 +310,7 @@ const Index = () => {
           </h2>
           <div className="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
             {/* Step 1 */}
-            <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg relative">
+            <div className="text-center animate-on-scroll bg-gradient-to-br from-green-50 to-green-100 backdrop-blur-sm p-6 rounded-lg shadow-lg relative border-2 border-green-500">
               <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
                 1
               </div>
@@ -328,7 +328,7 @@ const Index = () => {
             </div>
 
             {/* Step 2 */}
-            <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg relative">
+            <div className="text-center animate-on-scroll bg-gradient-to-br from-green-50 to-green-100 backdrop-blur-sm p-6 rounded-lg shadow-lg relative border-2 border-green-500">
               <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
                 2
               </div>
@@ -346,7 +346,7 @@ const Index = () => {
             </div>
 
             {/* Step 3 */}
-            <div className="text-center animate-on-scroll bg-white/80 backdrop-blur-sm p-6 rounded-lg shadow-lg relative">
+            <div className="text-center animate-on-scroll bg-gradient-to-br from-green-50 to-green-100 backdrop-blur-sm p-6 rounded-lg shadow-lg relative border-2 border-green-500">
               <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
                 3
               </div>
