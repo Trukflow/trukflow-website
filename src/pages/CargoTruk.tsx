@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
@@ -70,7 +71,7 @@ const CargoTruk = () => {
               Reliable freight and cargo transportation services for businesses across East Africa
             </p>
             <Button 
-              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-red-500/30"
               onClick={() => {
                 console.log('Ship Your Cargo Now button clicked');
                 window.location.href = '/download';
@@ -189,7 +190,7 @@ const CargoTruk = () => {
             Join businesses across East Africa using cargoTRUK for their logistics needs
           </p>
           <Button 
-            className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+            className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-red-500/30"
             onClick={() => {
               console.log('Get Started Today button clicked');
               window.location.href = '/download';

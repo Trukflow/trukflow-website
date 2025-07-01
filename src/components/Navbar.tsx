@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import {
@@ -14,6 +13,7 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [isOverWhiteSection, setIsOverWhiteSection] = useState(false);
 
   useEffect(() => {
     // Simulate loading
@@ -25,6 +25,34 @@ const Navbar = () => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       setIsScrolled(scrollY > 50);
+      
+      // Check if navbar is over a white background section
+      const sections = document.querySelectorAll('section');
+      const navbarHeight = 80; // Approximate navbar height
+      
+      let overWhite = false;
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        const sectionTop = rect.top;
+        const sectionBottom = rect.bottom;
+        
+        // Check if navbar is overlapping with this section
+        if (sectionTop <= navbarHeight && sectionBottom >= 0) {
+          const computedStyle = window.getComputedStyle(section);
+          const bgColor = computedStyle.backgroundColor;
+          const bgImage = computedStyle.backgroundImage;
+          
+          // Check if section has white/light background
+          if (bgColor === 'rgb(255, 255, 255)' || 
+              bgColor === 'white' || 
+              bgColor.includes('248, 250, 252') || // gray-50
+              (bgImage === 'none' && (bgColor === 'rgba(0, 0, 0, 0)' || bgColor === 'transparent'))) {
+            overWhite = true;
+          }
+        }
+      });
+      
+      setIsOverWhiteSection(overWhite);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -73,6 +101,21 @@ const Navbar = () => {
     );
   }
 
+  // Determine text colors based on background
+  const getTextColor = () => {
+    if (isScrolled) {
+      return isOverWhiteSection ? 'text-red-500' : 'text-white';
+    }
+    return 'text-gray-700';
+  };
+
+  const getHoverColor = () => {
+    if (isScrolled) {
+      return isOverWhiteSection ? 'hover:text-red-600' : 'hover:text-red-500';
+    }
+    return 'hover:text-red-500';
+  };
+
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
       isScrolled 
@@ -101,9 +144,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-8">
             {/* Services Dropdown */}
             <DropdownMenu>
-              <DropdownMenuTrigger className={`flex items-center transition-colors duration-200 font-medium focus:outline-none focus:ring-0 focus:border-none ${
-                isScrolled ? 'text-white hover:text-red-500' : 'text-gray-700 hover:text-red-500'
-              }`}>
+              <DropdownMenuTrigger className={`flex items-center transition-colors duration-200 font-medium focus:outline-none focus:ring-0 focus:border-none ${getTextColor()} ${getHoverColor()}`}>
                 Services
                 <ChevronDown className="ml-1 h-4 w-4" />
               </DropdownMenuTrigger>
@@ -132,32 +173,26 @@ const Navbar = () => {
             {/* Other Navigation Items */}
             <button
               onClick={() => handleNavigation('/about')}
-              className={`transition-colors duration-200 font-medium ${
-                isScrolled ? 'text-white hover:text-red-500' : 'text-gray-700 hover:text-red-500'
-              }`}
+              className={`transition-colors duration-200 font-medium ${getTextColor()} ${getHoverColor()}`}
             >
               About Us
             </button>
             <button
               onClick={() => handleNavigation('#faqs')}
-              className={`transition-colors duration-200 font-medium ${
-                isScrolled ? 'text-white hover:text-red-500' : 'text-gray-700 hover:text-red-500'
-              }`}
+              className={`transition-colors duration-200 font-medium ${getTextColor()} ${getHoverColor()}`}
             >
               FAQs
             </button>
             <button
               onClick={() => handleNavigation('#contact')}
-              className={`transition-colors duration-200 font-medium ${
-                isScrolled ? 'text-white hover:text-red-500' : 'text-gray-700 hover:text-red-500'
-              }`}
+              className={`transition-colors duration-200 font-medium ${getTextColor()} ${getHoverColor()}`}
             >
               Contact Us
             </button>
 
-            {/* Get Started Button - Fixed to be black */}
+            {/* Get Started Button - Enhanced styling */}
             <Button 
-              className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white transition-all duration-200 font-medium px-6 rounded-full transform hover:scale-105"
+              className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white transition-all duration-300 font-medium px-6 rounded-full transform hover:scale-105 shadow-lg hover:shadow-xl hover:shadow-gray-500/30"
               onClick={() => window.location.href = '/download'}
             >
               Get Started
@@ -169,7 +204,9 @@ const Navbar = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`focus:outline-none transition-colors duration-200 p-2 ${
-                isScrolled ? 'text-white hover:text-gray-200' : 'text-gray-700 hover:text-gray-900'
+                isScrolled 
+                  ? (isOverWhiteSection ? 'text-red-500 hover:text-red-600' : 'text-white hover:text-gray-200')
+                  : 'text-gray-700 hover:text-gray-900'
               }`}
             >
               <svg
@@ -271,10 +308,11 @@ const Navbar = () => {
                     font-medium 
                     rounded-full
                     py-2
-                    transition-colors duration-300
+                    transition-all duration-300
                     hover:shadow-lg hover:shadow-green-400/30
                     transform hover:scale-[1.02]
                     active:scale-100
+                    shadow-md
                   "
                   onClick={() => {
                     setIsOpen(false);
