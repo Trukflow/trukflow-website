@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import {
@@ -367,7 +366,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Who We Are Section - Moved after Hero */}
+      {/* Why We Are Section - Moved after Hero */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-6 animate-on-scroll">
@@ -387,7 +386,7 @@ const Index = () => {
               <h3 className="text-xl font-bold text-gray-900 mb-3">Market Leader</h3>
               <p className="text-gray-600">Trusted by 10,000+ users across East Africa with the largest verified transporter network</p>
             </div>
-            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg shadow-lg border-2 border-green-200">
+            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg shadow-lg border-2 border-green-500">
               <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-8 h-8 text-white" />
               </div>

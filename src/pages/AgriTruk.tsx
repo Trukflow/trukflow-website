@@ -1,4 +1,3 @@
-
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
@@ -215,7 +214,7 @@ const AgriTruk = () => {
         </div>
       </section>
 
-      {/* Features Section */}
+      {/* Benefits Section */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16">
@@ -224,29 +223,29 @@ const AgriTruk = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             <div className="text-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-white text-2xl">🌾</span>
+                <span className="text-white text-2xl">🚜</span>
               </div>
-              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Fresh Produce Care</h3>
+              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Farm-to-Market</h3>
               <p className="text-gray-600 text-sm md:text-base">
-                Specialized handling for agricultural products ensuring your harvest reaches the market fresh and in perfect condition.
+                Direct transportation from your farm to markets, ensuring fresh produce reaches consumers quickly.
+              </p>
+            </div>
+            <div className="text-center md:col-span-2 lg:col-span-1 bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-green-500">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-6">
+                <span className="text-white text-2xl">❄️</span>
+              </div>
+              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Cold Chain Storage</h3>
+              <p className="text-gray-600 text-sm md:text-base">
+                Temperature-controlled transportation to maintain product quality and extend shelf life.
               </p>
             </div>
             <div className="text-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-orange-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-white text-2xl">⚡</span>
+                <span className="text-white text-2xl">📊</span>
               </div>
-              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Fast Market Access</h3>
+              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Real-time Tracking</h3>
               <p className="text-gray-600 text-sm md:text-base">
-                Quick transportation solutions that get your produce to market faster, reducing post-harvest losses.
-              </p>
-            </div>
-            <div className="text-center md:col-span-2 lg:col-span-1 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-6">
-                <span className="text-white text-2xl">💰</span>
-              </div>
-              <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Fair Pricing</h3>
-              <p className="text-gray-600 text-sm md:text-base">
-                Transparent and competitive pricing that helps farmers maximize their profits while minimizing transport costs.
+                Monitor your agricultural products throughout the journey with live GPS tracking and updates.
               </p>
             </div>
           </div>

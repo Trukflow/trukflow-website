@@ -1,8 +1,8 @@
-
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import { ArrowDown } from "lucide-react";
 
 const CargoTruk = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -98,7 +98,7 @@ const CargoTruk = () => {
                 Your cargo is handled with utmost care using professional loading equipment and secure packaging methods.
               </p>
             </div>
-            <div className="text-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="text-center md:col-span-2 lg:col-span-1 bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-green-500">
               <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-2xl">🛡️</span>
               </div>
@@ -107,7 +107,7 @@ const CargoTruk = () => {
                 Full insurance coverage for your shipments ensuring peace of mind during transportation.
               </p>
             </div>
-            <div className="text-center md:col-span-2 lg:col-span-1 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+            <div className="text-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-2xl">🌍</span>
               </div>
@@ -120,57 +120,60 @@ const CargoTruk = () => {
         </div>
       </section>
 
-      {/* How it Works Section */}
+      {/* How it Works Section - Vertical Format */}
       <section className="py-16 md:py-20 bg-white relative overflow-hidden z-10" id="how-it-works">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 section-content">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 section-content">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16">
             How it works
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-green-100 to-green-200 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&h=300&fit=crop"
-                  alt="Request Transport"
-                  className="w-full h-full object-cover"
-                  onLoad={() => console.log('How It Works image 1 loaded')}
-                  onError={() => console.log('How It Works image 1 failed to load')}
-                />
+          <div className="space-y-8">
+            {/* Step 1 */}
+            <div className="flex items-center justify-center">
+              <div className="text-center bg-white p-6 rounded-lg shadow-lg max-w-md">
+                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+                  1
+                </div>
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Request Transport</h3>
+                <p className="text-gray-600 text-sm md:text-base">
+                  Submit your cargo transport request through our platform with detailed information about your shipment.
+                </p>
               </div>
-              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Request Transport</h3>
-              <p className="text-gray-600 text-sm md:text-base">
-                Submit your cargo transport request through our platform with detailed information about your shipment.
-              </p>
             </div>
-            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=400&h=300&fit=crop"
-                  alt="Match with Transporters"
-                  className="w-full h-full object-cover"
-                  onLoad={() => console.log('How It Works image 2 loaded')}
-                  onError={() => console.log('How It Works image 2 failed to load')}
-                />
-              </div>
-              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Match with Transporters</h3>
-              <p className="text-gray-600 text-sm md:text-base">
-                Our smart system connects you with verified transporters who specialize in cargo shipping.
-              </p>
+            
+            {/* Arrow Down */}
+            <div className="flex justify-center">
+              <ArrowDown className="w-8 h-8 text-green-600" />
             </div>
-            <div className="text-center md:col-span-2 lg:col-span-1 bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-red-100 to-red-200 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1500673922987-e212871fec22?w=400&h=300&fit=crop"
-                  alt="Track & Deliver"
-                  className="w-full h-full object-cover"
-                  onLoad={() => console.log('How It Works image 3 loaded')}
-                  onError={() => console.log('How It Works image 3 failed to load')}
-                />
+
+            {/* Step 2 */}
+            <div className="flex items-center justify-center">
+              <div className="text-center bg-white p-6 rounded-lg shadow-lg max-w-md">
+                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+                  2
+                </div>
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Match with Transporters</h3>
+                <p className="text-gray-600 text-sm md:text-base">
+                  Our smart system connects you with verified transporters who specialize in cargo shipping.
+                </p>
               </div>
-              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Track & Deliver</h3>
-              <p className="text-gray-600 text-sm md:text-base">
-                Monitor your shipment in real-time and receive updates until safe delivery to your destination.
-              </p>
+            </div>
+
+            {/* Arrow Down */}
+            <div className="flex justify-center">
+              <ArrowDown className="w-8 h-8 text-green-600" />
+            </div>
+
+            {/* Step 3 */}
+            <div className="flex items-center justify-center">
+              <div className="text-center bg-white p-6 rounded-lg shadow-lg max-w-md">
+                <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+                  3
+                </div>
+                <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Track & Deliver</h3>
+                <p className="text-gray-600 text-sm md:text-base">
+                  Monitor your shipment in real-time and receive updates until safe delivery to your destination.
+                </p>
+              </div>
             </div>
           </div>
         </div>

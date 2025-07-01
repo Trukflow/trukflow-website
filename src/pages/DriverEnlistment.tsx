@@ -1,8 +1,8 @@
-
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import { ArrowDown } from "lucide-react";
 
 const DriverEnlistment = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -119,87 +119,93 @@ const DriverEnlistment = () => {
         </div>
       </section>
 
-      {/* How to Join Section */}
-      <section className="py-16 md:py-20 bg-white relative overflow-hidden z-10" id="how-to-join">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 section-content">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16">
-            How to Join
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
-            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-green-100 to-green-200 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
-                <img
-                  src="/OrderingImg.jpg"
-                  alt="Sign up online"
-                  className="w-full h-full object-cover"
-                  onLoad={() => console.log('How to Join image 1 loaded')}
-                  onError={() => console.log('How to Join image 1 failed to load')}
-                />
-              </div>
-              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Sign Up Online</h3>
-              <p className="text-gray-600 text-sm md:text-base">
-                Complete our simple online registration form with your details and vehicle information.
-              </p>
-            </div>
-            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
-                <img
-                  src="/agriTrukImg2.jpg"
-                  alt="Get verified"
-                  className="w-full h-full object-cover"
-                  onLoad={() => console.log('How to Join image 2 loaded')}
-                  onError={() => console.log('How to Join image 2 failed to load')}
-                />
-              </div>
-              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Get Verified</h3>
-              <p className="text-gray-600 text-sm md:text-base">
-                Submit required documents for verification and pass our quality standards check.
-              </p>
-            </div>
-            <div className="text-center md:col-span-2 lg:col-span-1 bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-red-100 to-red-200 rounded-lg mb-6 flex items-center justify-center overflow-hidden">
-                <img
-                  src="/LiveTracking.jpg"
-                  alt="Start earning"
-                  className="w-full h-full object-cover"
-                  onLoad={() => console.log('How to Join image 3 loaded')}
-                  onError={() => console.log('How to Join image 3 failed to load')}
-                />
-              </div>
-              <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Start Earning</h3>
-              <p className="text-gray-600 text-sm md:text-base">
-                Once approved, start receiving bookings and earning more with TRUK's premium service network.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Requirements Section */}
+      {/* Requirements and How to Join Section - Side by Side */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white relative z-10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
-          <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12">
-            Requirements
-          </h2>
-          <div className="bg-white p-8 rounded-lg shadow-lg">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Vehicle Requirements</h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Valid vehicle registration</li>
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Comprehensive insurance</li>
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Regular maintenance records</li>
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Good vehicle condition</li>
-                </ul>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
+            {/* Requirements Section - Left Side */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12">
+                Requirements
+              </h2>
+              <div className="bg-white p-8 rounded-lg shadow-lg">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Vehicle Requirements</h3>
+                    <ul className="space-y-2 text-gray-600">
+                      <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Valid vehicle registration</li>
+                      <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Comprehensive insurance</li>
+                      <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Regular maintenance records</li>
+                      <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Good vehicle condition</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Driver Requirements</h3>
+                    <ul className="space-y-2 text-gray-600">
+                      <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Valid driving license</li>
+                      <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Clean driving record</li>
+                      <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Professional attitude</li>
+                      <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Smartphone for app usage</li>
+                    </ul>
+                  </div>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Driver Requirements</h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Valid driving license</li>
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Clean driving record</li>
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Professional attitude</li>
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Smartphone for app usage</li>
-                </ul>
+            </div>
+
+            {/* How to Join Section - Right Side - Vertical Format */}
+            <div>
+              <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12">
+                How to Join
+              </h2>
+              <div className="space-y-8">
+                {/* Step 1 */}
+                <div className="flex items-center justify-center">
+                  <div className="text-center bg-white p-6 rounded-lg shadow-lg max-w-md">
+                    <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+                      1
+                    </div>
+                    <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Sign Up Online</h3>
+                    <p className="text-gray-600 text-sm md:text-base">
+                      Complete our simple online registration form with your details and vehicle information.
+                    </p>
+                  </div>
+                </div>
+                
+                {/* Arrow Down */}
+                <div className="flex justify-center">
+                  <ArrowDown className="w-8 h-8 text-green-600" />
+                </div>
+
+                {/* Step 2 */}
+                <div className="flex items-center justify-center">
+                  <div className="text-center bg-white p-6 rounded-lg shadow-lg max-w-md">
+                    <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+                      2
+                    </div>
+                    <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Get Verified</h3>
+                    <p className="text-gray-600 text-sm md:text-base">
+                      Submit required documents for verification and pass our quality standards check.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Arrow Down */}
+                <div className="flex justify-center">
+                  <ArrowDown className="w-8 h-8 text-green-600" />
+                </div>
+
+                {/* Step 3 */}
+                <div className="flex items-center justify-center">
+                  <div className="text-center bg-white p-6 rounded-lg shadow-lg max-w-md">
+                    <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+                      3
+                    </div>
+                    <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Start Earning</h3>
+                    <p className="text-gray-600 text-sm md:text-base">
+                      Once approved, start receiving bookings and earning more with TRUK's premium service network.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
