@@ -341,7 +341,7 @@ const Index = () => {
               </div>
               <div className="w-full h-48 md:h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-6 overflow-hidden">
                 <img
-                  src="/CargoImage2.jpg"
+                  src="/agriTrukImg2.jpg"
                   alt="Two people talking with vehicle"
                   className="w-full h-full object-cover"
                 />
@@ -515,7 +515,7 @@ const Index = () => {
       {/* Mid-Page CTA Section with Background */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 parallax-bg" style={{ backgroundImage: `url(/CTAImage3.jpg)` }}></div>
+          <div className="absolute inset-0 parallax-bg" style={{ backgroundImage: `url(/CargoImage9.jpg)` }}></div>
           <div className="absolute inset-0 bg-black/60"></div>
         </div>
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">

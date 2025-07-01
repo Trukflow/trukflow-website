@@ -48,10 +48,10 @@ const DriverEnlistment = () => {
       <Navbar />
 
       {/* Hero Section with Background */}
-      <section className="min-h-screen bg-gradient-to-br from-orange-800 via-orange-700 to-red-800 relative overflow-hidden">
+      <section className="min-h-screen  relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1200&h=800&fit=crop"
+            src="/DriverEnlImage1.jpg"
             alt="Driver background"
             className="w-full h-full object-cover"
             onLoad={() => console.log('Hero image loaded')}

@@ -51,7 +51,7 @@ const CargoTruk = () => {
       <section className="min-h-screen bg-gradient-to-br from-blue-800 via-blue-700 to-blue-900 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/logistic.jpeg"
+            src="/CargoImage9.jpg"
             alt="Cargo background"
             className="w-full h-full object-cover"
             onLoad={() => console.log('Hero image loaded')}
