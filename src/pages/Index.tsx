@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import {
@@ -145,13 +146,6 @@ const Index = () => {
     }
   ];
 
-  const industryStats = [
-    { number: "2.5B", label: "East Africa Logistics Market Value (USD)", sublabel: "Annual market size" },
-    { number: "15%", label: "Agricultural GDP Contribution", sublabel: "Across East African countries" },
-    { number: "60%", label: "Employment in Agriculture", sublabel: "Regional workforce dependency" },
-    { number: "70%", label: "Cargo Transported by Road", sublabel: "Dominant mode in East Africa" }
-  ];
-
   const scrollToSection = (sectionId: string) => {
     const section = document.getElementById(sectionId);
     if (section) {
@@ -247,7 +241,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-20">
           <div className="w-full">
             {/* Left Content */}
-            <div className="max-w-2xl space-y-6 md:space-y-8 animate-on-scroll pt-20 lg:pt-32">
+            <div className="max-w-2xl space-y-6 md:space-y-8 animate-on-scroll pt-24 lg:pt-40">
               {/* User Stats with Overlapping Circles - Improved spacing for large screens */}
               <div className="flex items-center space-x-4">
                 <div className="flex items-center">
@@ -280,6 +274,11 @@ const Index = () => {
                 </div>
               </div>
 
+              {/* Dial Option - Moved up */}
+              <div className="text-white text-lg md:text-xl">
+                Or dial *000# to book your transport
+              </div>
+
               {/* Buttons - Larger Size - All lead to /download */}
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                 <Button 
@@ -294,11 +293,6 @@ const Index = () => {
                 >
                   Request demo
                 </Button>
-              </div>
-
-              {/* Dial Option */}
-              <div className="text-white text-lg md:text-xl">
-                Or dial *000# to book your transport
               </div>
             </div>
           </div>
@@ -393,8 +387,8 @@ const Index = () => {
               <h3 className="text-xl font-bold text-gray-900 mb-3">Market Leader</h3>
               <p className="text-gray-600">Trusted by 10,000+ users across East Africa with the largest verified transporter network</p>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-800 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg shadow-lg border-2 border-green-200">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">100% Insured</h3>
@@ -420,16 +414,29 @@ const Index = () => {
       </section>
 
       {/* Industry Statistics Info Section - Improved responsive layout */}
-      <section className="py-1 bg-black text-white">
+      <section className="py-4 bg-black text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-4">
-            {industryStats.map((stat, index) => (
-              <div key={index} className="text-center">
-                <div className="text-xl sm:text-lg md:text-2xl font-bold text-yellow-400">{stat.number}</div>
-                <div className="text-sm md:text-sm font-medium px-2">{stat.label}</div>
-                <div className="text-xs text-gray-400 hidden md:block px-2">{stat.sublabel}</div>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-4 text-center">
+            <div>
+              <div className="text-xl sm:text-lg md:text-2xl font-bold text-yellow-400">2.5B</div>
+              <div className="text-sm md:text-sm font-medium px-2">East Africa Logistics Market Value (USD)</div>
+              <div className="text-xs text-gray-400 hidden md:block px-2">Annual market size</div>
+            </div>
+            <div>
+              <div className="text-xl sm:text-lg md:text-2xl font-bold text-yellow-400">15%</div>
+              <div className="text-sm md:text-sm font-medium px-2">Agricultural GDP Contribution</div>
+              <div className="text-xs text-gray-400 hidden md:block px-2">Across East African countries</div>
+            </div>
+            <div>
+              <div className="text-xl sm:text-lg md:text-2xl font-bold text-yellow-400">60%</div>
+              <div className="text-sm md:text-sm font-medium px-2">Employment in Agriculture</div>
+              <div className="text-xs text-gray-400 hidden md:block px-2">Regional workforce dependency</div>
+            </div>
+            <div>
+              <div className="text-xl sm:text-lg md:text-2xl font-bold text-yellow-400">70%</div>
+              <div className="text-sm md:text-sm font-medium px-2">Cargo Transported by Road</div>
+              <div className="text-xs text-gray-400 hidden md:block px-2">Dominant mode in East Africa</div>
+            </div>
           </div>
         </div>
       </section>
@@ -581,7 +588,7 @@ const Index = () => {
                         <span className="text-lg font-semibold">+254 734 260 077</span>
                       </div>
                       <Button 
-                        className="bg-white text-green-800 hover:bg-gray-100 px-6 py-0 rounded-full font-medium transform hover:scale-105 transition-all duration-200 absolute -bottom-4 right-4 shadow-lg z-20"
+                        className="bg-white text-green-800 hover:bg-gray-100 px-6 py-2 rounded-full font-medium transform hover:scale-105 transition-all duration-200 absolute -bottom-2 right-4 shadow-lg z-20"
                         onClick={() => handleNavigation('#contact')}
                       >
                         Contact Us
@@ -653,9 +660,9 @@ const Index = () => {
       {/* Footer - Improved responsive design */}
       <footer className="bg-gradient-to-br from-black to-gray-900 text-white py-12 md:py-16" id="contact">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center sm:text-left">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Column 1 - Logo & Description */}
-            <div className="animate-on-scroll sm:col-span-2 lg:col-span-1">
+            <div className="animate-on-scroll sm:col-span-2 lg:col-span-1 text-center sm:text-left">
               <div className="mb-4 flex items-center justify-center sm:justify-start">
                 <img 
                   src="/TRUK Logo3.png"
@@ -669,7 +676,7 @@ const Index = () => {
             </div>
 
             {/* Column 2 - Services */}
-            <div className="animate-on-scroll">
+            <div className="animate-on-scroll text-center sm:text-left">
               <h3 className="text-lg font-semibold mb-4">Services</h3>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="/agritruk" className="hover:text-white transition-colors text-sm">agriTRUK</a></li>
@@ -679,7 +686,7 @@ const Index = () => {
             </div>
 
             {/* Column 3 - Company */}
-            <div className="animate-on-scroll">
+            <div className="animate-on-scroll text-center sm:text-left">
               <h3 className="text-lg font-semibold mb-4">Company</h3>
               <ul className="space-y-2 text-gray-400">
                 <li><a href="/about" className="hover:text-white transition-colors text-sm">About Us</a></li>
@@ -690,7 +697,7 @@ const Index = () => {
             </div>
 
             {/* Column 4 - Follow Us */}
-            <div className="animate-on-scroll">
+            <div className="animate-on-scroll text-center sm:text-left">
               <h3 className="text-lg font-semibold mb-4">Follow Us</h3>
               <div className="flex flex-wrap gap-4 mb-6 justify-center sm:justify-start">
                 <Facebook 

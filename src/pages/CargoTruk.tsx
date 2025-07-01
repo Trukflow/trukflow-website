@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
@@ -48,7 +49,7 @@ const CargoTruk = () => {
       <Navbar />
 
       {/* Hero Section with Background */}
-      <section className="min-h-screen bg-gradient-to-br from-blue-800 via-blue-700 to-blue-900 relative overflow-hidden">
+      <section className="min-h-screen bg-blue-800 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="/CargoImage9.jpg"
@@ -57,7 +58,7 @@ const CargoTruk = () => {
             onLoad={() => console.log('Hero image loaded')}
             onError={() => console.log('Hero image failed to load')}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-blue-800/90 via-blue-800/75 to-blue-800/60"></div>
+          <div className="absolute inset-0 bg-blue-800/60"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-10">
@@ -80,42 +81,6 @@ const CargoTruk = () => {
           </div>
         </div>
       </section>
-
-      {/* Video Section */}
-      {/* <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16">
-            cargoTRUK in Action
-          </h2>
-          <div className="relative w-full max-w-4xl mx-auto">
-            <div className="aspect-video bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg overflow-hidden shadow-2xl relative">
-              <img
-                src="/Cargo1.jpg"
-                alt="cargoTRUK video preview"
-                className="w-full h-full object-cover"
-                onLoad={() => console.log('Video section image loaded')}
-                onError={() => console.log('Video section image failed to load')}
-              />
-              <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
-                <Button 
-                  className="bg-white/90 hover:bg-white text-blue-800 rounded-full p-4 transform hover:scale-110 transition-all duration-200 shadow-lg"
-                  onClick={() => {
-                    console.log('Video play button clicked');
-                    window.location.href = '/download';
-                  }}
-                >
-                  <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M8 5v14l11-7z"/>
-                  </svg>
-                </Button>
-              </div>
-            </div>
-            <p className="text-center text-gray-600 mt-4 text-sm md:text-base">
-              See how businesses are streamlining their cargo transportation with cargoTRUK
-            </p>
-          </div>
-        </div>
-      </section> */}
 
       {/* Features Section */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
