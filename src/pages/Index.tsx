@@ -240,7 +240,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-20">
           <div className="w-full">
             {/* Left Content */}
-            <div className="max-w-2xl space-y-6 md:space-y-8 animate-on-scroll pt-24 lg:pt-40">
+            <div className="max-w-2xl space-y-6 md:space-y-8 animate-on-scroll pt-15 lg:pt-40">
               {/* User Stats with Overlapping Circles - Improved spacing for large screens */}
               <div className="flex items-center space-x-4">
                 <div className="flex items-center">
