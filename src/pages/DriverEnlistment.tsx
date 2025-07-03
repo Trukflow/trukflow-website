@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
@@ -128,22 +129,22 @@ const DriverEnlistment = () => {
           <div className="flex justify-center">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
               <div className="grid md:grid-cols-2 gap-8">
-                <div className="text-center">
+                <div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">Vehicle Requirements</h3>
                   <ul className="space-y-2 text-gray-600">
-                    <li className="flex items-center justify-center"><span className="text-green-500 mr-2">✓</span> Valid vehicle registration</li>
-                    <li className="flex items-center justify-center"><span className="text-green-500 mr-2">✓</span> Comprehensive insurance</li>
-                    <li className="flex items-center justify-center"><span className="text-green-500 mr-2">✓</span> Regular maintenance records</li>
-                    <li className="flex items-center justify-center"><span className="text-green-500 mr-2">✓</span> Good vehicle condition</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Valid vehicle registration</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Comprehensive insurance</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Regular maintenance records</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Good vehicle condition</li>
                   </ul>
                 </div>
-                <div className="text-center">
+                <div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">Driver Requirements</h3>
                   <ul className="space-y-2 text-gray-600">
-                    <li className="flex items-center justify-center"><span className="text-green-500 mr-2">✓</span> Valid driving license</li>
-                    <li className="flex items-center justify-center"><span className="text-green-500 mr-2">✓</span> Clean driving record</li>
-                    <li className="flex items-center justify-center"><span className="text-green-500 mr-2">✓</span> Professional attitude</li>
-                    <li className="flex items-center justify-center"><span className="text-green-500 mr-2">✓</span> Smartphone for app usage</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Valid driving license</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Clean driving record</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Professional attitude</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Smartphone for app usage</li>
                   </ul>
                 </div>
               </div>
