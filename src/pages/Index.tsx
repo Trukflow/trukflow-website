@@ -1,3 +1,4 @@
+
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +11,23 @@ import {
 
 const Index = () => {
   const navigate = useNavigate();
+
+  const scrollToSection = (sectionId: string) => {
+    console.log(`Attempting to navigate to section: ${sectionId}`);
+    if (location.pathname === "/") {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        console.log(`Scrolling to section ${sectionId} on current page`);
+        section.scrollIntoView({ behavior: "smooth" });
+      } else {
+        console.log(`Section ${sectionId} not found on /, navigating to /#${sectionId}`);
+        navigate(`/#${sectionId}`);
+      }
+    } else {
+      console.log(`Not on /, navigating to /#${sectionId}`);
+      navigate(`/#${sectionId}`);
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -145,96 +163,96 @@ const Index = () => {
       </section>
 
       {/* FAQs Section */}
-      <section id="faqs" className="py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section id="faqs" className="py-12 sm:py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl md:text-5xl font-bold text-center text-gray-900 mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-gray-900 mb-12 sm:mb-16">
             Frequently Asked <span className="text-green-600">Questions</span>
           </h2>
-          <div className="grid lg:grid-cols-2 gap-12 items-start">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             {/* Left side - Creative illustration */}
-            <div className="relative">
-              <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-2xl p-6 md:p-8 lg:p-12 shadow-lg">
+            <div className="relative order-2 lg:order-1">
+              <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-2xl p-4 sm:p-6 md:p-8 lg:p-12 shadow-lg">
                 <div className="text-center">
-                  <div className="w-16 h-16 md:w-20 md:h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <span className="text-white text-2xl md:text-3xl">💡</span>
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                    <span className="text-white text-xl sm:text-2xl md:text-3xl">💡</span>
                   </div>
-                  <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-4">Got Questions?</h3>
-                  <p className="text-gray-700 mb-6 text-sm md:text-base">
+                  <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">Got Questions?</h3>
+                  <p className="text-gray-700 mb-4 sm:mb-6 text-sm sm:text-base">
                     We're here to help! Find answers to common questions about our transport services.
                   </p>
                   
                   {/* Feature highlights */}
-                  <div className="space-y-3 md:space-y-4">
+                  <div className="space-y-2 sm:space-y-3 md:space-y-4">
                     <div className="flex items-center justify-center space-x-2 md:space-x-3">
-                      <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-                      <span className="text-gray-700 text-sm md:text-base">24/7 Customer Support</span>
+                      <div className="w-2 h-2 bg-green-600 rounded-full flex-shrink-0"></div>
+                      <span className="text-gray-700 text-xs sm:text-sm md:text-base">24/7 Customer Support</span>
                     </div>
                     <div className="flex items-center justify-center space-x-2 md:space-x-3">
-                      <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-                      <span className="text-gray-700 text-sm md:text-base">Real-time Tracking</span>
+                      <div className="w-2 h-2 bg-green-600 rounded-full flex-shrink-0"></div>
+                      <span className="text-gray-700 text-xs sm:text-sm md:text-base">Real-time Tracking</span>
                     </div>
                     <div className="flex items-center justify-center space-x-2 md:space-x-3">
-                      <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-                      <span className="text-gray-700 text-sm md:text-base">Verified Transporters</span>
+                      <div className="w-2 h-2 bg-green-600 rounded-full flex-shrink-0"></div>
+                      <span className="text-gray-700 text-xs sm:text-sm md:text-base">Verified Transporters</span>
                     </div>
                     <div className="flex items-center justify-center space-x-2 md:space-x-3">
-                      <div className="w-2 h-2 bg-green-600 rounded-full"></div>
-                      <span className="text-gray-700 text-sm md:text-base">Secure Payments</span>
+                      <div className="w-2 h-2 bg-green-600 rounded-full flex-shrink-0"></div>
+                      <span className="text-gray-700 text-xs sm:text-sm md:text-base">Secure Payments</span>
                     </div>
                   </div>
                 </div>
               </div>
               
               {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-8 h-8 bg-green-400 rounded-full opacity-20 hidden md:block"></div>
-              <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-blue-400 rounded-full opacity-20 hidden md:block"></div>
-              <div className="absolute top-1/2 -right-6 w-6 h-6 bg-purple-400 rounded-full opacity-20 hidden lg:block"></div>
+              <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-6 h-6 sm:w-8 sm:h-8 bg-green-400 rounded-full opacity-20 hidden sm:block"></div>
+              <div className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 w-8 h-8 sm:w-12 sm:h-12 bg-blue-400 rounded-full opacity-20 hidden sm:block"></div>
+              <div className="absolute top-1/2 -right-3 sm:-right-6 w-4 h-4 sm:w-6 sm:h-6 bg-purple-400 rounded-full opacity-20 hidden lg:block"></div>
             </div>
 
             {/* Right side - FAQ Accordion */}
-            <div className="space-y-4">
+            <div className="space-y-4 order-1 lg:order-2">
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="item-1" className="border border-gray-200 rounded-lg px-4">
-                  <AccordionTrigger className="text-left font-semibold text-gray-900">
+                  <AccordionTrigger className="text-left font-semibold text-gray-900 text-sm sm:text-base">
                     How do I book a transport service?
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600">
+                  <AccordionContent className="text-gray-600 text-sm sm:text-base">
                     Simply download our TRUK app, create an account, enter your pickup and delivery details, and we'll match you with available transporters in your area.
                   </AccordionContent>
                 </AccordionItem>
                 
                 <AccordionItem value="item-2" className="border border-gray-200 rounded-lg px-4">
-                  <AccordionTrigger className="text-left font-semibold text-gray-900">
+                  <AccordionTrigger className="text-left font-semibold text-gray-900 text-sm sm:text-base">
                     What types of agricultural products can be transported?
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600">
+                  <AccordionContent className="text-gray-600 text-sm sm:text-base">
                     We handle a wide variety of agricultural products including fresh fruits, vegetables, grains, livestock feed, and other farm produce. Our transporters are equipped to handle different types of cargo.
                   </AccordionContent>
                 </AccordionItem>
                 
                 <AccordionItem value="item-3" className="border border-gray-200 rounded-lg px-4">
-                  <AccordionTrigger className="text-left font-semibold text-gray-900">
+                  <AccordionTrigger className="text-left font-semibold text-gray-900 text-sm sm:text-base">
                     How is pricing determined?
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600">
+                  <AccordionContent className="text-gray-600 text-sm sm:text-base">
                     Pricing is based on factors such as distance, cargo type, weight, and current demand. You'll see transparent pricing before confirming your booking, with no hidden fees.
                   </AccordionContent>
                 </AccordionItem>
                 
                 <AccordionItem value="item-4" className="border border-gray-200 rounded-lg px-4">
-                  <AccordionTrigger className="text-left font-semibold text-gray-900">
+                  <AccordionTrigger className="text-left font-semibold text-gray-900 text-sm sm:text-base">
                     Can I track my shipment?
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600">
+                  <AccordionContent className="text-gray-600 text-sm sm:text-base">
                     Yes! Our app provides real-time tracking so you can monitor your shipment's progress from pickup to delivery. You'll receive updates at every stage of the journey.
                   </AccordionContent>
                 </AccordionItem>
                 
                 <AccordionItem value="item-5" className="border border-gray-200 rounded-lg px-4">
-                  <AccordionTrigger className="text-left font-semibold text-gray-900">
+                  <AccordionTrigger className="text-left font-semibold text-gray-900 text-sm sm:text-base">
                     What if there's damage to my goods during transport?
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600">
+                  <AccordionContent className="text-gray-600 text-sm sm:text-base">
                     All our transporters are verified and insured. In the rare event of damage, we have a comprehensive claims process to ensure you're compensated fairly and quickly.
                   </AccordionContent>
                 </AccordionItem>
