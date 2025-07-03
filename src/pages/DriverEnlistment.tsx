@@ -119,31 +119,33 @@ const DriverEnlistment = () => {
         </div>
       </section>
 
-      {/* Requirements Section */}
+      {/* Requirements Section - Fixed alignment */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
           <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12">
             Requirements
           </h2>
-          <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Vehicle Requirements</h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Valid vehicle registration</li>
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Comprehensive insurance</li>
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Regular maintenance records</li>
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Good vehicle condition</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">Driver Requirements</h3>
-                <ul className="space-y-2 text-gray-600">
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Valid driving license</li>
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Clean driving record</li>
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Professional attitude</li>
-                  <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Smartphone for app usage</li>
-                </ul>
+          <div className="flex justify-center">
+            <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
+              <div className="grid md:grid-cols-2 gap-8">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Vehicle Requirements</h3>
+                  <ul className="space-y-2 text-gray-600">
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Valid vehicle registration</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Comprehensive insurance</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Regular maintenance records</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Good vehicle condition</li>
+                  </ul>
+                </div>
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Driver Requirements</h3>
+                  <ul className="space-y-2 text-gray-600">
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Valid driving license</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Clean driving record</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Professional attitude</li>
+                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Smartphone for app usage</li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

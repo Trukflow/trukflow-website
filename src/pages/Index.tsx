@@ -12,7 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
-import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone, ArrowRight, Shield, Clock, Users, Award, CheckCircle } from "lucide-react";
+import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone, ArrowRight, Shield, Clock, Users, Award, CheckCircle, MessageCircle, HeadphonesIcon, Zap } from "lucide-react";
 
 const Index = () => {
   const [api, setApi] = useState<any>();
@@ -208,7 +208,7 @@ const Index = () => {
       
       <Navbar />
       
-      {/* Jungle Green Hero Section */}
+      {/* Jungle Green Hero Section - Fixed responsiveness */}
       <section className="min-h-screen bg-gradient-to-br from-green-800 via-green-700 to-green-900 relative overflow-hidden">
         {/* Background Images covering full section */}
         <div className="absolute inset-0 z-0">
@@ -223,11 +223,11 @@ const Index = () => {
             <CarouselContent className="h-full">
               {images.map((image, index) => (
                 <CarouselItem key={index} className="h-full">
-                  <div className="relative h-full">
+                  <div className="relative h-full min-h-screen">
                     <img
                       src={image}
                       alt={`Background ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full min-h-screen object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-r from-green-800/95 via-green-800/80 to-transparent"></div>
                   </div>
@@ -237,7 +237,7 @@ const Index = () => {
           </Carousel>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center relative z-20">
           <div className="w-full">
             {/* Left Content */}
             <div className="max-w-2xl space-y-6 md:space-y-8 animate-on-scroll pt-15 lg:pt-40">
@@ -563,11 +563,11 @@ const Index = () => {
         </div>
       </section>
 
-      {/* FAQs Section with Carousel - Contact Us button with hanging feel */}
+      {/* FAQs Section with Enhanced Left Side */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200" id="faqs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-start">
-            {/* Left Side - FAQ Carousel */}
+            {/* Left Side - Enhanced FAQ Support Section */}
             <div className="relative animate-on-scroll">
               <Carousel
                 setApi={setFaqCarouselApi}
@@ -579,28 +579,131 @@ const Index = () => {
               >
                 <CarouselContent>
                   <CarouselItem>
-                    <div className="bg-gradient-to-br from-green-800 to-green-900 text-white p-8 rounded-lg shadow-lg relative overflow-visible">
-                      <h3 className="text-2xl font-bold mb-4">Have a different question?</h3>
-                      <p className="mb-6">Contact us through our customer care</p>
-                      <div className="flex items-center space-x-2 mb-6">
-                        <Phone className="w-5 h-5" />
-                        <span className="text-lg font-semibold">+254 734 260 077</span>
+                    <div className="bg-gradient-to-br from-green-800 to-green-900 text-white p-8 rounded-2xl shadow-2xl relative overflow-hidden">
+                      {/* Decorative elements */}
+                      <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/10 rounded-full"></div>
+                      <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-white/5 rounded-full"></div>
+                      
+                      <div className="relative z-10">
+                        <div className="flex items-center mb-4">
+                          <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
+                            <MessageCircle className="w-6 h-6 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="text-2xl font-bold">Need Help?</h3>
+                            <p className="text-green-200 text-sm">We're here for you 24/7</p>
+                          </div>
+                        </div>
+                        
+                        <p className="mb-6 text-green-100">Have a different question? Our expert support team is ready to assist you with personalized solutions.</p>
+                        
+                        <div className="space-y-3 mb-6">
+                          <div className="flex items-center space-x-3 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
+                            <Phone className="w-5 h-5 text-green-300" />
+                            <div>
+                              <p className="font-semibold text-white">Call Us</p>
+                              <p className="text-green-200 text-sm">+254 734 260 077</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center space-x-3 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
+                            <Mail className="w-5 h-5 text-green-300" />
+                            <div>
+                              <p className="font-semibold text-white">Email Us</p>
+                              <p className="text-green-200 text-sm">hello@truk.com</p>
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <Button 
+                          className="bg-white text-green-800 hover:bg-green-50 px-6 py-3 rounded-xl font-semibold transform hover:scale-105 transition-all duration-200 shadow-lg w-full"
+                          onClick={() => handleNavigation('#contact')}
+                        >
+                          Contact Support Team
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
                       </div>
-                      <Button 
-                        className="bg-white text-green-800 hover:bg-gray-100 px-6 py-2 rounded-full font-medium transform hover:scale-105 transition-all duration-200 absolute -bottom-2 right-4 shadow-lg z-20"
-                        onClick={() => handleNavigation('#contact')}
-                      >
-                        Contact Us
-                      </Button>
                     </div>
                   </CarouselItem>
+                  
                   <CarouselItem>
-                    <div className="bg-gradient-to-br from-blue-800 to-blue-900 text-white p-8 rounded-lg shadow-lg relative">
-                      <h3 className="text-2xl font-bold mb-4">Need Support?</h3>
-                      <p className="mb-6">Our team is ready to help you 24/7</p>
-                      <div className="flex items-center space-x-2 mb-6">
-                        <Mail className="w-5 h-5" />
-                        <span className="text-lg font-semibold">hello@truk.com</span>
+                    <div className="bg-gradient-to-br from-blue-800 to-blue-900 text-white p-8 rounded-2xl shadow-2xl relative overflow-hidden">
+                      {/* Decorative elements */}
+                      <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/10 rounded-full"></div>
+                      <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-white/5 rounded-full"></div>
+                      
+                      <div className="relative z-10">
+                        <div className="flex items-center mb-4">
+                          <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
+                            <HeadphonesIcon className="w-6 h-6 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="text-2xl font-bold">Live Chat</h3>
+                            <p className="text-blue-200 text-sm">Instant responses</p>
+                          </div>
+                        </div>
+                        
+                        <p className="mb-6 text-blue-100">Get immediate assistance through our live chat support for quick solutions and real-time help.</p>
+                        
+                        <div className="bg-white/10 rounded-lg p-4 mb-6 backdrop-blur-sm">
+                          <div className="flex items-center space-x-2 mb-2">
+                            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                            <span className="text-sm font-medium">Support Online</span>
+                          </div>
+                          <p className="text-blue-200 text-sm">Average response time: &lt; 2 minutes</p>
+                        </div>
+                        
+                        <Button 
+                          className="bg-white text-blue-800 hover:bg-blue-50 px-6 py-3 rounded-xl font-semibold transform hover:scale-105 transition-all duration-200 shadow-lg w-full"
+                          onClick={() => handleNavigation('#contact')}
+                        >
+                          Start Live Chat
+                          <MessageCircle className="w-4 h-4 ml-2" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                  
+                  <CarouselItem>
+                    <div className="bg-gradient-to-br from-purple-800 to-purple-900 text-white p-8 rounded-2xl shadow-2xl relative overflow-hidden">
+                      {/* Decorative elements */}
+                      <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/10 rounded-full"></div>
+                      <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-white/5 rounded-full"></div>
+                      
+                      <div className="relative z-10">
+                        <div className="flex items-center mb-4">
+                          <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center mr-4">
+                            <Zap className="w-6 h-6 text-white" />
+                          </div>
+                          <div>
+                            <h3 className="text-2xl font-bold">Quick Solutions</h3>
+                            <p className="text-purple-200 text-sm">Self-service help</p>
+                          </div>
+                        </div>
+                        
+                        <p className="mb-6 text-purple-100">Access our comprehensive help center with step-by-step guides and video tutorials.</p>
+                        
+                        <div className="space-y-2 mb-6">
+                          <div className="flex items-center space-x-2 text-purple-200">
+                            <CheckCircle className="w-4 h-4" />
+                            <span className="text-sm">Video tutorials</span>
+                          </div>
+                          <div className="flex items-center space-x-2 text-purple-200">
+                            <CheckCircle className="w-4 h-4" />
+                            <span className="text-sm">Step-by-step guides</span>
+                          </div>
+                          <div className="flex items-center space-x-2 text-purple-200">
+                            <CheckCircle className="w-4 h-4" />
+                            <span className="text-sm">Troubleshooting tips</span>
+                          </div>
+                        </div>
+                        
+                        <Button 
+                          className="bg-white text-purple-800 hover:bg-purple-50 px-6 py-3 rounded-xl font-semibold transform hover:scale-105 transition-all duration-200 shadow-lg w-full"
+                          onClick={() => handleNavigation('#contact')}
+                        >
+                          Browse Help Center
+                          <ArrowRight className="w-4 h-4 ml-2" />
+                        </Button>
                       </div>
                     </div>
                   </CarouselItem>
