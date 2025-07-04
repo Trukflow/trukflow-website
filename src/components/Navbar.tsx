@@ -115,7 +115,7 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 sm:h-20">
+        <div className="flex justify-between items-center h-16 sm:h-18 md:h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
             <button
@@ -211,7 +211,7 @@ const Navbar = () => {
           <div className="md:hidden z-50">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`focus:outline-none transition-colors duration-200 p-2 ${
+              className={`focus:outline-none transition-colors duration-200 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center ${
                 isScrolled
                   ? isOverWhiteSection
                     ? "text-red-500 hover:text-red-600"
@@ -221,7 +221,7 @@ const Navbar = () => {
                   : "text-gray-700 hover:text-gray-900"
               }`}
             >
-              <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg className="h-6 w-6 sm:h-7 sm:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                 {isOpen ? (
                   <path
                     strokeLinecap="round"

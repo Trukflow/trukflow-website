@@ -566,9 +566,9 @@ const Index = () => {
       {/* FAQs Section with Enhanced Left Side */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-100 to-gray-200" id="faqs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 md:gap-16 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
             {/* Left Side - Enhanced FAQ Support Section */}
-            <div className="relative animate-on-scroll">
+            <div className="relative animate-on-scroll order-2 lg:order-1">
               <Carousel
                 setApi={setFaqCarouselApi}
                 className="w-full"
@@ -712,18 +712,18 @@ const Index = () => {
             </div>
 
             {/* Right Side - FAQs */}
-            <div className="animate-on-scroll">
+            <div className="animate-on-scroll order-1 lg:order-2">
               <p className="text-sm text-gray-600 mb-2">FAQs</p>
-              <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-6 md:mb-8">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-500 mb-4 md:mb-6 lg:mb-8">
                 How can we help you?
               </h2>
-              <Accordion type="single" collapsible className="space-y-4">
+              <Accordion type="single" collapsible className="space-y-3 md:space-y-4">
                 {faqs.map((faq, index) => (
                   <AccordionItem key={index} value={`item-${index}`} className="bg-white rounded-lg border shadow-sm">
-                    <AccordionTrigger className="px-4 md:px-6 py-4 text-left font-medium text-sm md:text-base">
+                    <AccordionTrigger className="px-3 sm:px-4 md:px-6 py-3 md:py-4 text-left font-medium text-sm sm:text-base">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="px-4 md:px-6 pb-4 text-gray-600 text-sm md:text-base">
+                    <AccordionContent className="px-3 sm:px-4 md:px-6 pb-3 md:pb-4 text-gray-600 text-sm sm:text-base">
                       {faq.answer}
                     </AccordionContent>
                   </AccordionItem>
