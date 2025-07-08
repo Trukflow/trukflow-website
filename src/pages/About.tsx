@@ -20,7 +20,7 @@ const About = () => {
   },
   {
     name: "Mititi Isaac",
-    role: "Co-founder & Chief Marketing Officer",
+    role: "Co-founder & Chief Operations Officer",
     image: "/Official Photo.jpg",
     bio: "Full-stack Software Engineer and UX designer with 3+ years of experience; part of the team building TRUK's customer-facing interfaces and brand systems.",
     linkedin: "https://www.linkedin.com/in/io-mititi/"
