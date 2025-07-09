@@ -167,79 +167,65 @@ const DriverEnlistment = () => {
         </div>
       </section>
 
-      {/* How to Join Section - Now after Requirements */}
+      {/* How to Join Section */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
           <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12">
             How to Join
           </h2>
-          <div className="grid sm:grid-cols-3 gap-6 items-center max-w-4xl mx-auto">
-            {/* Step 1 */}
-            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
-                1
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {/* Step 1 */}
+              <div className="text-center">
+                <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+                  <div className="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
+                    1
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Sign Up Online</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Complete our simple online registration form with your details and vehicle information.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Sign Up Online</h3>
-              <p className="text-gray-600 text-sm">
-                Complete our simple online registration form with your details and vehicle information.
-              </p>
-            </div>
-            
-            {/* Arrow Right for desktop, down for mobile */}
-            <div className="hidden sm:flex justify-center">
-              <ArrowDown className="w-8 h-8 text-green-600" style={{transform: 'rotate(-90deg)'}} />
-            </div>
-            <div className="flex justify-center sm:hidden">
-              <ArrowDown className="w-8 h-8 text-green-600" />
-            </div>
 
-            {/* Step 2 */}
-            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
-                2
+              {/* Step 2 */}
+              <div className="text-center">
+                <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+                  <div className="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
+                    2
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Get Verified</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Submit required documents for verification and pass our quality standards check.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Get Verified</h3>
-              <p className="text-gray-600 text-sm">
-                Submit required documents for verification and pass our quality standards check.
-              </p>
-            </div>
 
-            {/* Arrow Right for desktop, down for mobile */}
-            <div className="hidden sm:flex justify-center">
-              <ArrowDown className="w-8 h-8 text-green-600" style={{transform: 'rotate(-90deg)'}} />
-            </div>
-            <div className="flex justify-center sm:hidden">
-              <ArrowDown className="w-8 h-8 text-green-600" />
-            </div>
-
-            {/* Step 2 */}
-            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
-                3
+              {/* Step 3 */}
+              <div className="text-center">
+                <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+                  <div className="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
+                    3
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Pay Monthly Fee</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Pay the required <span className="font-semibold text-red-500">Ksh 100</span> monthly subscription fee to activate your account.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Pay the the monthly subscription fee</h3>
-              <p className="text-gray-600 text-sm">
-                Pay the required <span className="font-bold">Ksh 100</span> monthly subscription fee to start earning.
-              </p>
-            </div>
 
-            {/* Arrow Right for desktop, down for mobile */}
-            <div className="hidden sm:flex justify-center">
-              <ArrowDown className="w-8 h-8 text-green-600" style={{transform: 'rotate(-90deg)'}} />
-            </div>
-            <div className="flex justify-center sm:hidden">
-              <ArrowDown className="w-8 h-8 text-green-600" />
-            </div>
-
-            {/* Step 3 */}
-            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
-                4
+              {/* Step 4 */}
+              <div className="text-center">
+                <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+                  <div className="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
+                    4
+                  </div>
+                  <h3 className="text-lg font-semibold text-gray-900 mb-3">Start Earning</h3>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    Once approved, access the platform and start receiving bookings through TRUK's network.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Start Earning</h3>
-              <p className="text-gray-600 text-sm">
-                Once approved, access platform and start receiving bookings and earning more with TRUK's premium service network.
-              </p>
             </div>
           </div>
         </div>
