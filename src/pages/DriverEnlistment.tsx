@@ -122,30 +122,44 @@ const DriverEnlistment = () => {
 
       {/* Requirements Section - Fixed alignment */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white relative z-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12">
             Requirements
           </h2>
           <div className="flex justify-center">
             <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Vehicle Requirements</h3>
-                  <ul className="space-y-2 text-gray-600">
-                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Valid vehicle registration</li>
-                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Comprehensive insurance</li>
-                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Regular maintenance records</li>
-                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Good vehicle condition</li>
-                  </ul>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div className="flex justify-center">
+                  <div className="w-full max-w-xs text-left">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Vehicle Requirements</h3>
+                    <ul className="space-y-2 text-gray-600">
+                      <li className="flex items-center">
+                        <span className="text-green-500 mr-2">✓</span> Insurance coverage
+                      </li>
+                      <li className="flex items-center">
+                        <span className="text-green-500 mr-2">✓</span> Good vehicle condition
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4">Driver Requirements</h3>
-                  <ul className="space-y-2 text-gray-600">
-                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Valid driving license</li>
-                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Clean driving record</li>
-                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Professional attitude</li>
-                    <li className="flex items-center"><span className="text-green-500 mr-2">✓</span> Smartphone for app usage</li>
-                  </ul>
+                <div className="flex justify-center">
+                  <div className="w-full max-w-xs text-left">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Driver Requirements</h3>
+                    <ul className="space-y-2 text-gray-600">
+                      <li className="flex items-center">
+                        <span className="text-green-500 mr-2">✓</span> Valid driver’s license
+                      </li>
+                      <li className="flex items-center">
+                        <span className="text-green-500 mr-2">✓</span> Clean driving record
+                      </li>
+                      <li className="flex items-center">
+                        <span className="text-green-500 mr-2">✓</span> Professional attitude
+                      </li>
+                      <li className="flex items-center">
+                        <span className="text-green-500 mr-2">✓</span> Smartphone for app usage
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
@@ -198,14 +212,33 @@ const DriverEnlistment = () => {
               <ArrowDown className="w-8 h-8 text-green-600" />
             </div>
 
-            {/* Step 3 */}
+            {/* Step 2 */}
             <div className="text-center bg-white p-6 rounded-lg shadow-lg">
               <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
                 3
               </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Pay the the monthly subscription fee</h3>
+              <p className="text-gray-600 text-sm">
+                Pay the required <span className="font-bold">Ksh 100</span> monthly subscription fee to start earning.
+              </p>
+            </div>
+
+            {/* Arrow Right for desktop, down for mobile */}
+            <div className="hidden sm:flex justify-center">
+              <ArrowDown className="w-8 h-8 text-green-600" style={{transform: 'rotate(-90deg)'}} />
+            </div>
+            <div className="flex justify-center sm:hidden">
+              <ArrowDown className="w-8 h-8 text-green-600" />
+            </div>
+
+            {/* Step 3 */}
+            <div className="text-center bg-white p-6 rounded-lg shadow-lg">
+              <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+                4
+              </div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Start Earning</h3>
               <p className="text-gray-600 text-sm">
-                Once approved, start receiving bookings and earning more with TRUK's premium service network.
+                Once approved, access platform and start receiving bookings and earning more with TRUK's premium service network.
               </p>
             </div>
           </div>
