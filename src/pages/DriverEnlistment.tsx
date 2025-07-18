@@ -211,7 +211,7 @@ const DriverEnlistment = () => {
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">Pay Monthly Fee</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">
-                    Pay the required <span className="font-semibold text-red-500">Ksh 100</span> monthly subscription fee to activate your account.
+                   Experience the full application free for 30 days. Thereafter, a monthly subscription fee of <span className="font-semibold text-red-500"> KES 499</span> applies to maintain uninterupted access to all services.
                   </p>
                 </div>
               </div>
