@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { ArrowDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const DriverEnlistment = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const nagiate = useNavigate();
 
   // Simulate loading for initial render
   useEffect(() => {
@@ -73,7 +75,7 @@ const DriverEnlistment = () => {
               className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-2xl hover:shadow-red-500/30 transform hover:scale-105 transition-all duration-200"
               onClick={() => {
                 console.log('Start Earning Today button clicked');
-                window.location.href = '/download';
+                Navigate('/download');
               }}
             >
               Start Earning Today
@@ -244,7 +246,7 @@ const DriverEnlistment = () => {
             className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-2xl hover:shadow-red-500/30 transform hover:scale-105 transition-all duration-200"
             onClick={() => {
               console.log('Join TRUK Network button clicked');
-              window.location.href = '/download';
+              navigate('/download');
             }}
           >
             Join TRUK Network

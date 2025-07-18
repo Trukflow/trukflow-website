@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/accordion";
 import { useEffect, useState } from "react";
 import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone, ArrowRight, Shield, Clock, Users, Award, CheckCircle, MessageCircle, HeadphonesIcon, Zap } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const [api, setApi] = useState<any>();
@@ -20,6 +21,7 @@ const Index = () => {
   const [howItWorksApi, setHowItWorksApi] = useState<any>();
   const [faqCarouselApi, setFaqCarouselApi] = useState<any>();
   const [current, setCurrent] = useState(0);
+  const navigate = useNavigate();
 
   // Auto-scroll the hero carousel
   useEffect(() => {
@@ -277,13 +279,19 @@ const Index = () => {
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                 <Button 
                   className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
-                  onClick={() => window.location.href = '/download'}
+                  onClick={() => {
+                    console.log("Join as a transporter button clicked");
+                    navigate("/download");
+                  }}
                 >
                   Join as a transporter
                 </Button>
                 <Button 
                   className="bg-white hover:bg-gray-100 text-green-800 px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
-                  onClick={() => window.location.href = '/download'}
+                  onClick={() => {
+                    console.log("Request demo button clicked");
+                    navigate("/download");
+                  }}
                 >
                   Request demo
                 </Button>
@@ -404,7 +412,10 @@ const Index = () => {
 
           <Button 
             className="bg-gradient-to-r from-green-700 to-green-800 hover:from-green-800 hover:to-green-900 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll"
-            onClick={() => window.location.href = '/about'}
+            onClick={() => {
+              console.log("Learn More About Us button clicked");
+              navigate("/about");
+            }}
           >
             Learn More About Us
             <ArrowRight className="w-5 h-5 ml-2" />
@@ -534,7 +545,10 @@ const Index = () => {
             </p>
             <Button 
               className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 md:px-8 py-3 rounded-full text-lg font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
-              onClick={() => window.location.href = '/download'}
+              onClick={() => {
+                console.log("Join our Transporter Networkt button clicked");
+                navigate("/download");
+              }}
             >
               Join our Transporter Network
             </Button>
@@ -609,7 +623,7 @@ const Index = () => {
                             <Mail className="w-5 h-5 text-green-300" />
                             <div>
                               <p className="font-semibold text-white">Email Us</p>
-                              <p className="text-green-200 text-sm">hello@truk.com</p>
+                              <p className="text-green-200 text-sm">hello@trukafrica.com</p>
                             </div>
                           </div>
                         </div>
@@ -751,7 +765,10 @@ const Index = () => {
             </h2>
             <Button 
               className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 md:px-8 py-3 rounded-full text-lg font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
-              onClick={() => window.location.href = '/download'}
+              onClick={() => {
+                console.log("Get Early Access button clicked");
+                navigate("/download");
+              }}
             >
               Get Early Access
             </Button>
@@ -840,7 +857,7 @@ const Index = () => {
                 </div>
                 <div className="flex items-center justify-center sm:justify-start">
                   <Mail className="w-4 h-4 mr-2 flex-shrink-0" />
-                  <span>hello@truk.com</span>
+                  <span>hello@trukafrica.com</span>
                 </div>
                 <div className="flex items-center justify-center sm:justify-start">
                   <Phone className="w-4 h-4 mr-2 flex-shrink-0" />

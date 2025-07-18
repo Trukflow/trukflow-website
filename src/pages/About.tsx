@@ -1,8 +1,10 @@
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
+  const navigate = useNavigate();
   const team = [
   {
     name: "Abisai Nandi",
@@ -256,7 +258,7 @@ const industryStats = [
             Be part of East Africa's logistics revolution
           </p>
           <Button className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll"
-                  onClick={() => window.location.href = '/download'}>
+                  onClick={() => navigate('/download')}>
             Get Started Today
           </Button>
         </div>

@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { ArrowDown } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const CargoTruk = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
 
   // Simulate loading for initial render
   useEffect(() => {
@@ -73,8 +75,8 @@ const CargoTruk = () => {
             <Button 
               className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-red-500/30"
               onClick={() => {
-                console.log('Ship Your Cargo Now button clicked');
-                window.location.href = '/download';
+                console.log("Ship Your Cargo Now button clicked");
+                navigate("/download");
               }}
             >
               Ship Your Cargo Now
@@ -192,8 +194,8 @@ const CargoTruk = () => {
           <Button 
             className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-red-500/30"
             onClick={() => {
-              console.log('Get Started Today button clicked');
-              window.location.href = '/download';
+              console.log("Get Started Today button clicked");
+              navigate("/download");
             }}
           >
             Get Started Today
