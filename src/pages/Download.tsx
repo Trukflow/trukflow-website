@@ -121,9 +121,8 @@ const Download = () => {
             You can also book transport using our USSD service
           </p>
           <div className="bg-gradient-to-br from-green-800 to-green-900 text-white rounded-lg p-6 md:p-8 inline-block shadow-2xl">
-            <p className="text-xl md:text-2xl font-bold mb-2">Dial</p>
-            <p className="text-3xl md:text-4xl font-bold">*000#</p>
-            <p className="text-base md:text-lg mt-2">to book your transport</p>
+            <p className="text-xl md:text-2xl font-bold mb-2">USSD Coming soon!</p>
+            
           </div>
         </div>
       </section>

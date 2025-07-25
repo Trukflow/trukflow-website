@@ -7,22 +7,22 @@ const About = () => {
   const navigate = useNavigate();
   const team = [
   {
-    name: "Abisai Nandi",
-    role: "Co-founder & Chief Executive Officer",
+    name: "Abisai Nandi (COO)",
+    role: "Co-founder & Chief Operations Officerr",
     image: "/AbisaiPhoto.jpg",
     bio: "Logistics and agribusiness entrepreneur with 10+ years transforming East Africa's supply chains through technology.",
     linkedin: "https://www.linkedin.com/in/abisai-nandi-443405145/"
   },
   {
-    name: "Josephine Mumbua",
+    name: "Mumbua Mutuku (CTO)",
     role: "Co-founder & Chief Technology Officer", 
     image: "/photo_2025-06-19 23.37.40.jpeg",
     bio: "Senior Software Engineer with 10+ years of experience specializing in scalable backend systems and cloud infrastructure for the logistics platforms.",
     linkedin: "https://www.linkedin.com/in/mumbuamutuku/"
   },
   {
-    name: "Mititi Isaac",
-    role: "Co-founder & Chief Operations Officer",
+    name: "Mititi Isaac (CMO)",
+    role: "Co-founder & Chief Marketing Officer",
     image: "/Official Photo.jpg",
     bio: "Full-stack Software Engineer and UX designer with 3+ years of experience; part of the team building TRUK's customer-facing interfaces and brand systems.",
     linkedin: "https://www.linkedin.com/in/io-mititi/"

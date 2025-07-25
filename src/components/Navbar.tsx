@@ -60,6 +60,8 @@ const Navbar = () => {
             section.classList.contains("to-gray-50") ||
             section.classList.contains("from-gray-50") ||
             section.classList.contains("to-white") ||
+            section.classList.contains("from-gray-100") ||
+            section.classList.contains("to-gray-100") ||
             (bgImage === "none" && (bgColor === "rgba(0, 0, 0, 0)" || bgColor === "transparent"))
           ) {
             overWhite = true;

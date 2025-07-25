@@ -284,7 +284,7 @@ const Index = () => {
                     navigate("/download");
                   }}
                 >
-                  Join as a transporter
+                  Join as a transporter or a broker
                 </Button>
                 <Button 
                   className="bg-white hover:bg-gray-100 text-green-800 px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
@@ -293,13 +293,13 @@ const Index = () => {
                     navigate("/download");
                   }}
                 >
-                  Request demo
+                  Move goods
                 </Button>
               </div>
 
               {/* Dial Option - Moved back to original position */}
               <div className="text-white text-lg md:text-xl">
-                Or dial *000# to book your transport
+                USSD Coming soon!
               </div>
             </div>
           </div>
@@ -367,7 +367,7 @@ const Index = () => {
               </div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Track & Deliver</h3>
               <p className="text-gray-600 text-sm md:text-base">
-                Monitor your shipment in real-time and receive updates until safe delivery to your destination.
+                Monitor your goods in real-time and receive updates until safe delivery to your destination.
               </p>
             </div>
           </div>
