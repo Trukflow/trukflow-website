@@ -262,7 +262,10 @@ const DriverEnlistment = () => {
                     <span className="text-gray-600">24/7 support</span>
                   </li>
                 </ul>
-                <Button className="w-full bg-red-500 hover:bg-red-600 text-white">
+                <Button 
+                  className="w-full bg-red-500 hover:bg-red-600 text-white"
+                  onClick={() => navigate('/download')}
+                >
                   Choose Monthly
                 </Button>
               </div>
@@ -298,7 +301,10 @@ const DriverEnlistment = () => {
                     <span className="text-gray-600">Priority booking alerts</span>
                   </li>
                 </ul>
-                <Button className="w-full bg-green-500 hover:bg-green-600 text-white">
+                <Button 
+                  className="w-full bg-green-500 hover:bg-green-600 text-white"
+                  onClick={() => navigate('/download')}
+                >
                   Choose Quarterly
                 </Button>
               </div>
@@ -335,7 +341,10 @@ const DriverEnlistment = () => {
                     <span className="text-gray-600">Analytics dashboard</span>
                   </li>
                 </ul>
-                <Button className="w-full bg-red-500 hover:bg-red-600 text-white">
+                <Button 
+                  className="w-full bg-red-500 hover:bg-red-600 text-white"
+                  onClick={() => navigate('/download')}
+                >
                   Choose Yearly
                 </Button>
               </div>

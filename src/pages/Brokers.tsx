@@ -238,7 +238,7 @@ const Brokers = () => {
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Monthly</h3>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-red-500">$50</span>
+                  <span className="text-4xl font-bold text-red-500">KES 199</span>
                   <span className="text-gray-600">/month</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-left">
@@ -276,9 +276,9 @@ const Brokers = () => {
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Quarterly</h3>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-red-500">$135</span>
+                  <span className="text-4xl font-bold text-red-500">KES 499</span>
                   <span className="text-gray-600">/3 months</span>
-                  <div className="text-sm text-green-600 font-medium">Save $15</div>
+                  <div className="text-sm text-green-600 font-medium">Save KES 98</div>
                 </div>
                 <ul className="space-y-3 mb-8 text-left">
                   <li className="flex items-center">
@@ -316,9 +316,9 @@ const Brokers = () => {
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-gray-900 mb-4">Yearly</h3>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-red-500">$480</span>
+                  <span className="text-4xl font-bold text-red-500">KES 1,599</span>
                   <span className="text-gray-600">/year</span>
-                  <div className="text-sm text-green-600 font-medium">Save $120</div>
+                  <div className="text-sm text-green-600 font-medium">Save KES 789</div>
                 </div>
                 <ul className="space-y-3 mb-8 text-left">
                   <li className="flex items-center">
