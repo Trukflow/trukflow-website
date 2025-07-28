@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Download from "./pages/Download";
 import AgriTruk from "./pages/AgriTruk";
 import CargoTruk from "./pages/CargoTruk";
+import Brokers from "./pages/Brokers";
 import DriverEnlistment from "./pages/DriverEnlistment";
 import NotFound from "./pages/NotFound";
 
@@ -26,6 +27,7 @@ const App = () => (
           <Route path="/download" element={<Download />} />
           <Route path="/agritruk" element={<AgriTruk />} />
           <Route path="/cargotruk" element={<CargoTruk />} />
+          <Route path="/brokers" element={<Brokers />} />
           <Route path="/driver-enlistment" element={<DriverEnlistment />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

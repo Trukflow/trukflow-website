@@ -165,6 +165,15 @@ const Navbar = () => {
                 <DropdownMenuItem
                   className="cursor-pointer hover:bg-gray-100"
                   onClick={() => {
+                    console.log("Navigating to /brokers");
+                    navigate("/brokers");
+                  }}
+                >
+                  Brokers
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="cursor-pointer hover:bg-gray-100"
+                  onClick={() => {
                     console.log("Navigating to /driver-enlistment");
                     navigate("/driver-enlistment");
                   }}
@@ -269,6 +278,16 @@ const Navbar = () => {
                   }}
                 >
                   cargoTRUK
+                </button>
+                <button
+                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
+                  onClick={() => {
+                    console.log("Navigating to /brokers");
+                    setIsOpen(false);
+                    navigate("/brokers");
+                  }}
+                >
+                  Brokers
                 </button>
                 <button
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
