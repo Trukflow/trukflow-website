@@ -616,7 +616,7 @@ const Index = () => {
                             <Phone className="w-5 h-5 text-green-300" />
                             <div>
                               <p className="font-semibold text-white">Call Us</p>
-                              <p className="text-green-200 text-sm">+254 734 260 077</p>
+                              <p className="text-green-200 text-sm">+254 758 594 951</p>
                             </div>
                           </div>
                           <div className="flex items-center space-x-3 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
@@ -861,7 +861,7 @@ const Index = () => {
                 </div>
                 <div className="flex items-center justify-center sm:justify-start">
                   <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
-                  <span>+254 734 260 077</span>
+                  <span>+254 758 594 951</span>
                 </div>
               </div>
             </div>

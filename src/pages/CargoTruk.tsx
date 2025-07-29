@@ -52,16 +52,16 @@ const CargoTruk = () => {
       <Navbar />
 
       {/* Hero Section with Background */}
-      <section className="min-h-screen bg-blue-800 relative overflow-hidden">
+      <section className="min-h-screen bg-green-800 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/CargoImage9.jpg"
+            src="/CTAImage3.jpg"
             alt="Cargo background"
             className="w-full h-full object-cover"
             onLoad={() => console.log('Hero image loaded')}
             onError={() => console.log('Hero image failed to load')}
           />
-          <div className="absolute inset-0 bg-blue-800/60"></div>
+          <div className="absolute inset-0 bg-green-800/60"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-10">
@@ -183,7 +183,7 @@ const CargoTruk = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-blue-800 via-blue-700 to-blue-900 text-white relative z-10">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-green-800 via-green-700 to-green-900 text-white relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center section-content">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             Scale Your Business with Reliable Cargo Solutions
