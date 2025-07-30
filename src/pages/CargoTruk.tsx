@@ -61,7 +61,7 @@ const CargoTruk = () => {
             onLoad={() => console.log('Hero image loaded')}
             onError={() => console.log('Hero image failed to load')}
           />
-          <div className="absolute inset-0 "></div>
+          <div className="absolute inset-0"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-10">
