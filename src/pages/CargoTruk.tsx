@@ -55,13 +55,13 @@ const CargoTruk = () => {
       <section className="min-h-screen bg-green-800 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/CTAImage3.jpg"
+            src="/CargoTruk1.jpg"
             alt="Cargo background"
             className="w-full h-full object-cover"
             onLoad={() => console.log('Hero image loaded')}
             onError={() => console.log('Hero image failed to load')}
           />
-          <div className="absolute inset-0 bg-green-800/60"></div>
+          <div className="absolute inset-0 "></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-10">

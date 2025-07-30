@@ -52,7 +52,7 @@ const Brokers = () => {
       <section className="min-h-screen bg-gray-900 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/logistic.jpeg"
+            src="/BrokerImage.jpg"
             alt="Broker background"
             className="w-full h-full object-cover"
             onLoad={() => console.log('Hero image loaded')}
