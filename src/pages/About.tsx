@@ -184,7 +184,7 @@ const industryStats = [
           <h2 className="text-4xl font-bold text-red-500 text-center mb-16 animate-on-scroll">
             Our Leadership Team
           </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 justify-center">
+          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {team.map((member, index) => (
               <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 animate-on-scroll">
                 <div className="w-full h-64 overflow-hidden bg-gray-100">
