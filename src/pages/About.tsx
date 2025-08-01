@@ -7,15 +7,15 @@ const About = () => {
   const navigate = useNavigate();
   const team = [
   {
-    name: "Sharon Esendi",
-    role: "CEO",
+    name: "Sharon Esendi (CEO)",
+    role: "Chief Executive Officer",
     image: "/photo_2025-08-01 10.23.31.jpeg",
-    bio: "Over 5yrs in Agri-business former COO and partnership manager, driving strategic growth, operational excellence, and impactful collaborations across the industry.",
+    bio: "Over 5yrs in Agri-business, former COO and partnership manager, driving strategic growth, operational excellence, and impactful collaborations across the industry.",
     linkedin: "#"
   },
   {
     name: "Abisai Nandi (COO)",
-    role: "Co-founder & Chief Operations Officerr",
+    role: "Co-founder & Chief Operations Officer",
     image: "/AbisaiPhoto.jpg",
     bio: "Logistics and agribusiness entrepreneur with 10+ years transforming East Africa's supply chains through technology.",
     linkedin: "https://www.linkedin.com/in/abisai-nandi-443405145/"
