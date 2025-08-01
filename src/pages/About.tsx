@@ -8,7 +8,7 @@ const About = () => {
   const team = [
   {
     name: "Sharon Esendi (CEO)",
-    role: "Chief Executive Officer",
+    role: "Co-founder & Chief Executive Officer",
     image: "/photo_2025-08-01 10.23.31.jpeg",
     bio: "Over 5yrs in Agri-business, former COO and partnership manager, driving strategic growth, operational excellence, and impactful collaborations across the industry.",
     linkedin: "https://www.linkedin.com/in/sharon-esendi-458296180/"
