@@ -7,6 +7,13 @@ const About = () => {
   const navigate = useNavigate();
   const team = [
   {
+    name: "Sharon Esendi",
+    role: "CEO",
+    image: "/placeholder.svg",
+    bio: "Over 5yrs in Agri-business former COO and partnership manager, driving strategic growth, operational excellence, and impactful collaborations across the industry.",
+    linkedin: "#"
+  },
+  {
     name: "Abisai Nandi (COO)",
     role: "Co-founder & Chief Operations Officerr",
     image: "/AbisaiPhoto.jpg",
