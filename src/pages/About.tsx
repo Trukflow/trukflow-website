@@ -9,7 +9,7 @@ const About = () => {
   {
     name: "Sharon Esendi",
     role: "CEO",
-    image: "/placeholder.svg",
+    image: "/photo_2025-08-01 10.23.31.jpeg",
     bio: "Over 5yrs in Agri-business former COO and partnership manager, driving strategic growth, operational excellence, and impactful collaborations across the industry.",
     linkedin: "#"
   },
