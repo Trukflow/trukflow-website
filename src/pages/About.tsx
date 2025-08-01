@@ -11,7 +11,7 @@ const About = () => {
     role: "Chief Executive Officer",
     image: "/photo_2025-08-01 10.23.31.jpeg",
     bio: "Over 5yrs in Agri-business, former COO and partnership manager, driving strategic growth, operational excellence, and impactful collaborations across the industry.",
-    linkedin: "#"
+    linkedin: "https://www.linkedin.com/in/sharon-esendi-458296180/"
   },
   {
     name: "Abisai Nandi (COO)",
