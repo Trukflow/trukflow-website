@@ -17,7 +17,7 @@ const Download = () => {
             Get started with East Africa's smartest logistics platform
           </p>
           <p className="text-base md:text-lg opacity-90">
-            Scan this QR code or click the link below to download the app
+            Scan QR codes or click the links below to download the app
           </p>
         </div>
       </section>
