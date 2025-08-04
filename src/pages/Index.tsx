@@ -271,7 +271,7 @@ const Index = () => {
                 </div>
                 <div className="space-y-2">
                   <span className="text-black text-xl md:text-2xl font-bold block">cargoTRUK</span>
-                  <span className="text-white/80 text-base md:text-lg">Seamless Urban & Inter-City Logistics for Businessess</span>
+                  <span className="text-white/80 text-base md:text-lg">Businessess & individuals seeking transport services</span>
                 </div>
               </div>
 

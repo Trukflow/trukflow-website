@@ -31,7 +31,7 @@ const About = () => {
     name: "Mititi Isaac (CMO)",
     role: "Co-founder & Chief Marketing Officer",
     image: "/Official Photo.jpg",
-    bio: "Full-stack Software Engineer and UX designer with 3+ years of experience; part of the team building TRUK's customer-facing interfaces and brand systems.",
+    bio: "Full-stack Software Engineer and UX designer with 5+ years of experience; part of the team building TRUK's customer-facing interfaces and brand systems.",
     linkedin: "https://www.linkedin.com/in/io-mititi/"
   }
 ];
