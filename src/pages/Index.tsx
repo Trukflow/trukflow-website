@@ -839,7 +839,7 @@ const Index = () => {
                 />
                 <Linkedin 
                   className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" 
-                  onClick={() => window.open('https://www.linkedin.com/company/truk-ltd', '_blank')}
+                  onClick={() => window.open('https://www.linkedin.com/company/truk-ltd/posts/?feedView=all', '_blank')}
                 />
                 {/* TikTok logo */}
                 <svg 
