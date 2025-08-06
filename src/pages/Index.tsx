@@ -876,7 +876,7 @@ const Index = () => {
                 href="https://mglobalbusinessconsultancy.netlify.app" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-primary hover:text-primary/80 transition-colors underline"
+                className="text-blue-400 hover:text-blue-300 transition-colors underline"
               >
                 M'Global Business Consultancy
               </a>
