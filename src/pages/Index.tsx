@@ -612,18 +612,18 @@ const Index = () => {
                         <p className="mb-6 text-green-100">Have a different question? Our expert support team is ready to assist you with personalized solutions.</p>
                         
                         <div className="space-y-3 mb-6">
-                          <div className="flex items-center space-x-3 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
+                           <div className="flex items-center space-x-3 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
                             <Phone className="w-5 h-5 text-green-300" />
                             <div>
                               <p className="font-semibold text-white">Call Us</p>
-                              <p className="text-green-200 text-sm">+254 758 594 951</p>
+                              <a href="tel:+254758594951" className="text-green-200 text-sm hover:text-green-100 transition-colors">+254 758 594 951</a>
                             </div>
                           </div>
                           <div className="flex items-center space-x-3 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
                             <Mail className="w-5 h-5 text-green-300" />
                             <div>
                               <p className="font-semibold text-white">Email Us</p>
-                              <p className="text-green-200 text-sm">hello@trukafrica.com</p>
+                              <a href="mailto:hello@trukafrica.com" className="text-green-200 text-sm hover:text-green-100 transition-colors">hello@trukafrica.com</a>
                             </div>
                           </div>
                         </div>
@@ -858,11 +858,11 @@ const Index = () => {
                 </div>
                 <div className="flex items-center justify-center sm:justify-start">
                   <Mail className="w-4 h-4 mr-2 flex-shrink-0" />
-                  <span>hello@trukafrica.com</span>
+                  <a href="mailto:hello@trukafrica.com" className="hover:text-gray-300 transition-colors">hello@trukafrica.com</a>
                 </div>
                 <div className="flex items-center justify-center sm:justify-start">
                   <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
-                  <span>+254 758 594 951</span>
+                  <a href="tel:+254758594951" className="hover:text-gray-300 transition-colors">+254 758 594 951</a>
                 </div>
               </div>
             </div>
