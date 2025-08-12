@@ -174,11 +174,11 @@ const Navbar = () => {
                 <DropdownMenuItem
                   className="cursor-pointer hover:bg-gray-100"
                   onClick={() => {
-                    console.log("Navigating to /driver-enlistment");
-                    navigate("/driver-enlistment");
+                    console.log("Navigating to /transporter-enlistment");
+                    navigate("/transporter-enlistment");
                   }}
                 >
-                  Driver enlistment
+                  Transporter enlistment
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -292,12 +292,12 @@ const Navbar = () => {
                 <button
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
                   onClick={() => {
-                    console.log("Navigating to /driver-enlistment");
+                    console.log("Navigating to /transporter-enlistment");
                     setIsOpen(false);
-                    navigate("/driver-enlistment");
+                    navigate("/transporter-enlistment");
                   }}
                 >
-                  Driver enlistment
+                  Transporter enlistment
                 </button>
               </div>
               <button
