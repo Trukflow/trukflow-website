@@ -800,7 +800,7 @@ const Index = () => {
               <ul className="space-y-2 text-gray-400">
                 <li><a href="/agritruk" className="hover:text-white transition-colors text-sm">agriTRUK</a></li>
                 <li><a href="/cargotruk" className="hover:text-white transition-colors text-sm">cargoTRUK</a></li>
-                <li><a href="/brokers" className="hover:text-white transition-colors text-sm">Brokers</a></li>
+                <li><a href="/brokers" className="hover:text-white transition-colors text-sm">Broker enlistment</a></li>
                 <li><a href="/transporter-enlistment" className="hover:text-white transition-colors text-sm">Transporter Enlistment</a></li>
               </ul>
             </div>
