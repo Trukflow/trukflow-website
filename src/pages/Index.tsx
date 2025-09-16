@@ -623,7 +623,7 @@ const Index = () => {
                             <Mail className="w-5 h-5 text-green-300" />
                             <div>
                               <p className="font-semibold text-white">Email Us</p>
-                              <a href="mailto:hello@trukafrica.com" className="text-green-200 text-sm hover:text-green-100 transition-colors">hello@trukafrica.com</a>
+                              <a href="mailto:hello@trukafrica.com" className="text-green-200 text-sm hover:text-green-100 transition-colors">support@trukafrica.com</a>
                             </div>
                           </div>
                         </div>
