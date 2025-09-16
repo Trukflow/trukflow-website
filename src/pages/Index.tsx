@@ -858,7 +858,7 @@ const Index = () => {
                 </div>
                 <div className="flex items-center justify-center sm:justify-start">
                   <Mail className="w-4 h-4 mr-2 flex-shrink-0" />
-                  <span>hello@trukafrica.com</span>
+                  <span>support@trukafrica.com</span>
                 </div>
                 <div className="flex items-center justify-center sm:justify-start">
                   <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
