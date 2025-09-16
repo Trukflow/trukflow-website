@@ -7,19 +7,19 @@ const About = () => {
   const navigate = useNavigate();
   const team = [
   {
-    name: "Sharon Esendi (CEO)",
-    role: "Co-founder & Chief Executive Officer",
+    name: "Sharon Esendi (COO)",
+    role: "Co-founder & Chief Operating Officer",
     image: "/photo_2025-08-01 10.23.31.jpeg",
-    bio: "Over 5yrs in Agri-business, former COO and partnership manager, driving strategic growth, operational excellence, and impactful collaborations across the industry.",
+    bio: "Over 5yrs in Agri-business, former COO and partnership manager, providing strategic growth, operational excellence, and impactful collaborations across the industry.",
     linkedin: "https://www.linkedin.com/in/sharon-esendi-458296180/"
   },
-  {
+  /* {
     name: "Abisai Nandi (COO)",
     role: "Co-founder & Chief Operations Officer",
     image: "/AbisaiPhoto.jpg",
     bio: "Logistics and agribusiness entrepreneur with 10+ years transforming East Africa's supply chains through technology.",
     linkedin: "https://www.linkedin.com/in/abisai-nandi-443405145/"
-  },
+  }, */
   {
     name: "Mumbua Mutuku (CTO)",
     role: "Co-founder & Chief Technology Officer", 
@@ -184,37 +184,74 @@ const industryStats = [
           <h2 className="text-4xl font-bold text-red-500 text-center mb-16 animate-on-scroll">
             Our Leadership Team
           </h2>
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {team.map((member, index) => (
-              <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 animate-on-scroll">
-                <div className="w-full h-64 overflow-hidden bg-gray-100">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <h3 className="text-xl font-bold text-gray-900">
-                      {member.name}
-                    </h3>
-                    <img 
-                      src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA3NmIyIj4KPHBhdGggZD0iTTIwLjQ0NyAyMC40NTJoLTMuNTU0di01LjU2OWMwLTEuMzI4LS4wMjctMy4wMzctMS44NTItMy4wMzctMS44NTMgMC0yLjEzNiAxLjQ0NS0yLjEzNiAyLjkzOXY1LjY2N0g5LjM1MVY5aDMuNDE0djEuNTYxaC4wNDZjLjQ3Ny0uOSAxLjYzNy0xLjg1IDMuMzctMS44NSAzLjYwMSAwIDQuMjY3IDIuMzcgNC4yNjcgNS40NTV2Ni4yODZ6TTUuMzM3IDcuNDMzYy0xLjE0NCAwLTIuMDYzLS45MjYtMi4wNjMtMi4wNjUgMC0xLjEzOC45Mi0yLjA2NS0yLjA2NCAyLjA2NXptMS43ODIgMTMuMDE5SDMuNTU1VjloMy41NjR2MTEuNDUyek0yMi4yMjUgMEgxLjc3MUMuNzkyIDAgMCAuNzc0IDAgMS43Mjl2MjAuNTQyQzAgMjMuMjI3Ljc5MiAyNCAxLjc3MSAyNGgyMC40NTFDMjMuMiAyNCAyNCAyMy4yMjcgMjQgMjIuMjcxVjEuNzI5QzI0IC43NzQgMjMuMiAwIDIyLjIyMiAwaDMuMDAzeiIvPgo8L3N2Zz4="
-                      alt="LinkedIn"
-                      className="w-5 h-5 hover:opacity-80 cursor-pointer transition-opacity"
-                      onClick={() => window.open(member.linkedin, '_blank')}
+          <div className="max-w-4xl mx-auto">
+            {/* CEO centered */}
+            <div className="flex justify-center mb-10">
+              <div className="w-full sm:w-3/4 md:w-1/2">
+                <div className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 animate-on-scroll">
+                  <div className="w-full h-64 overflow-hidden bg-gray-100">
+                    <img
+                      src={team[0].image}
+                      alt={team[0].name}
+                      className="w-full h-full object-contain"
                     />
                   </div>
-                  <p className="text-red-500 font-medium mb-3">
-                    {member.role}
-                  </p>
-                  <p className="text-gray-600 text-sm">
-                    {member.bio}
-                  </p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {team[0].name}
+                      </h3>
+                      <img 
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA3NmIyIj4KPHBhdGggZD0iTTIwLjQ0NyAyMC40NTJoLTMuNTU0di01LjU2OWMwLTEuMzI4LS4wMjctMy4wMzctMS44NTItMy4wMzctMS44NTMgMC0yLjEzNiAxLjQ0NS0yLjEzNiAyLjkzOXY1LjY2N0g5LjM1MVY5aDMuNDE0djEuNTYxaC4wNDZjLjQ3Ny0uOSAxLjYzNy0xLjg1IDMuMzctMS44NSAzLjYwMSAwIDQuMjY3IDIuMzcgNC4yNjcgNS40NTV2Ni4yODZ6TTUuMzM3IDcuNDMzYy0xLjE0NCAwLTIuMDYzLS45MjYtMi4wNjMtMi4wNjUgMC0xLjEzOC45Mi0yLjA2NS0yLjA2NCAyLjA2NXptMS43ODIgMTMuMDE5SDMuNTU1VjloMy41NjR2MTEuNDUyek0yMi4yMjUgMEgxLjc3MUMuNzkyIDAgMCAuNzc0IDAgMS43Mjl2MjAuNTQyQzAgMjMuMjI3Ljc5MiAyNCAxLjc3MSAyNGgyMC40NTFDMjMuMiAyNCAyNCAyMy4yMjcgMjQgMjIuMjcxVjEuNzI5QzI0IC43NzQgMjMuMiAwIDIyLjIyMiAwaDMuMDAzeiIvPgo8L3N2Zz4="
+                        alt="LinkedIn"
+                        className="w-5 h-5 hover:opacity-80 cursor-pointer transition-opacity"
+                        onClick={() => window.open(team[0].linkedin, '_blank')}
+                      />
+                    </div>
+                    <p className="text-red-500 font-medium mb-3">
+                      {team[0].role}
+                    </p>
+                    <p className="text-gray-600 text-sm">
+                      {team[0].bio}
+                    </p>
+                  </div>
                 </div>
               </div>
-            ))}
+            </div>
+
+            {/* Other leaders */}
+            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
+              {team.slice(1).map((member, index) => (
+                <div key={index} className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 animate-on-scroll">
+                  <div className="w-full h-64 overflow-hidden bg-gray-100">
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="w-full h-full object-contain"
+                    />
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {member.name}
+                      </h3>
+                      <img 
+                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA3NmIyIj4KPHBhdGggZD0iTTIwLjQ0NyAyMC40NTJoLTMuNTU0di01LjU2OWMwLTEuMzI4LS4wMjctMy4wMzctMS44NTItMy4wMzctMS44NTMgMC0yLjEzNiAxLjQ0NS0yLjEzNiAyLjkzOXY1LjY2N0g5LjM1MVY5aDMuNDE0djEuNTYxaC4wNDZjLjQ3Ny0uOSAxLjYzNy0xLjg1IDMuMzctMS44NSAzLjYwMSAwIDQuMjY3IDIuMzcgNC4yNjcgNS40NTV2Ni4yODZ6TTUuMzM3IDcuNDMzYy0xLjE0NCAwLTIuMDYzLS45MjYtMi4wNjMtMi4wNjUgMC0xLjEzOC45Mi0yLjA2NS0yLjA2NCAyLjA2NXptMS43ODIgMTMuMDE5SDMuNTU1VjloMy41NjR2MTEuNDUyek0yMi4yMjUgMEgxLjc3MUMuNzkyIDAgMCAuNzc0IDAgMS43Mjl2MjAuNTQyQzAgMjMuMjI3Ljc5MiAyNCAxLjc3MSAyNGgyMC40NTFDMjMuMiAyNCAyNCAyMy4yMjcgMjQgMjIuMjcxVjEuNzI5QzI0IC43NzQgMjMuMiAwIDIyLjIyMiAwaDMuMDAzeiIvPgo8L3N2Zz4="
+                        alt="LinkedIn"
+                        className="w-5 h-5 hover:opacity-80 cursor-pointer transition-opacity"
+                        onClick={() => window.open(member.linkedin, '_blank')}
+                      />
+                    </div>
+                    <p className="text-red-500 font-medium mb-3">
+                      {member.role}
+                    </p>
+                    <p className="text-gray-600 text-sm">
+                      {member.bio}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>

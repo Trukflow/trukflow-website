@@ -6,7 +6,7 @@ import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { ArrowDown } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const DriverEnlistment = () => {
+const TransporterEnlistment = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -55,7 +55,7 @@ const DriverEnlistment = () => {
         <div className="absolute inset-0 z-0">
           <img
             src="/DriverEnlImage1.jpg"
-            alt="Driver background"
+            alt="Transporter background"
             className="w-full h-full object-cover"
             onLoad={() => console.log('Hero image loaded')}
             onError={() => console.log('Hero image failed to load')}
@@ -66,7 +66,7 @@ const DriverEnlistment = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-10">
           <div className="w-full text-center text-white section-content">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-              Join Our <span className="text-red-500">Driver</span> Network
+              Join Our <span className="text-red-500">Transporter</span> Network
             </h1>
             <p className="text-xl md:text-2xl lg:text-3xl mb-8 max-w-4xl mx-auto">
               Become a verified transporter and earn 25% more on every booking with TRUK
@@ -115,7 +115,7 @@ const DriverEnlistment = () => {
               </div>
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Full Support</h3>
               <p className="text-gray-600 text-sm md:text-base">
-                24/7 customer support, insurance coverage, and dedicated driver assistance for all your needs.
+                24/7 customer support, insurance coverage, and dedicated transporter assistance for all your needs.
               </p>
             </div>
           </div>
@@ -146,13 +146,13 @@ const DriverEnlistment = () => {
                 </div>
                 <div className="flex justify-center">
                   <div className="w-full max-w-xs text-left">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Driver Requirements</h3>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Transporter Requirements</h3>
                     <ul className="space-y-2 text-gray-600">
                       <li className="flex items-center">
                         <span className="text-green-500 mr-2">✓</span> Valid driver’s license
                       </li>
                       <li className="flex items-center">
-                        <span className="text-green-500 mr-2">✓</span> Clean driving record
+                        <span className="text-green-500 mr-2">✓</span> Clean transporting record
                       </li>
                       <li className="flex items-center">
                         <span className="text-green-500 mr-2">✓</span> Professional attitude
@@ -360,7 +360,7 @@ const DriverEnlistment = () => {
             Ready to Earn More?
           </h2>
           <p className="text-xl md:text-2xl mb-8">
-            Join thousands of drivers already earning more with TRUK's verified booking system
+            Join thousands of transporters already earning more with TRUK's verified booking system
           </p>
           <Button 
             className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-2xl hover:shadow-red-500/30 transform hover:scale-105 transition-all duration-200"
@@ -377,4 +377,4 @@ const DriverEnlistment = () => {
   );
 };
 
-export default DriverEnlistment;
+export default TransporterEnlistment;
