@@ -186,7 +186,7 @@ const industryStats = [
           </h2>
           <div className="max-w-4xl mx-auto">
             {/* CEO centered */}
-            <div className="flex justify-center mb-10">
+            {/* <div className="flex justify-center mb-10">
               <div className="w-full sm:w-3/4 md:w-1/2">
                 <div className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-all duration-300 animate-on-scroll">
                   <div className="w-full h-64 overflow-hidden bg-gray-100">
@@ -217,7 +217,7 @@ const industryStats = [
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Other leaders */}
             <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
