@@ -13,6 +13,7 @@ import { Search, LogOut, Shield, Star, Phone, Mail, Truck } from "lucide-react";
 interface Driver {
   id: string;
   name: string;
+  image_url: string;
   gender: string;
   license_class: string;
   vehicle_type: string;
@@ -155,135 +156,82 @@ const DriversJobBoard = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-20">
-        <div className="container mx-auto px-4">
+      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-primary-foreground py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE4YzIuMiAwIDQtMS44IDQtNHMtMS44LTQtNC00LTQgMS44LTQgNCAxLjggNCA0IDR6bTAgMTJjMi4yIDAgNC0xLjggNC00cy0xLjgtNC00LTQtNCAxLjgtNCA0IDEuOCA0IDQgNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Hire Trusted Transporters & Drivers
+            <div className="inline-block animate-fade-in">
+              <Badge variant="secondary" className="mb-4 text-sm font-semibold px-4 py-2">
+                🚛 Trusted by 500+ Companies
+              </Badge>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in leading-tight">
+              Hire Trusted Transporters <br />& Professional Drivers
             </h1>
-            <p className="text-xl opacity-90 mb-6">
-              Access our database of verified, professional drivers ready to work
+            <p className="text-xl md:text-2xl opacity-95 mb-8 animate-fade-in max-w-2xl mx-auto">
+              Connect with verified, experienced drivers ready to power your logistics operations
             </p>
             {isAuthenticated && verified && (
-              <Button onClick={handleLogout} variant="secondary" className="gap-2">
+              <Button onClick={handleLogout} variant="secondary" className="gap-2 animate-scale-in">
                 <LogOut className="w-4 h-4" />
                 Logout
               </Button>
             )}
           </div>
         </div>
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent"></div>
       </section>
 
       {/* Value Proposition Section */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Why Hire Through Our Platform?</h2>
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card>
-                <CardHeader>
-                  <Shield className="w-12 h-12 text-primary mb-4" />
-                  <CardTitle>Verified Professionals</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    All drivers undergo thorough background checks and document verification
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Star className="w-12 h-12 text-primary mb-4" />
-                  <CardTitle>Rated & Reviewed</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Access driver ratings and reviews from previous employers
-                  </p>
-                </CardContent>
-              </Card>
-              <Card>
-                <CardHeader>
-                  <Truck className="w-12 h-12 text-primary mb-4" />
-                  <CardTitle>Diverse Fleet Experience</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground">
-                    Find drivers experienced with trucks, vans, lorries, and more
-                  </p>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Filter Section */}
-      <section className="py-12 bg-muted/50">
+      <section className="py-20 bg-background relative">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-2xl font-bold mb-6">Filter by Region or Category</h2>
-            <div className="grid md:grid-cols-5 gap-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                <Input
-                  placeholder="Search by name..."
-                  className="pl-10"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </div>
-
-              <Select value={regionFilter} onValueChange={setRegionFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Region" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Regions</SelectItem>
-                  <SelectItem value="nairobi">Nairobi</SelectItem>
-                  <SelectItem value="mombasa">Mombasa</SelectItem>
-                  <SelectItem value="kisumu">Kisumu</SelectItem>
-                  <SelectItem value="nakuru">Nakuru</SelectItem>
-                  <SelectItem value="eldoret">Eldoret</SelectItem>
-                </SelectContent>
-              </Select>
-              
-              <Select value={genderFilter} onValueChange={setGenderFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Gender" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Genders</SelectItem>
-                  <SelectItem value="male">Male</SelectItem>
-                  <SelectItem value="female">Female</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select value={licenseFilter} onValueChange={setLicenseFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="License Class" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Licenses</SelectItem>
-                  <SelectItem value="A">Class A</SelectItem>
-                  <SelectItem value="B">Class B</SelectItem>
-                  <SelectItem value="C">Class C</SelectItem>
-                  <SelectItem value="D">Class D</SelectItem>
-                </SelectContent>
-              </Select>
-
-              <Select value={vehicleFilter} onValueChange={setVehicleFilter}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Vehicle Type" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All Vehicles</SelectItem>
-                  <SelectItem value="truck">Truck</SelectItem>
-                  <SelectItem value="van">Van</SelectItem>
-                  <SelectItem value="lorry">Lorry</SelectItem>
-                  <SelectItem value="pickup">Pickup</SelectItem>
-                </SelectContent>
-              </Select>
+            <div className="text-center mb-16 animate-fade-in">
+              <h2 className="text-4xl font-bold mb-4">Why Choose Our Platform?</h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                The most reliable way to find professional drivers for your business
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-lg hover:-translate-y-1 animate-fade-in group">
+                <CardHeader>
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Shield className="w-8 h-8 text-primary" />
+                  </div>
+                  <CardTitle className="text-2xl">Verified Professionals</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Every driver undergoes comprehensive background checks, license verification, and reference validation
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-lg hover:-translate-y-1 animate-fade-in group">
+                <CardHeader>
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Star className="w-8 h-8 text-primary" />
+                  </div>
+                  <CardTitle className="text-2xl">Rated & Reviewed</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Make informed decisions with transparent ratings and detailed reviews from previous employers
+                  </p>
+                </CardContent>
+              </Card>
+              <Card className="border-2 hover:border-primary transition-all duration-300 hover:shadow-lg hover:-translate-y-1 animate-fade-in group">
+                <CardHeader>
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
+                    <Truck className="w-8 h-8 text-primary" />
+                  </div>
+                  <CardTitle className="text-2xl">Diverse Experience</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Access drivers experienced with trucks, vans, lorries, pickups, and specialized vehicles
+                  </p>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
@@ -291,114 +239,284 @@ const DriversJobBoard = () => {
 
       {/* Driver Cards Section - Only show if verified */}
       {isAuthenticated && verified && (
-        <section className="py-12">
-          <div className="container mx-auto px-4">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold mb-8">Available Drivers ({filteredDrivers.length})</h2>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {filteredDrivers.map((driver) => (
-                <Card key={driver.id} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <CardTitle className="text-xl">{driver.name}</CardTitle>
-                        <CardDescription className="flex items-center gap-1 mt-1">
-                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
-                          <span>{driver.rating.toFixed(1)}</span>
-                          <span className="mx-2">•</span>
-                          <span>{driver.experience_years} yrs exp</span>
-                        </CardDescription>
-                      </div>
-                      {driver.documents_verified && (
-                        <Badge variant="default" className="gap-1">
-                          <Shield className="w-3 h-3" />
-                          Verified
-                        </Badge>
-                      )}
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="space-y-2 text-sm">
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Truck className="w-4 h-4" />
-                        <span>License: {driver.license_class} | {driver.vehicle_type}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Phone className="w-4 h-4" />
-                        <span>{driver.phone}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-muted-foreground">
-                        <Mail className="w-4 h-4" />
-                        <span>{driver.email}</span>
-                      </div>
-                    </div>
+        <>
+          {/* Filter Section - Only for authenticated users */}
+          <section className="py-8 bg-muted/30 border-y">
+            <div className="container mx-auto px-4">
+              <div className="max-w-6xl mx-auto">
+                <div className="flex items-center gap-2 mb-6">
+                  <Search className="w-6 h-6 text-primary" />
+                  <h2 className="text-2xl font-bold">Filter & Search Drivers</h2>
+                </div>
+                <div className="grid md:grid-cols-5 gap-4">
+                  <div className="relative">
+                    <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      placeholder="Search by name..."
+                      className="pl-10"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </div>
 
-                    <div className="flex gap-2">
-                      <Badge variant={driver.available ? "default" : "secondary"}>
-                        {driver.available ? "Available" : "Busy"}
-                      </Badge>
-                      <Badge variant="outline">{driver.gender}</Badge>
-                    </div>
+                  <Select value={regionFilter} onValueChange={setRegionFilter}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Region" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Regions</SelectItem>
+                      <SelectItem value="nairobi">Nairobi</SelectItem>
+                      <SelectItem value="mombasa">Mombasa</SelectItem>
+                      <SelectItem value="kisumu">Kisumu</SelectItem>
+                      <SelectItem value="nakuru">Nakuru</SelectItem>
+                      <SelectItem value="eldoret">Eldoret</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  
+                  <Select value={genderFilter} onValueChange={setGenderFilter}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Gender" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Genders</SelectItem>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                    </SelectContent>
+                  </Select>
 
-                    <Button 
-                      className="w-full" 
-                      onClick={() => handleHireDriver(driver)}
-                      disabled={!driver.available}
-                    >
-                      Contact Driver
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  <Select value={licenseFilter} onValueChange={setLicenseFilter}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="License Class" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Licenses</SelectItem>
+                      <SelectItem value="A">Class A</SelectItem>
+                      <SelectItem value="B">Class B</SelectItem>
+                      <SelectItem value="C">Class C</SelectItem>
+                      <SelectItem value="D">Class D</SelectItem>
+                    </SelectContent>
+                  </Select>
 
-            {filteredDrivers.length === 0 && (
-              <div className="text-center py-12">
-                <p className="text-muted-foreground text-lg">
-                  No drivers match your search criteria
-                </p>
+                  <Select value={vehicleFilter} onValueChange={setVehicleFilter}>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Vehicle Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="all">All Vehicles</SelectItem>
+                      <SelectItem value="truck">Truck</SelectItem>
+                      <SelectItem value="van">Van</SelectItem>
+                      <SelectItem value="lorry">Lorry</SelectItem>
+                      <SelectItem value="pickup">Pickup</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
-            )}
             </div>
-          </div>
-        </section>
+          </section>
+
+          <section className="py-12 bg-background">
+            <div className="container mx-auto px-4">
+              <div className="max-w-6xl mx-auto">
+                <div className="flex items-center justify-between mb-8">
+                  <h2 className="text-3xl font-bold">Available Drivers ({filteredDrivers.length})</h2>
+                  <Badge variant="outline" className="text-base px-4 py-2">
+                    🟢 {filteredDrivers.filter(d => d.available).length} Online Now
+                  </Badge>
+                </div>
+            
+                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredDrivers.map((driver, index) => (
+                    <Card 
+                      key={driver.id} 
+                      className="group hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border-2 hover:border-primary/50 overflow-hidden animate-fade-in"
+                      style={{ animationDelay: `${index * 100}ms` }}
+                    >
+                      <div className="relative h-48 overflow-hidden bg-muted">
+                        <img 
+                          src={driver.image_url || "/placeholder.svg"} 
+                          alt={driver.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                        <div className="absolute top-3 right-3 flex gap-2">
+                          {driver.documents_verified && (
+                            <Badge variant="default" className="gap-1 shadow-lg">
+                              <Shield className="w-3 h-3" />
+                              Verified
+                            </Badge>
+                          )}
+                          <Badge 
+                            variant={driver.available ? "default" : "secondary"}
+                            className={driver.available ? "bg-green-500 shadow-lg" : ""}
+                          >
+                            {driver.available ? "🟢 Available" : "Busy"}
+                          </Badge>
+                        </div>
+                      </div>
+                      <CardHeader className="pb-3">
+                        <div className="flex items-start justify-between">
+                          <div className="flex-1">
+                            <CardTitle className="text-xl mb-2 group-hover:text-primary transition-colors">
+                              {driver.name}
+                            </CardTitle>
+                            <div className="flex items-center gap-3 text-sm">
+                              <div className="flex items-center gap-1">
+                                <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                                <span className="font-semibold">{driver.rating.toFixed(1)}</span>
+                              </div>
+                              <span className="text-muted-foreground">•</span>
+                              <span className="text-muted-foreground">{driver.experience_years} years exp</span>
+                            </div>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent className="space-y-4">
+                        <div className="grid grid-cols-2 gap-3 text-sm">
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                              <Truck className="w-4 h-4 text-primary" />
+                            </div>
+                            <div>
+                              <p className="text-xs text-muted-foreground">License</p>
+                              <p className="font-semibold">Class {driver.license_class}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                              <Phone className="w-4 h-4 text-primary" />
+                            </div>
+                            <div>
+                              <p className="text-xs text-muted-foreground">Vehicle</p>
+                              <p className="font-semibold capitalize">{driver.vehicle_type}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="pt-3 border-t space-y-2 text-sm">
+                          <div className="flex items-center gap-2 text-muted-foreground">
+                            <Phone className="w-4 h-4" />
+                            <span>{driver.phone}</span>
+                          </div>
+                          <div className="flex items-center gap-2 text-muted-foreground">
+                            <Mail className="w-4 h-4" />
+                            <span className="truncate">{driver.email}</span>
+                          </div>
+                        </div>
+
+                        <Button 
+                          className="w-full group-hover:scale-105 transition-transform" 
+                          onClick={() => handleHireDriver(driver)}
+                          disabled={!driver.available}
+                        >
+                          {driver.available ? "Contact Driver" : "Not Available"}
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  ))}
+            </div>
+
+                {filteredDrivers.length === 0 && (
+                  <div className="text-center py-20">
+                    <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-muted flex items-center justify-center">
+                      <Search className="w-12 h-12 text-muted-foreground" />
+                    </div>
+                    <h3 className="text-2xl font-bold mb-2">No Drivers Found</h3>
+                    <p className="text-muted-foreground text-lg">
+                      Try adjusting your filters to see more results
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </section>
+        </>
       )}
 
       {/* CTA Section */}
-      <section className="py-20 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Register as a Company to Hire Drivers</h2>
-          <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
-            Get unlimited access to our verified drivers database
-          </p>
-          <div className="flex flex-col md:flex-row gap-6 justify-center items-center mb-8">
-            <Card className="bg-background text-foreground p-6 max-w-xs">
-              <CardHeader>
-                <CardTitle>One-Time Payment</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl font-bold mb-2">Ksh 1,999</p>
-                <p className="text-muted-foreground">Lifetime access</p>
-              </CardContent>
-            </Card>
-            <Card className="bg-background text-foreground p-6 max-w-xs">
-              <CardHeader>
-                <CardTitle>Monthly Subscription</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-4xl font-bold mb-2">Ksh 499</p>
-                <p className="text-muted-foreground">Per month</p>
-              </CardContent>
-            </Card>
+      <section className="relative py-24 bg-gradient-to-br from-primary via-primary to-primary/90 text-primary-foreground overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE4YzIuMiAwIDQtMS44IDQtNHMtMS44LTQtNC00LTQgMS44LTQgNCAxLjggNCA0IDR6bTAgMTJjMi4yIDAgNC0xLjggNC00cy0xLjgtNC00LTQtNCAxLjgtNCA0IDEuOCA0IDQgNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <Badge variant="secondary" className="mb-6 text-sm font-semibold px-4 py-2 animate-fade-in">
+              ⚡ Limited Time Offer
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in">
+              Register as a Company to <br className="hidden md:block" />Hire Professional Drivers
+            </h2>
+            <p className="text-xl opacity-95 mb-12 max-w-2xl mx-auto animate-fade-in">
+              Get unlimited access to our verified drivers database and streamline your hiring process
+            </p>
+            <div className="flex flex-col md:flex-row gap-6 justify-center items-stretch mb-12">
+              <Card className="bg-background/95 backdrop-blur text-foreground p-8 max-w-sm hover:scale-105 transition-transform duration-300 hover:shadow-2xl animate-scale-in border-2">
+                <CardHeader className="pb-4">
+                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4 mx-auto">
+                    <span className="text-2xl">💎</span>
+                  </div>
+                  <CardTitle className="text-2xl">One-Time Payment</CardTitle>
+                  <CardDescription className="text-base">Perfect for growing businesses</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-4">
+                  <div className="mb-6">
+                    <p className="text-5xl font-bold mb-2 text-primary">Ksh 1,999</p>
+                    <p className="text-muted-foreground font-medium">Lifetime Access</p>
+                  </div>
+                  <ul className="space-y-3 text-left text-sm">
+                    <li className="flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-primary" />
+                      <span>Unlimited driver searches</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Star className="w-4 h-4 text-primary" />
+                      <span>Priority support</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Truck className="w-4 h-4 text-primary" />
+                      <span>No hidden fees</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+              <Card className="bg-primary/10 backdrop-blur text-foreground p-8 max-w-sm hover:scale-105 transition-transform duration-300 hover:shadow-2xl animate-scale-in border-2 border-primary/50 relative overflow-hidden">
+                <div className="absolute top-0 right-0 bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-bl-lg">
+                  POPULAR
+                </div>
+                <CardHeader className="pb-4">
+                  <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                    <span className="text-2xl">🚀</span>
+                  </div>
+                  <CardTitle className="text-2xl">Monthly Subscription</CardTitle>
+                  <CardDescription className="text-base">Flexible for all businesses</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-4">
+                  <div className="mb-6">
+                    <p className="text-5xl font-bold mb-2 text-primary">Ksh 499</p>
+                    <p className="text-muted-foreground font-medium">Per Month</p>
+                  </div>
+                  <ul className="space-y-3 text-left text-sm">
+                    <li className="flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-primary" />
+                      <span>Full database access</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Star className="w-4 h-4 text-primary" />
+                      <span>Cancel anytime</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Truck className="w-4 h-4 text-primary" />
+                      <span>Monthly updates</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </div>
+            <Button 
+              size="lg" 
+              variant="secondary"
+              className="text-lg px-8 py-6 hover:scale-105 transition-transform shadow-2xl animate-scale-in"
+              onClick={() => navigate("/company-auth")}
+            >
+              Get Started Now →
+            </Button>
           </div>
-          <Button 
-            size="lg" 
-            variant="secondary"
-            onClick={() => navigate("/company-auth")}
-          >
-            Get Started Now
-          </Button>
         </div>
       </section>
     </div>
