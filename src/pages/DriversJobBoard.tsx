@@ -245,8 +245,8 @@ const DriversJobBoard = () => {
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto">
                 <div className="flex items-center gap-2 mb-6">
-                  <Search className="w-6 h-6 text-primary" />
-                  <h2 className="text-2xl font-bold">Filter & Search Drivers</h2>
+                  <Search className="w-6 h-6 text-red-500" />
+                  <h2 className="text-2xl font-bold text-red-500">Filter & Search Drivers</h2>
                 </div>
                 <div className="grid md:grid-cols-5 gap-4">
                   <div className="relative">
@@ -318,7 +318,7 @@ const DriversJobBoard = () => {
             <div className="container mx-auto px-4">
               <div className="max-w-6xl mx-auto">
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-3xl font-bold">Available Drivers ({filteredDrivers.length})</h2>
+                  <h2 className="text-3xl font-bold text-red-500">Available Drivers ({filteredDrivers.length})</h2>
                   <Badge variant="outline" className="text-base px-4 py-2">
                     🟢 {filteredDrivers.filter(d => d.available).length} Online Now
                   </Badge>
@@ -475,7 +475,7 @@ const DriversJobBoard = () => {
                   </ul>
                 </CardContent>
               </Card>
-              <Card className="bg-primary/10 backdrop-blur text-foreground p-8 max-w-sm hover:scale-105 transition-transform duration-300 hover:shadow-2xl animate-scale-in border-2 border-primary/50 relative overflow-hidden">
+              <Card className="bg-white text-foreground p-8 max-w-sm hover:scale-105 transition-transform duration-300 hover:shadow-2xl animate-scale-in border-2 border-primary relative overflow-hidden">
                 <div className="absolute top-0 right-0 bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-bl-lg">
                   POPULAR
                 </div>
