@@ -168,7 +168,7 @@ const DriversJobBoard = () => {
             <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in leading-tight">
               Hire Trusted Transporters <br />& Professional Drivers
             </h1>
-            <p className="text-xl md:text-2xl opacity-95 mb-8 animate-fade-in max-w-2xl mx-auto">
+            <p className="text-xl md:text-2xl text-red-500 font-semibold mb-8 animate-fade-in max-w-2xl mx-auto">
               Connect with verified, experienced drivers ready to power your logistics operations
             </p>
             {isAuthenticated && verified && (
@@ -188,7 +188,7 @@ const DriversJobBoard = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16 animate-fade-in">
               <h2 className="text-4xl font-bold mb-4">Why Choose Our Platform?</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              <p className="text-red-500 text-lg max-w-2xl mx-auto font-semibold">
                 The most reliable way to find professional drivers for your business
               </p>
             </div>
