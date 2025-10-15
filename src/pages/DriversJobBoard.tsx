@@ -16,6 +16,7 @@ interface Driver {
   gender: string;
   license_class: string;
   vehicle_type: string;
+  region: string;
   rating: number;
   experience_years: number;
   phone: string;
@@ -35,6 +36,7 @@ const DriversJobBoard = () => {
   const [genderFilter, setGenderFilter] = useState("all");
   const [licenseFilter, setLicenseFilter] = useState("all");
   const [vehicleFilter, setVehicleFilter] = useState("all");
+  const [regionFilter, setRegionFilter] = useState("all");
 
   useEffect(() => {
     checkAuthAndVerification();
@@ -42,7 +44,7 @@ const DriversJobBoard = () => {
 
   useEffect(() => {
     filterDrivers();
-  }, [drivers, searchTerm, genderFilter, licenseFilter, vehicleFilter]);
+  }, [drivers, searchTerm, genderFilter, licenseFilter, vehicleFilter, regionFilter]);
 
   const checkAuthAndVerification = async () => {
     const { data: { session } } = await supabase.auth.getSession();
@@ -106,6 +108,10 @@ const DriversJobBoard = () => {
 
     if (vehicleFilter !== "all") {
       filtered = filtered.filter(driver => driver.vehicle_type === vehicleFilter);
+    }
+
+    if (regionFilter !== "all") {
+      filtered = filtered.filter(driver => driver.region === regionFilter);
     }
 
     setFilteredDrivers(filtered);
@@ -192,7 +198,8 @@ const DriversJobBoard = () => {
       <section className="py-12 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-4 gap-4">
+            <h2 className="text-2xl font-bold mb-6">Filter by Region or Category</h2>
+            <div className="grid md:grid-cols-5 gap-4">
               <div className="relative">
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
@@ -202,6 +209,20 @@ const DriversJobBoard = () => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </div>
+
+              <Select value={regionFilter} onValueChange={setRegionFilter}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Region" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Regions</SelectItem>
+                  <SelectItem value="nairobi">Nairobi</SelectItem>
+                  <SelectItem value="mombasa">Mombasa</SelectItem>
+                  <SelectItem value="kisumu">Kisumu</SelectItem>
+                  <SelectItem value="nakuru">Nakuru</SelectItem>
+                  <SelectItem value="eldoret">Eldoret</SelectItem>
+                </SelectContent>
+              </Select>
               
               <Select value={genderFilter} onValueChange={setGenderFilter}>
                 <SelectTrigger>
@@ -319,13 +340,39 @@ const DriversJobBoard = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-muted">
+      <section className="py-20 bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Need Help Finding the Right Driver?</h2>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Our team can help you find the perfect match for your transportation needs
+          <h2 className="text-3xl font-bold mb-4">Register as a Company to Hire Drivers</h2>
+          <p className="text-lg opacity-90 mb-8 max-w-2xl mx-auto">
+            Get unlimited access to our verified drivers database
           </p>
-          <Button size="lg">Contact Support</Button>
+          <div className="flex flex-col md:flex-row gap-6 justify-center items-center mb-8">
+            <Card className="bg-background text-foreground p-6 max-w-xs">
+              <CardHeader>
+                <CardTitle>One-Time Payment</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-4xl font-bold mb-2">Ksh 1,999</p>
+                <p className="text-muted-foreground">Lifetime access</p>
+              </CardContent>
+            </Card>
+            <Card className="bg-background text-foreground p-6 max-w-xs">
+              <CardHeader>
+                <CardTitle>Monthly Subscription</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-4xl font-bold mb-2">Ksh 499</p>
+                <p className="text-muted-foreground">Per month</p>
+              </CardContent>
+            </Card>
+          </div>
+          <Button 
+            size="lg" 
+            variant="secondary"
+            onClick={() => navigate("/company-auth")}
+          >
+            Get Started Now
+          </Button>
         </div>
       </section>
     </div>
