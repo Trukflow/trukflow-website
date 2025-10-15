@@ -174,6 +174,15 @@ const Navbar = () => {
                 <DropdownMenuItem
                   className="cursor-pointer hover:bg-gray-100"
                   onClick={() => {
+                    console.log("Navigating to /drivers-job-board");
+                    navigate("/drivers-job-board");
+                  }}
+                >
+                  Hire Drivers
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="cursor-pointer hover:bg-gray-100"
+                  onClick={() => {
                     console.log("Navigating to /transporter-enlistment");
                     navigate("/transporter-enlistment");
                   }}
@@ -300,6 +309,16 @@ const Navbar = () => {
                   }}
                 >
                   Broker enlistment
+                </button>
+                <button
+                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
+                  onClick={() => {
+                    console.log("Navigating to /drivers-job-board");
+                    setIsOpen(false);
+                    navigate("/drivers-job-board");
+                  }}
+                >
+                  Hire Drivers
                 </button>
                 <button
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"

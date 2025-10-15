@@ -29,6 +29,7 @@ const DriversJobBoard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [verified, setVerified] = useState(false);
   const [drivers, setDrivers] = useState<Driver[]>([]);
   const [filteredDrivers, setFilteredDrivers] = useState<Driver[]>([]);
@@ -50,9 +51,12 @@ const DriversJobBoard = () => {
     const { data: { session } } = await supabase.auth.getSession();
     
     if (!session) {
-      navigate("/company-auth");
+      setIsAuthenticated(false);
+      setLoading(false);
       return;
     }
+
+    setIsAuthenticated(true);
 
     // Check if company is verified (paid)
     const { data: company, error } = await supabase
@@ -118,6 +122,11 @@ const DriversJobBoard = () => {
   };
 
   const handleHireDriver = (driver: Driver) => {
+    if (!isAuthenticated || !verified) {
+      navigate("/company-auth");
+      return;
+    }
+    
     toast({
       title: "Contact Request Sent",
       description: `Your request to hire ${driver.name} has been submitted. We'll notify you shortly.`,
@@ -141,37 +150,6 @@ const DriversJobBoard = () => {
     );
   }
 
-  if (!verified) {
-    return (
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <div className="container mx-auto px-4 py-20">
-          <Card className="max-w-2xl mx-auto text-center">
-            <CardHeader>
-              <CardTitle className="text-3xl">Access Restricted</CardTitle>
-              <CardDescription>
-                Payment is required to access the Drivers Job Board
-              </CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-muted-foreground">
-                Please complete your payment to unlock access to our verified drivers database.
-              </p>
-              <div className="flex gap-4 justify-center">
-                <Button onClick={handleLogout} variant="outline">
-                  Logout
-                </Button>
-                <Button>
-                  Complete Payment
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -186,10 +164,56 @@ const DriversJobBoard = () => {
             <p className="text-xl opacity-90 mb-6">
               Access our database of verified, professional drivers ready to work
             </p>
-            <Button onClick={handleLogout} variant="secondary" className="gap-2">
-              <LogOut className="w-4 h-4" />
-              Logout
-            </Button>
+            {isAuthenticated && verified && (
+              <Button onClick={handleLogout} variant="secondary" className="gap-2">
+                <LogOut className="w-4 h-4" />
+                Logout
+              </Button>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* Value Proposition Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl font-bold text-center mb-12">Why Hire Through Our Platform?</h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card>
+                <CardHeader>
+                  <Shield className="w-12 h-12 text-primary mb-4" />
+                  <CardTitle>Verified Professionals</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    All drivers undergo thorough background checks and document verification
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <Star className="w-12 h-12 text-primary mb-4" />
+                  <CardTitle>Rated & Reviewed</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Access driver ratings and reviews from previous employers
+                  </p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <Truck className="w-12 h-12 text-primary mb-4" />
+                  <CardTitle>Diverse Fleet Experience</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-muted-foreground">
+                    Find drivers experienced with trucks, vans, lorries, and more
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>
@@ -265,11 +289,12 @@ const DriversJobBoard = () => {
         </div>
       </section>
 
-      {/* Driver Cards Section */}
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold mb-8">Available Drivers ({filteredDrivers.length})</h2>
+      {/* Driver Cards Section - Only show if verified */}
+      {isAuthenticated && verified && (
+        <section className="py-12">
+          <div className="container mx-auto px-4">
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-3xl font-bold mb-8">Available Drivers ({filteredDrivers.length})</h2>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredDrivers.map((driver) => (
@@ -335,9 +360,10 @@ const DriversJobBoard = () => {
                 </p>
               </div>
             )}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* CTA Section */}
       <section className="py-20 bg-primary text-primary-foreground">
