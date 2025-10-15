@@ -144,8 +144,15 @@ const DriversJobBoard = () => {
     return (
       <div className="min-h-screen bg-background">
         <Navbar />
-        <div className="container mx-auto px-4 py-20 text-center">
-          <p>Loading...</p>
+        <div className="container mx-auto px-4 py-20">
+          <div className="max-w-6xl mx-auto">
+            <div className="h-64 bg-gradient-to-br from-primary/20 to-primary/10 rounded-lg animate-pulse mb-8" />
+            <div className="grid md:grid-cols-3 gap-6">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="h-96 bg-muted rounded-lg animate-pulse" />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     );
