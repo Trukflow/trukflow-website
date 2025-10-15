@@ -11,6 +11,8 @@ import AgriTruk from "./pages/AgriTruk";
 import CargoTruk from "./pages/CargoTruk";
 import Brokers from "./pages/Brokers";
 import TransporterEnlistment from "./pages/DriverEnlistment";
+import CompanyAuth from "./pages/CompanyAuth";
+import DriversJobBoard from "./pages/DriversJobBoard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +31,8 @@ const App = () => (
           <Route path="/cargotruk" element={<CargoTruk />} />
           <Route path="/brokers" element={<Brokers />} />
           <Route path="/transporter-enlistment" element={<TransporterEnlistment />} />
+          <Route path="/company-auth" element={<CompanyAuth />} />
+          <Route path="/drivers-job-board" element={<DriversJobBoard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

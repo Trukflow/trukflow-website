@@ -206,6 +206,18 @@ const Navbar = () => {
               Contact Us
             </button>
 
+            {/* Company Login Button */}
+            <Button
+              variant="outline"
+              className="border-2 transition-all duration-300 font-medium px-6 rounded-full transform hover:scale-105"
+              onClick={() => {
+                console.log("Navigating to /company-auth");
+                navigate("/company-auth");
+              }}
+            >
+              Company Login
+            </Button>
+
             {/* Get Started Button */}
             <Button
               className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white transition-all duration-300 font-medium px-6 rounded-full transform hover:scale-105 shadow-2xl hover:shadow-gray-500/30"
@@ -330,7 +342,28 @@ const Navbar = () => {
               >
                 Contact Us
               </button>
-              <div className="px-3 py-2">
+              <div className="px-3 py-2 space-y-2">
+                <button
+                  className="
+                    w-full 
+                    bg-white
+                    border-2 border-gray-900
+                    text-gray-900
+                    font-medium 
+                    rounded-full
+                    py-2
+                    transition-all duration-300
+                    transform hover:scale-[1.02]
+                    active:scale-100
+                  "
+                  onClick={() => {
+                    console.log("Navigating to /company-auth");
+                    setIsOpen(false);
+                    navigate("/company-auth");
+                  }}
+                >
+                  Company Login
+                </button>
                 <button
                   className="
                     w-full 
