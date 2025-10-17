@@ -58,6 +58,12 @@ const Payment = () => {
   const [paymentMethod, setPaymentMethod] = useState("mpesa");
   const [loading, setLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [cardDetails, setCardDetails] = useState({
+    cardNumber: "",
+    expiryDate: "",
+    cvv: "",
+    cardholderName: ""
+  });
 
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -235,6 +241,78 @@ const Payment = () => {
                       className="w-full px-4 py-2 border rounded-md"
                       required
                     />
+                  </div>
+                )}
+
+                {/* Card Details */}
+                {paymentMethod === "card" && (
+                  <div className="space-y-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="cardholderName">Cardholder Name</Label>
+                      <input
+                        id="cardholderName"
+                        type="text"
+                        placeholder="John Doe"
+                        value={cardDetails.cardholderName}
+                        onChange={(e) => setCardDetails({...cardDetails, cardholderName: e.target.value})}
+                        className="w-full px-4 py-2 border rounded-md"
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="cardNumber">Card Number</Label>
+                      <input
+                        id="cardNumber"
+                        type="text"
+                        placeholder="1234 5678 9012 3456"
+                        maxLength={19}
+                        value={cardDetails.cardNumber}
+                        onChange={(e) => {
+                          const value = e.target.value.replace(/\s/g, '');
+                          const formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+                          setCardDetails({...cardDetails, cardNumber: formatted});
+                        }}
+                        className="w-full px-4 py-2 border rounded-md"
+                        required
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="expiryDate">Expiry Date</Label>
+                        <input
+                          id="expiryDate"
+                          type="text"
+                          placeholder="MM/YY"
+                          maxLength={5}
+                          value={cardDetails.expiryDate}
+                          onChange={(e) => {
+                            let value = e.target.value.replace(/\D/g, '');
+                            if (value.length >= 2) {
+                              value = value.slice(0, 2) + '/' + value.slice(2, 4);
+                            }
+                            setCardDetails({...cardDetails, expiryDate: value});
+                          }}
+                          className="w-full px-4 py-2 border rounded-md"
+                          required
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="cvv">CVV</Label>
+                        <input
+                          id="cvv"
+                          type="text"
+                          placeholder="123"
+                          maxLength={4}
+                          value={cardDetails.cvv}
+                          onChange={(e) => {
+                            const value = e.target.value.replace(/\D/g, '');
+                            setCardDetails({...cardDetails, cvv: value});
+                          }}
+                          className="w-full px-4 py-2 border rounded-md"
+                          required
+                        />
+                      </div>
+                    </div>
                   </div>
                 )}
 
