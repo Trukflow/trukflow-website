@@ -173,7 +173,7 @@ const DriversJobBoard = () => {
               </Badge>
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in leading-tight">
-              Hire Trusted Transporters <br />& Professional Drivers
+              Hire Trusted & Professional Drivers
             </h1>
             <p className="text-xl md:text-2xl text-red-500 font-semibold mb-8 animate-fade-in max-w-2xl mx-auto">
               Connect with verified, experienced drivers ready to power your logistics operations
