@@ -122,46 +122,58 @@ const TransporterEnlistment = () => {
         </div>
       </section>
 
-      {/* Requirements Section - Fixed alignment */}
+      {/* Requirements Section */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12">
             Requirements
           </h2>
           <div className="flex justify-center">
-            <div className="bg-white p-8 rounded-lg shadow-lg max-w-4xl w-full">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div className="flex justify-center">
-                  <div className="w-full max-w-xs text-left">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Vehicle Requirements</h3>
-                    <ul className="space-y-2 text-gray-600">
-                      <li className="flex items-center">
-                        <span className="text-green-500 mr-2">✓</span> Insurance coverage
-                      </li>
-                      <li className="flex items-center">
-                        <span className="text-green-500 mr-2">✓</span> Good vehicle condition
-                      </li>
-                    </ul>
-                  </div>
+            <div className="bg-white p-8 rounded-lg shadow-lg max-w-5xl w-full">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {/* Companies Requirements */}
+                <div className="text-left">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">For Companies</h3>
+                  <ul className="space-y-2 text-gray-600">
+                    <li className="flex items-start">
+                      <span className="text-green-500 mr-2 mt-1">✓</span>
+                      <span>Company registration certificate</span>
+                    </li>
+                  </ul>
                 </div>
-                <div className="flex justify-center">
-                  <div className="w-full max-w-xs text-left">
-                    <h3 className="text-xl font-semibold text-gray-900 mb-4">Transporter Requirements</h3>
-                    <ul className="space-y-2 text-gray-600">
-                      <li className="flex items-center">
-                        <span className="text-green-500 mr-2">✓</span> Valid driver’s license
-                      </li>
-                      <li className="flex items-center">
-                        <span className="text-green-500 mr-2">✓</span> Clean transporting record
-                      </li>
-                      <li className="flex items-center">
-                        <span className="text-green-500 mr-2">✓</span> Professional attitude
-                      </li>
-                      <li className="flex items-center">
-                        <span className="text-green-500 mr-2">✓</span> Smartphone for app usage
-                      </li>
-                    </ul>
-                  </div>
+
+                {/* Drivers Requirements */}
+                <div className="text-left">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">For Drivers</h3>
+                  <ul className="space-y-2 text-gray-600">
+                    <li className="flex items-start">
+                      <span className="text-green-500 mr-2 mt-1">✓</span>
+                      <span>Driving License</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-green-500 mr-2 mt-1">✓</span>
+                      <span>National ID</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-green-500 mr-2 mt-1">✓</span>
+                      <span>Good conduct certificate</span>
+                    </li>
+                    <li className="flex items-start">
+                      <span className="text-green-500 mr-2 mt-1">✓</span>
+                      <span>Goods Service License <span className="text-sm text-gray-500">(Optional)</span></span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Vehicles Requirements */}
+                <div className="text-left">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4">For Vehicles</h3>
+                  <ul className="space-y-2 text-gray-600">
+                    <li className="flex items-start">
+                      <span className="text-green-500 mr-2 mt-1">✓</span>
+                      <span>Vehicle insurance</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
