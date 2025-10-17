@@ -12,6 +12,7 @@ import CargoTruk from "./pages/CargoTruk";
 import Brokers from "./pages/Brokers";
 import TransporterEnlistment from "./pages/DriverEnlistment";
 import CompanyAuth from "./pages/CompanyAuth";
+import Payment from "./pages/Payment";
 import DriversJobBoard from "./pages/DriversJobBoard";
 import NotFound from "./pages/NotFound";
 
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/brokers" element={<Brokers />} />
           <Route path="/transporter-enlistment" element={<TransporterEnlistment />} />
           <Route path="/company-auth" element={<CompanyAuth />} />
+          <Route path="/payment" element={<Payment />} />
           <Route path="/drivers-job-board" element={<DriversJobBoard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

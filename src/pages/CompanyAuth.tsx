@@ -65,9 +65,14 @@ const CompanyAuth = () => {
       }
 
       toast({
-        title: "Success!",
-        description: "Account created successfully. Please log in.",
+        title: "Account Created!",
+        description: "Redirecting to payment page...",
       });
+
+      // Redirect to payment page
+      setTimeout(() => {
+        navigate("/payment");
+      }, 1500);
     }
   };
 
