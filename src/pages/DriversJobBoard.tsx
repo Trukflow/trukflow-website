@@ -15,8 +15,8 @@ interface Driver {
   name: string;
   image_url: string;
   gender: string;
-  license_class: string;
-  vehicle_type: string;
+  license_class: string[];
+  vehicle_type: string[];
   region: string;
   rating: number;
   experience_years: number;
@@ -24,6 +24,8 @@ interface Driver {
   email: string;
   available: boolean;
   documents_verified: boolean;
+  age: number;
+  employment_status: string;
 }
 
 const DriversJobBoard = () => {
@@ -78,12 +80,36 @@ const DriversJobBoard = () => {
 
   const fetchDrivers = async () => {
     try {
-      // This endpoint will be provided by the user
       const response = await fetch('/api/job-seekers/approved');
-      const data = await response.json();
-      setDrivers(data);
-      setFilteredDrivers(data);
+      if (!response.ok) {
+        throw new Error('Failed to fetch drivers');
+      }
+      const apiData = await response.json();
+      
+      // Map API data to our Driver interface
+      const mappedDrivers: Driver[] = apiData.map((jobSeeker: any) => ({
+        id: jobSeeker.jobSeekerId,
+        name: `${jobSeeker.firstName} ${jobSeeker.lastName}`,
+        image_url: jobSeeker.profilePhoto || "/placeholder.svg",
+        gender: jobSeeker.gender,
+        license_class: jobSeeker.documents?.drivingLicense?.vehicleClasses || [],
+        vehicle_type: jobSeeker.experience?.vehicleClassesExperience || [],
+        region: jobSeeker.address?.county || jobSeeker.address?.city || "Unknown",
+        rating: jobSeeker.performance?.platformRating || 0,
+        experience_years: jobSeeker.experience?.experienceYears || 0,
+        phone: jobSeeker.phone,
+        email: jobSeeker.email,
+        available: jobSeeker.employmentStatus === "unemployed" || jobSeeker.employmentStatus === "seeking",
+        documents_verified: jobSeeker.documents?.drivingLicense?.status === "approved" && 
+                           jobSeeker.documents?.goodConductCert?.status === "approved",
+        age: jobSeeker.age,
+        employment_status: jobSeeker.employmentStatus
+      }));
+      
+      setDrivers(mappedDrivers);
+      setFilteredDrivers(mappedDrivers);
     } catch (error) {
+      console.error("Error fetching drivers:", error);
       toast({
         title: "Error",
         description: "Failed to load drivers. Please try again.",
@@ -108,11 +134,13 @@ const DriversJobBoard = () => {
     }
 
     if (licenseFilter !== "all") {
-      filtered = filtered.filter(driver => driver.license_class === licenseFilter);
+      filtered = filtered.filter(driver => driver.license_class.includes(licenseFilter));
     }
 
     if (vehicleFilter !== "all") {
-      filtered = filtered.filter(driver => driver.vehicle_type === vehicleFilter);
+      filtered = filtered.filter(driver => 
+        driver.vehicle_type.some(v => v.toLowerCase().includes(vehicleFilter.toLowerCase()))
+      );
     }
 
     if (regionFilter !== "all") {
@@ -330,7 +358,11 @@ const DriversJobBoard = () => {
                             </div>
                             <div>
                               <p className="text-xs text-muted-foreground">License</p>
-                              <p className="font-semibold">Class {driver.license_class}</p>
+                              <p className="font-semibold text-xs">
+                                {driver.license_class.length > 0 
+                                  ? driver.license_class.join(", ") 
+                                  : "N/A"}
+                              </p>
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
@@ -338,8 +370,12 @@ const DriversJobBoard = () => {
                               <Phone className="w-4 h-4 text-primary" />
                             </div>
                             <div>
-                              <p className="text-xs text-muted-foreground">Vehicle</p>
-                              <p className="font-semibold capitalize">{driver.vehicle_type}</p>
+                              <p className="text-xs text-muted-foreground">Experience</p>
+                              <p className="font-semibold text-xs capitalize">
+                                {driver.vehicle_type.length > 0 
+                                  ? driver.vehicle_type.slice(0, 2).join(", ")
+                                  : "General"}
+                              </p>
                             </div>
                           </div>
                         </div>
