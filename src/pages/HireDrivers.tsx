@@ -131,6 +131,28 @@ const HireDrivers = () => {
         </div>
       </section>
 
+      {/* CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-primary/10 via-primary/5 to-background relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMwMDAiIGZpbGwtb3BhY2l0eT0iMC4wMiI+PHBhdGggZD0iTTM2IDE4YzIuMiAwIDQtMS44IDQtNHMtMS44LTQtNC00LTQgMS44LTQgNCAxLjggNCA0IDR6bTAgMTJjMi4yIDAgNC0xLjggNC00cy0xLjgtNC00LTQtNCAxLjgtNCA0IDEuOCA0IDQgNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30"></div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in">
+              Register as a Company to Hire Drivers
+            </h2>
+            <p className="text-xl text-muted-foreground mb-8 animate-fade-in max-w-2xl mx-auto">
+              Join hundreds of companies already using our platform to find reliable, verified drivers for their logistics needs
+            </p>
+            <Button 
+              size="lg"
+              className="text-lg px-8 py-6 animate-fade-in hover:scale-105 transition-transform"
+              onClick={() => navigate("/company-auth")}
+            >
+              Get Started Now
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* Pricing Plans Section */}
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
