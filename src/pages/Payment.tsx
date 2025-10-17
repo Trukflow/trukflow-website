@@ -72,54 +72,71 @@ const Payment = () => {
     // Get selected plan details
     const plan = pricingPlans.find(p => p.id === selectedPlan);
 
-    // Here you would integrate with your payment API (M-PESA, etc.)
-    // For now, we'll simulate the payment process
-    console.log("Processing payment:", {
-      plan: selectedPlan,
-      amount: plan?.price,
-      method: paymentMethod,
-      phone: phoneNumber
-    });
-
     try {
-      // TODO: Replace with actual API call to your payment endpoint
-      // const response = await fetch('YOUR_PAYMENT_API_ENDPOINT', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({
-      //     plan: selectedPlan,
-      //     amount: plan?.price,
-      //     paymentMethod,
-      //     phoneNumber
-      //   })
-      // });
-
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-
-      toast({
-        title: "Payment Initiated",
-        description: `Please complete the payment on your ${paymentMethod === 'mpesa' ? 'M-PESA' : 'phone'}. Check your phone for the prompt.`,
-      });
-
-      // Simulate successful payment after a delay
-      setTimeout(() => {
-        toast({
-          title: "Payment Successful!",
-          description: "Redirecting to the job board...",
+      if (paymentMethod === "mpesa") {
+        // Call your M-PESA payment API
+        const response = await fetch('/api/payments/mpesa', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            plan: selectedPlan,
+            amount: plan?.price,
+            phoneNumber: phoneNumber,
+            planName: plan?.name,
+            duration: plan?.duration
+          })
         });
-        
-        // Redirect to job board after successful payment
+
+        if (!response.ok) {
+          throw new Error('Payment request failed');
+        }
+
+        const data = await response.json();
+        console.log("M-PESA payment response:", data);
+
+        toast({
+          title: "Payment Initiated",
+          description: "Please complete the payment on your M-PESA. Check your phone for the prompt.",
+        });
+
+        // Poll for payment status or handle callback
+        // You might want to implement a callback handler or polling mechanism here
         setTimeout(() => {
-          navigate("/drivers-job-board");
-        }, 1500);
-      }, 3000);
+          toast({
+            title: "Payment Successful!",
+            description: "Redirecting to the job board...",
+          });
+          
+          setTimeout(() => {
+            navigate("/drivers-job-board");
+          }, 1500);
+        }, 5000);
+
+      } else if (paymentMethod === "card") {
+        // TODO: Implement card payment API call
+        // const response = await fetch('/api/payments/card', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({
+        //     plan: selectedPlan,
+        //     amount: plan?.price,
+        //     cardDetails: cardDetails,
+        //     planName: plan?.name,
+        //     duration: plan?.duration
+        //   })
+        // });
+
+        toast({
+          title: "Card Payment",
+          description: "Card payment integration coming soon.",
+        });
+      }
 
     } catch (error) {
       console.error("Payment error:", error);
       toast({
         title: "Payment Failed",
-        description: "There was an error processing your payment. Please try again.",
+        description: error instanceof Error ? error.message : "There was an error processing your payment. Please try again.",
         variant: "destructive",
       });
     } finally {
