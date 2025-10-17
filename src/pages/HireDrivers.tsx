@@ -66,7 +66,7 @@ const HireDrivers = () => {
               </Badge>
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in leading-tight">
-              Hire Trusted & Professional Drivers
+              Hire <span className="text-[hsl(var(--red))]">Trusted</span> & <span className="text-[hsl(var(--red))]">Professional</span> Drivers
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 font-semibold mb-8 animate-fade-in max-w-2xl mx-auto">
               Connect with verified, experienced drivers ready to power your logistics operations
@@ -82,7 +82,7 @@ const HireDrivers = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16 animate-fade-in">
               <h2 className="text-4xl font-bold mb-4">Why Choose Our Platform?</h2>
-              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              <p className="text-lg max-w-2xl mx-auto text-[hsl(var(--red))]">
                 The most reliable way to find professional drivers for your business
               </p>
             </div>
