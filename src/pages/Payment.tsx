@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import Navbar from "@/components/Navbar";
 import { Check } from "lucide-react";
 
@@ -65,12 +66,24 @@ const Payment = () => {
     cardholderName: ""
   });
 
+  useEffect(() => {
+    // Get current user
+    const getCurrentUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      return user;
+    };
+    getCurrentUser();
+  }, []);
+
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     // Get selected plan details
     const plan = pricingPlans.find(p => p.id === selectedPlan);
+    
+    // Get current user ID
+    const { data: { user } } = await supabase.auth.getUser();
 
     try {
       if (paymentMethod === "mpesa") {
@@ -83,7 +96,11 @@ const Payment = () => {
             amount: plan?.price,
             phoneNumber: phoneNumber,
             planName: plan?.name,
-            duration: plan?.duration
+            duration: plan?.duration,
+            userId: user?.id,
+            // Your payment gateway will need to send a webhook to:
+            // https://psqxewsgyhdrjimmtzgm.supabase.co/functions/v1/payment-webhook
+            webhookUrl: `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/payment-webhook`
           })
         });
 
@@ -99,37 +116,40 @@ const Payment = () => {
           description: "Please complete the payment on your M-PESA. Check your phone for the prompt.",
         });
 
-        // Poll for payment status or handle callback
-        // You might want to implement a callback handler or polling mechanism here
+        // Poll for verification status
+        const checkVerification = setInterval(async () => {
+          const { data: companyData } = await supabase
+            .from('companies')
+            .select('verified')
+            .eq('user_id', user?.id)
+            .single();
+
+          if (companyData?.verified) {
+            clearInterval(checkVerification);
+            toast({
+              title: "Payment Successful!",
+              description: "Redirecting to the job board...",
+            });
+            
+            setTimeout(() => {
+              navigate("/drivers-job-board");
+            }, 1500);
+          }
+        }, 3000);
+
+        // Stop checking after 5 minutes
         setTimeout(() => {
-          toast({
-            title: "Payment Successful!",
-            description: "Redirecting to the job board...",
-          });
-          
-          setTimeout(() => {
-            navigate("/drivers-job-board");
-          }, 1500);
-        }, 5000);
+          clearInterval(checkVerification);
+          setLoading(false);
+        }, 300000);
 
       } else if (paymentMethod === "card") {
         // TODO: Implement card payment API call
-        // const response = await fetch('/api/payments/card', {
-        //   method: 'POST',
-        //   headers: { 'Content-Type': 'application/json' },
-        //   body: JSON.stringify({
-        //     plan: selectedPlan,
-        //     amount: plan?.price,
-        //     cardDetails: cardDetails,
-        //     planName: plan?.name,
-        //     duration: plan?.duration
-        //   })
-        // });
-
         toast({
           title: "Card Payment",
           description: "Card payment integration coming soon.",
         });
+        setLoading(false);
       }
 
     } catch (error) {
@@ -139,7 +159,6 @@ const Payment = () => {
         description: error instanceof Error ? error.message : "There was an error processing your payment. Please try again.",
         variant: "destructive",
       });
-    } finally {
       setLoading(false);
     }
   };
