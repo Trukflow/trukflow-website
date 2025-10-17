@@ -452,64 +452,111 @@ const DriversJobBoard = () => {
             <p className="text-xl opacity-95 mb-12 max-w-2xl mx-auto animate-fade-in">
               Get unlimited access to our verified drivers database and streamline your hiring process
             </p>
-            <div className="flex flex-col md:flex-row gap-6 justify-center items-stretch mb-12">
-              <Card className="bg-background/95 backdrop-blur text-foreground p-8 max-w-sm hover:scale-105 transition-transform duration-300 hover:shadow-2xl animate-scale-in border-2">
+            <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12">
+              <Card className="bg-background/95 backdrop-blur text-foreground p-8 hover:scale-105 transition-transform duration-300 hover:shadow-2xl animate-scale-in border-2">
                 <CardHeader className="pb-4">
-                  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4 mx-auto">
-                    <span className="text-2xl">💎</span>
+                  <div className="w-12 h-12 bg-green-500/10 rounded-full flex items-center justify-center mb-4 mx-auto">
+                    <span className="text-2xl">⚡</span>
                   </div>
-                  <CardTitle className="text-2xl">One-Time Payment</CardTitle>
-                  <CardDescription className="text-base">Perfect for growing businesses</CardDescription>
+                  <CardTitle className="text-2xl">24-Hour Access</CardTitle>
+                  <CardDescription className="text-base">Short-Term / Urgent Hire</CardDescription>
                 </CardHeader>
                 <CardContent className="pt-4">
                   <div className="mb-6">
-                    <p className="text-5xl font-bold mb-2 text-primary">Ksh 1,999</p>
-                    <p className="text-muted-foreground font-medium">Lifetime Access</p>
+                    <p className="text-5xl font-bold mb-2 text-primary">KES 499</p>
+                    <p className="text-muted-foreground font-medium">24 Hours</p>
                   </div>
                   <ul className="space-y-3 text-left text-sm">
                     <li className="flex items-center gap-2">
                       <Shield className="w-4 h-4 text-primary" />
-                      <span>Unlimited driver searches</span>
+                      <span>Full access to driver profiles & documents</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-primary" />
+                      <span>Contact up to 5 drivers</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <Star className="w-4 h-4 text-primary" />
-                      <span>Priority support</span>
+                      <span>1 active job post</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <Truck className="w-4 h-4 text-primary" />
-                      <span>No hidden fees</span>
+                      <span>Basic support</span>
                     </li>
                   </ul>
                 </CardContent>
               </Card>
-              <Card className="bg-white text-foreground p-8 max-w-sm hover:scale-105 transition-transform duration-300 hover:shadow-2xl animate-scale-in border-2 border-primary relative overflow-hidden">
+
+              <Card className="bg-white text-foreground p-8 hover:scale-105 transition-transform duration-300 hover:shadow-2xl animate-scale-in border-2 border-primary relative overflow-hidden">
                 <div className="absolute top-0 right-0 bg-yellow-400 text-black text-xs font-bold px-3 py-1 rounded-bl-lg">
                   POPULAR
                 </div>
                 <CardHeader className="pb-4">
-                  <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center mb-4 mx-auto">
+                  <div className="w-12 h-12 bg-blue-500/20 rounded-full flex items-center justify-center mb-4 mx-auto">
                     <span className="text-2xl">🚀</span>
                   </div>
-                  <CardTitle className="text-2xl">Monthly Subscription</CardTitle>
-                  <CardDescription className="text-base">Flexible for all businesses</CardDescription>
+                  <CardTitle className="text-2xl">1-Week Access</CardTitle>
+                  <CardDescription className="text-base">Standard Plan</CardDescription>
                 </CardHeader>
                 <CardContent className="pt-4">
                   <div className="mb-6">
-                    <p className="text-5xl font-bold mb-2 text-primary">Ksh 499</p>
-                    <p className="text-muted-foreground font-medium">Per Month</p>
+                    <p className="text-5xl font-bold mb-2 text-primary">KES 1,499</p>
+                    <p className="text-muted-foreground font-medium">7 Days</p>
                   </div>
                   <ul className="space-y-3 text-left text-sm">
                     <li className="flex items-center gap-2">
                       <Shield className="w-4 h-4 text-primary" />
-                      <span>Full database access</span>
+                      <span>Unlimited driver profile viewing</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-primary" />
+                      <span>Contact up to 20 drivers</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <Star className="w-4 h-4 text-primary" />
-                      <span>Cancel anytime</span>
+                      <span>Up to 3 active job posts</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <Truck className="w-4 h-4 text-primary" />
-                      <span>Monthly updates</span>
+                      <span>Priority support</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-background/95 backdrop-blur text-foreground p-8 hover:scale-105 transition-transform duration-300 hover:shadow-2xl animate-scale-in border-2">
+                <CardHeader className="pb-4">
+                  <div className="w-12 h-12 bg-yellow-500/10 rounded-full flex items-center justify-center mb-4 mx-auto">
+                    <span className="text-2xl">💎</span>
+                  </div>
+                  <CardTitle className="text-2xl">1-Month Access</CardTitle>
+                  <CardDescription className="text-base">Premium Plan</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-4">
+                  <div className="mb-6">
+                    <p className="text-5xl font-bold mb-2 text-primary">KES 2,999</p>
+                    <p className="text-muted-foreground font-medium">30 Days</p>
+                  </div>
+                  <ul className="space-y-3 text-left text-sm">
+                    <li className="flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-primary" />
+                      <span>Unlimited viewing & contacts</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Phone className="w-4 h-4 text-primary" />
+                      <span>Unlimited job postings</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Star className="w-4 h-4 text-primary" />
+                      <span>Featured listing on TRUK site</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Truck className="w-4 h-4 text-primary" />
+                      <span>Dedicated account assistance</span>
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <Shield className="w-4 h-4 text-primary" />
+                      <span>Access to verified documents</span>
                     </li>
                   </ul>
                 </CardContent>
