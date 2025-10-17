@@ -37,6 +37,11 @@
 
     --radius: 0.5rem;
 
+    --emerald: 160 84% 39%;
+    --emerald-foreground: 0 0% 100%;
+    --red: 0 84% 60%;
+    --red-foreground: 0 0% 100%;
+
     --sidebar-background: 0 0% 98%;
 
     --sidebar-foreground: 240 5.3% 26.1%;

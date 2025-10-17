@@ -165,38 +165,64 @@ const HireDrivers = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {pricingPlans.map((plan) => (
+              {pricingPlans.map((plan, index) => (
                 <Card 
                   key={plan.id}
-                  className={`relative transition-all hover:shadow-lg ${
-                    plan.popular ? 'border-primary border-2' : ''
+                  className={`relative transition-all hover:shadow-xl hover:-translate-y-1 ${
+                    plan.popular 
+                      ? 'border-[hsl(var(--emerald))] border-2 bg-gradient-to-br from-[hsl(var(--emerald))]/5 to-white shadow-lg' 
+                      : index === 0 
+                      ? 'border-[hsl(var(--red))]/20 hover:border-[hsl(var(--red))]/40'
+                      : 'border-border hover:border-[hsl(var(--emerald))]/40'
                   }`}
                 >
                   {plan.popular && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold">
-                        Most Popular
+                      <span className="bg-gradient-to-r from-[hsl(var(--emerald))] to-emerald-600 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-md">
+                        ⭐ Most Popular
                       </span>
                     </div>
                   )}
                   <CardHeader>
-                    <CardTitle className="text-2xl">{plan.name}</CardTitle>
-                    <CardDescription>{plan.duration}</CardDescription>
+                    <CardTitle className={`text-2xl ${plan.popular ? 'text-[hsl(var(--emerald))]' : ''}`}>
+                      {plan.name}
+                    </CardTitle>
+                    <CardDescription className="font-medium">{plan.duration}</CardDescription>
                     <div className="mt-4">
-                      <span className="text-4xl font-bold">KES {plan.price}</span>
+                      <span className={`text-4xl font-bold ${
+                        plan.popular 
+                          ? 'text-[hsl(var(--emerald))]' 
+                          : index === 0 
+                          ? 'text-[hsl(var(--red))]'
+                          : 'text-foreground'
+                      }`}>
+                        KES {plan.price}
+                      </span>
                     </div>
                   </CardHeader>
                   <CardContent>
                     <ul className="space-y-3 mb-6">
                       {plan.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start gap-2">
-                          <Check className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                          <Check className={`h-5 w-5 shrink-0 mt-0.5 ${
+                            plan.popular 
+                              ? 'text-[hsl(var(--emerald))]' 
+                              : index === 0 
+                              ? 'text-[hsl(var(--red))]'
+                              : 'text-foreground'
+                          }`} />
                           <span className="text-sm">{feature}</span>
                         </li>
                       ))}
                     </ul>
                     <Button 
-                      className="w-full" 
+                      className={`w-full ${
+                        plan.popular 
+                          ? 'bg-gradient-to-r from-[hsl(var(--emerald))] to-emerald-600 hover:from-emerald-600 hover:to-[hsl(var(--emerald))] text-white shadow-md hover:shadow-lg' 
+                          : index === 0
+                          ? 'bg-[hsl(var(--red))] hover:bg-[hsl(var(--red))]/90 text-white'
+                          : ''
+                      }`}
                       size="lg"
                       onClick={() => navigate("/company-auth")}
                     >
