@@ -237,115 +237,167 @@ const TransporterEnlistment = () => {
       <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
           <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12">
-            Subscription Plans
+            Company Fleet Subscription Plans
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {/* Monthly Plan */}
-            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-gray-200">
+            {/* Basic Fleet Plan */}
+            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 border-[hsl(var(--red))]/20 hover:border-[hsl(var(--red))]/40">
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Monthly</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">BASIC FLEET</h3>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-red-500">KES 199</span>
+                  <span className="text-4xl font-bold text-[hsl(var(--red))]">KES 999</span>
                   <span className="text-gray-600 text-lg">/month</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-left">
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> 
-                    <span className="text-gray-600">Full app access</span>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--red))] mt-0.5">✓</span> 
+                    <span className="text-gray-600">Up to 5 drivers</span>
                   </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> 
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--red))] mt-0.5">✓</span> 
+                    <span className="text-gray-600">Full app access for all drivers</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--red))] mt-0.5">✓</span> 
                     <span className="text-gray-600">Unlimited bookings</span>
                   </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> 
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--red))] mt-0.5">✓</span> 
+                    <span className="text-gray-600">Central company dashboard</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--red))] mt-0.5">✓</span> 
                     <span className="text-gray-600">24/7 support</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--red))] mt-0.5">✓</span> 
+                    <span className="text-gray-600">Basic reporting</span>
                   </li>
                 </ul>
                 <Button 
-                  className="w-full bg-red-500 hover:bg-red-600 text-white"
+                  className="w-full bg-[hsl(var(--red))] hover:bg-[hsl(var(--red))]/90 text-white"
+                  size="lg"
                   onClick={() => navigate('/download')}
                 >
-                  Choose Monthly
+                  Choose Basic Fleet
                 </Button>
               </div>
             </div>
 
-            {/* Quarterly Plan */}
-            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-green-300 transform scale-105">
+            {/* Growing Fleet Plan - Popular */}
+            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 border-[hsl(var(--emerald))] bg-gradient-to-br from-[hsl(var(--emerald))]/5 to-white relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span className="bg-gradient-to-r from-[hsl(var(--emerald))] to-emerald-600 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-md">
+                  ⭐ POPULAR
+                </span>
+              </div>
               <div className="text-center">
-                <div className="bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium mb-4 inline-block">
-                  POPULAR
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Quarterly</h3>
+                <h3 className="text-2xl font-bold text-[hsl(var(--emerald))] mb-2">GROWING FLEET</h3>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-red-500">KES 499</span>
-                  <span className="text-gray-600 text-lg">/3 months</span>
-                  <div className="text-sm text-green-600 font-medium">Save KES 98</div>
+                  <span className="text-4xl font-bold text-[hsl(var(--emerald))]">KES 1,499</span>
+                  <span className="text-gray-600 text-lg">/month</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-left">
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> 
-                    <span className="text-gray-600">Full app access</span>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-gray-600">Up to 15 drivers</span>
                   </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> 
-                    <span className="text-gray-600">Unlimited bookings</span>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-gray-600">Save 20% per driver</span>
                   </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> 
-                    <span className="text-gray-600">24/7 support</span>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-gray-600">Everything in Basic, plus:</span>
                   </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> 
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
                     <span className="text-gray-600">Priority booking alerts</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-gray-600">Advanced analytics dashboard</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-gray-600">Driver performance tracking</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-gray-600">Route optimization</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-gray-600">Dedicated account manager</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-gray-600">Access to Driver Job Board</span>
                   </li>
                 </ul>
                 <Button 
-                  className="w-full bg-green-500 hover:bg-green-600 text-white"
+                  className="w-full bg-gradient-to-r from-[hsl(var(--emerald))] to-emerald-600 hover:from-emerald-600 hover:to-[hsl(var(--emerald))] text-white shadow-md hover:shadow-lg"
+                  size="lg"
                   onClick={() => navigate('/download')}
                 >
-                  Choose Quarterly
+                  Choose Growing Fleet
                 </Button>
               </div>
             </div>
 
-            {/* Yearly Plan */}
-            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-gray-200">
+            {/* Enterprise Unlimited Fleet Plan */}
+            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 border-border hover:border-[hsl(var(--emerald))]/40">
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">Yearly</h3>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">ENTERPRISE</h3>
+                <div className="text-lg font-semibold text-gray-700 mb-4">UNLIMITED FLEET</div>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-red-500">KES 1,599</span>
-                  <span className="text-gray-600 text-lg">/year</span>
-                  <div className="text-sm text-green-600 font-medium">Save KES 789</div>
+                  <span className="text-4xl font-bold text-foreground">KES 2,999</span>
+                  <span className="text-gray-600 text-lg">/month</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-left">
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> 
-                    <span className="text-gray-600">Full app access</span>
+                  <li className="flex items-start gap-2">
+                    <span className="text-foreground mt-0.5">✓</span> 
+                    <span className="text-gray-600">Unlimited drivers</span>
                   </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> 
-                    <span className="text-gray-600">Unlimited bookings</span>
+                  <li className="flex items-start gap-2">
+                    <span className="text-foreground mt-0.5">✓</span> 
+                    <span className="text-gray-600">Maximum savings</span>
                   </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> 
-                    <span className="text-gray-600">24/7 support</span>
+                  <li className="flex items-start gap-2">
+                    <span className="text-foreground mt-0.5">✓</span> 
+                    <span className="text-gray-600">Everything in Growing, plus:</span>
                   </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> 
-                    <span className="text-gray-600">Priority booking alerts</span>
+                  <li className="flex items-start gap-2">
+                    <span className="text-foreground mt-0.5">✓</span> 
+                    <span className="text-gray-600">Custom integrations (API access)</span>
                   </li>
-                  <li className="flex items-center">
-                    <span className="text-green-500 mr-2">✓</span> 
-                    <span className="text-gray-600">Analytics dashboard</span>
+                  <li className="flex items-start gap-2">
+                    <span className="text-foreground mt-0.5">✓</span> 
+                    <span className="text-gray-600">White-label solutions</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-foreground mt-0.5">✓</span> 
+                    <span className="text-gray-600">Advanced security features</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-foreground mt-0.5">✓</span> 
+                    <span className="text-gray-600">Multi-location management</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-foreground mt-0.5">✓</span> 
+                    <span className="text-gray-600">24/7 premium phone support</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-foreground mt-0.5">✓</span> 
+                    <span className="text-gray-600">Custom training sessions</span>
                   </li>
                 </ul>
                 <Button 
-                  className="w-full bg-red-500 hover:bg-red-600 text-white"
+                  className="w-full"
+                  size="lg"
                   onClick={() => navigate('/download')}
                 >
-                  Choose Yearly
+                  Choose Unlimited Fleet
                 </Button>
               </div>
             </div>
