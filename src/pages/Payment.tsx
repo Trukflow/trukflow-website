@@ -88,7 +88,7 @@ const Payment = () => {
     try {
       if (paymentMethod === "mpesa") {
         // Call your M-PESA payment API
-        const response = await fetch('/api/payments/mpesa', {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/payments/mpesa`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

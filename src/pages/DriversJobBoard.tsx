@@ -80,7 +80,7 @@ const DriversJobBoard = () => {
 
   const fetchDrivers = async () => {
     try {
-      const response = await fetch('/api/job-seekers/approved');
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/job-seekers/approved`);
       if (!response.ok) {
         throw new Error('Failed to fetch drivers');
       }
