@@ -81,16 +81,15 @@ const DriversJobBoard = () => {
 
   const fetchDrivers = async () => {
     try {
-      // Get the session token for authentication
-      const { data: { session } } = await supabase.auth.getSession();
+      const token = localStorage.getItem('authToken');
       
-      if (!session?.access_token) {
+      if (!token) {
         throw new Error('No authentication token available');
       }
 
       const response = await fetch(`${import.meta.env.VITE_API_URL}/api/job-seekers/approved`, {
         headers: {
-          'Authorization': `Bearer ${session.access_token}`,
+          'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
         },
       });
