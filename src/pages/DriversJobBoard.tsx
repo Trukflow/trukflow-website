@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { auth } from "@/lib/firebase";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -51,32 +52,21 @@ const DriversJobBoard = () => {
   }, [drivers, searchTerm, genderFilter, licenseFilter, vehicleFilter, regionFilter]);
 
   const checkAuthAndVerification = async () => {
-    const { data: { session } } = await supabase.auth.getSession();
-    
-    if (!session) {
-      setIsAuthenticated(false);
-      setLoading(false);
-      return;
-    }
+    onAuthStateChanged(auth, async (user) => {
+      if (!user) {
+        setIsAuthenticated(false);
+        setLoading(false);
+        return;
+      }
 
-    setIsAuthenticated(true);
+      // Refresh token and store it
+      const token = await user.getIdToken(true);
+      localStorage.setItem('authToken', token);
 
-    // TEMPORARY: Bypass verification check for testing
-    // Check if company is verified (paid)
-    // const { data: company, error } = await supabase
-    //   .from("companies")
-    //   .select("verified")
-    //   .eq("user_id", session.user.id)
-    //   .single();
-
-    // if (error || !company?.verified) {
-    //   setVerified(false);
-    //   setLoading(false);
-    //   return;
-    // }
-
-    setVerified(true);
-    fetchDrivers();
+      setIsAuthenticated(true);
+      setVerified(true);
+      fetchDrivers();
+    });
   };
 
   const fetchDrivers = async () => {
@@ -177,7 +167,8 @@ const DriversJobBoard = () => {
   };
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
+    await signOut(auth);
+    localStorage.removeItem('authToken');
     navigate("/company-auth");
   };
 

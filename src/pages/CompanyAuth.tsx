@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { auth } from "@/lib/firebase";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,13 +17,14 @@ const CompanyAuth = () => {
 
   // Check if already logged in
   useEffect(() => {
-    const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user) {
+        const token = await user.getIdToken();
+        localStorage.setItem('authToken', token);
         navigate("/drivers-job-board");
       }
-    };
-    checkUser();
+    });
+    return () => unsubscribe();
   }, [navigate]);
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -32,47 +34,28 @@ const CompanyAuth = () => {
     const formData = new FormData(e.currentTarget);
     const email = formData.get("signup-email") as string;
     const password = formData.get("signup-password") as string;
-    const companyName = formData.get("company-name") as string;
-    const phone = formData.get("phone") as string;
 
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${window.location.origin}/drivers-job-board`,
-        data: {
-          company_name: companyName,
-        },
-      },
-    });
-
-    setLoading(false);
-
-    if (error) {
-      toast({
-        title: "Sign up failed",
-        description: error.message,
-        variant: "destructive",
-      });
-    } else {
-      // Update company details with phone
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        await supabase
-          .from("companies")
-          .update({ contact_phone: phone })
-          .eq("user_id", user.id);
-      }
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const token = await userCredential.user.getIdToken();
+      localStorage.setItem('authToken', token);
 
       toast({
         title: "Account Created!",
         description: "Redirecting to job board...",
       });
 
-      // TEMPORARY: Bypass payment for testing
       setTimeout(() => {
         navigate("/drivers-job-board");
       }, 1500);
+    } catch (error: any) {
+      toast({
+        title: "Sign up failed",
+        description: error.message || "Failed to create account",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -84,21 +67,25 @@ const CompanyAuth = () => {
     const email = formData.get("login-email") as string;
     const password = formData.get("login-password") as string;
 
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const token = await userCredential.user.getIdToken();
+      localStorage.setItem('authToken', token);
 
-    setLoading(false);
+      toast({
+        title: "Login successful",
+        description: "Redirecting to job board...",
+      });
 
-    if (error) {
+      navigate("/drivers-job-board");
+    } catch (error: any) {
       toast({
         title: "Login failed",
-        description: error.message,
+        description: error.message || "Invalid credentials",
         variant: "destructive",
       });
-    } else {
-      navigate("/drivers-job-board");
+    } finally {
+      setLoading(false);
     }
   };
 
