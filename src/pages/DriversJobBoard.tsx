@@ -85,7 +85,9 @@ const DriversJobBoard = () => {
       });
       
       if (!response.ok) {
-        throw new Error('Failed to fetch drivers');
+        const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
+        console.error('Backend error:', errorData);
+        throw new Error(errorData.message || 'Failed to fetch drivers');
       }
       const apiData = await response.json();
       
