@@ -61,18 +61,19 @@ const DriversJobBoard = () => {
 
     setIsAuthenticated(true);
 
+    // TEMPORARY: Bypass verification check for testing
     // Check if company is verified (paid)
-    const { data: company, error } = await supabase
-      .from("companies")
-      .select("verified")
-      .eq("user_id", session.user.id)
-      .single();
+    // const { data: company, error } = await supabase
+    //   .from("companies")
+    //   .select("verified")
+    //   .eq("user_id", session.user.id)
+    //   .single();
 
-    if (error || !company?.verified) {
-      setVerified(false);
-      setLoading(false);
-      return;
-    }
+    // if (error || !company?.verified) {
+    //   setVerified(false);
+    //   setLoading(false);
+    //   return;
+    // }
 
     setVerified(true);
     fetchDrivers();
@@ -192,11 +193,12 @@ const DriversJobBoard = () => {
     return null;
   }
 
+  // TEMPORARY: Bypass payment redirect for testing
   // Redirect to payment if not verified
-  if (!verified) {
-    navigate("/payment");
-    return null;
-  }
+  // if (!verified) {
+  //   navigate("/payment");
+  //   return null;
+  // }
 
   return (
     <div className="min-h-screen bg-background">

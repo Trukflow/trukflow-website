@@ -66,12 +66,12 @@ const CompanyAuth = () => {
 
       toast({
         title: "Account Created!",
-        description: "Redirecting to payment page...",
+        description: "Redirecting to job board...",
       });
 
-      // Redirect to payment page
+      // TEMPORARY: Bypass payment for testing
       setTimeout(() => {
-        navigate("/payment");
+        navigate("/drivers-job-board");
       }, 1500);
     }
   };
