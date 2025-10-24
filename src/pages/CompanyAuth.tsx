@@ -139,12 +139,12 @@ const CompanyAuth = () => {
                 <TabsContent value="signup">
                   <form onSubmit={handleSignUp} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="company-name">Company Name</Label>
+                      <Label htmlFor="company-name">Business/Organization Name</Label>
                       <Input
                         id="company-name"
                         name="company-name"
                         type="text"
-                        placeholder="Your Company Ltd"
+                        placeholder="Your Business or Organization"
                         required
                       />
                     </div>
