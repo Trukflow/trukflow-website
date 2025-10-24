@@ -96,7 +96,7 @@ const CompanyAuth = () => {
         <div className="max-w-md mx-auto">
           <Card>
             <CardHeader className="text-center">
-              <CardTitle className="text-3xl font-bold">Company Access</CardTitle>
+              <CardTitle className="text-3xl font-bold">Employer Access</CardTitle>
               <CardDescription>
                 Sign in or create an account to access the Drivers Job Board
               </CardDescription>
@@ -139,12 +139,12 @@ const CompanyAuth = () => {
                 <TabsContent value="signup">
                   <form onSubmit={handleSignUp} className="space-y-4">
                     <div className="space-y-2">
-                      <Label htmlFor="company-name">Business/Organization Name</Label>
+                      <Label htmlFor="company-name">Individual/Organization Name</Label>
                       <Input
                         id="company-name"
                         name="company-name"
                         type="text"
-                        placeholder="Your Business or Organization"
+                        placeholder="Your Name or Organization"
                         required
                       />
                     </div>
