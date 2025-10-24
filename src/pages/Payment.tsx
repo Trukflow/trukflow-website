@@ -5,9 +5,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/integrations/supabase/client";
+import { auth } from "@/lib/firebase";
+import { onAuthStateChanged } from "firebase/auth";
 import Navbar from "@/components/Navbar";
 import { Check } from "lucide-react";
+import { paymentApi } from "@/services/paymentApi";
 
 const pricingPlans = [
   {
@@ -59,6 +61,7 @@ const Payment = () => {
   const [paymentMethod, setPaymentMethod] = useState("mpesa");
   const [loading, setLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null);
   const [cardDetails, setCardDetails] = useState({
     cardNumber: "",
     expiryDate: "",
@@ -67,40 +70,52 @@ const Payment = () => {
   });
 
   useEffect(() => {
-    // Get current user
-    const getCurrentUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      return user;
-    };
-    getCurrentUser();
-  }, []);
+    // Get current user from Firebase
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setCurrentUserId(user.uid);
+      } else {
+        navigate('/company-auth');
+      }
+    });
+
+    return () => unsubscribe();
+  }, [navigate]);
 
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    // Get selected plan details
     const plan = pricingPlans.find(p => p.id === selectedPlan);
-    
-    // Get current user ID
-    const { data: { user } } = await supabase.auth.getUser();
+    const user = auth.currentUser;
+
+    if (!user || !currentUserId) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to complete payment.",
+        variant: "destructive",
+      });
+      navigate('/company-auth');
+      return;
+    }
 
     try {
       if (paymentMethod === "mpesa") {
-        // Call your M-PESA payment API
-        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/payments/mpesa`, {
+        // M-PESA payment flow (backend handles webhook)
+        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://agritruk.onrender.com';
+        const response = await fetch(`${API_BASE_URL}/api/payments/mpesa`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${await user.getIdToken()}`
+          },
           body: JSON.stringify({
             plan: selectedPlan,
             amount: plan?.price,
             phoneNumber: phoneNumber,
             planName: plan?.name,
             duration: plan?.duration,
-            userId: user?.id,
-            // Your payment gateway will need to send a webhook to:
-            // https://psqxewsgyhdrjimmtzgm.supabase.co/functions/v1/payment-webhook
-            webhookUrl: `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/payment-webhook`
+            userId: currentUserId,
           })
         });
 
@@ -109,47 +124,70 @@ const Payment = () => {
         }
 
         const data = await response.json();
-        console.log("M-PESA payment response:", data);
-
+        
         toast({
           title: "Payment Initiated",
-          description: "Please complete the payment on your M-PESA. Check your phone for the prompt.",
+          description: "Please complete the payment on your phone. Check your M-PESA for the prompt.",
         });
 
-        // Poll for verification status
-        const checkVerification = setInterval(async () => {
-          const { data: companyData } = await supabase
-            .from('companies')
-            .select('verified')
-            .eq('user_id', user?.id)
-            .single();
-
-          if (companyData?.verified) {
-            clearInterval(checkVerification);
-            toast({
-              title: "Payment Successful!",
-              description: "Redirecting to the job board...",
-            });
+        // Poll for payment verification
+        let attempts = 0;
+        const maxAttempts = 60; // 3 minutes (60 * 3 seconds)
+        
+        const checkPayment = setInterval(async () => {
+          attempts++;
+          
+          try {
+            const hasActiveSubscription = await paymentApi.hasActiveSubscription(currentUserId);
             
-            setTimeout(() => {
-              navigate("/drivers-job-board");
-            }, 1500);
+            if (hasActiveSubscription) {
+              clearInterval(checkPayment);
+              setLoading(false);
+              toast({
+                title: "Payment Successful!",
+                description: "Redirecting to the job board...",
+              });
+              
+              setTimeout(() => {
+                navigate("/drivers-job-board");
+              }, 1500);
+            }
+          } catch (error) {
+            console.error('Error checking payment:', error);
+          }
+          
+          if (attempts >= maxAttempts) {
+            clearInterval(checkPayment);
+            setLoading(false);
+            toast({
+              title: "Payment Timeout",
+              description: "Please contact support if you completed the payment.",
+              variant: "destructive",
+            });
           }
         }, 3000);
 
-        // Stop checking after 5 minutes
-        setTimeout(() => {
-          clearInterval(checkVerification);
-          setLoading(false);
-        }, 300000);
-
       } else if (paymentMethod === "card") {
-        // TODO: Implement card payment API call
-        toast({
-          title: "Card Payment",
-          description: "Card payment integration coming soon.",
+        // Paystack payment initialization
+        const email = user.email;
+        if (!email) {
+          throw new Error('User email not found');
+        }
+
+        const paystackResponse = await paymentApi.initializePaystack({
+          email,
+          amount: plan?.price || 0,
+          planId: selectedPlan,
+          userId: currentUserId,
+          callbackUrl: `${window.location.origin}/drivers-job-board`
         });
-        setLoading(false);
+
+        // Redirect to Paystack payment page
+        if (paystackResponse.authorization_url) {
+          window.location.href = paystackResponse.authorization_url;
+        } else {
+          throw new Error('Failed to get payment URL');
+        }
       }
 
     } catch (error) {

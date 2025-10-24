@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { Search, LogOut, Shield, Star, Phone, Mail, Truck } from "lucide-react";
+import { paymentApi } from "@/services/paymentApi";
 
 interface Driver {
   id: string;
@@ -64,8 +65,33 @@ const DriversJobBoard = () => {
       localStorage.setItem('authToken', token);
 
       setIsAuthenticated(true);
-      setVerified(true);
-      fetchDrivers();
+
+      // Check if user has active subscription
+      try {
+        const hasActiveSubscription = await paymentApi.hasActiveSubscription(user.uid);
+        setVerified(hasActiveSubscription);
+        
+        if (!hasActiveSubscription) {
+          toast({
+            title: "Subscription Required",
+            description: "Please complete payment to access the driver job board.",
+            variant: "destructive",
+          });
+          setLoading(false);
+          navigate('/payment');
+          return;
+        }
+
+        fetchDrivers();
+      } catch (error) {
+        console.error('Error checking subscription:', error);
+        setLoading(false);
+        toast({
+          title: "Error",
+          description: "Failed to verify subscription status.",
+          variant: "destructive",
+        });
+      }
     });
   };
 
@@ -77,7 +103,8 @@ const DriversJobBoard = () => {
         throw new Error('No authentication token available');
       }
 
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/job-seekers/approved`, {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://agritruk.onrender.com';
+      const response = await fetch(`${API_BASE_URL}/api/job-seekers/approved`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json',
