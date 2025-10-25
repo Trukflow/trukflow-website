@@ -89,6 +89,121 @@ interface UpgradeSubscriptionRequest {
 
 interface CreatePlanRequest extends Omit<Plan, 'createdAt' | 'updatedAt'> {}
 
+// Driver Interfaces
+interface Address {
+  street: string;
+  city: string;
+  county: string;
+  country: string;
+}
+
+interface DocumentDetails {
+  number: string;
+  url: string;
+  uploadedAt: string;
+  status: 'pending' | 'approved' | 'rejected';
+  verifiedBy?: string;
+  verifiedAt?: string;
+  expiryDate?: string;
+}
+
+interface DrivingLicense extends DocumentDetails {
+  vehicleClasses: string[];
+}
+
+interface GoodConductCert extends DocumentDetails {
+  isClean: boolean;
+  isRenewed: boolean;
+}
+
+interface Documents {
+  idDoc: DocumentDetails;
+  drivingLicense: DrivingLicense;
+  goodConductCert: GoodConductCert;
+  psvBadge: DocumentDetails;
+  nightTravelLicense: DocumentDetails;
+  rslLicense: DocumentDetails;
+  backgroundCheck: DocumentDetails;
+  goodsServiceLicense: DocumentDetails;
+}
+
+interface Experience {
+  experienceYears: number;
+  startDate: string;
+  vehicleClassesExperience: string[];
+  experienceDescription: string;
+  specializations: ('local' | 'regional' | 'international')[];
+}
+
+interface SaccoDetails {
+  name: string;
+  membershipNumber: string;
+  verificationStatus: 'pending' | 'verified' | 'rejected';
+}
+
+interface CrossBorderVerification {
+  eacVerified: boolean;
+  countries: string[];
+  verifiedAt?: string;
+}
+
+interface Training {
+  basicSafetyCompleted: boolean;
+  basicSafetyDate?: string;
+  advancedTrainingEligible: boolean;
+  advancedTrainingCompleted: boolean;
+  advancedTrainingDate?: string;
+  certificates: string[];
+}
+
+interface Performance {
+  platformRating: number;
+  totalRatings: number;
+  completedTrips: number;
+  onTimeDeliveryRate: number;
+  incidentReports: number;
+  lastIncidentDate?: string;
+}
+
+interface TierEligibility {
+  silverEligible: boolean;
+  goldEligible: boolean;
+  platinumEligible: boolean;
+  eligibilityCheckedAt: string;
+  blockingReasons: string[];
+}
+
+export interface ApprovedDriver {
+  jobSeekerId: string;
+  userId: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+  dateOfBirth: string;
+  gender: string;
+  age: number;
+  address: Address;
+  profilePhoto: string;
+  employmentStatus: 'employed' | 'unemployed' | 'self-employed';
+  employedSince?: string;
+  documents: Documents;
+  experience: Experience;
+  saccoDetails: SaccoDetails;
+  crossBorderVerification: CrossBorderVerification;
+  training: Training;
+  performance: Performance;
+  tierEligibility: TierEligibility;
+  createdAt: string;
+  updatedAt: string;
+  status: 'pending_approval' | 'approved' | 'rejected';
+  approvedAt?: string;
+  approvedBy?: string;
+  rejectedAt?: string;
+  rejectedBy?: string;
+  rejectionReason?: string;
+}
+
 export const recruiterApi = {
   // Authentication
   async register(data: RegisterRequest): Promise<UserResponse> {
@@ -311,7 +426,7 @@ export const recruiterApi = {
   },
 
   // Drivers
-  async getApprovedDrivers(): Promise<any[]> {
+  async getApprovedDrivers(): Promise<ApprovedDriver[]> {
     const token = await auth.currentUser?.getIdToken();
     
     const response = await fetch(`${API_BASE_URL}/api/recruiter/drivers/approved`, {
