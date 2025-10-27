@@ -66,34 +66,39 @@ const DriversJobBoard = () => {
 
       setIsAuthenticated(true);
 
-      // TEMPORARY BYPASS: Comment out for testing - RESTORE LATER!
-      // Check if user has active subscription
-      // try {
-      //   const hasActiveSubscription = await paymentApi.hasActiveSubscription(user.uid);
-      //   setVerified(hasActiveSubscription);
-      //   
-      //   if (!hasActiveSubscription) {
-      //     toast({
-      //       title: "Subscription Required",
-      //       description: "Please complete payment to access the driver job board.",
-      //       variant: "destructive",
-      //     });
-      //     setLoading(false);
-      //     navigate('/payment');
-      //     return;
-      //   }
+      // TEMPORARY BYPASS FOR TESTING - RESTORE PAYMENT CHECK LATER!
+      // Original payment check code (commented out for testing):
+      /*
+      try {
+        const hasActiveSubscription = await paymentApi.hasActiveSubscription(user.uid);
+        setVerified(hasActiveSubscription);
+        
+        if (!hasActiveSubscription) {
+          toast({
+            title: "Subscription Required",
+            description: "Please complete payment to access the driver job board.",
+            variant: "destructive",
+          });
+          setLoading(false);
+          navigate('/payment');
+          return;
+        }
 
-        setVerified(true); // TEMP: Force verified for testing
         fetchDrivers();
-      // } catch (error) {
-      //   console.error('Error checking subscription:', error);
-      //   setLoading(false);
-      //   toast({
-      //     title: "Error",
-      //     description: "Failed to verify subscription status.",
-      //     variant: "destructive",
-      //   });
-      // }
+      } catch (error) {
+        console.error('Error checking subscription:', error);
+        setLoading(false);
+        toast({
+          title: "Error",
+          description: "Failed to verify subscription status.",
+          variant: "destructive",
+        });
+      }
+      */
+
+      // Temporary bypass - just set verified and fetch drivers
+      setVerified(true);
+      fetchDrivers();
     });
   };
 
