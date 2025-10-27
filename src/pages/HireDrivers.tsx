@@ -1,55 +1,64 @@
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Star, Truck, Check } from "lucide-react";
+import { recruiterApi } from "@/services/recruiterApi";
+import { useToast } from "@/hooks/use-toast";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
-const pricingPlans = [
-  {
-    id: "24hour",
-    name: "24-Hour Access",
-    price: 499,
-    duration: "24 hours",
-    features: [
-      "Full access to driver profiles & documents for 24 hours",
-      "Contact up to 5 drivers",
-      "1 active job post",
-      "Basic support"
-    ]
-  },
-  {
-    id: "1week",
-    name: "1-Week Access",
-    price: 1499,
-    duration: "7 days",
-    features: [
-      "7 days full access",
-      "Unlimited driver profile viewing",
-      "Contact up to 20 drivers",
-      "Up to 3 active job posts",
-      "Priority support"
-    ],
-    popular: true
-  },
-  {
-    id: "1month",
-    name: "1-Month Access",
-    price: 2999,
-    duration: "30 days",
-    features: [
-      "30 days full access",
-      "Unlimited driver viewing & contacts",
-      "Unlimited job postings",
-      "Featured listing on TRUK site",
-      "Dedicated account assistance",
-      "Access to verified documents"
-    ]
-  }
-];
+interface PricingPlan {
+  id: string;
+  name: string;
+  price: number;
+  duration: string;
+  features: string[];
+  popular?: boolean;
+}
 
 const HireDrivers = () => {
   const navigate = useNavigate();
+  const { toast } = useToast();
+  const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const response = await recruiterApi.getPlans();
+        const plans = response.plans.map(plan => ({
+          id: plan.planId,
+          name: plan.name,
+          price: plan.price,
+          duration: `${plan.duration} days`,
+          features: [
+            `${plan.features.accessDuration} access`,
+            `Contact up to ${plan.features.maxDriverContacts} drivers`,
+            `Up to ${plan.features.maxActiveJobPosts} active job posts`,
+            plan.features.driverProfileViewing ? "Unlimited driver profile viewing" : "Limited driver viewing",
+            plan.features.documentsAccess ? "Access to verified documents" : "Basic document access",
+            ...(plan.features.featuredListings ? ["Featured listing on TRUK site"] : []),
+            `${plan.features.supportLevel} support`
+          ],
+          popular: plan.isPopular
+        }));
+        setPricingPlans(plans);
+      } catch (error) {
+        console.error("Error fetching plans:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load pricing plans. Please try again later.",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPlans();
+  }, [toast]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -164,7 +173,10 @@ const HireDrivers = () => {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {loading ? (
+              <LoadingSkeleton />
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {pricingPlans.map((plan, index) => (
                 <Card 
                   key={plan.id}
@@ -231,7 +243,8 @@ const HireDrivers = () => {
                   </CardContent>
                 </Card>
               ))}
-            </div>
+              </div>
+            )}
 
             <div className="mt-12 text-center">
               <p className="text-muted-foreground">

@@ -10,54 +10,24 @@ import { onAuthStateChanged } from "firebase/auth";
 import Navbar from "@/components/Navbar";
 import { Check } from "lucide-react";
 import { paymentApi } from "@/services/paymentApi";
+import { recruiterApi } from "@/services/recruiterApi";
+import LoadingSkeleton from "@/components/LoadingSkeleton";
 
-const pricingPlans = [
-  {
-    id: "24hour",
-    name: "24-Hour Access",
-    price: 499,
-    duration: "24 hours",
-    features: [
-      "Full access to driver profiles & documents for 24 hours",
-      "Contact up to 5 drivers",
-      "1 active job post",
-      "Basic support"
-    ]
-  },
-  {
-    id: "1week",
-    name: "1-Week Access",
-    price: 1499,
-    duration: "7 days",
-    features: [
-      "7 days full access",
-      "Unlimited driver profile viewing",
-      "Contact up to 20 drivers",
-      "Up to 3 active job posts",
-      "Priority support"
-    ],
-    popular: true
-  },
-  {
-    id: "1month",
-    name: "1-Month Access",
-    price: 2999,
-    duration: "30 days",
-    features: [
-      "30 days full access",
-      "Unlimited driver viewing & contacts",
-      "Unlimited job postings",
-      "Featured listing on TRUK site",
-      "Dedicated account assistance",
-      "Access to verified documents"
-    ]
-  }
-];
+interface PricingPlan {
+  id: string;
+  name: string;
+  price: number;
+  duration: string;
+  features: string[];
+  popular?: boolean;
+}
 
 const Payment = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [selectedPlan, setSelectedPlan] = useState("1week");
+  const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
+  const [plansLoading, setPlansLoading] = useState(true);
+  const [selectedPlan, setSelectedPlan] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("mpesa");
   const [loading, setLoading] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -81,6 +51,47 @@ const Payment = () => {
 
     return () => unsubscribe();
   }, [navigate]);
+
+  useEffect(() => {
+    const fetchPlans = async () => {
+      try {
+        const response = await recruiterApi.getPlans();
+        const plans = response.plans.map(plan => ({
+          id: plan.planId,
+          name: plan.name,
+          price: plan.price,
+          duration: `${plan.duration} days`,
+          features: [
+            `${plan.features.accessDuration} access`,
+            `Contact up to ${plan.features.maxDriverContacts} drivers`,
+            `Up to ${plan.features.maxActiveJobPosts} active job posts`,
+            plan.features.driverProfileViewing ? "Unlimited driver profile viewing" : "Limited driver viewing",
+            plan.features.documentsAccess ? "Access to verified documents" : "Basic document access",
+            ...(plan.features.featuredListings ? ["Featured listing on TRUK site"] : []),
+            `${plan.features.supportLevel} support`
+          ],
+          popular: plan.isPopular
+        }));
+        setPricingPlans(plans);
+        // Set default selected plan to the popular one or first plan
+        const defaultPlan = plans.find(p => p.popular) || plans[0];
+        if (defaultPlan) {
+          setSelectedPlan(defaultPlan.id);
+        }
+      } catch (error) {
+        console.error("Error fetching plans:", error);
+        toast({
+          title: "Error",
+          description: "Failed to load pricing plans. Please try again later.",
+          variant: "destructive",
+        });
+      } finally {
+        setPlansLoading(false);
+      }
+    };
+
+    fetchPlans();
+  }, [toast]);
 
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -216,7 +227,10 @@ const Payment = () => {
           </div>
 
           {/* Pricing Plans */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          {plansLoading ? (
+            <LoadingSkeleton />
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {pricingPlans.map((plan) => (
               <Card 
                 key={plan.id}
@@ -253,7 +267,8 @@ const Payment = () => {
                 </CardContent>
               </Card>
             ))}
-          </div>
+            </div>
+          )}
 
           {/* Payment Form */}
           <Card className="max-w-2xl mx-auto">
