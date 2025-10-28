@@ -9,8 +9,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Search, LogOut, Shield, Star, Phone, Mail, Truck } from "lucide-react";
+import { Search, LogOut, Shield, Star, Phone, Mail, Truck, Crown } from "lucide-react";
 import { paymentApi } from "@/services/paymentApi";
+import { recruiterApi } from "@/services/recruiterApi";
 
 interface Driver {
   id: string;
@@ -30,6 +31,11 @@ interface Driver {
   employment_status: string;
 }
 
+interface PlanFeatures {
+  maxDriverContacts: string;
+  accessDuration: string;
+}
+
 const DriversJobBoard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -43,6 +49,9 @@ const DriversJobBoard = () => {
   const [licenseFilter, setLicenseFilter] = useState("all");
   const [vehicleFilter, setVehicleFilter] = useState("all");
   const [regionFilter, setRegionFilter] = useState("all");
+  const [contactedDrivers, setContactedDrivers] = useState<Set<string>>(new Set());
+  const [planFeatures, setPlanFeatures] = useState<PlanFeatures | null>(null);
+  const [currentUserId, setCurrentUserId] = useState<string>("");
 
   useEffect(() => {
     checkAuthAndVerification();
@@ -65,6 +74,13 @@ const DriversJobBoard = () => {
       localStorage.setItem('authToken', token);
 
       setIsAuthenticated(true);
+      setCurrentUserId(user.uid);
+
+      // Load contacted drivers from localStorage
+      const storedContacted = localStorage.getItem(`contacted_drivers_${user.uid}`);
+      if (storedContacted) {
+        setContactedDrivers(new Set(JSON.parse(storedContacted)));
+      }
 
       try {
         const hasActiveSubscription = await paymentApi.hasActiveSubscription(user.uid);
@@ -81,6 +97,8 @@ const DriversJobBoard = () => {
           return;
         }
 
+        // Fetch user's subscription plan details
+        await fetchUserPlan();
         fetchDrivers();
       } catch (error) {
         console.error('Error checking subscription:', error);
@@ -92,6 +110,28 @@ const DriversJobBoard = () => {
         });
       }
     });
+  };
+
+  const fetchUserPlan = async () => {
+    try {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const subscriptionStatus = await recruiterApi.getSubscriptionStatus(user.uid);
+      
+      if (subscriptionStatus?.planId) {
+        const plan = await recruiterApi.getPlan(subscriptionStatus.planId);
+        
+        if (plan?.features) {
+          setPlanFeatures({
+            maxDriverContacts: plan.features.maxDriverContacts,
+            accessDuration: plan.features.accessDuration
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Error fetching user plan:', error);
+    }
   };
 
   const fetchDrivers = async () => {
@@ -181,17 +221,77 @@ const DriversJobBoard = () => {
     setFilteredDrivers(filtered);
   };
 
-  const handleHireDriver = (driver: Driver) => {
+  const handleContactDriver = async (driver: Driver) => {
     if (!isAuthenticated || !verified) {
       navigate("/company-auth");
       return;
     }
-    
+
+    // Check if already contacted
+    if (contactedDrivers.has(driver.id)) {
+      await viewDriverDetails(driver.id);
+      return;
+    }
+
+    // Check contact limit
+    if (planFeatures) {
+      const maxContacts = planFeatures.maxDriverContacts === 'unlimited'
+        ? Infinity 
+        : parseInt(planFeatures.maxDriverContacts) || 0;
+
+      if (contactedDrivers.size >= maxContacts) {
+        toast({
+          title: "Contact Limit Reached",
+          description: "Choose a higher subscription plan to contact more drivers.",
+          variant: "destructive",
+        });
+        setTimeout(() => navigate('/payment'), 2000);
+        return;
+      }
+    }
+
+    // Fetch driver details
+    await viewDriverDetails(driver.id);
+
+    // Mark as contacted
+    const newContacted = new Set(contactedDrivers);
+    newContacted.add(driver.id);
+    setContactedDrivers(newContacted);
+    localStorage.setItem(`contacted_drivers_${currentUserId}`, JSON.stringify([...newContacted]));
+
     toast({
-      title: "Contact Request Sent",
-      description: `Your request to hire ${driver.name} has been submitted. We'll notify you shortly.`,
+      title: "Contact Information Unlocked",
+      description: `You can now contact ${driver.name}. Contact details are visible.`,
     });
-    // TODO: Implement hire/contact functionality with email notifications
+  };
+
+  const viewDriverDetails = async (driverId: string) => {
+    try {
+      const token = localStorage.getItem('authToken');
+      if (!token) return;
+
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://agritruk.onrender.com';
+      const response = await fetch(`${API_BASE_URL}/api/recruiter/${driverId}/details`, {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch driver details');
+      }
+
+      const driverDetails = await response.json();
+      console.log('Driver details:', driverDetails);
+    } catch (error) {
+      console.error('Error fetching driver details:', error);
+      toast({
+        title: "Error",
+        description: "Failed to load driver details.",
+        variant: "destructive",
+      });
+    }
   };
 
   const handleLogout = async () => {
@@ -243,6 +343,19 @@ const DriversJobBoard = () => {
               <div>
                 <h1 className="text-4xl font-bold mb-2">Driver Job Board</h1>
                 <p className="text-primary-foreground/90">Browse and hire verified professional drivers</p>
+                {planFeatures && (
+                  <div className="mt-3 flex items-center gap-3">
+                    <Badge variant="secondary" className="gap-1">
+                      <Crown className="w-3 h-3" />
+                      {planFeatures.accessDuration} access
+                    </Badge>
+                    <Badge variant="secondary">
+                      {planFeatures.maxDriverContacts !== 'unlimited'
+                        ? `${contactedDrivers.size}/${planFeatures.maxDriverContacts} contacts used`
+                        : 'Unlimited contacts'}
+                    </Badge>
+                  </div>
+                )}
               </div>
               <Button onClick={handleLogout} variant="secondary" className="gap-2">
                 <LogOut className="w-4 h-4" />
@@ -414,22 +527,41 @@ const DriversJobBoard = () => {
                         </div>
 
                         <div className="pt-3 border-t space-y-2 text-sm">
-                          <div className="flex items-center gap-2 text-muted-foreground">
-                            <Phone className="w-4 h-4" />
-                            <span>{driver.phone}</span>
-                          </div>
-                          <div className="flex items-center gap-2 text-muted-foreground">
-                            <Mail className="w-4 h-4" />
-                            <span className="truncate">{driver.email}</span>
-                          </div>
+                          {contactedDrivers.has(driver.id) ? (
+                            <>
+                              <div className="flex items-center gap-2 text-foreground">
+                                <Phone className="w-4 h-4" />
+                                <span className="font-medium">{driver.phone}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-foreground">
+                                <Mail className="w-4 h-4" />
+                                <span className="truncate font-medium">{driver.email}</span>
+                              </div>
+                            </>
+                          ) : (
+                            <>
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Phone className="w-4 h-4" />
+                                <span className="blur-sm select-none">+254 xxx xxx xxx</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-muted-foreground">
+                                <Mail className="w-4 h-4" />
+                                <span className="blur-sm select-none truncate">driver@email.com</span>
+                              </div>
+                            </>
+                          )}
                         </div>
 
                         <Button 
                           className="w-full group-hover:scale-105 transition-transform" 
-                          onClick={() => handleHireDriver(driver)}
+                          onClick={() => handleContactDriver(driver)}
                           disabled={!driver.available}
                         >
-                          {driver.available ? "Contact Driver" : "Not Available"}
+                          {!driver.available 
+                            ? "Not Available" 
+                            : contactedDrivers.has(driver.id)
+                            ? "View Contact Info"
+                            : "Unlock Contact"}
                         </Button>
                       </CardContent>
                     </Card>
