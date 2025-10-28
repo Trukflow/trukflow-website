@@ -61,6 +61,15 @@ const DriversJobBoard = () => {
     filterDrivers();
   }, [drivers, searchTerm, genderFilter, licenseFilter, vehicleFilter, regionFilter]);
 
+  useEffect(() => {
+    const pendingPlan = localStorage.getItem('pendingPlanId');
+    if (pendingPlan) {
+      localStorage.removeItem('pendingPlanId');
+      // Re-check subscription
+      checkAuthAndVerification();
+    }
+  }, []);
+
   const checkAuthAndVerification = async () => {
     onAuthStateChanged(auth, async (user) => {
       if (!user) {
@@ -136,47 +145,30 @@ const DriversJobBoard = () => {
 
   const fetchDrivers = async () => {
     try {
-      const token = localStorage.getItem('authToken');
-      
-      if (!token) {
-        throw new Error('No authentication token available');
-      }
+      setLoading(true);
 
-      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://agritruk.onrender.com';
-      const response = await fetch(`${API_BASE_URL}/api/job-seekers/approved`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({ message: 'Unknown error' }));
-        console.error('Backend error:', errorData);
-        throw new Error(errorData.message || 'Failed to fetch drivers');
-      }
-      const apiData = await response.json();
-      
-      // Map API data to our Driver interface
-      const mappedDrivers: Driver[] = apiData.map((jobSeeker: any) => ({
-        id: jobSeeker.jobSeekerId,
-        name: `${jobSeeker.firstName} ${jobSeeker.lastName}`,
-        image_url: jobSeeker.profilePhoto || "/placeholder.svg",
-        gender: jobSeeker.gender,
-        license_class: jobSeeker.documents?.drivingLicense?.vehicleClasses || [],
-        vehicle_type: jobSeeker.experience?.vehicleClassesExperience || [],
-        region: jobSeeker.address?.county || jobSeeker.address?.city || "Unknown",
-        rating: jobSeeker.performance?.platformRating || 0,
-        experience_years: jobSeeker.experience?.experienceYears || 0,
-        phone: jobSeeker.phone,
-        email: jobSeeker.email,
-        available: jobSeeker.employmentStatus === "unemployed" || jobSeeker.employmentStatus === "seeking",
-        documents_verified: jobSeeker.documents?.drivingLicense?.status === "approved" && 
-                           jobSeeker.documents?.goodConductCert?.status === "approved",
-        age: jobSeeker.age,
-        employment_status: jobSeeker.employmentStatus
+      const approvedDrivers = await recruiterApi.getApprovedDrivers();
+
+      const mappedDrivers: Driver[] = approvedDrivers.map((d: any) => ({
+        id: d.jobSeekerId,
+        name: `${d.firstName} ${d.lastName}`,
+        image_url: d.profilePhoto || "/placeholder.svg",
+        gender: d.gender,
+        license_class: d.documents.drivingLicense.vehicleClasses || [],
+        vehicle_type: d.experience.vehicleClassesExperience || [],
+        region: d.address.county || d.address.city || "Unknown",
+        rating: d.performance.platformRating || 0,
+        experience_years: d.experience.experienceYears || 0,
+        phone: d.phone,
+        email: d.email,
+        available: d.employmentStatus === "unemployed" || d.employmentStatus === "seeking",
+        documents_verified: 
+          d.documents.drivingLicense.status === "approved" && 
+          d.documents.goodConductCert.status === "approved",
+        age: d.age,
+        employment_status: d.employmentStatus
       }));
-      
+  
       setDrivers(mappedDrivers);
       setFilteredDrivers(mappedDrivers);
     } catch (error) {

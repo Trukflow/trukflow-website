@@ -224,7 +224,7 @@ const Navbar = () => {
                 navigate("/company-auth");
               }}
             >
-              Company Login
+              Individual/Business Login
             </Button>
 
             {/* Get Started Button */}

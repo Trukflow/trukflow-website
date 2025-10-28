@@ -100,6 +100,13 @@ const Payment = () => {
     const plan = pricingPlans.find(p => p.id === selectedPlan);
     const user = auth.currentUser;
 
+    if (!currentUserId) {
+      toast({ title: "Error", description: "User not loaded", variant: "destructive" });
+      return;
+    }
+  
+    setLoading(true);
+
     if (!user || !currentUserId) {
       toast({
         title: "Authentication Required",
@@ -147,34 +154,24 @@ const Payment = () => {
         
         const checkPayment = setInterval(async () => {
           attempts++;
-          
+        
           try {
-            const hasActiveSubscription = await paymentApi.hasActiveSubscription(currentUserId);
-            
-            if (hasActiveSubscription) {
+            const hasActive = await paymentApi.hasActiveSubscription(currentUserId); // ← correct
+        
+            if (hasActive) {
               clearInterval(checkPayment);
               setLoading(false);
-              toast({
-                title: "Payment Successful!",
-                description: "Redirecting to the job board...",
-              });
-              
-              setTimeout(() => {
-                navigate("/drivers-job-board");
-              }, 1500);
+              toast({ title: "Success!", description: "Redirecting..." });
+              setTimeout(() => navigate("/drivers-job-board"), 1500);
             }
-          } catch (error) {
-            console.error('Error checking payment:', error);
+          } catch (err) {
+            console.error(err);
           }
-          
+        
           if (attempts >= maxAttempts) {
             clearInterval(checkPayment);
             setLoading(false);
-            toast({
-              title: "Payment Timeout",
-              description: "Please contact support if you completed the payment.",
-              variant: "destructive",
-            });
+            toast({ title: "Timeout", description: "Contact support", variant: "destructive" });
           }
         }, 3000);
 
@@ -193,12 +190,12 @@ const Payment = () => {
           callbackUrl: `${window.location.origin}/drivers-job-board`
         });
 
-        // Redirect to Paystack payment page
-        if (paystackResponse.authorization_url) {
-          window.location.href = paystackResponse.authorization_url;
-        } else {
-          throw new Error('Failed to get payment URL');
-        }
+        // In Paystack flow
+      if (paystackResponse.authorization_url) {
+        // Save plan in localStorage
+        localStorage.setItem('pendingPlanId', selectedPlan);
+        window.location.href = paystackResponse.authorization_url;
+      }
       }
 
     } catch (error) {
