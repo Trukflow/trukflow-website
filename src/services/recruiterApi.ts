@@ -442,4 +442,21 @@ export const recruiterApi = {
 
     return response.json();
   },
+
+  async getDriverDetails(jobSeekerId: string): Promise<ApprovedDriver> {
+    const token = await auth.currentUser?.getIdToken();
+    
+    const response = await fetch(`${API_BASE_URL}/api/recruiter/${jobSeekerId}/details`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch driver details');
+    }
+
+    return response.json();
+  },
 };
