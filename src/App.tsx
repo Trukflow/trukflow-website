@@ -15,6 +15,8 @@ import CompanyAuth from "./pages/CompanyAuth";
 import Payment from "./pages/Payment";
 import HireDrivers from "./pages/HireDrivers";
 import DriversJobBoard from "./pages/DriversJobBoard";
+import TermsConditions from "./pages/TermsConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -37,6 +39,8 @@ const App = () => (
           <Route path="/payment" element={<Payment />} />
           <Route path="/hire-drivers" element={<HireDrivers />} />
           <Route path="/drivers-job-board" element={<DriversJobBoard />} />
+          <Route path="/terms-conditions" element={<TermsConditions />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

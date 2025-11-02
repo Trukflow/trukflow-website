@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 
@@ -14,6 +15,7 @@ const CompanyAuth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   // Check if already logged in
   useEffect(() => {
@@ -29,6 +31,16 @@ const CompanyAuth = () => {
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    if (!termsAccepted) {
+      toast({
+        title: "Terms Required",
+        description: "Please accept the Terms & Conditions and Privacy Policy to continue.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
@@ -177,6 +189,23 @@ const CompanyAuth = () => {
                         required
                         minLength={6}
                       />
+                    </div>
+                    <div className="flex items-start space-x-2">
+                      <Checkbox 
+                        id="terms" 
+                        checked={termsAccepted}
+                        onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
+                      />
+                      <label htmlFor="terms" className="text-sm text-muted-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
+                        I agree to the{' '}
+                        <a href="/terms-conditions" target="_blank" className="text-primary hover:underline">
+                          Terms & Conditions
+                        </a>
+                        {' '}and{' '}
+                        <a href="/privacy-policy" target="_blank" className="text-primary hover:underline">
+                          Privacy Policy
+                        </a>
+                      </label>
                     </div>
                     <Button type="submit" className="w-full" disabled={loading}>
                       {loading ? "Creating account..." : "Create Account"}

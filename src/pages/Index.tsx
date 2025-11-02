@@ -869,6 +869,11 @@ const Index = () => {
           </div>
 
           <div className="border-t border-gray-800 mt-8 md:mt-12 pt-6 md:pt-8 text-center text-gray-400 text-sm">
+            <div className="flex flex-wrap justify-center gap-4 mb-3">
+              <a href="/terms-conditions" className="hover:text-white transition-colors">Terms & Conditions</a>
+              <span>•</span>
+              <a href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a>
+            </div>
             <p>&copy; 2025 TRUK. All rights reserved.</p>
             <p className="mt-2">
               Developed by{' '}
