@@ -137,7 +137,7 @@ const TransporterEnlistment = () => {
                   <ul className="space-y-2 text-gray-600">
                     <li className="flex items-start">
                       <span className="text-green-500 mr-2 mt-1">✓</span>
-                      <span>Company registration certificate</span>
+                      <span>Registration Number</span>
                     </li>
                   </ul>
                 </div>

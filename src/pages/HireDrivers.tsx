@@ -146,7 +146,7 @@ const HireDrivers = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 animate-fade-in">
-              Register as a Company to Hire Drivers
+              Register to Hire Drivers
             </h2>
             <p className="text-xl text-muted-foreground mb-8 animate-fade-in max-w-2xl mx-auto">
               Join hundreds of companies already using our platform to find reliable, verified drivers for their logistics needs
