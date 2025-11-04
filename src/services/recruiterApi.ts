@@ -459,4 +459,24 @@ export const recruiterApi = {
 
     return response.json();
   },
+
+  // Add this method to your recruiterApi object
+  async startTrial(userId: string, planId: string): Promise<SubscriptionResponse> {
+    const token = await auth.currentUser?.getIdToken();
+    const response = await fetch(`${API_BASE_URL}/api/recruiter/subscription/trial`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId, planId }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ message: 'Failed to start trial' }));
+      throw new Error(error.message);
+    }
+
+    return response.json();
+  }
 };

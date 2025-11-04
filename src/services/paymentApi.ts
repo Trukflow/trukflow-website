@@ -1,3 +1,4 @@
+// src/services/paymentApi.ts
 import { auth } from "@/lib/firebase";
 import { supabase } from "@/integrations/supabase/client";
 import { normalizeFirebaseUID } from "@/lib/utils";
@@ -22,11 +23,19 @@ interface PaymentHistory {
   expiresAt?: string;
 }
 
+interface SubscriptionResponse {
+  isActive: boolean;
+  planId: string;
+  endDate: string;
+  paymentStatus: string;
+  // Add more fields as needed
+}
+
 export const paymentApi = {
   // Initialize Paystack payment
   async initializePaystack(data: PaystackInitializeRequest) {
     const token = await auth.currentUser?.getIdToken();
-    
+
     const response = await fetch(`${API_BASE_URL}/api/payments/paystack/initialize`, {
       method: 'POST',
       headers: {
@@ -47,7 +56,7 @@ export const paymentApi = {
   // Get payment details by ID
   async getPaymentDetails(paymentId: string) {
     const token = await auth.currentUser?.getIdToken();
-    
+
     const response = await fetch(`${API_BASE_URL}/api/payments/${paymentId}`, {
       method: 'GET',
       headers: {
@@ -65,7 +74,7 @@ export const paymentApi = {
   // Get user's payment history
   async getUserPaymentHistory(userId: string): Promise<PaymentHistory[]> {
     const token = await auth.currentUser?.getIdToken();
-    
+
     const response = await fetch(`${API_BASE_URL}/api/payments/user/${userId}`, {
       method: 'GET',
       headers: {
@@ -83,7 +92,7 @@ export const paymentApi = {
   // Verify payment transaction
   async verifyPayment(reference: string) {
     const token = await auth.currentUser?.getIdToken();
-    
+
     const response = await fetch(`${API_BASE_URL}/api/payments/verify/${reference}`, {
       method: 'GET',
       headers: {
@@ -100,13 +109,34 @@ export const paymentApi = {
 
   // Check if user has active subscription
   async hasActiveSubscription(userId: string): Promise<boolean> {
-  const normalized = normalizeFirebaseUID(userId);
-  const { data, error } = await supabase
-    .from('companies')
-    .select('verified')
-    .eq('user_id', normalized)
-    .single();
+    const normalized = normalizeFirebaseUID(userId);
+    const { data, error } = await supabase
+      .from('companies')
+      .select('verified')
+      .eq('user_id', normalized)
+      .single();
 
-  return !error && data?.verified === true;
-}
+    return !error && data?.verified === true;
+  },
+
+  // --- NEW: Start 1-Hour Free Trial ---
+  async startTrial(userId: string, planId: string): Promise<SubscriptionResponse> {
+    const token = await auth.currentUser?.getIdToken();
+
+    const response = await fetch(`${API_BASE_URL}/api/recruiter/subscription/trial`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ userId, planId }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ message: 'Failed to start trial' }));
+      throw new Error(error.message || 'Could not start free trial');
+    }
+
+    return response.json();
+  },
 };
