@@ -210,6 +210,25 @@ const Payment = () => {
   };
 
   const selectedPlanDetails = pricingPlans.find(p => p.id === selectedPlan);
+  const isFreeTrial = selectedPlanDetails?.price === 0;
+
+  const handleFreeTrial = () => {
+    if (!currentUserId) {
+      toast({
+        title: "Authentication Required",
+        description: "Please log in to continue.",
+        variant: "destructive",
+      });
+      navigate('/company-auth');
+      return;
+    }
+    
+    toast({
+      title: "Welcome!",
+      description: "Redirecting to job board...",
+    });
+    setTimeout(() => navigate("/drivers-job-board"), 1000);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
@@ -249,7 +268,9 @@ const Payment = () => {
                   <CardTitle className="text-2xl">{plan.name}</CardTitle>
                   <CardDescription>{plan.duration}</CardDescription>
                   <div className="mt-4">
-                    <span className="text-4xl font-bold">KES {plan.price}</span>
+                    <span className="text-4xl font-bold">
+                      {plan.price === 0 ? 'FREE' : `KES ${plan.price}`}
+                    </span>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -267,8 +288,39 @@ const Payment = () => {
             </div>
           )}
 
-          {/* Payment Form */}
-          <Card className="max-w-2xl mx-auto">
+          {/* Free Trial or Payment Form */}
+          {isFreeTrial ? (
+            <Card className="max-w-2xl mx-auto">
+              <CardHeader>
+                <CardTitle>Start Your Free Trial</CardTitle>
+                <CardDescription>
+                  Get instant access to the job board with your free trial
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <div className="bg-muted p-4 rounded-lg">
+                    <div className="flex justify-between items-center">
+                      <div>
+                        <p className="font-semibold">{selectedPlanDetails?.name}</p>
+                        <p className="text-sm text-muted-foreground">{selectedPlanDetails?.duration}</p>
+                      </div>
+                      <p className="text-2xl font-bold text-primary">FREE</p>
+                    </div>
+                  </div>
+                  
+                  <Button onClick={handleFreeTrial} className="w-full" size="lg">
+                    Start Free Trial
+                  </Button>
+                  
+                  <p className="text-xs text-center text-muted-foreground">
+                    No payment required. Start browsing drivers immediately.
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          ) : (
+            <Card className="max-w-2xl mx-auto">
             <CardHeader>
               <CardTitle>Payment Details</CardTitle>
               <CardDescription>
@@ -412,6 +464,7 @@ const Payment = () => {
               </form>
             </CardContent>
           </Card>
+          )}
         </div>
       </div>
     </div>
