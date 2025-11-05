@@ -99,7 +99,27 @@ const Payment = () => {
 
     setLoading(true);
     try {
-      await recruiterApi.startTrial(currentUserId, selectedPlan);
+      // Since backend trial endpoint doesn't exist, use the regular subscription endpoint
+      const user = auth.currentUser;
+      if (!user || !user.email) {
+        toast({
+          title: "Error",
+          description: "User email not found",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      await recruiterApi.startSubscription({
+        userId: currentUserId,
+        planId: selectedPlan,
+        paymentData: {
+          paymentMethod: 'mpesa',
+          email: user.email,
+          phoneNumber: '' // Not needed for free trial
+        }
+      });
+
       toast({
         title: "1-Hour Free Trial Started!",
         description: "You can contact up to 2 drivers. Access ends in 1 hour.",
@@ -110,7 +130,7 @@ const Payment = () => {
       const msg = error.message || "Failed to start trial.";
       toast({
         title: "Trial Failed",
-        description: msg.includes('404') ? "Trial endpoint not found. Contact support." : msg,
+        description: msg,
         variant: "destructive",
       });
     } finally {
