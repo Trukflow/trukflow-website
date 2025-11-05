@@ -61,7 +61,7 @@ const Payment = () => {
             name: plan.name,
             price: plan.price,
             duration: `${plan.duration} days`,
-            // trialHours: plan.trialHours,
+            trialHours: plan.trialDays > 0 ? plan.trialDays * 24 : undefined,
             maxContacts: maxContacts,
             features: [
               `${plan.features.accessDuration} access`,
