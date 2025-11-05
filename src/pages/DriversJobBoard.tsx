@@ -10,9 +10,11 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Search, LogOut, Shield, Star, Phone, Mail, Truck, Crown, Clock } from "lucide-react";
+import { Search, LogOut, Shield, Star, Phone, Mail, Truck, Crown, Clock, AlertCircle } from "lucide-react";
 import { recruiterApi } from "@/services/recruiterApi";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import { Progress } from "@/components/ui/progress";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface Driver {
   id: string;
@@ -55,6 +57,7 @@ const DriversJobBoard = () => {
   const [currentUserId, setCurrentUserId] = useState<string>("");
   const [subscription, setSubscription] = useState<any>(null);
   const [timeLeft, setTimeLeft] = useState<string>("");
+  const [trialProgress, setTrialProgress] = useState<number>(100);
 
   useEffect(() => {
     checkAuthAndVerification();
@@ -75,10 +78,13 @@ const DriversJobBoard = () => {
   useEffect(() => {
     if (!subscription?.endDate || subscription.paymentStatus !== 'trial') return;
 
+    const totalDuration = 60 * 60 * 1000; // 1 hour in milliseconds
+    
     const interval = setInterval(() => {
       const diff = new Date(subscription.endDate).getTime() - Date.now();
       if (diff <= 0) {
         setTimeLeft("Expired");
+        setTrialProgress(0);
         toast({ title: "Trial Expired", description: "Upgrade to continue.", variant: "destructive" });
         navigate('/payment');
         return;
@@ -87,6 +93,10 @@ const DriversJobBoard = () => {
       const minutes = Math.floor(diff / 60000);
       const seconds = Math.floor((diff % 60000) / 1000);
       setTimeLeft(`${minutes}m ${seconds}s`);
+      
+      // Calculate progress percentage (100% at start, 0% at end)
+      const progress = (diff / totalDuration) * 100;
+      setTrialProgress(Math.max(0, Math.min(100, progress)));
     }, 1000);
 
     return () => clearInterval(interval);
@@ -226,34 +236,53 @@ const DriversJobBoard = () => {
       <Navbar />
       <section className="bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-primary-foreground py-12">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold mb-2">Driver Job Board</h1>
-              <p className="text-primary-foreground/90">Browse and hire verified professional drivers</p>
-              {planFeatures && (
-                <div className="mt-3 flex items-center gap-3">
-                  <Badge variant="secondary" className="gap-1">
-                    <Crown className="w-3 h-3" />
-                    {planFeatures.accessDuration} access
-                  </Badge>
-                  <Badge variant="secondary">
-                    {planFeatures.maxDriverContacts !== 'unlimited'
-                      ? `${contactedDrivers.size}/${planFeatures.maxDriverContacts} contacts used`
-                      : 'Unlimited contacts'}
-                  </Badge>
-                  {subscription?.paymentStatus === 'trial' && (
-                    <Badge variant="destructive" className="gap-1">
-                      <Clock className="w-3 h-3" />
-                      {timeLeft}
+          <div className="max-w-6xl mx-auto">
+            <div className="flex items-center justify-between mb-4">
+              <div>
+                <h1 className="text-4xl font-bold mb-2">Driver Job Board</h1>
+                <p className="text-primary-foreground/90">Browse and hire verified professional drivers</p>
+                {planFeatures && (
+                  <div className="mt-3 flex items-center gap-3">
+                    <Badge variant="secondary" className="gap-1">
+                      <Crown className="w-3 h-3" />
+                      {planFeatures.accessDuration} access
                     </Badge>
-                  )}
-                </div>
-              )}
+                    <Badge variant="secondary">
+                      {planFeatures.maxDriverContacts !== 'unlimited'
+                        ? `${contactedDrivers.size}/${planFeatures.maxDriverContacts} contacts used`
+                        : 'Unlimited contacts'}
+                    </Badge>
+                  </div>
+                )}
+              </div>
+              <Button onClick={handleLogout} variant="secondary" className="gap-2">
+                <LogOut className="w-4 h-4" />
+                Logout
+              </Button>
             </div>
-            <Button onClick={handleLogout} variant="secondary" className="gap-2">
-              <LogOut className="w-4 h-4" />
-              Logout
-            </Button>
+
+            {subscription?.paymentStatus === 'trial' && (
+              <Alert className="bg-primary-foreground text-primary border-none mt-4">
+                <AlertCircle className="h-5 w-5" />
+                <AlertDescription className="ml-2">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-semibold flex items-center gap-2">
+                        <Clock className="w-4 h-4" />
+                        Free Trial Time Remaining: {timeLeft}
+                      </span>
+                      <Badge variant="outline" className="border-primary">
+                        {contactedDrivers.size}/2 contacts used
+                      </Badge>
+                    </div>
+                    <Progress value={trialProgress} className="h-2" />
+                    <p className="text-sm text-muted-foreground">
+                      Your trial will expire soon. Upgrade to continue accessing drivers.
+                    </p>
+                  </div>
+                </AlertDescription>
+              </Alert>
+            )}
           </div>
         </div>
       </section>
