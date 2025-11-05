@@ -15,6 +15,7 @@ import { recruiterApi } from "@/services/recruiterApi";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import UpgradeModal from "@/components/UpgradeModal";
 
 interface Driver {
   id: string;
@@ -39,6 +40,16 @@ interface PlanFeatures {
   accessDuration: string;
 }
 
+interface PricingPlan {
+  id: string;
+  name: string;
+  price: number;
+  duration: string;
+  features: string[];
+  popular?: boolean;
+  maxContacts?: string;
+}
+
 const DriversJobBoard = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -58,9 +69,13 @@ const DriversJobBoard = () => {
   const [subscription, setSubscription] = useState<any>(null);
   const [timeLeft, setTimeLeft] = useState<string>("");
   const [trialProgress, setTrialProgress] = useState<number>(100);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [upgradeReason, setUpgradeReason] = useState<"trial_expired" | "limit_reached">("trial_expired");
+  const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
 
   useEffect(() => {
     checkAuthAndVerification();
+    fetchPricingPlans();
   }, []);
 
   useEffect(() => {
@@ -85,8 +100,8 @@ const DriversJobBoard = () => {
       if (diff <= 0) {
         setTimeLeft("Expired");
         setTrialProgress(0);
-        toast({ title: "Trial Expired", description: "Upgrade to continue.", variant: "destructive" });
-        navigate('/payment');
+        setUpgradeReason("trial_expired");
+        setShowUpgradeModal(true);
         return;
       }
 
@@ -100,7 +115,35 @@ const DriversJobBoard = () => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [subscription?.endDate]);
+  }, [subscription?.endDate, navigate]);
+
+  const fetchPricingPlans = async () => {
+    try {
+      const response = await recruiterApi.getPlans();
+      const plans = response.plans
+        .filter(plan => plan.price > 0) // Exclude free trial from upgrade modal
+        .map(plan => ({
+          id: plan.planId,
+          name: plan.name,
+          price: plan.price,
+          duration: `${plan.duration} days`,
+          maxContacts: plan.features.maxDriverContacts,
+          features: [
+            `${plan.features.accessDuration} access`,
+            `Contact up to ${plan.features.maxDriverContacts} drivers`,
+            `Up to ${plan.features.maxActiveJobPosts} active job posts`,
+            plan.features.driverProfileViewing ? "Unlimited driver profile viewing" : "Limited driver viewing",
+            plan.features.documentsAccess ? "Access to verified documents" : "Basic document access",
+            ...(plan.features.featuredListings ? ["Featured listing on TRUK site"] : []),
+            `${plan.features.supportLevel} support`
+          ],
+          popular: plan.isPopular
+        }));
+      setPricingPlans(plans);
+    } catch (error) {
+      console.error('Error fetching plans:', error);
+    }
+  };
 
   const checkAuthAndVerification = async () => {
     onAuthStateChanged(auth, async (user) => {
@@ -204,8 +247,8 @@ const DriversJobBoard = () => {
     if (planFeatures) {
       const maxContacts = planFeatures.maxDriverContacts === 'unlimited' ? Infinity : parseInt(planFeatures.maxDriverContacts) || 0;
       if (contactedDrivers.size >= maxContacts) {
-        toast({ title: "Limit Reached", description: "Upgrade to contact more drivers.", variant: "destructive" });
-        setTimeout(() => navigate('/payment'), 2000);
+        setUpgradeReason("limit_reached");
+        setShowUpgradeModal(true);
         return;
       }
     }
@@ -234,6 +277,13 @@ const DriversJobBoard = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
+      
+      <UpgradeModal 
+        open={showUpgradeModal} 
+        onOpenChange={setShowUpgradeModal}
+        plans={pricingPlans}
+        reason={upgradeReason}
+      />
       <section className="bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-primary-foreground py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
