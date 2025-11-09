@@ -47,6 +47,51 @@ export type Database = {
         }
         Relationships: []
       }
+      subscriptions: {
+        Row: {
+          contacts_used: number
+          created_at: string
+          end_date: string
+          id: string
+          max_contacts: number
+          payment_reference: string | null
+          plan_id: string
+          plan_name: string
+          start_date: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          contacts_used?: number
+          created_at?: string
+          end_date: string
+          id?: string
+          max_contacts?: number
+          payment_reference?: string | null
+          plan_id: string
+          plan_name: string
+          start_date?: string
+          status: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          contacts_used?: number
+          created_at?: string
+          end_date?: string
+          id?: string
+          max_contacts?: number
+          payment_reference?: string | null
+          plan_id?: string
+          plan_name?: string
+          start_date?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

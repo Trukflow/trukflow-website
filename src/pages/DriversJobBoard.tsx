@@ -16,6 +16,7 @@ import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import UpgradeModal from "@/components/UpgradeModal";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Driver {
   id: string;
@@ -163,23 +164,53 @@ const DriversJobBoard = () => {
       if (storedContacted) setContactedDrivers(new Set(JSON.parse(storedContacted)));
 
       try {
-        const subStatus = await recruiterApi.getSubscriptionStatus(user.uid);
-        setSubscription(subStatus);
-        setVerified(subStatus.isActive);
+        // Fetch subscription from Supabase
+        const { data: subscriptionData, error } = await supabase
+          .from('subscriptions')
+          .select('*')
+          .eq('user_id', user.uid)
+          .order('created_at', { ascending: false })
+          .limit(1)
+          .maybeSingle();
 
-        if (!subStatus.isActive) {
+        if (error) throw error;
+
+        if (!subscriptionData) {
+          toast({ title: "No Active Subscription", description: "Please select a plan.", variant: "destructive" });
+          navigate('/payment');
+          return;
+        }
+
+        // Check if subscription is active
+        const now = new Date();
+        const endDate = new Date(subscriptionData.end_date);
+        const isActive = subscriptionData.status === 'active' || 
+                        (subscriptionData.status === 'trial' && endDate > now);
+
+        if (!isActive) {
           toast({ title: "Access Expired", description: "Start a new plan.", variant: "destructive" });
           navigate('/payment');
           return;
         }
 
-        if (subStatus.planId) {
-          const plan = await recruiterApi.getPlan(subStatus.planId);
-          setPlanFeatures({
-            maxDriverContacts: plan.features.maxDriverContacts,
-            accessDuration: plan.features.accessDuration
-          });
-        }
+        // Format subscription data to match expected structure
+        const subStatus = {
+          isActive,
+          planId: subscriptionData.plan_id,
+          endDate: subscriptionData.end_date,
+          paymentStatus: subscriptionData.status,
+          contactsUsed: subscriptionData.contacts_used,
+          maxContacts: subscriptionData.max_contacts
+        };
+
+        setSubscription(subStatus);
+        setVerified(isActive);
+
+        // Set plan features from subscription data
+        setPlanFeatures({
+          maxDriverContacts: subscriptionData.max_contacts.toString(),
+          accessDuration: subscriptionData.status === 'trial' ? '1 hour' : '30 days'
+        });
 
         fetchDrivers();
       } catch (error) {
@@ -253,12 +284,21 @@ const DriversJobBoard = () => {
       }
     }
 
-    const newContacted = new Set(contactedDrivers);
-    newContacted.add(driver.id);
+    const newContacted = new Set(contactedDrivers).add(driver.id);
     setContactedDrivers(newContacted);
-    localStorage.setItem(`contacted_drivers_${currentUserId}`, JSON.stringify([...newContacted]));
+    localStorage.setItem(`contacted_drivers_${currentUserId}`, JSON.stringify(Array.from(newContacted)));
 
-    toast({ title: "Contact Unlocked", description: `You can now contact ${driver.name}.` });
+    // Update contacts_used in Supabase
+    if (subscription) {
+      await supabase
+        .from('subscriptions')
+        .update({ contacts_used: newContacted.size })
+        .eq('user_id', currentUserId)
+        .eq('plan_id', subscription.planId);
+    }
+
+    window.open(`tel:${driver.phone}`, '_self');
+    toast({ title: "Success", description: `Contact initiated with ${driver.name}` });
   };
 
   const handleLogout = async () => {

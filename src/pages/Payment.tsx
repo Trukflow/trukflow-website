@@ -13,6 +13,7 @@ import { Check } from "lucide-react";
 import { recruiterApi } from "@/services/recruiterApi";
 import { paymentApi } from "@/services/paymentApi";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import { supabase } from "@/integrations/supabase/client";
 
 interface PricingPlan {
   id: string;
@@ -99,26 +100,27 @@ const Payment = () => {
 
     setLoading(true);
     try {
-      // Since backend trial endpoint doesn't exist, use the regular subscription endpoint
       const user = auth.currentUser;
-      if (!user || !user.email) {
+      if (!user) {
         toast({
           title: "Error",
-          description: "User email not found",
+          description: "User not authenticated",
           variant: "destructive",
         });
         return;
       }
 
-      await recruiterApi.startSubscription({
-        userId: currentUserId,
-        planId: selectedPlan,
-        paymentData: {
-          paymentMethod: 'mpesa',
-          email: user.email,
-          phoneNumber: '' // Not needed for free trial
+      const firebaseToken = await user.getIdToken();
+
+      const { data, error } = await supabase.functions.invoke('start-trial', {
+        body: {
+          userId: currentUserId,
+          planId: selectedPlan,
+          firebaseToken
         }
       });
+
+      if (error) throw error;
 
       toast({
         title: "1-Hour Free Trial Started!",
@@ -153,24 +155,21 @@ const Payment = () => {
 
     try {
       if (paymentMethod === "mpesa") {
-        const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://trukafrica.onrender.com';
-        const response = await fetch(`${API_BASE_URL}/api/payments/mpesa`, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${await user.getIdToken()}`
-          },
-          body: JSON.stringify({
-            plan: selectedPlan,
-            amount: plan?.price,
-            phoneNumber,
-            planName: plan?.name,
-            duration: plan?.duration,
+        const firebaseToken = await user.getIdToken();
+        
+        const { data, error } = await supabase.functions.invoke('process-mpesa-payment', {
+          body: {
             userId: currentUserId,
-          })
+            planId: selectedPlan,
+            planName: plan?.name || '',
+            phoneNumber,
+            amount: plan?.price || 0,
+            maxContacts: parseInt(plan?.maxContacts || '0'),
+            firebaseToken
+          }
         });
 
-        if (!response.ok) throw new Error('M-PESA payment failed');
+        if (error) throw error;
 
         toast({
           title: "Payment Initiated",
@@ -178,8 +177,16 @@ const Payment = () => {
         });
 
         const checkPayment = setInterval(async () => {
-          const sub = await recruiterApi.getSubscriptionStatus(currentUserId);
-          if (sub.isActive) {
+          const { data: subscription } = await supabase
+            .from('subscriptions')
+            .select('*')
+            .eq('user_id', currentUserId)
+            .eq('status', 'active')
+            .order('created_at', { ascending: false })
+            .limit(1)
+            .maybeSingle();
+
+          if (subscription) {
             clearInterval(checkPayment);
             toast({ title: "Success!", description: "Redirecting..." });
             setTimeout(() => navigate("/drivers-job-board"), 1500);
