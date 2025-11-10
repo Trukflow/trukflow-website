@@ -10,6 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
+import { recruiterApi } from "@/services/recruiterApi";
 
 const CompanyAuth = () => {
   const navigate = useNavigate();
@@ -46,19 +47,41 @@ const CompanyAuth = () => {
     const formData = new FormData(e.currentTarget);
     const email = formData.get("signup-email") as string;
     const password = formData.get("signup-password") as string;
+    const companyName = formData.get("company-name") as string;
+    const phone = formData.get("phone") as string;
 
     try {
+      // 1. Create Firebase account first
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const token = await userCredential.user.getIdToken();
       localStorage.setItem('authToken', token);
 
+      // 2. Register with external backend
+      try {
+        await recruiterApi.register({
+          name: companyName,
+          email,
+          password,
+          phone: phone || "",
+        });
+        console.log('Successfully registered with external backend');
+      } catch (backendError: any) {
+        console.error('Backend registration failed:', backendError);
+        // Log the error but don't fail the signup - user is created in Firebase
+        toast({
+          title: "Warning",
+          description: "Account created but backend sync failed. Please contact support if issues persist.",
+          variant: "destructive",
+        });
+      }
+
       toast({
         title: "Account Created!",
-        description: "Redirecting to job board...",
+        description: "Redirecting to payment page...",
       });
 
       setTimeout(() => {
-        navigate("/drivers-job-board");
+        navigate("/payment");
       }, 1500);
     } catch (error: any) {
       toast({
