@@ -57,20 +57,26 @@ const CompanyAuth = () => {
       localStorage.setItem('authToken', token);
 
       // 2. Register with external backend
+      console.log('Starting backend registration for:', email);
       try {
-        await recruiterApi.register({
+        const backendResponse = await recruiterApi.register({
           name: companyName,
           email,
           password,
           phone: phone || "",
         });
-        console.log('Successfully registered with external backend');
+        console.log('Successfully registered with external backend:', backendResponse);
       } catch (backendError: any) {
         console.error('Backend registration failed:', backendError);
+        console.error('Error details:', {
+          message: backendError.message,
+          status: backendError.status,
+          response: backendError
+        });
         // Log the error but don't fail the signup - user is created in Firebase
         toast({
           title: "Warning",
-          description: "Account created but backend sync failed. Please contact support if issues persist.",
+          description: `Account created but backend sync failed: ${backendError.message}. Please contact support.`,
           variant: "destructive",
         });
       }
