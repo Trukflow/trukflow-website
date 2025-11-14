@@ -155,21 +155,14 @@ const Payment = () => {
 
     try {
       if (paymentMethod === "mpesa") {
-        const firebaseToken = await user.getIdToken();
+        // Call your backend directly with plan info in accountRef
+        const accountRef = `PLAN-${selectedPlan}-USER-${currentUserId}-${Date.now()}`;
         
-        const { data, error } = await supabase.functions.invoke('process-mpesa-payment', {
-          body: {
-            userId: currentUserId,
-            planId: selectedPlan,
-            planName: plan?.name || '',
-            phoneNumber,
-            amount: plan?.price || 0,
-            maxContacts: parseInt(plan?.maxContacts || '0'),
-            firebaseToken
-          }
+        await recruiterApi.initiateMpesaPayment({
+          phone: phoneNumber,
+          amount: plan?.price || 0,
+          accountRef
         });
-
-        if (error) throw error;
 
         toast({
           title: "M-PESA Prompt Sent",
@@ -177,43 +170,37 @@ const Payment = () => {
           duration: 5000,
         });
 
+        // Poll your backend's subscription status instead of Supabase
         let attempts = 0;
-        const maxAttempts = 60; // 3 minutes (60 * 3 seconds)
+        const maxAttempts = 60; // 3 minutes
         
         const checkPayment = setInterval(async () => {
           attempts++;
-          const { data: subscription } = await supabase
-            .from('subscriptions')
-            .select('*')
-            .eq('user_id', currentUserId)
-            .eq('status', 'active')
-            .order('created_at', { ascending: false })
-            .limit(1)
-            .maybeSingle();
-
-          if (subscription) {
-            clearInterval(checkPayment);
-            toast({ 
-              title: "Payment Confirmed!", 
-              description: "Your subscription is now active. Redirecting..." 
-            });
-            setTimeout(() => navigate("/drivers-job-board"), 1500);
-          } else if (attempts >= maxAttempts) {
-            clearInterval(checkPayment);
-            toast({
-              title: "Payment Timeout",
-              description: "Payment confirmation not received. Please check your M-PESA messages or contact support.",
-              variant: "destructive",
-              duration: 8000,
-            });
-            setLoading(false);
+          try {
+            const subscription = await recruiterApi.getSubscriptionStatus(currentUserId);
+            
+            if (subscription && subscription.status === 'active') {
+              clearInterval(checkPayment);
+              setLoading(false);
+              toast({ 
+                title: "Payment Confirmed!", 
+                description: "Your subscription is now active. Redirecting..." 
+              });
+              setTimeout(() => navigate("/drivers-job-board"), 1500);
+            } else if (attempts >= maxAttempts) {
+              clearInterval(checkPayment);
+              setLoading(false);
+              toast({
+                title: "Payment Timeout",
+                description: "Payment confirmation not received. Please check your M-PESA messages or contact support.",
+                variant: "destructive",
+                duration: 8000,
+              });
+            }
+          } catch (error) {
+            console.error('Error checking subscription:', error);
           }
         }, 3000);
-
-        // Clean up interval after 3 minutes
-        setTimeout(() => {
-          clearInterval(checkPayment);
-        }, 180000);
 
       } else if (paymentMethod === "card") {
         const email = user.email;
