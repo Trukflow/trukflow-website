@@ -29,17 +29,19 @@ serve(async (req) => {
     const { userId, planId, planName, phoneNumber, amount, maxContacts, firebaseToken }: MpesaPaymentRequest = await req.json();
     
     console.log('Processing M-PESA payment for user:', userId);
+    console.log('Request payload:', { userId, planId, phoneNumber, amount });
 
     // 1. Initiate M-PESA payment via external backend
-    const mpesaResponse = await fetch('https://trukafrica.onrender.com/api/payments/mpesa', {
+    const mpesaResponse = await fetch('https://agritruk.onrender.com/api/payments/mpesa', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${firebaseToken}`
       },
       body: JSON.stringify({
-        phoneNumber,
-        amount
+        phone: phoneNumber,
+        amount,
+        accountRef: `SUB-${userId}-${Date.now()}`
       })
     });
 
