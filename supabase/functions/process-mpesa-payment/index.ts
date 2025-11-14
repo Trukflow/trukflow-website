@@ -54,7 +54,14 @@ serve(async (req) => {
     const mpesaData = await mpesaResponse.json();
     console.log('M-PESA initiated:', mpesaData);
 
-    // 2. Create pending subscription in Supabase
+    // Check if M-PESA payment actually succeeded
+    if (!mpesaData.success || (mpesaData.data && mpesaData.data.success === false)) {
+      const errorMsg = mpesaData.data?.message || mpesaData.message || 'M-PESA payment initiation failed';
+      console.error('M-PESA payment failed:', errorMsg);
+      throw new Error(errorMsg);
+    }
+
+    // 2. Create pending subscription in Supabase (will be activated via webhook)
     const endDate = new Date();
     endDate.setMonth(endDate.getMonth() + 1); // 1 month subscription
 
@@ -64,11 +71,11 @@ serve(async (req) => {
         user_id: userId,
         plan_id: planId,
         plan_name: planName,
-        status: 'active', // Will be confirmed via webhook
+        status: 'pending', // Will be changed to 'active' via webhook when payment confirms
         end_date: endDate.toISOString(),
         max_contacts: maxContacts,
         contacts_used: 0,
-        payment_reference: mpesaData.CheckoutRequestID || mpesaData.transactionId
+        payment_reference: mpesaData.CheckoutRequestID || mpesaData.transactionId || mpesaData.data?.checkoutRequestID
       })
       .select()
       .single();
@@ -114,7 +121,7 @@ serve(async (req) => {
         success: true,
         subscription,
         mpesaData,
-        message: 'Payment initiated. Please complete on your phone.'
+        message: 'Payment initiated. Complete the M-PESA prompt on your phone to activate your subscription.'
       }),
       {
         status: 200,
