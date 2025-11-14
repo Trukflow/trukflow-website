@@ -425,6 +425,31 @@ export const recruiterApi = {
     return response.json();
   },
 
+  // Payment
+  async initiateMpesaPayment(data: { 
+    phone: string; 
+    amount: number; 
+    accountRef: string;
+  }): Promise<any> {
+    const token = await auth.currentUser?.getIdToken();
+    
+    const response = await fetch(`${API_BASE_URL}/api/payments/mpesa`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ message: 'Failed to initiate payment' }));
+      throw new Error(error.message || 'Failed to initiate payment');
+    }
+
+    return response.json();
+  },
+
   // Drivers
   async getApprovedDrivers(): Promise<ApprovedDriver[]> {
     const token = await auth.currentUser?.getIdToken();
