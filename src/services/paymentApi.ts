@@ -139,4 +139,25 @@ export const paymentApi = {
 
     return response.json();
   },
+
+  // Process M-PESA payment
+  async processMpesaPayment(phone: string, amount: number, accountRef: string) {
+    const token = await auth.currentUser?.getIdToken();
+
+    const response = await fetch(`${API_BASE_URL}/api/payments/mpesa`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+      body: JSON.stringify({ phone, amount, accountRef }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ message: 'M-PESA payment failed' }));
+      throw new Error(error.message || 'Failed to process M-PESA payment');
+    }
+
+    return response.json();
+  },
 };
