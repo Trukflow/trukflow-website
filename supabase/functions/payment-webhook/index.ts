@@ -7,12 +7,15 @@ const corsHeaders = {
 };
 
 interface PaymentWebhookData {
-  transactionId: string;
+  transactionId?: string;
+  CheckoutRequestID?: string;
   phoneNumber: string;
   amount: number;
   status: 'success' | 'failed';
   userId?: string;
   planId?: string;
+  ResultCode?: string;
+  ResultDesc?: string;
 }
 
 serve(async (req) => {
@@ -32,8 +35,34 @@ serve(async (req) => {
     console.log('Payment webhook received:', webhookData);
 
     // Verify payment status
-    if (webhookData.status === 'success') {
-      // Update company verification status in database
+    const isSuccess = webhookData.status === 'success' || 
+                      webhookData.ResultCode === '0' || 
+                      webhookData.ResultCode === 0;
+
+    if (isSuccess) {
+      const paymentRef = webhookData.CheckoutRequestID || webhookData.transactionId;
+      
+      // 1. Update subscription status from pending to active
+      if (paymentRef) {
+        const { data: subscription, error: subError } = await supabase
+          .from('subscriptions')
+          .update({ 
+            status: 'active',
+            updated_at: new Date().toISOString()
+          })
+          .eq('payment_reference', paymentRef)
+          .eq('status', 'pending')
+          .select()
+          .single();
+
+        if (subError) {
+          console.error('Error updating subscription:', subError);
+        } else {
+          console.log('Subscription activated:', subscription);
+        }
+      }
+
+      // 2. Update company verification status in database
       if (webhookData.userId) {
         const { error: updateError } = await supabase
           .from('companies')
@@ -64,7 +93,7 @@ serve(async (req) => {
       return new Response(
         JSON.stringify({ 
           success: true, 
-          message: 'Payment verified and company approved' 
+          message: 'Payment verified, subscription activated, and company approved' 
         }),
         {
           status: 200,

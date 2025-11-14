@@ -172,11 +172,16 @@ const Payment = () => {
         if (error) throw error;
 
         toast({
-          title: "Payment Initiated",
-          description: "Complete on your phone.",
+          title: "M-PESA Prompt Sent",
+          description: "Complete the payment on your phone. Waiting for confirmation...",
+          duration: 5000,
         });
 
+        let attempts = 0;
+        const maxAttempts = 60; // 3 minutes (60 * 3 seconds)
+        
         const checkPayment = setInterval(async () => {
+          attempts++;
           const { data: subscription } = await supabase
             .from('subscriptions')
             .select('*')
@@ -188,12 +193,27 @@ const Payment = () => {
 
           if (subscription) {
             clearInterval(checkPayment);
-            toast({ title: "Success!", description: "Redirecting..." });
+            toast({ 
+              title: "Payment Confirmed!", 
+              description: "Your subscription is now active. Redirecting..." 
+            });
             setTimeout(() => navigate("/drivers-job-board"), 1500);
+          } else if (attempts >= maxAttempts) {
+            clearInterval(checkPayment);
+            toast({
+              title: "Payment Timeout",
+              description: "Payment confirmation not received. Please check your M-PESA messages or contact support.",
+              variant: "destructive",
+              duration: 8000,
+            });
+            setLoading(false);
           }
         }, 3000);
 
-        setTimeout(() => clearInterval(checkPayment), 180000);
+        // Clean up interval after 3 minutes
+        setTimeout(() => {
+          clearInterval(checkPayment);
+        }, 180000);
 
       } else if (paymentMethod === "card") {
         const email = user.email;
