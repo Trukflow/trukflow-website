@@ -8,6 +8,7 @@ interface RegisterRequest {
   email: string;
   phone: string;
   password: string;
+  role?: string;
 }
 
 interface LoginRequest {
@@ -207,6 +208,9 @@ export interface ApprovedDriver {
 export const recruiterApi = {
   // Authentication
   async register(data: RegisterRequest): Promise<UserResponse> {
+    console.log('Sending registration request to:', `${API_BASE_URL}/api/recruiter/register`);
+    console.log('Request payload:', { ...data, password: '***HIDDEN***' });
+    
     const response = await fetch(`${API_BASE_URL}/api/recruiter/register`, {
       method: 'POST',
       headers: {
@@ -215,12 +219,17 @@ export const recruiterApi = {
       body: JSON.stringify(data),
     });
 
+    console.log('Registration response status:', response.status);
+
     if (!response.ok) {
       const error = await response.json().catch(() => ({ message: 'Registration failed' }));
+      console.error('Registration error response:', error);
       throw new Error(error.message || 'Failed to register');
     }
 
-    return response.json();
+    const responseData = await response.json();
+    console.log('Registration successful, response:', responseData);
+    return responseData;
   },
 
   async login(data: LoginRequest): Promise<UserResponse> {
