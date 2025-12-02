@@ -73,6 +73,7 @@ const DriversJobBoard = () => {
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [upgradeReason, setUpgradeReason] = useState<"trial_expired" | "limit_reached">("trial_expired");
   const [pricingPlans, setPricingPlans] = useState<PricingPlan[]>([]);
+  const [apiError, setApiError] = useState<string | null>(null);
 
   useEffect(() => {
     checkAuthAndVerification();
@@ -224,6 +225,7 @@ const DriversJobBoard = () => {
   const fetchDrivers = async () => {
     try {
       setLoading(true);
+      setApiError(null);
       const approvedDrivers = await recruiterApi.getApprovedDrivers();
 
       const mappedDrivers: Driver[] = approvedDrivers.map((d: any) => ({
@@ -248,8 +250,19 @@ const DriversJobBoard = () => {
 
       setDrivers(mappedDrivers);
       setFilteredDrivers(mappedDrivers);
-    } catch (error) {
-      toast({ title: "Error", description: "Failed to load drivers.", variant: "destructive" });
+    } catch (error: any) {
+      console.error('Error fetching drivers:', error);
+      const errorMessage = error?.message || "Failed to load drivers. Please try again later.";
+      setApiError(errorMessage);
+      setDrivers([]);
+      setFilteredDrivers([]);
+      
+      toast({ 
+        title: "Error Loading Drivers", 
+        description: errorMessage,
+        variant: "destructive",
+        duration: 6000
+      });
     } finally {
       setLoading(false);
     }
@@ -539,7 +552,18 @@ const DriversJobBoard = () => {
               ))}
             </div>
 
-            {filteredDrivers.length === 0 && (
+            {apiError ? (
+              <div className="text-center py-20">
+                <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-destructive/10 flex items-center justify-center">
+                  <AlertCircle className="w-12 h-12 text-destructive" />
+                </div>
+                <h3 className="text-2xl font-bold mb-2 text-destructive">Failed to Load Drivers</h3>
+                <p className="text-muted-foreground text-lg mb-4">{apiError}</p>
+                <Button onClick={fetchDrivers} variant="outline">
+                  Retry
+                </Button>
+              </div>
+            ) : filteredDrivers.length === 0 ? (
               <div className="text-center py-20">
                 <div className="w-24 h-24 mx-auto mb-6 rounded-full bg-muted flex items-center justify-center">
                   <Search className="w-12 h-12 text-muted-foreground" />
@@ -547,7 +571,7 @@ const DriversJobBoard = () => {
                 <h3 className="text-2xl font-bold mb-2">No Drivers Found</h3>
                 <p className="text-muted-foreground text-lg">Try adjusting your filters</p>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </section>
