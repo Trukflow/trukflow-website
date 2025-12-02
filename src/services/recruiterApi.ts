@@ -207,15 +207,22 @@ export interface ApprovedDriver {
 
 export const recruiterApi = {
   // Authentication
-  async register(data: RegisterRequest): Promise<UserResponse> {
+  async register(data: RegisterRequest, firebaseToken?: string): Promise<UserResponse> {
     console.log('Sending registration request to:', `${API_BASE_URL}/api/recruiter/register`);
     console.log('Request payload:', { ...data, password: '***HIDDEN***' });
+    console.log('Firebase token present:', !!firebaseToken);
+    
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    
+    if (firebaseToken) {
+      headers['Authorization'] = `Bearer ${firebaseToken}`;
+    }
     
     const response = await fetch(`${API_BASE_URL}/api/recruiter/register`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers,
       body: JSON.stringify(data),
     });
 
