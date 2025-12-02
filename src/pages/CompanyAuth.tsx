@@ -57,14 +57,21 @@ const CompanyAuth = () => {
       localStorage.setItem('authToken', token);
 
       // 2. Register with external backend
-      console.log('Starting backend registration for:', email);
+      const registrationPayload = {
+        name: companyName,
+        email,
+        password,
+        phone: phone || "",
+        role: "recruiter" // Explicitly set role
+      };
+      
+      console.log('Starting backend registration with payload:', {
+        ...registrationPayload,
+        password: '***HIDDEN***' // Don't log password
+      });
+      
       try {
-        const backendResponse = await recruiterApi.register({
-          name: companyName,
-          email,
-          password,
-          phone: phone || "",
-        });
+        const backendResponse = await recruiterApi.register(registrationPayload);
         console.log('Successfully registered with external backend:', backendResponse);
       } catch (backendError: any) {
         console.error('Backend registration failed:', backendError);
