@@ -71,7 +71,7 @@ const CompanyAuth = () => {
       });
       
       try {
-        const backendResponse = await recruiterApi.register(registrationPayload);
+        const backendResponse = await recruiterApi.register(registrationPayload, token);
         console.log('Successfully registered with external backend:', backendResponse);
       } catch (backendError: any) {
         console.error('Backend registration failed:', backendError);
