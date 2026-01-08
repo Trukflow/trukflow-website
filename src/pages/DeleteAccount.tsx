@@ -27,10 +27,34 @@ const DeleteAccount = () => {
   const deepLinkToken = searchParams.get("token");
   const deepLinkUid = searchParams.get("uid");
   const deepLinkEmail = searchParams.get("email");
+  const deepLinkTimestamp = searchParams.get("ts"); // Unix timestamp in seconds
+  
+  const TOKEN_EXPIRY_MINUTES = 10;
+
+  const isTokenExpired = (): boolean => {
+    if (!deepLinkTimestamp) return true;
+    
+    const tokenTime = parseInt(deepLinkTimestamp, 10) * 1000; // Convert to milliseconds
+    const now = Date.now();
+    const expiryTime = tokenTime + (TOKEN_EXPIRY_MINUTES * 60 * 1000);
+    
+    return now > expiryTime;
+  };
 
   useEffect(() => {
     // Check for deep link authentication first
     if (deepLinkToken && deepLinkUid) {
+      if (isTokenExpired()) {
+        setIsAuthenticated(false);
+        setAuthSource(null);
+        toast({
+          title: "Link Expired",
+          description: "This deletion link has expired. Please request a new link from the TRUK app.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
       setIsAuthenticated(true);
       setAuthSource("deeplink");
       setUserEmail(deepLinkEmail || "Mobile App User");
@@ -50,7 +74,7 @@ const DeleteAccount = () => {
       }
     });
     return () => unsubscribe();
-  }, [deepLinkToken, deepLinkUid, deepLinkEmail]);
+  }, [deepLinkToken, deepLinkUid, deepLinkEmail, deepLinkTimestamp, toast]);
 
   const handleDeleteRequest = async (e: React.FormEvent) => {
     e.preventDefault();
