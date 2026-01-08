@@ -15,7 +15,7 @@ const DeleteAccount = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
+  const [reason, setReason] = useState("");
   const [confirmText, setConfirmText] = useState("");
   const [acknowledged, setAcknowledged] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -26,7 +26,6 @@ const DeleteAccount = () => {
       if (user) {
         setIsLoggedIn(true);
         setUserEmail(user.email || "");
-        setEmail(user.email || "");
       } else {
         setIsLoggedIn(false);
         setUserEmail("");
@@ -38,10 +37,10 @@ const DeleteAccount = () => {
   const handleDeleteRequest = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!email) {
+    if (!isLoggedIn) {
       toast({
-        title: "Email Required",
-        description: "Please enter your email address.",
+        title: "Login Required",
+        description: "Please log in to request account deletion.",
         variant: "destructive",
       });
       return;
@@ -68,10 +67,10 @@ const DeleteAccount = () => {
     setLoading(true);
 
     try {
-      // If user is logged in, use their UID
       const uid = auth.currentUser?.uid;
+      const deletionReason = reason.trim() || "User requested account deletion";
       
-      await recruiterApi.requestAccountDeletion(email, uid);
+      await recruiterApi.requestAccountDeletion(deletionReason, uid);
 
       toast({
         title: "Request Submitted",
@@ -153,23 +152,31 @@ const DeleteAccount = () => {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleDeleteRequest} className="space-y-6">
-                {/* Email Field */}
-                <div className="space-y-2">
-                  <Label htmlFor="email">Account Email Address</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="Enter your account email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    disabled={isLoggedIn}
-                    required
-                  />
-                  {isLoggedIn && (
-                    <p className="text-xs text-muted-foreground">
-                      You're logged in as {userEmail}
+                {/* Logged in user info */}
+                {isLoggedIn ? (
+                  <div className="p-4 bg-muted/50 rounded-lg">
+                    <p className="text-sm text-muted-foreground">
+                      Logged in as <span className="font-medium text-foreground">{userEmail}</span>
                     </p>
-                  )}
+                  </div>
+                ) : (
+                  <div className="p-4 bg-destructive/10 rounded-lg border border-destructive/20">
+                    <p className="text-sm text-destructive">
+                      Please log in to request account deletion.
+                    </p>
+                  </div>
+                )}
+
+                {/* Reason Field */}
+                <div className="space-y-2">
+                  <Label htmlFor="reason">Reason for deletion (optional)</Label>
+                  <Input
+                    id="reason"
+                    type="text"
+                    placeholder="Tell us why you're leaving..."
+                    value={reason}
+                    onChange={(e) => setReason(e.target.value)}
+                  />
                 </div>
 
                 {/* Confirmation Text */}
@@ -206,7 +213,7 @@ const DeleteAccount = () => {
                   type="submit"
                   variant="destructive"
                   className="w-full"
-                  disabled={loading || confirmText !== "DELETE" || !acknowledged || !email}
+                  disabled={loading || confirmText !== "DELETE" || !acknowledged || !isLoggedIn}
                 >
                   {loading ? "Submitting Request..." : "Request Account Deletion"}
                 </Button>

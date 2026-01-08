@@ -502,7 +502,7 @@ export const recruiterApi = {
   },
 
   // Account Deletion Request
-  async requestAccountDeletion(email: string, uid?: string): Promise<{ message: string }> {
+  async requestAccountDeletion(reason: string, uid?: string): Promise<{ message: string }> {
     const token = await auth.currentUser?.getIdToken();
     
     const headers: Record<string, string> = {
@@ -521,7 +521,7 @@ export const recruiterApi = {
     const response = await fetch(endpoint, {
       method: 'POST',
       headers,
-      body: JSON.stringify({ email }),
+      body: JSON.stringify({ reason }),
     });
 
     if (!response.ok) {
