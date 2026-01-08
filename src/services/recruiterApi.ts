@@ -502,8 +502,10 @@ export const recruiterApi = {
   },
 
   // Account Deletion Request
-  async requestAccountDeletion(reason: string, uid?: string): Promise<{ message: string }> {
-    const token = await auth.currentUser?.getIdToken();
+  // Supports both Firebase auth (web) and deep link token (mobile app)
+  async requestAccountDeletion(reason: string, uid?: string, deepLinkToken?: string): Promise<{ message: string }> {
+    // Use deep link token if provided, otherwise get Firebase token
+    const token = deepLinkToken || await auth.currentUser?.getIdToken();
     
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',

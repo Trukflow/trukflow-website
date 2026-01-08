@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,39 +8,57 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import { Trash2, AlertTriangle, ArrowLeft, Shield } from "lucide-react";
+import { Trash2, AlertTriangle, ArrowLeft, Shield, Smartphone } from "lucide-react";
 import { recruiterApi } from "@/services/recruiterApi";
 
 const DeleteAccount = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [reason, setReason] = useState("");
   const [confirmText, setConfirmText] = useState("");
   const [acknowledged, setAcknowledged] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+  const [authSource, setAuthSource] = useState<"firebase" | "deeplink" | null>(null);
+  
+  // Deep link parameters from mobile app
+  const deepLinkToken = searchParams.get("token");
+  const deepLinkUid = searchParams.get("uid");
+  const deepLinkEmail = searchParams.get("email");
 
   useEffect(() => {
+    // Check for deep link authentication first
+    if (deepLinkToken && deepLinkUid) {
+      setIsAuthenticated(true);
+      setAuthSource("deeplink");
+      setUserEmail(deepLinkEmail || "Mobile App User");
+      return;
+    }
+
+    // Fall back to Firebase auth
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setIsLoggedIn(true);
+        setIsAuthenticated(true);
+        setAuthSource("firebase");
         setUserEmail(user.email || "");
-      } else {
-        setIsLoggedIn(false);
+      } else if (!deepLinkToken) {
+        setIsAuthenticated(false);
+        setAuthSource(null);
         setUserEmail("");
       }
     });
     return () => unsubscribe();
-  }, []);
+  }, [deepLinkToken, deepLinkUid, deepLinkEmail]);
 
   const handleDeleteRequest = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!isLoggedIn) {
+    if (!isAuthenticated) {
       toast({
-        title: "Login Required",
-        description: "Please log in to request account deletion.",
+        title: "Authentication Required",
+        description: "Please access this page from the TRUK mobile app or log in.",
         variant: "destructive",
       });
       return;
@@ -67,18 +85,21 @@ const DeleteAccount = () => {
     setLoading(true);
 
     try {
-      const uid = auth.currentUser?.uid;
       const deletionReason = reason.trim() || "User requested account deletion";
       
-      await recruiterApi.requestAccountDeletion(deletionReason, uid);
+      // Use deep link UID if available, otherwise use Firebase UID
+      const uid = deepLinkUid || auth.currentUser?.uid;
+      const token = deepLinkToken || undefined;
+      
+      await recruiterApi.requestAccountDeletion(deletionReason, uid, token);
 
       toast({
         title: "Request Submitted",
         description: "Your account deletion request has been submitted. You will receive an email confirmation within 24-48 hours.",
       });
 
-      // Sign out if logged in
-      if (auth.currentUser) {
+      // Sign out if logged in via Firebase
+      if (authSource === "firebase" && auth.currentUser) {
         await auth.signOut();
       }
 
@@ -152,17 +173,23 @@ const DeleteAccount = () => {
             </CardHeader>
             <CardContent>
               <form onSubmit={handleDeleteRequest} className="space-y-6">
-                {/* Logged in user info */}
-                {isLoggedIn ? (
+                {/* Authentication status */}
+                {isAuthenticated ? (
                   <div className="p-4 bg-muted/50 rounded-lg">
-                    <p className="text-sm text-muted-foreground">
-                      Logged in as <span className="font-medium text-foreground">{userEmail}</span>
-                    </p>
+                    <div className="flex items-center gap-2">
+                      {authSource === "deeplink" && (
+                        <Smartphone className="h-4 w-4 text-primary" />
+                      )}
+                      <p className="text-sm text-muted-foreground">
+                        {authSource === "deeplink" ? "Authenticated via TRUK App" : "Logged in as"}{" "}
+                        <span className="font-medium text-foreground">{userEmail}</span>
+                      </p>
+                    </div>
                   </div>
                 ) : (
                   <div className="p-4 bg-destructive/10 rounded-lg border border-destructive/20">
                     <p className="text-sm text-destructive">
-                      Please log in to request account deletion.
+                      Please access this page from the TRUK mobile app to delete your account.
                     </p>
                   </div>
                 )}
@@ -213,7 +240,7 @@ const DeleteAccount = () => {
                   type="submit"
                   variant="destructive"
                   className="w-full"
-                  disabled={loading || confirmText !== "DELETE" || !acknowledged || !isLoggedIn}
+                  disabled={loading || confirmText !== "DELETE" || !acknowledged || !isAuthenticated}
                 >
                   {loading ? "Submitting Request..." : "Request Account Deletion"}
                 </Button>
