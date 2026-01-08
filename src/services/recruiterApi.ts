@@ -501,7 +501,38 @@ export const recruiterApi = {
     return response.json();
   },
 
-  // Add this method to your recruiterApi object
+  // Account Deletion Request
+  async requestAccountDeletion(email: string, uid?: string): Promise<{ message: string }> {
+    const token = await auth.currentUser?.getIdToken();
+    
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    // Use the endpoint format: POST /api/auth/{uid}/delete/request
+    const endpoint = uid 
+      ? `${API_BASE_URL}/api/auth/${uid}/delete/request`
+      : `${API_BASE_URL}/api/auth/delete/request`;
+    
+    const response = await fetch(endpoint, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ email }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json().catch(() => ({ message: 'Failed to submit deletion request' }));
+      throw new Error(error.message || 'Failed to submit deletion request');
+    }
+
+    return response.json();
+  },
+
+  // Start Trial
   async startTrial(userId: string, planId: string): Promise<SubscriptionResponse> {
     const token = await auth.currentUser?.getIdToken();
     const response = await fetch(`${API_BASE_URL}/api/recruiter/subscription/trial`, {
