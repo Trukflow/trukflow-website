@@ -11,12 +11,22 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { recruiterApi } from "@/services/recruiterApi";
+import { z } from "zod";
+
+// Validation schemas
+const emailSchema = z.string().trim().email("Please enter a valid email address").max(255, "Email is too long");
+const phoneSchema = z.string().trim()
+  .regex(/^(\+?254|0)?[17]\d{8}$/, "Please enter a valid Kenyan phone number (e.g., +254712345678 or 0712345678)")
+  .or(z.literal("")) // Allow empty phone
+  .optional();
 
 const CompanyAuth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [emailError, setEmailError] = useState<string | null>(null);
+  const [phoneError, setPhoneError] = useState<string | null>(null);
 
   // Check if already logged in
   useEffect(() => {
@@ -30,6 +40,33 @@ const CompanyAuth = () => {
     return () => unsubscribe();
   }, [navigate]);
 
+  const validateEmail = (email: string): boolean => {
+    const result = emailSchema.safeParse(email);
+    if (!result.success) {
+      setEmailError(result.error.errors[0].message);
+      return false;
+    }
+    setEmailError(null);
+    return true;
+  };
+
+  const validatePhone = (phone: string): boolean => {
+    if (!phone || phone.trim() === "") {
+      setPhoneError(null);
+      return true; // Phone is optional
+    }
+    
+    // Clean phone number - remove spaces and dashes
+    const cleanPhone = phone.replace(/[\s-]/g, "");
+    const result = phoneSchema.safeParse(cleanPhone);
+    if (!result.success) {
+      setPhoneError(result.error.errors[0].message);
+      return false;
+    }
+    setPhoneError(null);
+    return true;
+  };
+
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
@@ -41,14 +78,27 @@ const CompanyAuth = () => {
       });
       return;
     }
-    
-    setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const email = formData.get("signup-email") as string;
+    const email = (formData.get("signup-email") as string).trim();
     const password = formData.get("signup-password") as string;
     const companyName = formData.get("company-name") as string;
-    const phone = formData.get("phone") as string;
+    const phone = (formData.get("phone") as string || "").trim();
+
+    // Validate fields
+    const isEmailValid = validateEmail(email);
+    const isPhoneValid = validatePhone(phone);
+
+    if (!isEmailValid || !isPhoneValid) {
+      toast({
+        title: "Validation Error",
+        description: "Please fix the errors in the form before submitting.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    setLoading(true);
 
     try {
       // 1. Create Firebase account first
@@ -65,21 +115,11 @@ const CompanyAuth = () => {
         role: "recruiter" // Explicitly set role
       };
       
-      console.log('Starting backend registration with payload:', {
-        ...registrationPayload,
-        password: '***HIDDEN***' // Don't log password
-      });
-      
       try {
         const backendResponse = await recruiterApi.register(registrationPayload, token);
         console.log('Successfully registered with external backend:', backendResponse);
       } catch (backendError: any) {
         console.error('Backend registration failed:', backendError);
-        console.error('Error details:', {
-          message: backendError.message,
-          status: backendError.status,
-          response: backendError
-        });
         // Log the error but don't fail the signup - user is created in Firebase
         toast({
           title: "Warning",
@@ -204,16 +244,26 @@ const CompanyAuth = () => {
                         type="email"
                         placeholder="company@example.com"
                         required
+                        onChange={(e) => validateEmail(e.target.value)}
+                        className={emailError ? "border-destructive" : ""}
                       />
+                      {emailError && (
+                        <p className="text-sm text-destructive">{emailError}</p>
+                      )}
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="phone">Phone Number</Label>
+                      <Label htmlFor="phone">Phone Number (Optional)</Label>
                       <Input
                         id="phone"
                         name="phone"
                         type="tel"
-                        placeholder="+254 700 000000"
+                        placeholder="+254712345678"
+                        onChange={(e) => validatePhone(e.target.value)}
+                        className={phoneError ? "border-destructive" : ""}
                       />
+                      {phoneError && (
+                        <p className="text-sm text-destructive">{phoneError}</p>
+                      )}
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="signup-password">Password</Label>
