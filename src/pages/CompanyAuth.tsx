@@ -11,6 +11,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { recruiterApi } from "@/services/recruiterApi";
+import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
 
 // Validation schemas
@@ -24,17 +25,55 @@ const CompanyAuth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
+  const [checkingAuth, setCheckingAuth] = useState(true);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
 
-  // Check if already logged in
+  // Check if already logged in and has active subscription
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const token = await user.getIdToken();
         localStorage.setItem('authToken', token);
-        navigate("/drivers-job-board");
+        
+        // Check subscription status before redirecting
+        try {
+          const { data: subscriptionData, error } = await supabase
+            .from('subscriptions')
+            .select('*')
+            .eq('user_id', user.uid)
+            .order('created_at', { ascending: false })
+            .limit(1)
+            .maybeSingle();
+
+          if (error) throw error;
+
+          // Check if subscription exists and is active
+          if (subscriptionData) {
+            const now = new Date();
+            const endDate = new Date(subscriptionData.end_date);
+            const isActive = subscriptionData.status === 'active' || 
+                            (subscriptionData.status === 'trial' && endDate > now);
+            
+            if (isActive) {
+              // User has active subscription, go to job board
+              navigate("/drivers-job-board");
+            } else {
+              // Subscription expired, go to payment
+              navigate("/payment");
+            }
+          } else {
+            // No subscription, go to payment
+            navigate("/payment");
+          }
+        } catch (error) {
+          console.error('Error checking subscription:', error);
+          // On error, default to payment page
+          navigate("/payment");
+        }
+      } else {
+        setCheckingAuth(false);
       }
     });
     return () => unsubscribe();
@@ -176,6 +215,21 @@ const CompanyAuth = () => {
       setLoading(false);
     }
   };
+
+  // Show loading while checking auth status
+  if (checkingAuth) {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-background to-muted">
+        <Navbar />
+        <div className="container mx-auto px-4 py-20 flex justify-center items-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
+            <p className="text-muted-foreground">Checking account status...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
