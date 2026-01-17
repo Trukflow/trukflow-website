@@ -478,10 +478,33 @@ export const recruiterApi = {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to fetch approved drivers');
+      const errorBody = await response.text();
+      console.error('API Error Response:', response.status, errorBody);
+      throw new Error(`Failed to fetch approved drivers (${response.status})`);
     }
 
-    return response.json();
+    const data = await response.json();
+    
+    // Handle both wrapped { success, drivers/data } and direct array responses
+    if (Array.isArray(data)) {
+      return data;
+    }
+    
+    // Check common wrapper patterns
+    if (data.drivers && Array.isArray(data.drivers)) {
+      return data.drivers;
+    }
+    
+    if (data.data && Array.isArray(data.data)) {
+      return data.data;
+    }
+    
+    if (data.approvedDrivers && Array.isArray(data.approvedDrivers)) {
+      return data.approvedDrivers;
+    }
+
+    console.error('Unexpected API response structure:', data);
+    throw new Error('Unexpected API response format');
   },
 
   async getDriverDetails(jobSeekerId: string): Promise<ApprovedDriver> {
