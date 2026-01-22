@@ -459,12 +459,21 @@ export const recruiterApi = {
       body: JSON.stringify(data),
     });
 
+    const payload = await response.json().catch(() => ({ message: 'Failed to initiate payment' }));
+
     if (!response.ok) {
-      const error = await response.json().catch(() => ({ message: 'Failed to initiate payment' }));
-      throw new Error(error.message || 'Failed to initiate payment');
+      throw new Error(payload.message || 'Failed to initiate payment');
     }
 
-    return response.json();
+    if (payload?.success === false) {
+      throw new Error(payload.message || 'Failed to initiate payment');
+    }
+
+    if (payload?.data?.success === false) {
+      throw new Error(payload.data.message || 'M-Pesa payment failed');
+    }
+
+    return payload;
   },
 
   // Drivers

@@ -168,7 +168,7 @@ const Payment = () => {
 
     try {
       if (paymentMethod === "mpesa") {
-        const normalizedPhone = phoneNumber.replace(/\s+/g, "");
+        let normalizedPhone = phoneNumber.replace(/\s+/g, "");
         if (!normalizedPhone) {
           toast({
             title: "Error",
@@ -176,6 +176,16 @@ const Payment = () => {
             variant: "destructive",
           });
           return;
+        }
+
+        if (normalizedPhone.startsWith("+")) {
+          normalizedPhone = normalizedPhone.slice(1);
+        }
+
+        if (normalizedPhone.startsWith("0")) {
+          normalizedPhone = `254${normalizedPhone.slice(1)}`;
+        } else if (/^[17]\d{8}$/.test(normalizedPhone)) {
+          normalizedPhone = `254${normalizedPhone}`;
         }
 
         // Call your backend directly with plan info in accountRef
@@ -210,6 +220,16 @@ const Payment = () => {
                 description: "Your subscription is now active. Redirecting..." 
               });
               setTimeout(() => navigate("/drivers-job-board"), 1500);
+            } else if (subscription && (subscription.status === 'failed' || subscription.status === 'cancelled' || subscription.status === 'expired' || subscription.paymentStatus === 'failed')) {
+              clearInterval(checkPayment);
+              setLoading(false);
+              const backendMessage = (subscription as any)?.message;
+              toast({
+                title: "Payment Failed",
+                description: backendMessage || `Payment ${subscription.status}. Please try again.`,
+                variant: "destructive",
+                duration: 8000,
+              });
             } else if (attempts >= maxAttempts) {
               clearInterval(checkPayment);
               setLoading(false);
