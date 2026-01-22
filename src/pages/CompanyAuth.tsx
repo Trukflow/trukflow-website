@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "@/lib/firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,7 +11,6 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { recruiterApi } from "@/services/recruiterApi";
-import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
 
 // Validation schemas
@@ -29,42 +28,40 @@ const CompanyAuth = () => {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
+  const suppressAuthRedirectRef = useRef(false);
 
   // Check if already logged in and has active subscription
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
+        if (suppressAuthRedirectRef.current) {
+          setCheckingAuth(false);
+          return;
+        }
+
+        const postSignup = sessionStorage.getItem('postSignup');
+        if (postSignup) {
+          sessionStorage.removeItem('postSignup');
+          localStorage.removeItem('authToken');
+          await signOut(auth);
+          setCheckingAuth(false);
+          return;
+        }
+
         const token = await user.getIdToken();
         localStorage.setItem('authToken', token);
         
-        // Check subscription status before redirecting
+        // Check subscription status before redirecting (external backend is source of truth)
         try {
-          const { data: subscriptionData, error } = await supabase
-            .from('subscriptions')
-            .select('*')
-            .eq('user_id', user.uid)
-            .order('created_at', { ascending: false })
-            .limit(1)
-            .maybeSingle();
+          const subscriptionData = await recruiterApi.getSubscriptionStatus(user.uid);
+          const now = new Date();
+          const endDate = new Date(subscriptionData.endDate);
+          const isActive = subscriptionData.status === 'active' ||
+            (subscriptionData.status === 'trial' && endDate > now);
 
-          if (error) throw error;
-
-          // Check if subscription exists and is active
-          if (subscriptionData) {
-            const now = new Date();
-            const endDate = new Date(subscriptionData.end_date);
-            const isActive = subscriptionData.status === 'active' || 
-                            (subscriptionData.status === 'trial' && endDate > now);
-            
-            if (isActive) {
-              // User has active subscription, go to job board
-              navigate("/drivers-job-board");
-            } else {
-              // Subscription expired, go to payment
-              navigate("/payment");
-            }
+          if (isActive) {
+            navigate("/drivers-job-board");
           } else {
-            // No subscription, go to payment
             navigate("/payment");
           }
         } catch (error) {
@@ -108,6 +105,7 @@ const CompanyAuth = () => {
 
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    suppressAuthRedirectRef.current = true;
     
     if (!termsAccepted) {
       toast({
@@ -115,6 +113,7 @@ const CompanyAuth = () => {
         description: "Please accept the Terms & Conditions and Privacy Policy to continue.",
         variant: "destructive",
       });
+      suppressAuthRedirectRef.current = false;
       return;
     }
 
@@ -134,18 +133,14 @@ const CompanyAuth = () => {
         description: "Please fix the errors in the form before submitting.",
         variant: "destructive",
       });
+      suppressAuthRedirectRef.current = false;
       return;
     }
     
     setLoading(true);
 
     try {
-      // 1. Create Firebase account first
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      const token = await userCredential.user.getIdToken();
-      localStorage.setItem('authToken', token);
-
-      // 2. Register with external backend
+      // Register with external backend (source of truth)
       const registrationPayload = {
         name: companyName,
         email,
@@ -153,29 +148,31 @@ const CompanyAuth = () => {
         phone: phone || "",
         role: "recruiter" // Explicitly set role
       };
-      
+
       try {
-        const backendResponse = await recruiterApi.register(registrationPayload, token);
+        const backendResponse = await recruiterApi.register(registrationPayload);
         console.log('Successfully registered with external backend:', backendResponse);
       } catch (backendError: any) {
         console.error('Backend registration failed:', backendError);
-        // Log the error but don't fail the signup - user is created in Firebase
         toast({
-          title: "Warning",
-          description: `Account created but backend sync failed: ${backendError.message}. Please contact support.`,
+          title: "Signup Failed",
+          description: backendError.message || "Backend registration failed. Please try again.",
           variant: "destructive",
         });
+        suppressAuthRedirectRef.current = false;
+        return;
       }
 
       toast({
         title: "Account Created!",
-        description: "Redirecting to payment page...",
+        description: "Please sign in to continue.",
       });
 
-      setTimeout(() => {
-        navigate("/payment");
-      }, 1500);
+      sessionStorage.setItem('postSignup', '1');
+      suppressAuthRedirectRef.current = false;
+      navigate("/company-auth");
     } catch (error: any) {
+      suppressAuthRedirectRef.current = false;
       toast({
         title: "Sign up failed",
         description: error.message || "Failed to create account",
@@ -198,6 +195,20 @@ const CompanyAuth = () => {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const token = await userCredential.user.getIdToken();
       localStorage.setItem('authToken', token);
+
+      try {
+        await recruiterApi.login({ email, password }, token);
+      } catch (backendError: any) {
+        console.error('Backend login failed:', backendError);
+        localStorage.removeItem('authToken');
+        await signOut(auth);
+        toast({
+          title: "Login failed",
+          description: backendError.message || "Backend account not found. Please sign up again.",
+          variant: "destructive",
+        });
+        return;
+      }
 
       toast({
         title: "Login successful",

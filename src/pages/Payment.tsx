@@ -7,13 +7,12 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { auth } from "@/lib/firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, signOut } from "firebase/auth";
 import Navbar from "@/components/Navbar";
 import { Check } from "lucide-react";
 import { recruiterApi } from "@/services/recruiterApi";
 import { paymentApi } from "@/services/paymentApi";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
-import { supabase } from "@/integrations/supabase/client";
 
 interface PricingPlan {
   id: string;
@@ -95,6 +94,12 @@ const Payment = () => {
   const selectedPlanDetails = pricingPlans.find(p => p.id === selectedPlan);
   const isFreeTrial = selectedPlanDetails?.trialHours && selectedPlanDetails.trialHours > 0;
 
+  const handleLogout = async () => {
+    await signOut(auth);
+    localStorage.removeItem('authToken');
+    navigate('/company-auth');
+  };
+
   const handleFreeTrial = async () => {
     if (!currentUserId || !selectedPlan) return;
 
@@ -110,17 +115,25 @@ const Payment = () => {
         return;
       }
 
-      const firebaseToken = await user.getIdToken();
+      const email = user.email;
+      if (!email) {
+        toast({
+          title: "Error",
+          description: "User email not found",
+          variant: "destructive",
+        });
+        return;
+      }
 
-      const { data, error } = await supabase.functions.invoke('start-trial', {
-        body: {
-          userId: currentUserId,
-          planId: selectedPlan,
-          firebaseToken
-        }
+      await recruiterApi.startSubscription({
+        userId: currentUserId,
+        planId: selectedPlan,
+        paymentData: {
+          paymentMethod: "card",
+          email,
+          phoneNumber: phoneNumber || undefined,
+        },
       });
-
-      if (error) throw error;
 
       toast({
         title: "1-Hour Free Trial Started!",
@@ -155,11 +168,21 @@ const Payment = () => {
 
     try {
       if (paymentMethod === "mpesa") {
+        const normalizedPhone = phoneNumber.replace(/\s+/g, "");
+        if (!normalizedPhone) {
+          toast({
+            title: "Error",
+            description: "Please enter your M-PESA phone number.",
+            variant: "destructive",
+          });
+          return;
+        }
+
         // Call your backend directly with plan info in accountRef
         const accountRef = `PLAN-${selectedPlan}-USER-${currentUserId}-${Date.now()}`;
         
         await recruiterApi.initiateMpesaPayment({
-          phone: phoneNumber,
+          phone: normalizedPhone,
           amount: plan?.price || 0,
           accountRef
         });
@@ -236,6 +259,9 @@ const Payment = () => {
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
       <Navbar />
       <div className="container mx-auto px-4 py-20">
+        <div className="flex justify-end mb-6">
+          <Button variant="outline" onClick={handleLogout}>Logout</Button>
+        </div>
         <div className="max-w-6xl mx-auto text-center mb-12">
           <h1 className="text-4xl font-bold mb-4">Choose Your Plan</h1>
           <p className="text-muted-foreground text-lg">
@@ -359,7 +385,7 @@ const Payment = () => {
                           placeholder="+254 700 000 000"
                           value={phoneNumber}
                           onChange={(e) => setPhoneNumber(e.target.value)}
-                          className="w-full px-4 py-2 border rounded-md"
+                          className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                           required
                         />
                       </div>
@@ -375,7 +401,7 @@ const Payment = () => {
                             placeholder="John Doe"
                             value={cardDetails.cardholderName}
                             onChange={(e) => setCardDetails({...cardDetails, cardholderName: e.target.value})}
-                            className="w-full px-4 py-2 border rounded-md"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                             required
                           />
                         </div>
@@ -392,7 +418,7 @@ const Payment = () => {
                               const formatted = value.match(/.{1,4}/g)?.join(' ') || value;
                               setCardDetails({...cardDetails, cardNumber: formatted});
                             }}
-                            className="w-full px-4 py-2 border rounded-md"
+                            className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                             required
                           />
                         </div>
@@ -410,7 +436,7 @@ const Payment = () => {
                                 if (value.length >= 2) value = value.slice(0, 2) + '/' + value.slice(2, 4);
                                 setCardDetails({...cardDetails, expiryDate: value});
                               }}
-                              className="w-full px-4 py-2 border rounded-md"
+                              className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                               required
                             />
                           </div>
@@ -423,7 +449,7 @@ const Payment = () => {
                               maxLength={4}
                               value={cardDetails.cvv}
                               onChange={(e) => setCardDetails({...cardDetails, cvv: e.target.value.replace(/\D/g, '')})}
-                              className="w-full px-4 py-2 border rounded-md"
+                              className="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-900 placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
                               required
                             />
                           </div>

@@ -239,11 +239,12 @@ export const recruiterApi = {
     return responseData;
   },
 
-  async login(data: LoginRequest): Promise<UserResponse> {
+  async login(data: LoginRequest, firebaseToken?: string): Promise<UserResponse> {
     const response = await fetch(`${API_BASE_URL}/api/recruiter/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        ...(firebaseToken ? { 'Authorization': `Bearer ${firebaseToken}` } : {}),
       },
       body: JSON.stringify(data),
     });
@@ -484,23 +485,23 @@ export const recruiterApi = {
     }
 
     const data = await response.json();
-    
-    // Handle both wrapped { success, drivers/data } and direct array responses
-    if (Array.isArray(data)) {
-      return data;
-    }
-    
-    // Check common wrapper patterns
-    if (data.drivers && Array.isArray(data.drivers)) {
-      return data.drivers;
-    }
-    
-    if (data.data && Array.isArray(data.data)) {
-      return data.data;
-    }
-    
-    if (data.approvedDrivers && Array.isArray(data.approvedDrivers)) {
-      return data.approvedDrivers;
+
+    const extractDriversArray = (value: any): ApprovedDriver[] | null => {
+      if (!value) return null;
+      if (Array.isArray(value)) return value;
+      if (Array.isArray(value.drivers)) return value.drivers;
+      if (Array.isArray(value.approvedDrivers)) return value.approvedDrivers;
+      return null;
+    };
+
+    // Handle common wrapper patterns and nested payloads.
+    const drivers =
+      extractDriversArray(data) ||
+      extractDriversArray(data?.data) ||
+      extractDriversArray(data?.data?.data);
+
+    if (drivers) {
+      return drivers;
     }
 
     console.error('Unexpected API response structure:', data);
