@@ -25,10 +25,21 @@ const CompanyAuth = () => {
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const [activeTab, setActiveTab] = useState("login");
+  const [loginEmail, setLoginEmail] = useState("");
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
   const suppressAuthRedirectRef = useRef(false);
+
+  useEffect(() => {
+    const prefetchedEmail = sessionStorage.getItem("prefillLoginEmail");
+    if (!prefetchedEmail) return;
+
+    setLoginEmail(prefetchedEmail);
+    setActiveTab("login");
+    sessionStorage.removeItem("prefillLoginEmail");
+  }, []);
 
   // Check if already logged in and has active subscription
   useEffect(() => {
@@ -168,6 +179,9 @@ const CompanyAuth = () => {
         description: "Please sign in to continue.",
       });
 
+      sessionStorage.setItem("prefillLoginEmail", email);
+      setLoginEmail(email);
+      setActiveTab("login");
       sessionStorage.setItem('postSignup', '1');
       suppressAuthRedirectRef.current = false;
       navigate("/company-auth");
@@ -255,7 +269,7 @@ const CompanyAuth = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <Tabs defaultValue="login" className="w-full">
+              <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="login">Login</TabsTrigger>
                   <TabsTrigger value="signup">Sign Up</TabsTrigger>
@@ -270,6 +284,8 @@ const CompanyAuth = () => {
                         name="login-email"
                         type="email"
                         placeholder="company@example.com"
+                        value={loginEmail}
+                        onChange={(e) => setLoginEmail(e.target.value)}
                         required
                       />
                     </div>
