@@ -39,7 +39,7 @@ const HireDrivers = () => {
             `Up to ${plan.features.maxActiveJobPosts} active job posts`,
             plan.features.driverProfileViewing ? "Unlimited driver profile viewing" : "Limited driver viewing",
             plan.features.documentsAccess ? "Access to verified documents" : "Basic document access",
-            ...(plan.features.featuredListings ? ["Featured listing on TRUK site"] : []),
+            ...(plan.features.featuredListings ? ["Featured listing on TRUKFLOW site"] : []),
             `${plan.features.supportLevel} support`
           ],
           popular: plan.isPopular
@@ -65,7 +65,7 @@ const HireDrivers = () => {
       <Navbar />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-primary-foreground py-24 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-primary via-primary/90 to-primary/80 text-primary-foreground pt-40 pb-24 md:pt-44 overflow-hidden">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE4YzIuMiAwIDQtMS44IDQtNHMtMS44LTQtNC00LTQgMS44LTQgNCAxLjggNCA0IDR6bTAgMTJjMi4yIDAgNC0xLjggNC00cy0xLjgtNC00LTQtNCAxLjgtNCA0IDEuOCA0IDQgNHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-20"></div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">

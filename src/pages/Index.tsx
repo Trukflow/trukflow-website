@@ -100,7 +100,7 @@ const Index = () => {
   const feedbacks = [
     {
       rating: 5,
-      comment: "TRUK has revolutionized our agricultural logistics. Fast, reliable, and efficient service every time.",
+      comment: "TRUKFLOW has revolutionized our agricultural logistics. Fast, reliable, and efficient service every time.",
       photo: "https://images.unsplash.com/photo-1500673922987-e212871fec22?w=80&h=80&fit=crop&crop=face",
       name: "Sarah Kariuki",
       role: "Farm Manager"
@@ -114,14 +114,14 @@ const Index = () => {
     },
     {
       rating: 5,
-      comment: "Outstanding logistics solutions for our business. TRUK understands our needs perfectly.",
+      comment: "Outstanding logistics solutions for our business. TRUKFLOW understands our needs perfectly.",
       photo: "https://images.unsplash.com/photo-1517022812141-23620dba5c23?w=80&h=80&fit=crop&crop=face",
       name: "Emma Nyaboke",
       role: "Operations Manager"
     },
     {
       rating: 4,
-      comment: "The promptness of getting transportation through the TRUK App ensures my farm produce reaches the market fresh.",
+      comment: "The promptness of getting transportation through the TRUKFLOW App ensures my farm produce reaches the market fresh.",
       photo: "https://images.unsplash.com/photo-1517022812141-23620dba5c23?w=80&h=80&fit=crop&crop=face",
       name: "Karen Nasimiyu",
       role: "Operations Manager"
@@ -130,20 +130,20 @@ const Index = () => {
 
   const faqs = [
     {
-      question: "How does TRUK work?",
-      answer: "TRUK connects cargo owners with verified transporters through our smart logistics platform. Simply submit your transport request, get matched with suitable transporters, and track your shipment in real-time."
+      question: "How does TRUKFLOW work?",
+      answer: "TRUKFLOW connects cargo owners with verified transporters through our smart logistics platform. Simply submit your transport request, get matched with suitable transporters, and track your shipment in real-time."
     },
     {
       question: "What types of cargo can I transport?",
-      answer: "We handle both agricultural products through agriTRUK and general cargo through cargoTRUK. This includes farm produce, manufactured goods, and various commercial shipments."
+      answer: "We handle both agricultural products through agriTRUKFLOW and general cargo through cargoTRUKFLOW. This includes farm produce, manufactured goods, and various commercial shipments."
     },
     {
-      question: "How do I become a transporter on TRUK?",
+      question: "How do I become a transporter on TRUKFLOW?",
       answer: "Join our transporter network by signing up through our platform. You'll need to complete verification, provide necessary documentation, and can start earning up to 25% more on verified bookings."
     },
     {
       question: "Is my cargo insured during transport?",
-      answer: "Yes, all shipments through TRUK are covered by our comprehensive insurance policy to ensure your cargo is protected throughout the journey."
+      answer: "Yes, all shipments through TRUKFLOW are covered by our comprehensive insurance policy to ensure your cargo is protected throughout the journey."
     }
   ];
 
@@ -256,7 +256,7 @@ const Index = () => {
               {/* Main Heading */}
               <div className="space-y-2">
                 <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight">
-                  <span className="text-red-500">TRUK</span>
+                  <span className="text-red-500">TRUKFLOW</span>
                   <span className="text-white">, East Africa's </span>
                   <span className="text-red-500">Smartest</span>
                   <span className="text-white"> Logistics system</span>
@@ -266,11 +266,11 @@ const Index = () => {
               {/* Services - Vertical Layout with Descriptions - Made Bold */}
               <div className="space-y-4 md:space-y-6">
                 <div className="space-y-2">
-                  <span className="text-black text-xl md:text-2xl font-bold block">agriTRUK</span>
+                  <span className="text-black text-xl md:text-2xl font-bold block">agriTRUKFLOW</span>
                   <span className="text-white/80 text-base md:text-lg">Farm-to-Market Solutions for Farmers & Agribusinesses</span>
                 </div>
                 <div className="space-y-2">
-                  <span className="text-black text-xl md:text-2xl font-bold block">cargoTRUK</span>
+                  <span className="text-black text-xl md:text-2xl font-bold block">cargoTRUKFLOW</span>
                   <span className="text-white/80 text-base md:text-lg">Businessess & individuals seeking transport services</span>
                 </div>
               </div>
@@ -378,10 +378,10 @@ const Index = () => {
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-6 animate-on-scroll">
-            Why TRUK is East Africa's #1 Choice
+            Why TRUKFLOW is East Africa's #1 Choice
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto mb-12 animate-on-scroll">
-            Join 10,000+ satisfied users who trust TRUK for reliable, efficient, and intelligent logistics solutions. 
+            Join 10,000+ satisfied users who trust TRUKFLOW for reliable, efficient, and intelligent logistics solutions. 
             Our proven track record, cutting-edge technology, and unmatched network make us the undisputed leader in East African logistics.
           </p>
           
@@ -761,7 +761,7 @@ const Index = () => {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <div className="text-white animate-on-scroll">
             <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8">
-              East Africa moves smarter with TRUK
+              East Africa moves smarter with TRUKFLOW
             </h2>
             <Button 
               className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 md:px-8 py-3 rounded-full text-lg font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
@@ -784,8 +784,8 @@ const Index = () => {
             <div className="animate-on-scroll sm:col-span-2 lg:col-span-1 text-center sm:text-left">
               <div className="mb-4 flex items-center justify-center sm:justify-start">
                 <img 
-                  src="/TRUK Logo3.png"
-                  alt="TRUK Logo"
+                  src="/TRUKFLOW Logo.jpeg"
+                  alt="TRUKFLOW Logo"
                   className="h-20 w-auto md:h-24"
                 />
               </div>
@@ -798,8 +798,8 @@ const Index = () => {
             <div className="animate-on-scroll text-center sm:text-left">
               <h3 className="text-lg font-semibold mb-4">Services</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="/agritruk" className="hover:text-white transition-colors text-sm">agriTRUK</a></li>
-                <li><a href="/cargotruk" className="hover:text-white transition-colors text-sm">cargoTRUK</a></li>
+                <li><a href="/agritruk" className="hover:text-white transition-colors text-sm">agriTRUKFLOW</a></li>
+                <li><a href="/cargotruk" className="hover:text-white transition-colors text-sm">cargoTRUKFLOW</a></li>
                 <li><a href="/brokers" className="hover:text-white transition-colors text-sm">Broker enlistment</a></li>
                 <li><a href="/transporter-enlistment" className="hover:text-white transition-colors text-sm">Transporter Enlistment</a></li>
               </ul>
@@ -874,7 +874,7 @@ const Index = () => {
               <span>•</span>
               <a href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a>
             </div>
-            <p>&copy; 2025 TRUK. All rights reserved.</p>
+            <p>&copy; 2025 TRUKFLOW. All rights reserved.</p>
             <p className="mt-2">
               Developed by{' '}
               <a 

@@ -69,7 +69,7 @@ const TransporterEnlistment = () => {
               Join Our <span className="text-red-500">Transporter</span> Network
             </h1>
             <p className="text-xl md:text-2xl lg:text-3xl mb-8 max-w-4xl mx-auto">
-              Become a verified transporter and earn 25% more on every booking with TRUK
+              Become a verified transporter and earn 25% more on every booking with TRUKFLOW
             </p>
             <Button 
               className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-2xl hover:shadow-red-500/30 transform hover:scale-105 transition-all duration-200"
@@ -88,7 +88,7 @@ const TransporterEnlistment = () => {
       <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16">
-            Why Drive with TRUK?
+            Why Drive with TRUKFLOW?
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             <div className="text-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -236,7 +236,7 @@ const TransporterEnlistment = () => {
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">Start Earning</h3>
                   <p className="text-gray-600 text-sm leading-relaxed">
-                    Once approved, access the platform and start receiving bookings through TRUK's network.
+                    Once approved, access the platform and start receiving bookings through TRUKFLOW's network.
                   </p>
                 </div>
               </div>
@@ -424,16 +424,16 @@ const TransporterEnlistment = () => {
             Ready to Earn More?
           </h2>
           <p className="text-xl md:text-2xl mb-8">
-            Join thousands of transporters already earning more with TRUK's verified booking system
+            Join thousands of transporters already earning more with TRUKFLOW's verified booking system
           </p>
           <Button 
             className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-2xl hover:shadow-red-500/30 transform hover:scale-105 transition-all duration-200"
             onClick={() => {
-              console.log('Join TRUK Network button clicked');
+              console.log('Join TRUKFLOW Network button clicked');
               navigate('/download');
             }}
           >
-            Join TRUK Network
+            Join TRUKFLOW Network
           </Button>
         </div>
       </section>

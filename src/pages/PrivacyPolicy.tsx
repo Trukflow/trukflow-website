@@ -7,13 +7,13 @@ const PrivacyPolicy = () => {
       <Navbar />
       <div className="container mx-auto px-4 py-20">
         <Card className="max-w-4xl mx-auto p-8">
-          <h1 className="text-4xl font-bold text-primary mb-4">TRUK Africa – Privacy Policy</h1>
+          <h1 className="text-4xl font-bold text-primary mb-4">TRUKFLOW Africa – Privacy Policy</h1>
           <p className="text-muted-foreground mb-8">Last Updated: November 2, 2025</p>
 
           <div className="space-y-6 text-foreground">
             <section>
               <h2 className="text-2xl font-semibold mb-3">1. Introduction</h2>
-              <p>TRUK Africa ("We") respects your privacy and is committed to protecting your personal data under the Kenya Data Protection Act, 2019.</p>
+              <p>TRUKFLOW Africa ("We") respects your privacy and is committed to protecting your personal data under the Kenya Data Protection Act, 2019.</p>
               <p className="mt-2">This Privacy Policy explains how we collect, use, store, and protect your information when you use www.trukafrica.com and our mobile apps.</p>
             </section>
 
@@ -170,7 +170,7 @@ const PrivacyPolicy = () => {
 
             <section>
               <h2 className="text-2xl font-semibold mb-3">9. Children's Privacy</h2>
-              <p>TRUK Africa is not intended for users under 18. We do not knowingly collect data from minors.</p>
+              <p>TRUKFLOW Africa is not intended for users under 18. We do not knowingly collect data from minors.</p>
             </section>
 
             <section>
@@ -198,7 +198,7 @@ const PrivacyPolicy = () => {
             </section>
 
             <section className="pt-4 border-t border-border">
-              <p className="font-semibold">By using TRUK Africa, you consent to this Privacy Policy.</p>
+              <p className="font-semibold">By using TRUKFLOW Africa, you consent to this Privacy Policy.</p>
             </section>
           </div>
         </Card>

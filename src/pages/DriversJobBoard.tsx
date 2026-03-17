@@ -135,7 +135,7 @@ const DriversJobBoard = () => {
             `Up to ${plan.features.maxActiveJobPosts} active job posts`,
             plan.features.driverProfileViewing ? "Unlimited driver profile viewing" : "Limited driver viewing",
             plan.features.documentsAccess ? "Access to verified documents" : "Basic document access",
-            ...(plan.features.featuredListings ? ["Featured listing on TRUK site"] : []),
+            ...(plan.features.featuredListings ? ["Featured listing on TRUKFLOW site"] : []),
             `${plan.features.supportLevel} support`
           ],
           popular: plan.isPopular

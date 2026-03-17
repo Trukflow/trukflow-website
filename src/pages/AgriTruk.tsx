@@ -168,7 +168,7 @@ const AgriTruk = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-10">
           <div className="w-full text-center text-white section-content">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-              <span className="text-red-500">agri</span>TRUK
+              <span className="text-red-500">agri</span>TRUKFLOW
             </h1>
             <p className="text-xl md:text-2xl lg:text-3xl mb-8 max-w-4xl mx-auto">
               Specialized agricultural produce transportation solutions for farmers across East Africa
@@ -193,7 +193,7 @@ const AgriTruk = () => {
             {/* Left Side - Video Section */}
             <div className="section-content">
               <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-8">
-                See agriTRUK in Action
+                See agriTRUKFLOW in Action
               </h2>
               <div className="relative w-full">
                 <div className="aspect-video bg-gradient-to-br from-green-100 to-green-200 rounded-lg overflow-hidden shadow-2xl relative video-container">
@@ -230,7 +230,7 @@ const AgriTruk = () => {
                 )}
                 {!isManuallyPlaying && (
                   <p className="text-center text-gray-600 mt-4 text-sm md:text-base">
-                    Watch how farmers are transforming their logistics with agriTRUK
+                    Watch how farmers are transforming their logistics with agriTRUKFLOW
                   </p>
                 )}
 
@@ -323,7 +323,7 @@ const AgriTruk = () => {
       <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16">
-            Why Choose agriTRUK?
+            Why Choose agriTRUKFLOW?
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             <div className="text-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -364,7 +364,7 @@ const AgriTruk = () => {
             Ready to Transform Your Farm's Logistics?
           </h2>
           <p className="text-xl md:text-2xl mb-8">
-            Join thousands of farmers already using agriTRUK for their produce transportation
+            Join thousands of farmers already using agriTRUKFLOW for their produce transportation
           </p>
           <Button
             className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"

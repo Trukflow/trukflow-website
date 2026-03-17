@@ -49,7 +49,7 @@ const DeleteAccount = () => {
         setAuthSource(null);
         toast({
           title: "Link Expired",
-          description: "This deletion link has expired. Please request a new link from the TRUK app.",
+          description: "This deletion link has expired. Please request a new link from the TRUKFLOW app.",
           variant: "destructive",
         });
         return;
@@ -82,7 +82,7 @@ const DeleteAccount = () => {
     if (!isAuthenticated) {
       toast({
         title: "Authentication Required",
-        description: "Please access this page from the TRUK mobile app or log in.",
+        description: "Please access this page from the TRUKFLOW mobile app or log in.",
         variant: "destructive",
       });
       return;
@@ -158,8 +158,8 @@ const DeleteAccount = () => {
             </Button>
           </div>
           <img
-            src="/TRUK Logo3.png"
-            alt="TRUK Logo"
+            src="/TRUKFLOW Logo.jpeg"
+            alt="TRUKFLOW Logo"
             className="h-10 cursor-pointer"
             onClick={() => navigate("/")}
           />
@@ -192,7 +192,7 @@ const DeleteAccount = () => {
               </div>
               <CardTitle className="text-2xl">Request Account Deletion</CardTitle>
               <CardDescription className="text-base mt-2">
-                We're sorry to see you go. Please complete the form below to request the deletion of your TRUK account.
+                We're sorry to see you go. Please complete the form below to request the deletion of your TRUKFLOW account.
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -205,7 +205,7 @@ const DeleteAccount = () => {
                         <Smartphone className="h-4 w-4 text-primary" />
                       )}
                       <p className="text-sm text-muted-foreground">
-                        {authSource === "deeplink" ? "Authenticated via TRUK App" : "Logged in as"}{" "}
+                        {authSource === "deeplink" ? "Authenticated via TRUKFLOW App" : "Logged in as"}{" "}
                         <span className="font-medium text-foreground">{userEmail}</span>
                       </p>
                     </div>
@@ -213,7 +213,7 @@ const DeleteAccount = () => {
                 ) : (
                   <div className="p-4 bg-destructive/10 rounded-lg border border-destructive/20">
                     <p className="text-sm text-destructive">
-                      Please access this page from the TRUK mobile app to delete your account.
+                      Please access this page from the TRUKFLOW mobile app to delete your account.
                     </p>
                   </div>
                 )}
@@ -304,7 +304,7 @@ const DeleteAccount = () => {
           {/* Footer Info */}
           <div className="mt-8 text-center text-sm text-muted-foreground">
             <p>
-              TRUK Ltd • East Africa's Smartest Logistics Platform
+              TRUKFLOW Ltd • East Africa's Smartest Logistics Platform
             </p>
             <p className="mt-2">
               <a href="/privacy-policy" className="hover:underline">Privacy Policy</a>

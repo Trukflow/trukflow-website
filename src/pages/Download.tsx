@@ -11,7 +11,7 @@ const Download = () => {
       <section className="pt-24 pb-16 bg-gradient-to-br from-green-800 via-green-700 to-green-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-6">
-            Download <span className="text-red-500">TRUK</span> App
+            Download <span className="text-red-500">TRUKFLOW</span> App
           </h1>
           <p className="text-lg md:text-xl lg:text-2xl mb-8">
             Get started with East Africa's smartest logistics platform
@@ -31,7 +31,7 @@ const Download = () => {
               <div className="w-20 h-20 md:w-24 md:h-24 mx-auto mb-6 flex items-center justify-center">
                 <img 
                   src="/Google_PlayStore.png"
-                  alt="Get TRUK on Google Play" 
+                  alt="Get TRUKFLOW on Google Play" 
                   className="w-full h-full"
                 />
               </div>
@@ -39,7 +39,7 @@ const Download = () => {
                 Google Play Store
               </h3>
               <p className="text-gray-600 mb-4 text-sm md:text-base">
-                Download TRUK for Android devices from the Google Play Store
+                Download TRUKFLOW for Android devices from the Google Play Store
               </p>
               
               {/* QR Code for Android */}
@@ -71,7 +71,7 @@ const Download = () => {
                 Apple App Store
               </h3>
               <p className="text-gray-600 mb-4 text-sm md:text-base">
-                Download TRUK for iOS devices from the Apple App Store
+                Download TRUKFLOW for iOS devices from the Apple App Store
               </p>
               
               {/* QR Code for iOS */}

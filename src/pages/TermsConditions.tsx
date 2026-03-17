@@ -7,19 +7,19 @@ const TermsConditions = () => {
       <Navbar />
       <div className="container mx-auto px-4 py-20">
         <Card className="max-w-4xl mx-auto p-8">
-          <h1 className="text-4xl font-bold text-primary mb-4">TRUK Africa – Terms & Conditions</h1>
+          <h1 className="text-4xl font-bold text-primary mb-4">TRUKFLOW Africa – Terms & Conditions</h1>
           <p className="text-muted-foreground mb-8">Last Updated: November 2, 2025</p>
 
           <div className="space-y-6 text-foreground">
             <section>
               <h2 className="text-2xl font-semibold mb-3">1. Acceptance of Terms</h2>
-              <p>By accessing or using TRUK Africa (the "Platform"), including the website at www.trukafrica.com and mobile applications, you agree to be bound by these Terms & Conditions ("Terms"). If you do not agree, do not use the Platform.</p>
+              <p>By accessing or using TRUKFLOW Africa (the "Platform"), including the website at www.trukafrica.com and mobile applications, you agree to be bound by these Terms & Conditions ("Terms"). If you do not agree, do not use the Platform.</p>
             </section>
 
             <section>
               <h2 className="text-2xl font-semibold mb-3">2. Definitions</h2>
               <ul className="list-disc pl-6 space-y-2">
-                <li>"We," "Us," "Our," "TRUK Africa" – TRUK Africa Limited, a company registered in Kenya.</li>
+                <li>"We," "Us," "Our," "TRUKFLOW Africa" – TRUKFLOW Africa Limited, a company registered in Kenya.</li>
                 <li>"You," "User" – Any individual or entity using the Platform.</li>
                 <li>"Recruiter" – A company or individual seeking to hire drivers.</li>
                 <li>"Driver" – A job seeker registered to find employment.</li>
@@ -105,7 +105,7 @@ const TermsConditions = () => {
             <section>
               <h2 className="text-2xl font-semibold mb-3">10. Intellectual Property</h2>
               <ul className="list-disc pl-6 space-y-2">
-                <li>All content, logos, and code are owned by TRUK Africa.</li>
+                <li>All content, logos, and code are owned by TRUKFLOW Africa.</li>
                 <li>You are granted a limited, non-transferable license to use the Platform.</li>
                 <li>You may not copy, modify, or distribute content without permission.</li>
               </ul>
@@ -156,7 +156,7 @@ const TermsConditions = () => {
             <section>
               <h2 className="text-2xl font-semibold mb-3">16. Contact Us</h2>
               <div className="space-y-1">
-                <p><strong>TRUK Africa Limited</strong></p>
+                <p><strong>TRUKFLOW Africa Limited</strong></p>
                 <p>Email: hello@trukafrica.com</p>
                 <p>Phone: +254 758 594 951</p>
                 <p>Website: www.trukafrica.com</p>

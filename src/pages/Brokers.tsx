@@ -86,7 +86,7 @@ const Brokers = () => {
       <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16">
-            Why Broker with TRUK?
+            Why Broker with TRUKFLOW?
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             <div className="text-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -370,11 +370,11 @@ const Brokers = () => {
           <Button 
             className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-2xl hover:shadow-red-500/30 transform hover:scale-105 transition-all duration-200"
             onClick={() => {
-              console.log('Join TRUK Network button clicked');
+              console.log('Join TRUKFLOW Network button clicked');
               navigate('/download');
             }}
           >
-            Join TRUK Network
+            Join TRUKFLOW Network
           </Button>
         </div>
       </section>

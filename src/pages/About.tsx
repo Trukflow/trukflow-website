@@ -31,7 +31,7 @@ const About = () => {
     name: "Mititi Isaac (CMO)",
     role: "Co-founder & Chief Marketing Officer",
     image: "/Official Photo.jpg",
-    bio: "Full-stack Software Engineer and UX designer with 5+ years of experience; part of the team building TRUK's customer-facing interfaces and brand systems.",
+    bio: "Full-stack Software Engineer and UX designer with 5+ years of experience; part of the team building TRUKFLOW's customer-facing interfaces and brand systems.",
     linkedin: "https://www.linkedin.com/in/io-mititi/"
   }
 ];
@@ -122,7 +122,7 @@ const industryStats = [
       <section className="pt-24 pb-16 bg-gradient-to-br from-green-800 via-green-700 to-green-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-on-scroll">
-            About <span className="text-red-500">TRUK</span>
+            About <span className="text-red-500">TRUKFLOW</span>
           </h1>
           <p className="text-xl md:text-2xl max-w-3xl mx-auto animate-on-scroll">
             We're revolutionizing logistics across East Africa with smart technology 
@@ -148,7 +148,7 @@ const industryStats = [
           </div>
           <p className="text-center text-gray-300 max-w-4xl mx-auto mt-8 animate-on-scroll">
             East Africa's logistics sector faces significant challenges with massive post-harvest losses 
-            and inefficient transportation systems. TRUK is transforming this landscape with innovative 
+            and inefficient transportation systems. TRUKFLOW is transforming this landscape with innovative 
             technology solutions that connect stakeholders and optimize supply chains.
           </p>
         </div>

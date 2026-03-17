@@ -117,7 +117,7 @@ const Navbar = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16 sm:h-18 md:h-20">
+        <div className="flex justify-between items-center h-20 sm:h-24 md:h-28">
           {/* Logo */}
           <div className="flex-shrink-0">
             <button
@@ -129,7 +129,7 @@ const Navbar = () => {
                 isScrolled ? "hover:opacity-80" : "hover:opacity-90"
               }`}
             >
-              <img src="/TRUK Logo3.png" alt="TRUK Logo" className="h-12 sm:h-16 w-auto" />
+              <img src="/TRUKFLOW Logo.jpeg" alt="TRUKFLOW Logo" className="h-14 sm:h-20 md:h-24 w-auto" />
             </button>
           </div>
 
@@ -151,7 +151,7 @@ const Navbar = () => {
                     navigate("/agritruk");
                   }}
                 >
-                  agriTRUK
+                  agriTRUKFLOW
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="cursor-pointer hover:bg-gray-100"
@@ -160,7 +160,7 @@ const Navbar = () => {
                     navigate("/cargotruk");
                   }}
                 >
-                  cargoTRUK
+                  cargoTRUKFLOW
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="cursor-pointer hover:bg-gray-100"
@@ -288,7 +288,7 @@ const Navbar = () => {
                     navigate("/agritruk");
                   }}
                 >
-                  agriTRUK
+                  agriTRUKFLOW
                 </button>
                 <button
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
@@ -298,7 +298,7 @@ const Navbar = () => {
                     navigate("/cargotruk");
                   }}
                 >
-                  cargoTRUK
+                  cargoTRUKFLOW
                 </button>
                 <button
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
