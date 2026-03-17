@@ -874,7 +874,7 @@ const Index = () => {
               <span>•</span>
               <a href="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</a>
             </div>
-            <p>&copy; 2025 TRUKFLOW. All rights reserved.</p>
+            <p>&copy; 2026 TRUKFLOW. All rights reserved.</p>
             <p className="mt-2">
               Developed by{' '}
               <a 

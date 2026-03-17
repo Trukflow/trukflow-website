@@ -127,7 +127,7 @@ const PrivacyPolicy = () => {
                 <li>Withdraw consent at any time.</li>
                 <li>Lodge a complaint with the ODPC.</li>
               </ul>
-              <p className="mt-2">Email your request to: hello@trukafrica.com</p>
+              <p className="mt-2">Email your request to: support@trukafrica.com</p>
             </section>
 
             <section>
@@ -186,7 +186,7 @@ const PrivacyPolicy = () => {
               <h2 className="text-2xl font-semibold mb-3">11. Contact Our Data Protection Officer</h2>
               <div className="space-y-1">
                 <p><strong>DPO: Data Protection Team</strong></p>
-                <p>Email: hello@trukafrica.com</p>
+                <p>Email: support@trukafrica.com</p>
                 <p>Phone: +254 758 594 951</p>
                 <p>Response within 7 business days.</p>
               </div>

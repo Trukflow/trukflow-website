@@ -157,7 +157,7 @@ const TermsConditions = () => {
               <h2 className="text-2xl font-semibold mb-3">16. Contact Us</h2>
               <div className="space-y-1">
                 <p><strong>TRUKFLOW Africa Limited</strong></p>
-                <p>Email: hello@trukafrica.com</p>
+                <p>Email: support@trukafrica.com</p>
                 <p>Phone: +254 758 594 951</p>
                 <p>Website: www.trukafrica.com</p>
                 <p>Address: Nairobi, Kenya</p>
