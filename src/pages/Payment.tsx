@@ -303,7 +303,7 @@ const Payment = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
       <Navbar />
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4 pb-20 pt-32 md:pt-40">
         <div className="flex justify-end mb-6">
           <Button variant="outline" onClick={handleLogout}>Logout</Button>
         </div>

@@ -283,7 +283,7 @@ const CompanyAuth = () => {
     return (
       <div className="min-h-screen bg-gradient-to-b from-background to-muted">
         <Navbar />
-        <div className="container mx-auto px-4 py-20 flex justify-center items-center">
+        <div className="container mx-auto flex items-center justify-center px-4 pb-12 pt-32 md:pt-40">
           <div className="text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto mb-4"></div>
             <p className="text-muted-foreground">Checking account status...</p>
@@ -296,7 +296,7 @@ const CompanyAuth = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted">
       <Navbar />
-      <div className="container mx-auto px-4 py-20">
+      <div className="container mx-auto px-4 pb-20 pt-32 md:pt-40">
         <div className="max-w-md mx-auto">
           <Card>
             <CardHeader className="text-center">
