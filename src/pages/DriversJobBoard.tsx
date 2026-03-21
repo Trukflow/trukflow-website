@@ -16,6 +16,7 @@ import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import UpgradeModal from "@/components/UpgradeModal";
+import { getSubscriptionAccess } from "@/lib/subscriptionAccess";
 
 interface Driver {
   id: string;
@@ -172,12 +173,9 @@ const DriversJobBoard = () => {
           return;
         }
 
-        const now = new Date();
-        const endDate = new Date(subscriptionData.endDate);
-        const isActive = subscriptionData.status === 'active' ||
-                        (subscriptionData.status === 'trial' && endDate > now);
+        const access = getSubscriptionAccess(subscriptionData);
 
-        if (!isActive) {
+        if (!access.isEligible) {
           toast({ title: "Access Expired", description: "Start a new plan.", variant: "destructive" });
           navigate('/payment');
           return;
@@ -187,16 +185,16 @@ const DriversJobBoard = () => {
 
         // Format subscription data to match expected structure
         const subStatus = {
-          isActive,
+          isActive: access.isEligible,
           planId: subscriptionData.planId,
           endDate: subscriptionData.endDate,
-          paymentStatus: subscriptionData.status,
+          paymentStatus: access.isTrial ? 'trial' : (subscriptionData.paymentStatus || subscriptionData.status),
           contactsUsed: subscriptionData.currentUsage || 0,
           maxContacts: planDetails.features.maxDriverContacts
         };
 
         setSubscription(subStatus);
-        setVerified(isActive);
+        setVerified(access.isEligible);
 
         // Set plan features from subscription data
         setPlanFeatures({

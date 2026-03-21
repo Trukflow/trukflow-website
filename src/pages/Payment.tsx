@@ -13,6 +13,7 @@ import { Check } from "lucide-react";
 import { recruiterApi } from "@/services/recruiterApi";
 import { paymentApi } from "@/services/paymentApi";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
+import { getSubscriptionAccess } from "@/lib/subscriptionAccess";
 
 interface PricingPlan {
   id: string;
@@ -125,21 +126,45 @@ const Payment = () => {
         return;
       }
 
-      await recruiterApi.startSubscription({
-        userId: currentUserId,
-        planId: selectedPlan,
-        paymentData: {
-          paymentMethod: "card",
-          email,
-          phoneNumber: phoneNumber || undefined,
-        },
-      });
+      try {
+        await recruiterApi.startTrial(currentUserId, selectedPlan);
+      } catch (error: any) {
+        const message = error?.message || "";
+        if (!/page not found/i.test(message)) {
+          throw error;
+        }
 
-      toast({
-        title: "1-Hour Free Trial Started!",
-        description: "You can contact up to 2 drivers. Access ends in 1 hour.",
-      });
-      setTimeout(() => navigate("/drivers-job-board"), 1500);
+        await recruiterApi.startSubscription({
+          userId: currentUserId,
+          planId: selectedPlan,
+          paymentData: {
+            paymentMethod: "trial",
+            email,
+            phoneNumber: phoneNumber || undefined,
+          },
+        });
+      }
+
+      let attempts = 0;
+      const maxAttempts = 10;
+      while (attempts < maxAttempts) {
+        attempts += 1;
+        const subscription = await recruiterApi.getSubscriptionStatus(currentUserId);
+        const access = getSubscriptionAccess(subscription);
+
+        if (access.isEligible) {
+          toast({
+            title: "1-Hour Free Trial Started!",
+            description: "You can contact up to 2 drivers. Access ends in 1 hour.",
+          });
+          navigate("/drivers-job-board");
+          return;
+        }
+
+        await new Promise((resolve) => window.setTimeout(resolve, 500));
+      }
+
+      throw new Error("Trial was created but access is not active yet. Please try again.");
     } catch (error: any) {
       console.error('Trial error:', error);
       const msg = error.message || "Failed to start trial.";

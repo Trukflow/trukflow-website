@@ -61,7 +61,7 @@ interface StartSubscriptionRequest {
   userId: string;
   planId: string;
   paymentData: {
-    paymentMethod: 'mpesa' | 'card';
+    paymentMethod: 'mpesa' | 'card' | 'trial';
     phoneNumber?: string;
     email: string;
   };

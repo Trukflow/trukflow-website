@@ -1,7 +1,7 @@
 // src/services/paymentApi.ts
 import { auth } from "@/lib/firebase";
-import { supabase } from "@/integrations/supabase/client";
 import { normalizeFirebaseUID } from "@/lib/utils";
+import { recruiterApi } from "@/services/recruiterApi";
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://agritruk.onrender.com';
 
@@ -110,13 +110,12 @@ export const paymentApi = {
   // Check if user has active subscription
   async hasActiveSubscription(userId: string): Promise<boolean> {
     const normalized = normalizeFirebaseUID(userId);
-    const { data, error } = await supabase
-      .from('companies')
-      .select('verified')
-      .eq('user_id', normalized)
-      .single();
-
-    return !error && data?.verified === true;
+    try {
+      const subscription = await recruiterApi.getSubscriptionStatus(normalized);
+      return subscription?.status === 'active' || subscription?.isActive === true;
+    } catch {
+      return false;
+    }
   },
 
   // --- NEW: Start 1-Hour Free Trial ---

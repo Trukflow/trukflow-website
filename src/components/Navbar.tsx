@@ -1,20 +1,23 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, LogOut } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
+import { auth } from "@/lib/firebase";
+import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [isOverWhiteSection, setIsOverWhiteSection] = useState(false);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -77,6 +80,14 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setCurrentUser(user);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   const scrollToSection = (sectionId: string) => {
     console.log(`Attempting to navigate to section: ${sectionId}`);
     if (location.pathname === "/") {
@@ -106,6 +117,14 @@ const Navbar = () => {
       return isOverWhiteSection ? "hover:text-red-600" : "hover:text-red-500";
     }
     return isOverWhiteSection ? "hover:text-red-600" : "hover:text-red-500";
+  };
+
+  const handleLogout = async () => {
+    localStorage.removeItem("authToken");
+    sessionStorage.removeItem("prefillLoginEmail");
+    await signOut(auth);
+    setIsOpen(false);
+    navigate("/company-auth");
   };
 
   return (
@@ -216,16 +235,43 @@ const Navbar = () => {
             </button>
 
             {/* Company Login Button */}
-            <Button
-              variant="outline"
-              className="border-2 transition-all duration-300 font-medium px-6 rounded-full transform hover:scale-105"
-              onClick={() => {
-                console.log("Navigating to /company-auth");
-                navigate("/company-auth");
-              }}
-            >
-              Individual/Business Login
-            </Button>
+            {currentUser ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className="border-2 transition-all duration-300 font-medium px-6 rounded-full transform hover:scale-105"
+                  >
+                    {currentUser.email || "Account"}
+                    <ChevronDown className="ml-2 h-4 w-4" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-64">
+                  <DropdownMenuItem
+                    onClick={() => navigate("/company-auth")}
+                    className="cursor-pointer"
+                  >
+                    Manage Recruiter Access
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive focus:text-destructive">
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Button
+                variant="outline"
+                className="border-2 transition-all duration-300 font-medium px-6 rounded-full transform hover:scale-105"
+                onClick={() => {
+                  console.log("Navigating to /company-auth");
+                  navigate("/company-auth");
+                }}
+              >
+                Recruiter Login
+              </Button>
+            )}
 
             {/* Get Started Button */}
             <Button
@@ -362,27 +408,70 @@ const Navbar = () => {
                 Contact Us
               </button>
               <div className="px-3 py-2 space-y-2">
-                <button
-                  className="
-                    w-full 
-                    bg-white
-                    border-2 border-gray-900
-                    text-gray-900
-                    font-medium 
-                    rounded-full
-                    py-2
-                    transition-all duration-300
-                    transform hover:scale-[1.02]
-                    active:scale-100
-                  "
-                  onClick={() => {
-                    console.log("Navigating to /company-auth");
-                    setIsOpen(false);
-                    navigate("/company-auth");
-                  }}
-                >
-                  Company Login
-                </button>
+                {currentUser ? (
+                  <>
+                    <button
+                      className="
+                        w-full 
+                        bg-white
+                        border-2 border-gray-900
+                        text-gray-900
+                        font-medium 
+                        rounded-full
+                        py-2
+                        transition-all duration-300
+                        transform hover:scale-[1.02]
+                        active:scale-100
+                      "
+                      onClick={() => {
+                        console.log("Navigating to /company-auth");
+                        setIsOpen(false);
+                        navigate("/company-auth");
+                      }}
+                    >
+                      Manage Recruiter Access
+                    </button>
+                    <button
+                      className="
+                        w-full 
+                        border border-red-200
+                        bg-red-50
+                        text-red-700
+                        font-medium 
+                        rounded-full
+                        py-2
+                        transition-all duration-300
+                        transform hover:scale-[1.02]
+                        active:scale-100
+                      "
+                      onClick={handleLogout}
+                    >
+                      Sign Out
+                    </button>
+                  </>
+                ) : (
+                  <button
+                    className="
+                      w-full 
+                      bg-white
+                      border-2 border-gray-900
+                      text-gray-900
+                      font-medium 
+                      rounded-full
+                      py-2
+                      transition-all duration-300
+                      transform hover:scale-[1.02]
+                      active:scale-100
+                    "
+                    onClick={() => {
+                      console.log("Navigating to /company-auth");
+                      setIsOpen(false);
+                      navigate("/company-auth");
+                    }}
+                  >
+                    Recruiter Login
+                  </button>
+                )}
                 <button
                   className="
                     w-full 

@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "@/lib/firebase";
-import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut, type User } from "firebase/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,6 +11,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import { recruiterApi } from "@/services/recruiterApi";
+import { Eye, EyeOff } from "lucide-react";
+import { getSubscriptionAccess } from "@/lib/subscriptionAccess";
 import { z } from "zod";
 
 // Validation schemas
@@ -27,6 +29,9 @@ const CompanyAuth = () => {
   const [checkingAuth, setCheckingAuth] = useState(true);
   const [activeTab, setActiveTab] = useState("login");
   const [loginEmail, setLoginEmail] = useState("");
+  const [existingUser, setExistingUser] = useState<User | null>(null);
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [showSignupPassword, setShowSignupPassword] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [emailError, setEmailError] = useState<string | null>(null);
   const [phoneError, setPhoneError] = useState<string | null>(null);
@@ -41,7 +46,26 @@ const CompanyAuth = () => {
     sessionStorage.removeItem("prefillLoginEmail");
   }, []);
 
-  // Check if already logged in and has active subscription
+  const routeAuthenticatedUser = async (user: User) => {
+    const token = await user.getIdToken();
+    localStorage.setItem('authToken', token);
+
+    try {
+      const subscriptionData = await recruiterApi.getSubscriptionStatus(user.uid);
+      const access = getSubscriptionAccess(subscriptionData);
+
+      if (access.isEligible) {
+        navigate("/drivers-job-board");
+      } else {
+        navigate("/payment");
+      }
+    } catch (error) {
+      console.error('Error checking subscription:', error);
+      navigate("/payment");
+    }
+  };
+
+  // Check if already logged in and show an explicit continue/sign-out choice
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -55,37 +79,48 @@ const CompanyAuth = () => {
           sessionStorage.removeItem('postSignup');
           localStorage.removeItem('authToken');
           await signOut(auth);
+          setExistingUser(null);
           setCheckingAuth(false);
           return;
         }
 
-        const token = await user.getIdToken();
-        localStorage.setItem('authToken', token);
-        
-        // Check subscription status before redirecting (external backend is source of truth)
-        try {
-          const subscriptionData = await recruiterApi.getSubscriptionStatus(user.uid);
-          const now = new Date();
-          const endDate = new Date(subscriptionData.endDate);
-          const isActive = subscriptionData.status === 'active' ||
-            (subscriptionData.status === 'trial' && endDate > now);
-
-          if (isActive) {
-            navigate("/drivers-job-board");
-          } else {
-            navigate("/payment");
-          }
-        } catch (error) {
-          console.error('Error checking subscription:', error);
-          // On error, default to payment page
-          navigate("/payment");
-        }
+        setExistingUser(user);
+        setLoginEmail(user.email || "");
+        setCheckingAuth(false);
       } else {
+        setExistingUser(null);
         setCheckingAuth(false);
       }
     });
     return () => unsubscribe();
   }, [navigate]);
+
+  const handleUseCurrentSession = async () => {
+    if (!existingUser) return;
+
+    setLoading(true);
+    try {
+      await routeAuthenticatedUser(existingUser);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleSignOutCurrentSession = async () => {
+    setLoading(true);
+    try {
+      localStorage.removeItem('authToken');
+      sessionStorage.removeItem('prefillLoginEmail');
+      await signOut(auth);
+      setExistingUser(null);
+      toast({
+        title: "Signed out",
+        description: "You can now sign in with a different account.",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const validateEmail = (email: string): boolean => {
     const result = emailSchema.safeParse(email);
@@ -207,7 +242,8 @@ const CompanyAuth = () => {
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const token = await userCredential.user.getIdToken();
+      const currentUser = userCredential.user;
+      const token = await currentUser.getIdToken();
       localStorage.setItem('authToken', token);
 
       try {
@@ -226,10 +262,11 @@ const CompanyAuth = () => {
 
       toast({
         title: "Login successful",
-        description: "Redirecting to job board...",
+        description: "Checking your access...",
       });
 
-      navigate("/drivers-job-board");
+      setExistingUser(currentUser);
+      await routeAuthenticatedUser(currentUser);
     } catch (error: any) {
       toast({
         title: "Login failed",
@@ -269,6 +306,28 @@ const CompanyAuth = () => {
               </CardDescription>
             </CardHeader>
             <CardContent>
+              {existingUser ? (
+                <div className="space-y-4">
+                  <div className="rounded-lg border bg-muted/40 p-4 text-center">
+                    <p className="font-medium">Signed in as {existingUser.email || "current user"}</p>
+                    <p className="mt-2 text-sm text-muted-foreground">
+                      Continue with this account or sign out to switch accounts.
+                    </p>
+                  </div>
+                  <Button onClick={handleUseCurrentSession} className="w-full" disabled={loading}>
+                    {loading ? "Checking access..." : "Continue With This Account"}
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={handleSignOutCurrentSession}
+                    className="w-full"
+                    disabled={loading}
+                  >
+                    Sign Out And Use Another Account
+                  </Button>
+                </div>
+              ) : (
               <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
                   <TabsTrigger value="login">Login</TabsTrigger>
@@ -291,13 +350,24 @@ const CompanyAuth = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="login-password">Password</Label>
-                      <Input
-                        id="login-password"
-                        name="login-password"
-                        type="password"
-                        placeholder="••••••••"
-                        required
-                      />
+                      <div className="relative">
+                        <Input
+                          id="login-password"
+                          name="login-password"
+                          type={showLoginPassword ? "text" : "password"}
+                          placeholder="••••••••"
+                          className="pr-10"
+                          required
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowLoginPassword((current) => !current)}
+                          className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground"
+                          aria-label={showLoginPassword ? "Hide password" : "Show password"}
+                        >
+                          {showLoginPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
+                      </div>
                     </div>
                     <Button type="submit" className="w-full" disabled={loading}>
                       {loading ? "Signing in..." : "Sign In"}
@@ -348,14 +418,25 @@ const CompanyAuth = () => {
                     </div>
                     <div className="space-y-2">
                       <Label htmlFor="signup-password">Password</Label>
-                      <Input
-                        id="signup-password"
-                        name="signup-password"
-                        type="password"
-                        placeholder="••••••••"
-                        required
-                        minLength={6}
-                      />
+                      <div className="relative">
+                        <Input
+                          id="signup-password"
+                          name="signup-password"
+                          type={showSignupPassword ? "text" : "password"}
+                          placeholder="••••••••"
+                          className="pr-10"
+                          required
+                          minLength={6}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowSignupPassword((current) => !current)}
+                          className="absolute inset-y-0 right-0 flex items-center px-3 text-muted-foreground hover:text-foreground"
+                          aria-label={showSignupPassword ? "Hide password" : "Show password"}
+                        >
+                          {showSignupPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                        </button>
+                      </div>
                     </div>
                     <div className="flex items-start space-x-2">
                       <Checkbox 
@@ -383,6 +464,7 @@ const CompanyAuth = () => {
                   </form>
                 </TabsContent>
               </Tabs>
+              )}
             </CardContent>
           </Card>
         </div>
