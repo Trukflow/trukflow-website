@@ -170,7 +170,7 @@ const Navbar = () => {
                     navigate("/agritruk");
                   }}
                 >
-                  agriTRUKFLOW
+                  agriTRUK
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="cursor-pointer hover:bg-gray-100"
@@ -179,7 +179,7 @@ const Navbar = () => {
                     navigate("/cargotruk");
                   }}
                 >
-                  cargoTRUKFLOW
+                  cargoTRUK
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="cursor-pointer hover:bg-gray-100"
@@ -334,7 +334,7 @@ const Navbar = () => {
                     navigate("/agritruk");
                   }}
                 >
-                  agriTRUKFLOW
+                  agriTRUK
                 </button>
                 <button
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
@@ -344,7 +344,7 @@ const Navbar = () => {
                     navigate("/cargotruk");
                   }}
                 >
-                  cargoTRUKFLOW
+                  cargoTRUK
                 </button>
                 <button
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"

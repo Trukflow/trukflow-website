@@ -135,7 +135,7 @@ const Index = () => {
     },
     {
       question: "What types of cargo can I transport?",
-      answer: "We handle both agricultural products through agriTRUKFLOW and general cargo through cargoTRUKFLOW. This includes farm produce, manufactured goods, and various commercial shipments."
+      answer: "We handle both agricultural products through agriTRUK and general cargo through cargoTRUK. This includes farm produce, manufactured goods, and various commercial shipments."
     },
     {
       question: "How do I become a transporter on TRUKFLOW?",
@@ -266,11 +266,11 @@ const Index = () => {
               {/* Services - Vertical Layout with Descriptions - Made Bold */}
               <div className="space-y-4 md:space-y-6">
                 <div className="space-y-2">
-                  <span className="text-black text-xl md:text-2xl font-bold block">agriTRUKFLOW</span>
+                  <span className="text-black text-xl md:text-2xl font-bold block">agriTRUK</span>
                   <span className="text-white/80 text-base md:text-lg">Farm-to-Market Solutions for Farmers & Agribusinesses</span>
                 </div>
                 <div className="space-y-2">
-                  <span className="text-black text-xl md:text-2xl font-bold block">cargoTRUKFLOW</span>
+                  <span className="text-black text-xl md:text-2xl font-bold block">cargoTRUK</span>
                   <span className="text-white/80 text-base md:text-lg">Businessess & individuals seeking transport services</span>
                 </div>
               </div>
@@ -798,8 +798,8 @@ const Index = () => {
             <div className="animate-on-scroll text-center sm:text-left">
               <h3 className="text-lg font-semibold mb-4">Services</h3>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="/agritruk" className="hover:text-white transition-colors text-sm">agriTRUKFLOW</a></li>
-                <li><a href="/cargotruk" className="hover:text-white transition-colors text-sm">cargoTRUKFLOW</a></li>
+                <li><a href="/agritruk" className="hover:text-white transition-colors text-sm">agriTRUK</a></li>
+                <li><a href="/cargotruk" className="hover:text-white transition-colors text-sm">cargoTRUK</a></li>
                 <li><a href="/brokers" className="hover:text-white transition-colors text-sm">Broker enlistment</a></li>
                 <li><a href="/transporter-enlistment" className="hover:text-white transition-colors text-sm">Transporter Enlistment</a></li>
               </ul>
