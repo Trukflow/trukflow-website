@@ -75,7 +75,7 @@ const HireDrivers = () => {
               </Badge>
             </div>
             <h1 className="text-5xl md:text-6xl font-bold mb-6 animate-fade-in leading-tight">
-              Hire <span className="text-[hsl(var(--red))]">Trusted</span> & <span className="text-[hsl(var(--red))]">Professional</span> Drivers
+              Hire <span className="text-orange-500">Trusted</span> & <span className="text-orange-500">Professional</span> Drivers
             </h1>
             <p className="text-xl md:text-2xl text-primary-foreground/90 font-semibold mb-8 animate-fade-in max-w-2xl mx-auto">
               Connect with verified, experienced drivers ready to power your logistics operations
@@ -91,7 +91,7 @@ const HireDrivers = () => {
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16 animate-fade-in">
               <h2 className="text-4xl font-bold mb-4">Why Choose Our Platform?</h2>
-              <p className="text-lg max-w-2xl mx-auto text-[hsl(var(--red))]">
+              <p className="text-lg max-w-2xl mx-auto text-orange-500">
                 The most reliable way to find professional drivers for your business
               </p>
             </div>
@@ -182,30 +182,30 @@ const HireDrivers = () => {
                   key={plan.id}
                   className={`relative transition-all hover:shadow-xl hover:-translate-y-1 ${
                     plan.popular 
-                      ? 'border-[hsl(var(--emerald))] border-2 bg-gradient-to-br from-[hsl(var(--emerald))]/5 to-white shadow-lg' 
+                      ? 'border-orange-500 border-2 bg-gradient-to-br from-orange-50 to-white shadow-lg' 
                       : index === 0 
-                      ? 'border-[hsl(var(--red))]/20 hover:border-[hsl(var(--red))]/40'
-                      : 'border-border hover:border-[hsl(var(--emerald))]/40'
+                      ? 'border-orange-200 hover:border-orange-300'
+                      : 'border-border hover:border-orange-300'
                   }`}
                 >
                   {plan.popular && (
                     <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                      <span className="bg-gradient-to-r from-[hsl(var(--emerald))] to-emerald-600 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-md">
+                      <span className="bg-orange-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-md">
                         ⭐ Most Popular
                       </span>
                     </div>
                   )}
                   <CardHeader>
-                    <CardTitle className={`text-2xl ${plan.popular ? 'text-[hsl(var(--emerald))]' : ''}`}>
+                    <CardTitle className={`text-2xl ${plan.popular ? 'text-orange-500' : ''}`}>
                       {plan.name}
                     </CardTitle>
                     <CardDescription className="font-medium">{plan.duration}</CardDescription>
                     <div className="mt-4">
                       <span className={`text-4xl font-bold ${
                         plan.popular 
-                          ? 'text-[hsl(var(--emerald))]' 
+                          ? 'text-orange-500' 
                           : index === 0 
-                          ? 'text-[hsl(var(--red))]'
+                          ? 'text-orange-500'
                           : 'text-foreground'
                       }`}>
                         KES {plan.price}
@@ -218,9 +218,9 @@ const HireDrivers = () => {
                         <li key={idx} className="flex items-start gap-2">
                           <Check className={`h-5 w-5 shrink-0 mt-0.5 ${
                             plan.popular 
-                              ? 'text-[hsl(var(--emerald))]' 
+                              ? 'text-orange-500' 
                               : index === 0 
-                              ? 'text-[hsl(var(--red))]'
+                              ? 'text-orange-500'
                               : 'text-foreground'
                           }`} />
                           <span className="text-sm">{feature}</span>
@@ -230,9 +230,9 @@ const HireDrivers = () => {
                     <Button 
                       className={`w-full ${
                         plan.popular 
-                          ? 'bg-gradient-to-r from-[hsl(var(--emerald))] to-emerald-600 hover:from-emerald-600 hover:to-[hsl(var(--emerald))] text-white shadow-md hover:shadow-lg' 
+                          ? 'bg-orange-500 hover:bg-orange-600 text-white shadow-md hover:shadow-lg' 
                           : index === 0
-                          ? 'bg-[hsl(var(--red))] hover:bg-[hsl(var(--red))]/90 text-white'
+                          ? 'bg-orange-500 hover:bg-orange-600 text-white'
                           : ''
                       }`}
                       size="lg"

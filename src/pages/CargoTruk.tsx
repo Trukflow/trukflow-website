@@ -52,7 +52,7 @@ const CargoTruk = () => {
       <Navbar />
 
       {/* Hero Section with Background */}
-      <section className="min-h-screen bg-green-800 relative overflow-hidden">
+      <section className="min-h-screen bg-neutral-950 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="/CargoTruk1.jpg"
@@ -61,19 +61,19 @@ const CargoTruk = () => {
             onLoad={() => console.log('Hero image loaded')}
             onError={() => console.log('Hero image failed to load')}
           />
-          <div className="absolute inset-0"></div>
+          <div className="absolute inset-0 bg-black/60"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-10">
           <div className="w-full text-center text-white section-content">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-              <span className="text-red-500">cargo</span>TRUKFLOW
+              <span className="text-orange-500">cargo</span>TRUKFLOW
             </h1>
             <p className="text-xl md:text-2xl lg:text-3xl mb-8 max-w-4xl mx-auto">
               Reliable freight and cargo transportation services for businesses across East Africa
             </p>
             <Button 
-              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-red-500/30"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-orange-500/30"
               onClick={() => {
                 console.log("Ship Your Cargo Now button clicked");
                 navigate("/download");
@@ -88,12 +88,12 @@ const CargoTruk = () => {
       {/* Features Section */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 text-center mb-12 md:mb-16">
             Why Choose cargoTRUK?
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             <div className="text-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-neutral-950 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-2xl">📦</span>
               </div>
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Secure Handling</h3>
@@ -101,8 +101,8 @@ const CargoTruk = () => {
                 Your cargo is handled with utmost care using professional loading equipment and secure packaging methods.
               </p>
             </div>
-            <div className="text-center md:col-span-2 lg:col-span-1 bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-green-500">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="text-center md:col-span-2 lg:col-span-1 bg-orange-50 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-orange-200">
+              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-2xl">🛡️</span>
               </div>
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Insurance Coverage</h3>
@@ -111,7 +111,7 @@ const CargoTruk = () => {
               </p>
             </div>
             <div className="text-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-neutral-800 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-2xl">🌍</span>
               </div>
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Regional Network</h3>
@@ -126,13 +126,13 @@ const CargoTruk = () => {
       {/* How it Works Section - Horizontal Format */}
       <section className="py-16 md:py-20 bg-white relative overflow-hidden z-10" id="how-it-works">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 section-content">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 text-center mb-12 md:mb-16">
             How it works
           </h2>
           <div className="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
             {/* Step 1 */}
             <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+              <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
                 1
               </div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Request Transport</h3>
@@ -143,15 +143,15 @@ const CargoTruk = () => {
             
             {/* Arrow Right for desktop, down for mobile */}
             <div className="hidden md:flex justify-center">
-              <ArrowDown className="w-8 h-8 text-green-600 rotate-270" style={{transform: 'rotate(-90deg)'}} />
+              <ArrowDown className="w-8 h-8 text-orange-500 rotate-270" style={{transform: 'rotate(-90deg)'}} />
             </div>
             <div className="flex justify-center md:hidden">
-              <ArrowDown className="w-8 h-8 text-green-600" />
+              <ArrowDown className="w-8 h-8 text-orange-500" />
             </div>
 
             {/* Step 2 */}
             <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+              <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
                 2
               </div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Match with Transporters</h3>
@@ -162,15 +162,15 @@ const CargoTruk = () => {
 
             {/* Arrow Right for desktop, down for mobile */}
             <div className="hidden md:flex justify-center">
-              <ArrowDown className="w-8 h-8 text-green-600 rotate-270" style={{transform: 'rotate(-90deg)'}} />
+              <ArrowDown className="w-8 h-8 text-orange-500 rotate-270" style={{transform: 'rotate(-90deg)'}} />
             </div>
             <div className="flex justify-center md:hidden">
-              <ArrowDown className="w-8 h-8 text-green-600" />
+              <ArrowDown className="w-8 h-8 text-orange-500" />
             </div>
 
             {/* Step 3 */}
             <div className="text-center bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
+              <div className="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-lg">
                 3
               </div>
               <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-4">Track & Deliver</h3>
@@ -183,7 +183,7 @@ const CargoTruk = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-green-800 via-green-700 to-green-900 text-white relative z-10">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-neutral-950 via-neutral-900 to-stone-800 text-white relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center section-content">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             Scale Your Business with Reliable Cargo Solutions
@@ -192,7 +192,7 @@ const CargoTruk = () => {
             Join businesses across East Africa using cargoTRUK for their logistics needs
           </p>
           <Button 
-            className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-red-500/30"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 hover:shadow-orange-500/30"
             onClick={() => {
               console.log("Get Started Today button clicked");
               navigate("/download");

@@ -66,13 +66,13 @@ const TransporterEnlistment = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-10">
           <div className="w-full text-center text-white section-content">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-              Join Our <span className="text-red-500">Transporter</span> Network
+              Join Our <span className="text-orange-500">Transporter</span> Network
             </h1>
             <p className="text-xl md:text-2xl lg:text-3xl mb-8 max-w-4xl mx-auto">
               Become a verified transporter and earn 25% more on every booking with TRUKFLOW
             </p>
             <Button 
-              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-2xl hover:shadow-red-500/30 transform hover:scale-105 transition-all duration-200"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-2xl hover:shadow-orange-500/30 transform hover:scale-105 transition-all duration-200"
               onClick={() => {
                 console.log('Start Earning Today button clicked');
                 navigate('/download');
@@ -87,12 +87,12 @@ const TransporterEnlistment = () => {
       {/* Benefits Section */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 text-center mb-12 md:mb-16">
             Why Drive with TRUKFLOW?
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             <div className="text-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-neutral-950 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-2xl">💰</span>
               </div>
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Higher Earnings</h3>
@@ -100,8 +100,8 @@ const TransporterEnlistment = () => {
                 Earn up to 25% more than traditional transport services with our verified booking system and premium rates.
               </p>
             </div>
-            <div className="text-center bg-gradient-to-br from-green-50 to-green-100 border-2 border-green-300 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="text-center bg-orange-50 border border-orange-200 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-2xl">📱</span>
               </div>
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Easy Booking</h3>
@@ -110,7 +110,7 @@ const TransporterEnlistment = () => {
               </p>
             </div>
             <div className="text-center md:col-span-2 lg:col-span-1 bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-700 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-neutral-800 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-2xl">🛡️</span>
               </div>
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Full Support</h3>
@@ -125,7 +125,7 @@ const TransporterEnlistment = () => {
       {/* Requirements Section */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-orange-500 text-center mb-12">
             Requirements
           </h2>
           <div className="flex justify-center">
@@ -136,7 +136,7 @@ const TransporterEnlistment = () => {
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">For Companies</h3>
                   <ul className="space-y-2 text-gray-600">
                     <li className="flex items-start">
-                      <span className="text-green-500 mr-2 mt-1">✓</span>
+                      <span className="text-orange-500 mr-2 mt-1">✓</span>
                       <span>Registration Number</span>
                     </li>
                   </ul>
@@ -147,19 +147,19 @@ const TransporterEnlistment = () => {
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">For Drivers</h3>
                   <ul className="space-y-2 text-gray-600">
                     <li className="flex items-start">
-                      <span className="text-green-500 mr-2 mt-1">✓</span>
+                      <span className="text-orange-500 mr-2 mt-1">✓</span>
                       <span>Driving License</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-green-500 mr-2 mt-1">✓</span>
+                      <span className="text-orange-500 mr-2 mt-1">✓</span>
                       <span>National ID</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-green-500 mr-2 mt-1">✓</span>
+                      <span className="text-orange-500 mr-2 mt-1">✓</span>
                       <span>Good conduct certificate</span>
                     </li>
                     <li className="flex items-start">
-                      <span className="text-green-500 mr-2 mt-1">✓</span>
+                      <span className="text-orange-500 mr-2 mt-1">✓</span>
                       <span>Goods Service License <span className="text-sm text-gray-500">(Optional)</span></span>
                     </li>
                   </ul>
@@ -170,7 +170,7 @@ const TransporterEnlistment = () => {
                   <h3 className="text-xl font-semibold text-gray-900 mb-4">For Vehicles</h3>
                   <ul className="space-y-2 text-gray-600">
                     <li className="flex items-start">
-                      <span className="text-green-500 mr-2 mt-1">✓</span>
+                      <span className="text-orange-500 mr-2 mt-1">✓</span>
                       <span>Vehicle insurance</span>
                     </li>
                   </ul>
@@ -184,7 +184,7 @@ const TransporterEnlistment = () => {
       {/* How to Join Section */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
-          <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-orange-500 text-center mb-12">
             How to Join
           </h2>
           <div className="max-w-5xl mx-auto">
@@ -192,7 +192,7 @@ const TransporterEnlistment = () => {
               {/* Step 1 */}
               <div className="text-center">
                 <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
-                  <div className="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
+                  <div className="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
                     1
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">Sign Up Online</h3>
@@ -205,7 +205,7 @@ const TransporterEnlistment = () => {
               {/* Step 2 */}
               <div className="text-center">
                 <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
-                  <div className="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
+                  <div className="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
                     2
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">Get Verified</h3>
@@ -218,7 +218,7 @@ const TransporterEnlistment = () => {
               {/* Step 3 */}
               <div className="text-center">
                 <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
-                  <div className="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
+                  <div className="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
                     3
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">Pay Monthly Fee</h3>
@@ -231,7 +231,7 @@ const TransporterEnlistment = () => {
               {/* Step 4 */}
               <div className="text-center">
                 <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
-                  <div className="w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
+                  <div className="w-12 h-12 bg-orange-500 text-white rounded-full flex items-center justify-center mx-auto mb-4 font-bold text-xl">
                     4
                   </div>
                   <h3 className="text-lg font-semibold text-gray-900 mb-3">Start Earning</h3>
@@ -248,46 +248,46 @@ const TransporterEnlistment = () => {
       {/* Subscription Plans Section */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
-          <h2 className="text-3xl md:text-4xl font-bold text-red-500 text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-orange-500 text-center mb-12">
             Company Fleet Subscription Plans
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {/* Basic Fleet Plan */}
-            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 border-[hsl(var(--red))]/20 hover:border-[hsl(var(--red))]/40">
+            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 border-orange-200 hover:border-orange-300">
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">BASIC FLEET</h3>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-[hsl(var(--red))]">KES 999</span>
+                  <span className="text-4xl font-bold text-orange-500">KES 999</span>
                   <span className="text-gray-600 text-lg">/month</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-left">
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--red))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Up to 5 drivers</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--red))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Full app access for all drivers</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--red))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Unlimited bookings</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--red))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Central company dashboard</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--red))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">24/7 support</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--red))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Basic reporting</span>
                   </li>
                 </ul>
                 <Button 
-                  className="w-full bg-[hsl(var(--red))] hover:bg-[hsl(var(--red))]/90 text-white"
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white"
                   size="lg"
                   onClick={() => navigate('/download')}
                 >
@@ -297,58 +297,58 @@ const TransporterEnlistment = () => {
             </div>
 
             {/* Growing Fleet Plan - Popular */}
-            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 border-[hsl(var(--emerald))] bg-gradient-to-br from-[hsl(var(--emerald))]/5 to-white relative">
+            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 border-orange-500 bg-gradient-to-br from-orange-50 to-white relative">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-gradient-to-r from-[hsl(var(--emerald))] to-emerald-600 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-md">
+                <span className="bg-orange-500 text-white px-4 py-1.5 rounded-full text-sm font-semibold shadow-md">
                   ⭐ POPULAR
                 </span>
               </div>
               <div className="text-center">
-                <h3 className="text-2xl font-bold text-[hsl(var(--emerald))] mb-2">GROWING FLEET</h3>
+                <h3 className="text-2xl font-bold text-orange-500 mb-2">GROWING FLEET</h3>
                 <div className="mb-6">
-                  <span className="text-4xl font-bold text-[hsl(var(--emerald))]">KES 1,499</span>
+                  <span className="text-4xl font-bold text-orange-500">KES 1,499</span>
                   <span className="text-gray-600 text-lg">/month</span>
                 </div>
                 <ul className="space-y-3 mb-8 text-left">
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Up to 15 drivers</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Save 20% per driver</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Everything in Basic, plus:</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Priority booking alerts</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Advanced analytics dashboard</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Driver performance tracking</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Route optimization</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Dedicated account manager</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-[hsl(var(--emerald))] mt-0.5">✓</span> 
+                    <span className="text-orange-500 mt-0.5">✓</span> 
                     <span className="text-gray-600">Access to Driver Job Board</span>
                   </li>
                 </ul>
                 <Button 
-                  className="w-full bg-gradient-to-r from-[hsl(var(--emerald))] to-emerald-600 hover:from-emerald-600 hover:to-[hsl(var(--emerald))] text-white shadow-md hover:shadow-lg"
+                  className="w-full bg-orange-500 hover:bg-orange-600 text-white shadow-md hover:shadow-lg"
                   size="lg"
                   onClick={() => navigate('/download')}
                 >
@@ -358,7 +358,7 @@ const TransporterEnlistment = () => {
             </div>
 
             {/* Enterprise Unlimited Fleet Plan */}
-            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 border-border hover:border-[hsl(var(--emerald))]/40">
+            <div className="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 border-2 border-border hover:border-orange-300">
               <div className="text-center">
                 <h3 className="text-2xl font-bold text-gray-900 mb-2">ENTERPRISE</h3>
                 <div className="text-lg font-semibold text-gray-700 mb-4">UNLIMITED FLEET</div>
@@ -427,7 +427,7 @@ const TransporterEnlistment = () => {
             Join thousands of transporters already earning more with TRUKFLOW's verified booking system
           </p>
           <Button 
-            className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-2xl hover:shadow-red-500/30 transform hover:scale-105 transition-all duration-200"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-2xl hover:shadow-orange-500/30 transform hover:scale-105 transition-all duration-200"
             onClick={() => {
               console.log('Join TRUKFLOW Network button clicked');
               navigate('/download');

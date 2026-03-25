@@ -291,10 +291,10 @@ const DeleteAccount = () => {
                 <p className="text-sm text-muted-foreground">
                   Having trouble? Contact us at{" "}
                   <a
-                    href="mailto:support@trukafrica.com"
+                    href="mailto:support@trukflow.com"
                     className="text-primary hover:underline font-medium"
                   >
-                    support@trukafrica.com
+                    support@trukflow.com
                   </a>
                 </p>
               </div>

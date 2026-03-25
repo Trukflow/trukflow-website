@@ -153,7 +153,7 @@ const AgriTruk = () => {
       <Navbar />
 
       {/* Hero Section with Background */}
-      <section className="min-h-screen bg-green-800 relative overflow-hidden">
+      <section className="min-h-screen bg-neutral-950 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
             src="/agriTrukImg4.jpg"
@@ -162,19 +162,19 @@ const AgriTruk = () => {
             onLoad={() => console.log("Hero image loaded")}
             onError={() => console.log("Hero image failed to load")}
           />
-          <div className="absolute inset-0 bg-green-800/60"></div>
+          <div className="absolute inset-0 bg-black/65"></div>
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-screen flex items-center relative z-10">
           <div className="w-full text-center text-white section-content">
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6">
-              <span className="text-red-500">agri</span>TRUKFLOW
+              <span className="text-orange-500">agri</span>TRUKFLOW
             </h1>
             <p className="text-xl md:text-2xl lg:text-3xl mb-8 max-w-4xl mx-auto">
               Specialized agricultural produce transportation solutions for farmers across East Africa
             </p>
             <Button
-              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
               onClick={() => {
                 console.log("Transport Your Harvest button clicked");
                 navigate("/download");
@@ -192,11 +192,11 @@ const AgriTruk = () => {
           <div className="grid lg:grid-cols-2 gap-12 items-start">
             {/* Left Side - Video Section */}
             <div className="section-content">
-              <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-orange-500 mb-8">
                 See agriTRUK in Action
               </h2>
               <div className="relative w-full">
-                <div className="aspect-video bg-gradient-to-br from-green-100 to-green-200 rounded-lg overflow-hidden shadow-2xl relative video-container">
+                <div className="aspect-video bg-neutral-100 rounded-lg overflow-hidden shadow-2xl relative video-container">
                   {videos.map((videoSrc, index) => (
                     <video
                       key={index}
@@ -214,7 +214,7 @@ const AgriTruk = () => {
                   ))}
                   <div className="absolute inset-0 bg-black/40 flex items-center justify-center">
                     <Button
-                      className="bg-white/90 hover:bg-white text-green-800 rounded-full p-4 transform hover:scale-110 transition-all duration-200 shadow-lg"
+                      className="bg-white/90 hover:bg-white text-neutral-950 rounded-full p-4 transform hover:scale-110 transition-all duration-200 shadow-lg"
                       onClick={handlePlayVideo}
                     >
                       <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
@@ -240,7 +240,7 @@ const AgriTruk = () => {
                     <button
                       key={index}
                       className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                        index === currentVideoIndex ? "bg-red-500" : "bg-gray-300 hover:bg-gray-400"
+                        index === currentVideoIndex ? "bg-orange-500" : "bg-gray-300 hover:bg-gray-400"
                       }`}
                       onClick={() => {
                         console.log(`Video dot ${index} clicked`);
@@ -255,14 +255,14 @@ const AgriTruk = () => {
 
             {/* Right Side - How It Works */}
             <div className="section-content">
-              <h2 className="text-3xl md:text-4xl font-bold text-red-500 mb-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-orange-500 mb-8">
                 How it works
               </h2>
               <div className="space-y-8">
                 {/* Step 1 */}
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                    <div className="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
                       1
                     </div>
                   </div>
@@ -276,13 +276,13 @@ const AgriTruk = () => {
 
                 {/* Arrow */}
                 <div className="flex justify-center">
-                  <ArrowDown className="w-6 h-6 text-green-700" />
+                  <ArrowDown className="w-6 h-6 text-orange-500" />
                 </div>
 
                 {/* Step 2 */}
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                    <div className="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
                       2
                     </div>
                   </div>
@@ -296,13 +296,13 @@ const AgriTruk = () => {
 
                 {/* Arrow */}
                 <div className="flex justify-center">
-                  <ArrowDown className="w-6 h-6 text-green-700" />
+                  <ArrowDown className="w-6 h-6 text-orange-500" />
                 </div>
 
                 {/* Step 3 */}
                 <div className="flex items-start space-x-4">
                   <div className="flex-shrink-0">
-                    <div className="w-10 h-10 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+                    <div className="w-10 h-10 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
                       3
                     </div>
                   </div>
@@ -322,12 +322,12 @@ const AgriTruk = () => {
       {/* Benefits Section */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-white to-gray-50 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 section-content">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 text-center mb-12 md:mb-16">
             Why Choose agriTRUK?
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-12">
             <div className="text-center bg-white p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-500 to-green-700 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-neutral-950 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-2xl">🚜</span>
               </div>
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Farm-to-Market</h3>
@@ -335,8 +335,8 @@ const AgriTruk = () => {
                 Direct transportation from your farm to markets, ensuring fresh produce reaches consumers quickly.
               </p>
             </div>
-            <div className="text-center md:col-span-2 lg:col-span-1 bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border-2 border-green-500">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-6">
+            <div className="text-center md:col-span-2 lg:col-span-1 bg-orange-50 p-8 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 border border-orange-200">
+              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-6">
                 <span className="text-white text-2xl">❄️</span>
               </div>
               <h3 className="text-xl md:text-2xl font-semibold text-gray-900 mb-4">Cold Chain Storage</h3>
@@ -358,7 +358,7 @@ const AgriTruk = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-green-800 via-green-700 to-green-900 text-white relative z-10">
+      <section className="py-16 md:py-20 bg-gradient-to-br from-neutral-950 via-neutral-900 to-stone-800 text-white relative z-10">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center section-content">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
             Ready to Transform Your Farm's Logistics?
@@ -367,7 +367,7 @@ const AgriTruk = () => {
             Join thousands of farmers already using agriTRUK for their produce transportation
           </p>
           <Button
-            className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 md:px-12 py-4 rounded-full text-lg md:text-xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
             onClick={() => {
               console.log("Get Started Today button clicked");
               navigate("/download");

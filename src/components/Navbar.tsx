@@ -107,16 +107,16 @@ const Navbar = () => {
 
   const getTextColor = () => {
     if (isScrolled) {
-      return isOverWhiteSection ? "text-red-500" : "text-white";
+      return isOverWhiteSection ? "text-orange-500" : "text-white";
     }
-    return isOverWhiteSection ? "text-red-500" : "text-gray-700";
+    return isOverWhiteSection ? "text-orange-500" : "text-gray-700";
   };
 
   const getHoverColor = () => {
     if (isScrolled) {
-      return isOverWhiteSection ? "hover:text-red-600" : "hover:text-red-500";
+      return isOverWhiteSection ? "hover:text-orange-600" : "hover:text-orange-500";
     }
-    return isOverWhiteSection ? "hover:text-red-600" : "hover:text-red-500";
+    return isOverWhiteSection ? "hover:text-orange-600" : "hover:text-orange-500";
   };
 
   const handleLogout = async () => {
@@ -292,10 +292,10 @@ const Navbar = () => {
               className={`focus:outline-none transition-colors duration-200 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center ${
                 isScrolled
                   ? isOverWhiteSection
-                    ? "text-red-500 hover:text-red-600"
+                    ? "text-orange-500 hover:text-orange-600"
                     : "text-white hover:text-gray-200"
                   : isOverWhiteSection
-                  ? "text-red-500 hover:text-red-600"
+                  ? "text-orange-500 hover:text-orange-600"
                   : "text-gray-700 hover:text-gray-900"
               }`}
             >
@@ -434,9 +434,9 @@ const Navbar = () => {
                     <button
                       className="
                         w-full 
-                        border border-red-200
-                        bg-red-50
-                        text-red-700
+                        border border-orange-200
+                        bg-orange-50
+                        text-orange-700
                         font-medium 
                         rounded-full
                         py-2
@@ -475,14 +475,14 @@ const Navbar = () => {
                 <button
                   className="
                     w-full 
-                    bg-gray-900
-                    hover:bg-gradient-to-r hover:from-green-800 hover:to-green-900
+                    bg-orange-500
+                    hover:bg-orange-600
                     text-white 
                     font-medium 
                     rounded-full
                     py-2
                     transition-all duration-300
-                    shadow-2xl hover:shadow-green-400/30
+                    shadow-2xl hover:shadow-orange-500/30
                     transform hover:scale-[1.02]
                     active:scale-100
                   "

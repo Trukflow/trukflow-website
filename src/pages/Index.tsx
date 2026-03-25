@@ -211,7 +211,7 @@ const Index = () => {
       <Navbar />
       
       {/* Jungle Green Hero Section - Fixed responsiveness */}
-      <section className="min-h-screen bg-gradient-to-br from-green-800 via-green-700 to-green-900 relative overflow-hidden">
+      <section className="min-h-screen bg-gradient-to-br from-neutral-950 via-neutral-900 to-stone-800 relative overflow-hidden">
         {/* Background Images covering full section */}
         <div className="absolute inset-0 z-0">
           <Carousel
@@ -231,7 +231,7 @@ const Index = () => {
                       alt={`Background ${index + 1}`}
                       className="w-full h-full min-h-screen object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-green-800/95 via-green-800/80 to-transparent"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-transparent"></div>
                   </div>
                 </CarouselItem>
               ))}
@@ -256,9 +256,9 @@ const Index = () => {
               {/* Main Heading */}
               <div className="space-y-2">
                 <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold leading-tight">
-                  <span className="text-red-500">TRUKFLOW</span>
+                  <span className="text-orange-500">TRUKFLOW</span>
                   <span className="text-white">, East Africa's </span>
-                  <span className="text-red-500">Smartest</span>
+                  <span className="text-orange-500">Smartest</span>
                   <span className="text-white"> Logistics system</span>
                 </h2>
               </div>
@@ -278,7 +278,7 @@ const Index = () => {
               {/* Buttons - Larger Size - All lead to /download */}
               <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                 <Button 
-                  className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+                  className="bg-orange-500 hover:bg-orange-600 text-white px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
                   onClick={() => {
                     console.log("Join as a transporter button clicked");
                     navigate("/download");
@@ -287,7 +287,7 @@ const Index = () => {
                   Join as a transporter or a broker
                 </Button>
                 <Button 
-                  className="bg-white hover:bg-gray-100 text-green-800 px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+                  className="bg-white hover:bg-gray-100 text-neutral-950 border border-neutral-300 px-10 md:px-16 py-4 md:py-6 rounded-full text-xl md:text-2xl font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
                   onClick={() => {
                     console.log("Request demo button clicked");
                     navigate("/download");
@@ -313,16 +313,16 @@ const Index = () => {
         {/* <div className="absolute inset-0 bg-white/85"></div> */}
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-12 md:mb-16 animate-on-scroll">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 text-center mb-12 md:mb-16 animate-on-scroll">
             How it works
           </h2>
           <div className="grid md:grid-cols-3 gap-8 md:gap-12 items-center">
             {/* Step 1 */}
-            <div className="text-center animate-on-scroll bg-gradient-to-br from-green-50 to-green-100 backdrop-blur-sm p-6 rounded-lg shadow-lg relative border-2 border-green-500">
-              <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            <div className="text-center animate-on-scroll bg-white/95 backdrop-blur-sm p-6 rounded-xl shadow-lg relative border border-neutral-200">
+              <div className="absolute -top-4 -left-4 w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
                 1
               </div>
-              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-green-100 to-green-200 rounded-lg mb-6 overflow-hidden">
+              <div className="w-full h-48 md:h-64 bg-neutral-100 rounded-lg mb-6 overflow-hidden">
                 <img
                   src="/OrderingImg.jpg"
                   alt="Person using phone"
@@ -336,11 +336,11 @@ const Index = () => {
             </div>
 
             {/* Step 2 */}
-            <div className="text-center animate-on-scroll bg-gradient-to-br from-green-50 to-green-100 backdrop-blur-sm p-6 rounded-lg shadow-lg relative border-2 border-green-500">
-              <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            <div className="text-center animate-on-scroll bg-white/95 backdrop-blur-sm p-6 rounded-xl shadow-lg relative border border-neutral-200">
+              <div className="absolute -top-4 -left-4 w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
                 2
               </div>
-              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg mb-6 overflow-hidden">
+              <div className="w-full h-48 md:h-64 bg-neutral-100 rounded-lg mb-6 overflow-hidden">
                 <img
                   src="/agriTrukImg2.jpg"
                   alt="Two people talking with vehicle"
@@ -354,11 +354,11 @@ const Index = () => {
             </div>
 
             {/* Step 3 */}
-            <div className="text-center animate-on-scroll bg-gradient-to-br from-green-50 to-green-100 backdrop-blur-sm p-6 rounded-lg shadow-lg relative border-2 border-green-500">
-              <div className="absolute -top-4 -left-4 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
+            <div className="text-center animate-on-scroll bg-white/95 backdrop-blur-sm p-6 rounded-xl shadow-lg relative border border-neutral-200">
+              <div className="absolute -top-4 -left-4 w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center font-bold text-lg">
                 3
               </div>
-              <div className="w-full h-48 md:h-64 bg-gradient-to-br from-red-100 to-red-200 rounded-lg mb-6 overflow-hidden">
+              <div className="w-full h-48 md:h-64 bg-orange-50 rounded-lg mb-6 overflow-hidden">
                 <img
                   src="/LiveTracking.jpg"
                   alt="Map with live tracking"
@@ -377,7 +377,7 @@ const Index = () => {
       {/* Why We Are Section - Moved after Hero */}
       <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-6 animate-on-scroll">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 mb-6 animate-on-scroll">
             Why TRUKFLOW is East Africa's #1 Choice
           </h2>
           <p className="text-lg md:text-xl text-gray-600 max-w-4xl mx-auto mb-12 animate-on-scroll">
@@ -388,14 +388,14 @@ const Index = () => {
           {/* Key advantages */}
           <div className="grid md:grid-cols-3 gap-8 mb-12 animate-on-scroll">
             <div className="bg-white p-6 rounded-lg shadow-lg">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-neutral-950 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">Market Leader</h3>
               <p className="text-gray-600">Trusted by 10,000+ users across East Africa with the largest verified transporter network</p>
             </div>
-            <div className="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg shadow-lg border-2 border-green-500">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-600 to-green-800 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-orange-50 p-6 rounded-lg shadow-lg border border-orange-200">
+              <div className="w-16 h-16 bg-orange-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-3">100% Insured</h3>
@@ -411,7 +411,7 @@ const Index = () => {
           </div>
 
           <Button 
-            className="bg-gradient-to-r from-green-700 to-green-800 hover:from-green-800 hover:to-green-900 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll"
+            className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll"
             onClick={() => {
               console.log("Learn More About Us button clicked");
               navigate("/about");
@@ -464,7 +464,7 @@ const Index = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 section-content">
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 text-center mb-8">
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 text-center mb-8">
           Experiences shared by our clients
         </h2>
         <div className="section-content">
@@ -517,7 +517,7 @@ const Index = () => {
             <button
               key={index}
               className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-colors duration-300 ${
-                index === current ? 'bg-red-500 shadow-lg' : 'bg-white/50 hover:bg-white/70'
+                index === current ? 'bg-orange-500 shadow-lg' : 'bg-white/50 hover:bg-white/70'
               }`}
               onClick={() => {
                 console.log(`Nav dot ${index} clicked`);
@@ -544,7 +544,7 @@ const Index = () => {
               Earn 25% more on verified bookings. Sign-up only takes 2 minutes.
             </p>
             <Button 
-              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 md:px-8 py-3 rounded-full text-lg font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-6 md:px-8 py-3 rounded-full text-lg font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
               onClick={() => {
                 console.log("Join our Transporter Networkt button clicked");
                 navigate("/download");
@@ -559,7 +559,7 @@ const Index = () => {
       {/* Partners Section */}
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-red-500 mb-12 md:mb-16 animate-on-scroll">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-orange-500 mb-12 md:mb-16 animate-on-scroll">
             Our Partners
           </h2>
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-8 sm:space-y-0 sm:space-x-12 animate-on-scroll">
@@ -593,7 +593,7 @@ const Index = () => {
               >
                 <CarouselContent>
                   <CarouselItem>
-                    <div className="bg-gradient-to-br from-green-800 to-green-900 text-white p-8 rounded-2xl shadow-2xl relative overflow-hidden">
+                    <div className="bg-gradient-to-br from-neutral-950 to-stone-900 text-white p-8 rounded-2xl shadow-2xl relative overflow-hidden">
                       {/* Decorative elements */}
                       <div className="absolute -top-4 -right-4 w-20 h-20 bg-white/10 rounded-full"></div>
                       <div className="absolute -bottom-6 -left-6 w-16 h-16 bg-white/5 rounded-full"></div>
@@ -605,31 +605,31 @@ const Index = () => {
                           </div>
                           <div>
                             <h3 className="text-2xl font-bold">Need Help?</h3>
-                            <p className="text-green-200 text-sm">We're here for you 24/7</p>
+                            <p className="text-orange-200 text-sm">We're here for you 24/7</p>
                           </div>
                         </div>
                         
-                        <p className="mb-6 text-green-100">Have a different question? Our expert support team is ready to assist you with personalized solutions.</p>
+                        <p className="mb-6 text-stone-200">Have a different question? Our expert support team is ready to assist you with personalized solutions.</p>
                         
                         <div className="space-y-3 mb-6">
                            <div className="flex items-center space-x-3 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
-                            <Phone className="w-5 h-5 text-green-300" />
+                            <Phone className="w-5 h-5 text-orange-300" />
                             <div>
                               <p className="font-semibold text-white">Call Us</p>
-                              <a href="tel:+254758594951" className="text-green-200 text-sm hover:text-green-100 transition-colors">+254 758 594 951</a>
+                              <a href="tel:+254758594951" className="text-orange-200 text-sm hover:text-orange-100 transition-colors">+254 758 594 951</a>
                             </div>
                           </div>
                           <div className="flex items-center space-x-3 p-3 bg-white/10 rounded-lg backdrop-blur-sm">
-                            <Mail className="w-5 h-5 text-green-300" />
+                            <Mail className="w-5 h-5 text-orange-300" />
                             <div>
                               <p className="font-semibold text-white">Email Us</p>
-                              <a href="mailto:hello@trukafrica.com" className="text-green-200 text-sm hover:text-green-100 transition-colors">support@trukafrica.com</a>
+                              <a href="mailto:support@trukflow.com" className="text-orange-200 text-sm hover:text-orange-100 transition-colors">support@trukflow.com</a>
                             </div>
                           </div>
                         </div>
                         
                         <Button 
-                          className="bg-white text-green-800 hover:bg-green-50 px-6 py-3 rounded-xl font-semibold transform hover:scale-105 transition-all duration-200 shadow-lg w-full"
+                          className="bg-white text-neutral-950 hover:bg-neutral-100 px-6 py-3 rounded-xl font-semibold transform hover:scale-105 transition-all duration-200 shadow-lg w-full"
                           onClick={() => handleNavigation('#contact')}
                         >
                           Contact Support Team
@@ -660,7 +660,7 @@ const Index = () => {
                         
                         <div className="bg-white/10 rounded-lg p-4 mb-6 backdrop-blur-sm">
                           <div className="flex items-center space-x-2 mb-2">
-                            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                            <div className="w-3 h-3 bg-orange-400 rounded-full animate-pulse"></div>
                             <span className="text-sm font-medium">Support Online</span>
                           </div>
                           <p className="text-blue-200 text-sm">Average response time: &lt; 2 minutes</p>
@@ -728,7 +728,7 @@ const Index = () => {
             {/* Right Side - FAQs */}
             <div className="animate-on-scroll order-1 lg:order-2">
               <p className="text-sm text-gray-600 mb-2">FAQs</p>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-red-500 mb-4 md:mb-6 lg:mb-8">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-orange-500 mb-4 md:mb-6 lg:mb-8">
                 How can we help you?
               </h2>
               <Accordion type="single" collapsible className="space-y-3 md:space-y-4">
@@ -764,7 +764,7 @@ const Index = () => {
               East Africa moves smarter with TRUKFLOW
             </h2>
             <Button 
-              className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-6 md:px-8 py-3 rounded-full text-lg font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
+              className="bg-orange-500 hover:bg-orange-600 text-white px-6 md:px-8 py-3 rounded-full text-lg font-medium shadow-lg transform hover:scale-105 transition-all duration-200"
               onClick={() => {
                 console.log("Get Early Access button clicked");
                 navigate("/download");
@@ -858,7 +858,7 @@ const Index = () => {
                 </div>
                 <div className="flex items-center justify-center sm:justify-start">
                   <Mail className="w-4 h-4 mr-2 flex-shrink-0" />
-                  <span>support@trukafrica.com</span>
+                  <span>support@trukflow.com</span>
                 </div>
                 <div className="flex items-center justify-center sm:justify-start">
                   <Phone className="w-4 h-4 mr-2 flex-shrink-0" />
