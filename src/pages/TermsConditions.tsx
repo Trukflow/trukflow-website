@@ -13,7 +13,7 @@ const TermsConditions = () => {
           <div className="space-y-6 text-foreground">
             <section>
               <h2 className="text-2xl font-semibold mb-3">1. Acceptance of Terms</h2>
-              <p>By accessing or using TRUKFLOW Africa (the "Platform"), including the website at www.trukafrica.com and mobile applications, you agree to be bound by these Terms & Conditions ("Terms"). If you do not agree, do not use the Platform.</p>
+              <p>By accessing or using TRUKFLOW Africa (the "Platform"), including the website at www.trukflow.com and mobile applications, you agree to be bound by these Terms & Conditions ("Terms"). If you do not agree, do not use the Platform.</p>
             </section>
 
             <section>
@@ -159,7 +159,7 @@ const TermsConditions = () => {
                 <p><strong>TRUKFLOW Africa Limited</strong></p>
                 <p>Email: support@trukflow.com</p>
                 <p>Phone: +254 758 594 951</p>
-                <p>Website: www.trukafrica.com</p>
+                <p>Website: www.trukflow.com</p>
                 <p>Address: Nairobi, Kenya</p>
               </div>
             </section>

@@ -14,7 +14,7 @@ const PrivacyPolicy = () => {
             <section>
               <h2 className="text-2xl font-semibold mb-3">1. Introduction</h2>
               <p>TRUKFLOW Africa ("We") respects your privacy and is committed to protecting your personal data under the Kenya Data Protection Act, 2019.</p>
-              <p className="mt-2">This Privacy Policy explains how we collect, use, store, and protect your information when you use www.trukafrica.com and our mobile apps.</p>
+              <p className="mt-2">This Privacy Policy explains how we collect, use, store, and protect your information when you use www.trukflow.com and our mobile apps.</p>
             </section>
 
             <section>
