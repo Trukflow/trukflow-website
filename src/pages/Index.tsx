@@ -822,31 +822,35 @@ const Index = () => {
               <div className="flex flex-wrap gap-4 mb-6 justify-center sm:justify-start">
                 <Facebook 
                   className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" 
-                  onClick={() => window.open('https://web.facebook.com/profile.php?id=61577130358564', '_blank')}
+                  onClick={() => window.open('https://www.facebook.com/profile.php?id=61577130358564', '_blank')}
                 />
                 {/* X logo (formerly Twitter) */}
                 <svg 
                   className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" 
                   viewBox="0 0 24 24" 
                   fill="currentColor"
-                  onClick={() => window.open('https://x.com/TRUKLTD', '_blank')}
+                  onClick={() => window.open('https://x.com/Trukflow', '_blank')}
                 >
                   <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
                 </svg>
                 <Instagram 
                   className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" 
-                  onClick={() => window.open('https://www.instagram.com/truk_ltd?igsh=MWhnMjkyZHhmajI4bg%3D%3D&utm_source=qr', '_blank')}
+                  onClick={() => window.open('https://www.instagram.com/trukflow_?igsh=MWhnMjkyZHhmajI4bg%3D%3D&utm_source=qr', '_blank')}
                 />
-                <Linkedin 
-                  className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" 
-                  onClick={() => window.open('https://www.linkedin.com/company/truk-ltd/posts/?feedView=all', '_blank')}
-                />
+                <a
+                  href="https://www.linkedin.com/company/trukflow/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" />
+                </a>
                 {/* TikTok logo */}
                 <svg 
                   className="w-5 h-5 md:w-6 md:h-6 text-gray-400 hover:text-white cursor-pointer transition-colors" 
                   viewBox="0 0 24 24" 
                   fill="currentColor"
-                  onClick={() => window.open('https://www.tiktok.com/@truk_ltd', '_blank')}
+                  onClick={() => window.open('https://www.tiktok.com/@trukflow?_r=1&_t=ZS-956KJF8k08e', '_blank')}
                 >
                   <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
                 </svg>
