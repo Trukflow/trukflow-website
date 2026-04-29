@@ -148,7 +148,7 @@ const Navbar = () => {
                 isScrolled ? "hover:opacity-80" : "hover:opacity-90"
               }`}
             >
-              <img src="/TRUKFLOW Logo.jpeg" alt="TRUKFLOW Logo" className="h-14 sm:h-20 md:h-24 w-auto" />
+              <img src="/TRUKFLOW Logo Transparent.png" alt="TRUKFLOW Logo" className="h-14 sm:h-20 md:h-24 w-auto" />
             </button>
           </div>
 

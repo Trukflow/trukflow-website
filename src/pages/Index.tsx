@@ -266,12 +266,12 @@ const Index = () => {
               {/* Services - Vertical Layout with Descriptions - Made Bold */}
               <div className="space-y-4 md:space-y-6">
                 <div className="space-y-2">
-                  <span className="text-orange-300 text-xl md:text-2xl font-bold block">agriTRUK</span>
-                  <span className="text-white/80 text-base md:text-lg">Farm-to-Market Solutions for Farmers & Agribusinesses</span>
+                  <span className="text-orange-300 text-xl md:text-2xl font-bold block">🚛 DriverMarketplace</span>
+                  <span className="text-white/80 text-base md:text-lg">Hire verified drivers & access cargo jobs</span>
                 </div>
                 <div className="space-y-2">
-                  <span className="text-orange-300 text-xl md:text-2xl font-bold block">cargoTRUK</span>
-                  <span className="text-white/80 text-base md:text-lg">Businessess & individuals seeking transport services</span>
+                  <span className="text-orange-300 text-xl md:text-2xl font-bold block">📦 SmartDrop</span>
+                  <span className="text-white/80 text-base md:text-lg">Secure smart lockers for deliveries</span>
                 </div>
               </div>
 
