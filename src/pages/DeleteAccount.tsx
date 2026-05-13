@@ -158,7 +158,7 @@ const DeleteAccount = () => {
             </Button>
           </div>
           <img
-            src="/TRUKFLOW Logo.jpeg"
+            src="/TRUKFLOW Logo2.0.jpeg"
             alt="TRUKFLOW Logo"
             className="h-10 cursor-pointer"
             onClick={() => navigate("/")}

@@ -784,7 +784,7 @@ const Index = () => {
             <div className="animate-on-scroll sm:col-span-2 lg:col-span-1 text-center sm:text-left">
               <div className="mb-4 flex items-center justify-center sm:justify-start">
                 <img 
-                  src="/TRUKFLOW Logo.jpeg"
+                  src="/TRUKFLOW Logo2.0.jpeg"
                   alt="TRUKFLOW Logo"
                   className="h-20 w-auto md:h-24"
                 />
