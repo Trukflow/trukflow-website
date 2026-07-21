@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
+import { Linkedin } from "lucide-react";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -12,20 +13,6 @@ const About = () => {
     image: "/AbisaiPhoto.jpg",
     bio: "Serial entrepreneur with 10+ years building and scaling complex supply chain and distribution operations across East Africa. Grew a multi-branch agribusiness spanning fleet logistics, cold storage, farmer aggregation, distribution and last-mile delivery to over $1M in revenue across 20+ locations. At TRUKFLOW Ventures, Abisai brings that hard-earned operational depth to building East Africa's smartest logistics and commerce infrastructure. His approach is simple: build the backbone first. Every TRUKFLOW product is designed by someone who has lived the inefficiencies and knows exactly how to fix them across the team.",
     linkedin: "https://www.linkedin.com/in/abisai-nandi-443405145/"
-  },
-  {
-    name: "Ayub Ng'ang'a",
-    role: "CTO & Systems Engineer",
-    image: "/Ayub Ng'ang'a.jpeg",
-    bio: "IoT and embedded systems engineer with 6+ years of experience deploying connected energy storage, PV, and microgrid solutions across emerging markets. Specializes in firmware, telemetry, cloud integration, and secure OTA systems, with hands-on experience delivering scalable diagnostics, monitoring, and remote control infrastructure for distributed ESS fleets across East Africa.",
-    linkedin: "https://www.linkedin.com/in/ayubnganga/"
-  },
-  {
-    name: "Dickson Mumo",
-    role: "Lead IoT & Hardware Engineer",
-    image: "/Dickson.jpg",
-    bio: "Firmware and hardware engineer with 8+ years of experience building embedded systems across automotive, agriculture, medical devices, and consumer electronics. Brings deep expertise in microcontrollers, wireless connectivity, schematic capture, and PCB design, delivering production-ready connected hardware from concept through deployment.",
-    linkedin: "https://www.linkedin.com/in/dickson-mumo-4bba7697/"
   },
   {
     name: "Mumbua Mutuku",
@@ -41,7 +28,45 @@ const About = () => {
     bio: "Full-stack Software Engineer and UX designer with 5+ years of experience; part of the team building TRUKFLOW's customer-facing interfaces and brand systems.",
     linkedin: "https://www.linkedin.com/in/io-mititi/"
   },
+  {
+    name: "Ayub Ng'ang'a",
+    role: "CTO & Systems Engineer",
+    image: "/Ayub Ng'ang'a.jpeg",
+    bio: "IoT and embedded systems engineer with 6+ years of experience deploying connected energy storage, PV, and microgrid solutions across emerging markets. Specializes in firmware, telemetry, cloud integration, and secure OTA systems, with hands-on experience delivering scalable diagnostics, monitoring, and remote control infrastructure for distributed ESS fleets across East Africa.",
+    linkedin: "https://www.linkedin.com/in/ayubnganga/"
+  },
+  {
+    name: "Dickson Mumo",
+    role: "Lead IoT & Hardware Engineer",
+    image: "/Dickson.jpg",
+    bio: "Firmware and hardware engineer with 8+ years of experience building embedded systems across automotive, agriculture, medical devices, and consumer electronics. Brings deep expertise in microcontrollers, wireless connectivity, schematic capture, and PCB design, delivering production-ready connected hardware from concept through deployment.",
+    linkedin: "https://www.linkedin.com/in/dickson-mumo-4bba7697/"
+  },
 ];
+
+  const advisors = [
+    {
+      name: "Olum Alex",
+      role: "Board Advisor, Sales & Market Development",
+      image: "/Olum Alex Image.jpeg",
+      bio: "Executive MBA and Bachelor of Education holder with deep experience in sales strategy, trade marketing, distributor management, direct sales, agency operations, team mobilization, promotions, event execution, and data-led decision making.",
+      linkedin: "https://www.linkedin.com/in/olum-alex-a003344b/"
+    },
+    {
+      name: "Joseph Newton Okech",
+      role: "Board Advisor, Agricultural Economics & Operations",
+      image: "/Joseph Newton Image.jpeg",
+      bio: "Agricultural economist with an MSc in Agricultural Economics and operations leadership experience as Director of Operations at Aquarech Ltd. Provides economic evaluation services and develops farmer training materials for fish production and marketing.",
+      linkedin: "https://www.linkedin.com/in/joseph-newton-okech-016b03133/"
+    },
+    {
+      name: "Otieno Omondi",
+      role: "Board Advisor, Technology & Cybersecurity",
+      image: "/Otieno Omondi Image.jpeg",
+      bio: "IT specialist, network administrator, software developer, cybersecurity specialist, and BI consultant with experience leading digital transformation, analytics, AI security solutions, cybersecurity strategy, and technology-enabled operational improvements.",
+      linkedin: "https://www.linkedin.com/in/otieno-omondi/"
+    }
+  ];
 
 const industryStats = [
   { 
@@ -265,8 +290,60 @@ const industryStats = [
         </div>
       </section>
 
-      {/* Values */}
+      {/* Board of Advisors */}
       <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12 animate-on-scroll">
+            <h2 className="text-4xl font-bold text-orange-500 mb-4">
+              Board of Advisors
+            </h2>
+            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+              Experienced operators and specialists guiding TRUKFLOW's growth across markets, technology, and agriculture.
+            </p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-3">
+            {advisors.map((advisor) => (
+              <article
+                key={advisor.name}
+                className="bg-white rounded-lg border border-orange-100 shadow-lg shadow-stone-300/40 overflow-hidden animate-on-scroll transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+              >
+                <div className="h-72 bg-neutral-100 overflow-hidden">
+                  <img
+                    src={advisor.image}
+                    alt={advisor.name}
+                    className="w-full h-full object-cover object-top"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="flex items-start justify-between gap-4 mb-2">
+                    <h3 className="text-xl font-bold text-gray-900">
+                      {advisor.name}
+                    </h3>
+                    <a
+                      href={advisor.linkedin}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label={`${advisor.name} on LinkedIn`}
+                      className="text-[#0076b2] hover:text-[#005f8f] transition-colors"
+                    >
+                      <Linkedin className="w-5 h-5" />
+                    </a>
+                  </div>
+                  <p className="text-orange-500 font-medium mb-3">
+                    {advisor.role}
+                  </p>
+                  <p className="text-gray-600 text-sm leading-relaxed">
+                    {advisor.bio}
+                  </p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Values */}
+      <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-4xl font-bold text-orange-500 text-center mb-16 animate-on-scroll">
             Our Values

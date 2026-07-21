@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -29,6 +29,18 @@ const RouteFallback = () => (
   </div>
 );
 
+const SmartdropRedirect = () => {
+  useEffect(() => {
+    window.location.replace("https://smartdrop.africa");
+  }, []);
+
+  return (
+    <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
+      Redirecting to Smartdrop...
+    </div>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -42,6 +54,7 @@ const App = () => (
             <Route path="/download" element={<Download />} />
             <Route path="/agritruk" element={<AgriTruk />} />
             <Route path="/cargotruk" element={<CargoTruk />} />
+            <Route path="/smartdrop" element={<SmartdropRedirect />} />
             <Route path="/brokers" element={<Brokers />} />
             <Route path="/transporter-enlistment" element={<TransporterEnlistment />} />
             <Route path="/company-auth" element={<CompanyAuth />} />

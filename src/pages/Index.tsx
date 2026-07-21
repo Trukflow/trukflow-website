@@ -15,6 +15,8 @@ import { useEffect, useState } from "react";
 import { Facebook, Instagram, Linkedin, MapPin, Mail, Phone, ArrowRight, Shield, Clock, Users, Award, CheckCircle, MessageCircle, HeadphonesIcon, Zap } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
+const SMARTDROP_URL = "https://smartdrop.africa";
+
 const Index = () => {
   const [api, setApi] = useState<any>();
   const [feedbackApi, setFeedbackApi] = useState<any>();
@@ -270,7 +272,12 @@ const Index = () => {
                   <span className="text-white/80 text-base md:text-lg">Hire verified drivers & access cargo jobs</span>
                 </div>
                 <div className="space-y-2">
-                  <span className="text-orange-300 text-xl md:text-2xl font-bold block">📦 SmartDrop</span>
+                  <a
+                    href={SMARTDROP_URL}
+                    className="text-orange-300 hover:text-orange-200 text-xl md:text-2xl font-bold block transition-colors"
+                  >
+                    📦 SmartDrop
+                  </a>
                   <span className="text-white/80 text-base md:text-lg">Secure smart lockers for deliveries</span>
                 </div>
               </div>

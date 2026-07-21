@@ -1,1 +1,3 @@
+/smartdrop  https://smartdrop.africa  301
+/smartdrop/*  https://smartdrop.africa/:splat  301
 /*  /index.html  200

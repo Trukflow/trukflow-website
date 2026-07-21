@@ -12,6 +12,8 @@ import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
 
+const SMARTDROP_URL = "https://smartdrop.africa";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -159,7 +161,7 @@ const Navbar = () => {
               <DropdownMenuTrigger
                 className={`flex items-center transition-colors duration-200 font-medium focus:outline-none focus:ring-0 focus:border-none ${getTextColor()} ${getHoverColor()}`}
               >
-                Services
+                Services/Products
                 <ChevronDown className="ml-1 h-4 w-4" />
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-white border border-gray-200 shadow-lg z-50">
@@ -180,6 +182,15 @@ const Navbar = () => {
                   }}
                 >
                   cargoTRUK
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  className="cursor-pointer hover:bg-gray-100"
+                  onClick={() => {
+                    console.log("Navigating to Smartdrop site");
+                    window.location.href = SMARTDROP_URL;
+                  }}
+                >
+                  Smartdrop
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="cursor-pointer hover:bg-gray-100"
@@ -324,7 +335,7 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <div className="block px-3 py-2 text-gray-700 font-medium">Services</div>
+              <div className="block px-3 py-2 text-gray-700 font-medium">Services/Products</div>
               <div className="pl-6 space-y-1">
                 <button
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
@@ -345,6 +356,16 @@ const Navbar = () => {
                   }}
                 >
                   cargoTRUK
+                </button>
+                <button
+                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
+                  onClick={() => {
+                    console.log("Navigating to Smartdrop site");
+                    setIsOpen(false);
+                    window.location.href = SMARTDROP_URL;
+                  }}
+                >
+                  Smartdrop
                 </button>
                 <button
                   className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
