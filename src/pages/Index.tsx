@@ -863,9 +863,13 @@ const Index = () => {
                 </svg>
               </div>
               <div className="space-y-2 text-gray-400 text-sm">
-                <div className="flex items-center justify-center sm:justify-start">
-                  <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
-                  <span>Nairobi, Kenya</span>
+                <div className="flex items-start justify-center sm:justify-start">
+                  <MapPin className="w-4 h-4 mt-0.5 mr-2 flex-shrink-0" />
+                  <address className="not-italic">
+                    Office Suite 615, Suraj Plaza, Limuru Road, Nairobi
+                    <br />
+                    P.O. Box 7248, 40100
+                  </address>
                 </div>
                 <div className="flex items-center justify-center sm:justify-start">
                   <Mail className="w-4 h-4 mr-2 flex-shrink-0" />
