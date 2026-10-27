@@ -18,7 +18,39 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ['Geist', 'Inter', 'system-ui', 'sans-serif'],
+				serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+				mono: ['"Geist Mono"', 'ui-monospace', 'monospace']
+			},
 			colors: {
+				ink: {
+					950: '#0a0a0a',
+					900: '#101010',
+					850: '#141414',
+					800: '#1a1a1a',
+					700: '#262626',
+					600: '#393939',
+					400: '#8a8a8a',
+					300: '#a1a1a1',
+					200: '#e1e1e1'
+				},
+				flame: {
+					200: '#ffc78c',
+					400: '#ff9a3d',
+					500: '#ff7a1a',
+					600: '#f25c05'
+				},
+				frost: {
+					200: '#bae6fd',
+					400: '#38bdf8',
+					500: '#0ea5e9'
+				},
+				leaf: {
+					200: '#d9f99d',
+					400: '#a3e635',
+					500: '#4ade80'
+				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
@@ -84,11 +116,26 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				marquee: {
+					from: { transform: 'translateX(0)' },
+					to: { transform: 'translateX(-50%)' }
+				},
+				float: {
+					'0%, 100%': { transform: 'translateY(0)' },
+					'50%': { transform: 'translateY(-10px)' }
+				},
+				'glow-pulse': {
+					'0%, 100%': { opacity: '0.55' },
+					'50%': { opacity: '1' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				marquee: 'marquee 40s linear infinite',
+				float: 'float 6s ease-in-out infinite',
+				'glow-pulse': 'glow-pulse 2.4s ease-in-out infinite'
 			}
 		}
 	},
