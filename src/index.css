@@ -108,8 +108,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
-    font-family: Inter, "SF Pro Display", Poppins, system-ui, sans-serif;
+    @apply bg-background text-foreground font-sans antialiased;
   }
 
   /* Smooth scrolling for all pages */
@@ -120,5 +119,96 @@
   /* Smooth scrolling for anchor links */
   a[href^="#"] {
     scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+}
+
+/* Marketing pages: dark canvas inspired by modern product sites */
+@layer components {
+  .site {
+    @apply min-h-screen bg-ink-950 text-ink-200 font-sans antialiased;
+  }
+
+  .site-container {
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-ink-600 bg-ink-900/70 px-3 py-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-300 backdrop-blur;
+  }
+
+  .display {
+    @apply font-normal leading-[0.98] tracking-[-0.045em] text-white;
+  }
+
+  .text-gradient-flame {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, #ffc78c 10%, #ff9a3d 50%, #ff5a1f 100%);
+  }
+
+  .text-gradient-frost {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, #e0f2fe 0%, #7dd3fc 45%, #38bdf8 100%);
+  }
+
+  .text-gradient-leaf {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(90deg, #ecfccb 0%, #a3e635 50%, #4ade80 100%);
+  }
+
+  .btn-pill {
+    @apply inline-flex h-11 items-center justify-center gap-2 rounded-full px-5 text-sm font-medium tracking-[-0.01em] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-flame-400 focus-visible:ring-offset-2 focus-visible:ring-offset-ink-950;
+  }
+
+  .btn-light {
+    @apply btn-pill bg-white text-black hover:bg-ink-200;
+  }
+
+  .btn-ghost {
+    @apply btn-pill border border-ink-600 text-white hover:border-white/40 hover:bg-white/5;
+  }
+
+  .card-surface {
+    @apply rounded-3xl border border-ink-700 bg-ink-900;
+  }
+
+  .hairline-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+  }
+
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
   }
 }

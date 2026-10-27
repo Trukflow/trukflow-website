@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
-import { ChevronDown, LogOut } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { ArrowUpRight, ChevronDown, LogOut, Menu, X } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,76 +8,34 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
 import { auth } from "@/lib/firebase";
 import { onAuthStateChanged, signOut, type User } from "firebase/auth";
+import Logo from "@/components/site/Logo";
+import { products, SMARTDROP_URL } from "@/components/site/content";
+import { cn } from "@/lib/utils";
 
-const SMARTDROP_URL = "https://smartdrop.africa";
+const productDots: Record<string, string> = {
+  smartdrop: "bg-flame-500",
+  smartcold: "bg-frost-400",
+  chukua: "bg-leaf-400",
+};
+
+// Pages that open on a dark, full-bleed hero can start with a transparent bar
+const darkHeroRoutes = ["/", "/about", "/smartcold", "/chukua"];
+
+const navLinkClass =
+  "relative flex items-center rounded-full px-3.5 py-2.5 text-sm leading-4 text-ink-200 transition-colors hover:bg-white/5 hover:text-white focus:outline-none";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isOverWhiteSection, setIsOverWhiteSection] = useState(false);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => {
-      console.log("Navbar loading complete");
-      setIsLoading(false);
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      setIsScrolled(scrollY > 50);
-
-      // Check if navbar is over a white background section
-      const sections = document.querySelectorAll("section");
-      const navbarHeight = 80; // Approximate navbar height
-
-      let overWhite = false;
-      sections.forEach((section) => {
-        const rect = section.getBoundingClientRect();
-        const sectionTop = rect.top;
-        const sectionBottom = rect.bottom;
-
-        if (sectionTop <= navbarHeight && sectionBottom >= 0) {
-          const computedStyle = window.getComputedStyle(section);
-          const bgColor = computedStyle.backgroundColor;
-          const bgImage = computedStyle.backgroundImage;
-
-          if (
-            bgColor === "rgb(255, 255, 255)" ||
-            bgColor === "white" ||
-            bgColor.includes("248, 250, 252") ||
-            bgColor.includes("249, 250, 251") ||
-            bgColor.includes("250, 250, 250") ||
-            bgColor.includes("248, 248, 248") ||
-            section.classList.contains("bg-white") ||
-            section.classList.contains("bg-gray-50") ||
-            section.classList.contains("from-white") ||
-            section.classList.contains("to-gray-50") ||
-            section.classList.contains("from-gray-50") ||
-            section.classList.contains("to-white") ||
-            section.classList.contains("from-gray-100") ||
-            section.classList.contains("to-gray-100") ||
-            (bgImage === "none" && (bgColor === "rgba(0, 0, 0, 0)" || bgColor === "transparent"))
-          ) {
-            overWhite = true;
-          }
-        }
-      });
-
-      setIsOverWhiteSection(overWhite);
-    };
-
-    window.addEventListener("scroll", handleScroll);
+    const handleScroll = () => setIsScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -90,35 +48,31 @@ const Navbar = () => {
     return () => unsubscribe();
   }, []);
 
+  // Close the drawer on navigation and lock page scroll while it's open
+  useEffect(() => setIsOpen(false), [location.pathname, location.hash]);
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const scrollToSection = (sectionId: string) => {
-    console.log(`Attempting to navigate to section: ${sectionId}`);
+    setIsOpen(false);
     if (location.pathname === "/") {
-      const section = document.getElementById(sectionId);
-      if (section) {
-        console.log(`Scrolling to section ${sectionId} on current page`);
-        section.scrollIntoView({ behavior: "smooth" });
-      } else {
-        console.log(`Section ${sectionId} not found on /, navigating to /#${sectionId}`);
-        navigate(`/#${sectionId}`);
-      }
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: "smooth" });
     } else {
-      console.log(`Not on /, navigating to /#${sectionId}`);
       navigate(`/#${sectionId}`);
     }
   };
 
-  const getTextColor = () => {
-    if (isScrolled) {
-      return isOverWhiteSection ? "text-orange-500" : "text-white";
+  const goToProduct = (href: string, external?: boolean) => {
+    setIsOpen(false);
+    if (external) {
+      window.location.href = href;
+    } else {
+      navigate(href);
     }
-    return isOverWhiteSection ? "text-orange-500" : "text-gray-700";
-  };
-
-  const getHoverColor = () => {
-    if (isScrolled) {
-      return isOverWhiteSection ? "hover:text-orange-600" : "hover:text-orange-500";
-    }
-    return isOverWhiteSection ? "hover:text-orange-600" : "hover:text-orange-500";
   };
 
   const handleLogout = async () => {
@@ -130,397 +84,205 @@ const Navbar = () => {
   };
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/10 backdrop-blur-md border-b border-white/20 shadow-lg"
-          : "bg-white border-b border-gray-200 shadow-sm"
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20 sm:h-24 md:h-28">
-          {/* Logo */}
-          <div className="flex-shrink-0">
-            <button
-              onClick={() => {
-                console.log("Navigating to /");
-                navigate("/");
-              }}
-              className={`cursor-pointer transition-colors duration-200 ${
-                isScrolled ? "hover:opacity-80" : "hover:opacity-90"
-              }`}
-            >
-              <img src="/TRUKFLOW_Logo2.0-removebg-preview.png" alt="TRUKFLOW Logo" className="h-14 sm:h-20 md:h-24 w-auto" />
-            </button>
-          </div>
+    <>
+      <nav
+        className={cn(
+          "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+          !darkHeroRoutes.includes(location.pathname)
+            ? "border-b border-white/5 bg-ink-950"
+            : isScrolled
+            ? "border-b border-white/5 bg-ink-950/85 backdrop-blur-xl"
+            : "bg-gradient-to-b from-black/60 to-transparent"
+        )}
+      >
+        <div className="site-container relative flex h-[72px] items-center justify-between gap-4">
+          <Link to="/" className="flex-shrink-0 transition-opacity hover:opacity-80" aria-label="TRUKFLOW home">
+            <Logo className="h-14 sm:h-16" />
+          </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
-            {/* Services Dropdown */}
+          {/* Desktop navigation */}
+          <div className="absolute left-1/2 top-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-1 rounded-full border border-white/10 bg-ink-900/60 p-1 backdrop-blur-md lg:flex">
             <DropdownMenu>
-              <DropdownMenuTrigger
-                className={`flex items-center transition-colors duration-200 font-medium focus:outline-none focus:ring-0 focus:border-none ${getTextColor()} ${getHoverColor()}`}
-              >
-                Services/Products
-                <ChevronDown className="ml-1 h-4 w-4" />
+              <DropdownMenuTrigger className={cn(navLinkClass, "gap-1 data-[state=open]:bg-white/5")}>
+                Products
+                <ChevronDown className="h-3.5 w-3.5 opacity-70" />
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-white border border-gray-200 shadow-lg z-50">
-                <DropdownMenuItem
-                  className="cursor-pointer hover:bg-gray-100"
-                  onClick={() => {
-                    console.log("Navigating to /agritruk");
-                    navigate("/agritruk");
-                  }}
-                >
-                  agriTRUK
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="cursor-pointer hover:bg-gray-100"
-                  onClick={() => {
-                    console.log("Navigating to /cargotruk");
-                    navigate("/cargotruk");
-                  }}
-                >
-                  cargoTRUK
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="cursor-pointer hover:bg-gray-100"
-                  onClick={() => {
-                    console.log("Navigating to Smartdrop site");
-                    window.location.href = SMARTDROP_URL;
-                  }}
-                >
-                  Smartdrop
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="cursor-pointer hover:bg-gray-100"
-                  onClick={() => {
-                    console.log("Navigating to /brokers");
-                    navigate("/brokers");
-                  }}
-                >
-                  Broker enlistment
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="cursor-pointer hover:bg-gray-100"
-                  onClick={() => {
-                    console.log("Navigating to /hire-drivers");
-                    navigate("/hire-drivers");
-                  }}
-                >
-                  Hire Drivers
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="cursor-pointer hover:bg-gray-100"
-                  onClick={() => {
-                    console.log("Navigating to /transporter-enlistment");
-                    navigate("/transporter-enlistment");
-                  }}
-                >
-                  Transporter enlistment
-                </DropdownMenuItem>
+              <DropdownMenuContent
+                align="start"
+                sideOffset={10}
+                className="w-80 rounded-2xl border-ink-700 bg-ink-900/95 p-2 text-ink-200 backdrop-blur-xl"
+              >
+                {products.map((product) => (
+                  <DropdownMenuItem
+                    key={product.id}
+                    onClick={() => goToProduct(product.href, product.external)}
+                    className="cursor-pointer items-start gap-3 rounded-xl p-3 focus:bg-white/5 focus:text-white"
+                  >
+                    <span className={cn("mt-1.5 h-2 w-2 flex-shrink-0 rounded-full", productDots[product.id])} />
+                    <span className="flex-1">
+                      <span className="flex items-center gap-2 text-sm font-medium text-white">
+                        {product.name}
+                        {product.external && <ArrowUpRight className="h-3.5 w-3.5 text-ink-400" />}
+                        <span className="ml-auto font-mono text-[10px] uppercase tracking-wider text-ink-400">
+                          {product.status === "pilot" ? "Pilot" : "Soon"}
+                        </span>
+                      </span>
+                      <span className="mt-0.5 block text-xs leading-relaxed text-ink-300">{product.tagline}</span>
+                    </span>
+                  </DropdownMenuItem>
+                ))}
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Other Navigation Items */}
-            <button
-              onClick={() => {
-                console.log("Navigating to /about");
-                navigate("/about");
-              }}
-              className={`transition-colors duration-200 font-medium ${getTextColor()} ${getHoverColor()}`}
-            >
-              About Us
-            </button>
-            <button
-              onClick={() => scrollToSection("faqs")}
-              className={`transition-colors duration-200 font-medium ${getTextColor()} ${getHoverColor()}`}
-            >
+            <Link to="/hire-drivers" className={navLinkClass}>
+              Hire Drivers
+            </Link>
+            <Link to="/about" className={navLinkClass}>
+              About
+            </Link>
+            <button onClick={() => scrollToSection("faqs")} className={navLinkClass}>
               FAQs
             </button>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className={`transition-colors duration-200 font-medium ${getTextColor()} ${getHoverColor()}`}
-            >
-              Contact Us
+            <button onClick={() => scrollToSection("contact")} className={navLinkClass}>
+              Contact
             </button>
+          </div>
 
-            {/* Company Login Button */}
+          {/* Desktop actions */}
+          <div className="hidden items-center gap-2 lg:flex">
             {currentUser ? (
               <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="outline"
-                    className="border-2 transition-all duration-300 font-medium px-6 rounded-full transform hover:scale-105"
-                  >
-                    {currentUser.email || "Account"}
-                    <ChevronDown className="ml-2 h-4 w-4" />
-                  </Button>
+                <DropdownMenuTrigger className="btn-ghost h-10 max-w-[220px] px-4">
+                  <span className="truncate">{currentUser.email || "Account"}</span>
+                  <ChevronDown className="h-4 w-4 flex-shrink-0" />
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-64">
+                <DropdownMenuContent align="end" className="w-64 rounded-2xl border-ink-700 bg-ink-900 p-1 text-ink-200">
                   <DropdownMenuItem
                     onClick={() => navigate("/company-auth")}
-                    className="cursor-pointer"
+                    className="cursor-pointer rounded-xl focus:bg-white/5 focus:text-white"
                   >
                     Manage Recruiter Access
                   </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleLogout} className="cursor-pointer text-destructive focus:text-destructive">
+                  <DropdownMenuSeparator className="bg-ink-700" />
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="cursor-pointer rounded-xl text-red-400 focus:bg-red-500/10 focus:text-red-300"
+                  >
                     <LogOut className="mr-2 h-4 w-4" />
                     Sign Out
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
             ) : (
-              <Button
-                variant="outline"
-                className="border-2 transition-all duration-300 font-medium px-6 rounded-full transform hover:scale-105"
-                onClick={() => {
-                  console.log("Navigating to /company-auth");
-                  navigate("/company-auth");
-                }}
-              >
+              <Link to="/company-auth" className="btn-pill h-10 px-4 text-ink-200 hover:text-white">
                 Recruiter Login
-              </Button>
+              </Link>
             )}
-
-            {/* Get Started Button */}
-            <Button
-              className="bg-gradient-to-r from-gray-800 to-gray-900 hover:from-gray-900 hover:to-black text-white transition-all duration-300 font-medium px-6 rounded-full transform hover:scale-105 shadow-2xl hover:shadow-gray-500/30"
-              onClick={() => {
-                console.log("Navigating to /download");
-                navigate("/download");
-              }}
-            >
-              Get Started
-            </Button>
+            <a href={SMARTDROP_URL} className="btn-light h-10">
+              Join the pilot
+            </a>
           </div>
 
           {/* Mobile menu button */}
-          <div className="md:hidden z-50">
+          <button
+            onClick={() => setIsOpen(true)}
+            aria-label="Open menu"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-ink-600 text-white transition-colors hover:border-white/30 lg:hidden"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile drawer */}
+      <div className={cn("fixed inset-0 z-[60] lg:hidden", isOpen ? "pointer-events-auto" : "pointer-events-none")}>
+        <div
+          onClick={() => setIsOpen(false)}
+          className={cn(
+            "absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity duration-200",
+            isOpen ? "opacity-100" : "opacity-0"
+          )}
+        />
+        <aside
+          className={cn(
+            "absolute right-0 top-0 flex h-[100dvh] w-[min(88vw,24rem)] flex-col border-l border-ink-700 bg-ink-950 text-ink-200 transition-transform duration-300 ease-out",
+            isOpen ? "translate-x-0" : "translate-x-full"
+          )}
+        >
+          <div className="flex h-[72px] items-center justify-between border-b border-ink-700 px-5">
+            <span className="text-sm font-medium text-ink-300">Menu</span>
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className={`focus:outline-none transition-colors duration-200 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center ${
-                isScrolled
-                  ? isOverWhiteSection
-                    ? "text-orange-500 hover:text-orange-600"
-                    : "text-white hover:text-gray-200"
-                  : isOverWhiteSection
-                  ? "text-orange-500 hover:text-orange-600"
-                  : "text-gray-700 hover:text-gray-900"
-              }`}
+              onClick={() => setIsOpen(false)}
+              aria-label="Close menu"
+              className="flex h-11 w-11 items-center justify-center rounded-full hover:bg-white/5"
             >
-              <svg className="h-6 w-6 sm:h-7 sm:w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                {isOpen ? (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                ) : (
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                )}
-              </svg>
+              <X className="h-5 w-5" />
             </button>
           </div>
-        </div>
 
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-40">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              <div className="block px-3 py-2 text-gray-700 font-medium">Services/Products</div>
-              <div className="pl-6 space-y-1">
-                <button
-                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
-                  onClick={() => {
-                    console.log("Navigating to /agritruk");
-                    setIsOpen(false);
-                    navigate("/agritruk");
-                  }}
-                >
-                  agriTRUK
-                </button>
-                <button
-                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
-                  onClick={() => {
-                    console.log("Navigating to /cargotruk");
-                    setIsOpen(false);
-                    navigate("/cargotruk");
-                  }}
-                >
-                  cargoTRUK
-                </button>
-                <button
-                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
-                  onClick={() => {
-                    console.log("Navigating to Smartdrop site");
-                    setIsOpen(false);
-                    window.location.href = SMARTDROP_URL;
-                  }}
-                >
-                  Smartdrop
-                </button>
-                <button
-                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
-                  onClick={() => {
-                    console.log("Navigating to /brokers");
-                    setIsOpen(false);
-                    navigate("/brokers");
-                  }}
-                >
-                  Broker enlistment
-                </button>
-                <button
-                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
-                  onClick={() => {
-                    console.log("Navigating to /hire-drivers");
-                    setIsOpen(false);
-                    navigate("/hire-drivers");
-                  }}
-                >
-                  Hire Drivers
-                </button>
-                <button
-                  className="block px-3 py-2 text-gray-600 hover:text-gray-900 text-left w-full"
-                  onClick={() => {
-                    console.log("Navigating to /transporter-enlistment");
-                    setIsOpen(false);
-                    navigate("/transporter-enlistment");
-                  }}
-                >
-                  Transporter enlistment
-                </button>
-              </div>
+          <div className="flex-1 overflow-y-auto px-3 py-4">
+            <p className="px-3 pb-2 font-mono text-[11px] uppercase tracking-[0.14em] text-ink-400">Products</p>
+            {products.map((product) => (
               <button
-                onClick={() => {
-                  console.log("Navigating to /about");
-                  setIsOpen(false);
-                  navigate("/about");
-                }}
-                className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
+                key={product.id}
+                onClick={() => goToProduct(product.href, product.external)}
+                className="flex min-h-11 w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left hover:bg-white/5"
               >
-                About Us
+                <span className={cn("h-2 w-2 rounded-full", productDots[product.id])} />
+                <span className="flex-1 text-[15px] text-white">{product.name}</span>
+                <span className="font-mono text-[10px] uppercase tracking-wider text-ink-400">
+                  {product.status === "pilot" ? "Pilot" : "Soon"}
+                </span>
               </button>
-              <button
-                onClick={() => {
-                  console.log("Navigating to /#faqs");
-                  setIsOpen(false);
-                  scrollToSection("faqs");
-                }}
-                className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
-              >
-                FAQs
-              </button>
-              <button
-                onClick={() => {
-                  console.log("Navigating to /#contact");
-                  setIsOpen(false);
-                  scrollToSection("contact");
-                }}
-                className="block px-3 py-2 text-gray-700 font-medium hover:text-gray-900 text-left w-full"
-              >
-                Contact Us
-              </button>
-              <div className="px-3 py-2 space-y-2">
-                {currentUser ? (
-                  <>
-                    <button
-                      className="
-                        w-full 
-                        bg-white
-                        border-2 border-gray-900
-                        text-gray-900
-                        font-medium 
-                        rounded-full
-                        py-2
-                        transition-all duration-300
-                        transform hover:scale-[1.02]
-                        active:scale-100
-                      "
-                      onClick={() => {
-                        console.log("Navigating to /company-auth");
-                        setIsOpen(false);
-                        navigate("/company-auth");
-                      }}
-                    >
-                      Manage Recruiter Access
-                    </button>
-                    <button
-                      className="
-                        w-full 
-                        border border-orange-200
-                        bg-orange-50
-                        text-orange-700
-                        font-medium 
-                        rounded-full
-                        py-2
-                        transition-all duration-300
-                        transform hover:scale-[1.02]
-                        active:scale-100
-                      "
-                      onClick={handleLogout}
-                    >
-                      Sign Out
-                    </button>
-                  </>
-                ) : (
-                  <button
-                    className="
-                      w-full 
-                      bg-white
-                      border-2 border-gray-900
-                      text-gray-900
-                      font-medium 
-                      rounded-full
-                      py-2
-                      transition-all duration-300
-                      transform hover:scale-[1.02]
-                      active:scale-100
-                    "
-                    onClick={() => {
-                      console.log("Navigating to /company-auth");
-                      setIsOpen(false);
-                      navigate("/company-auth");
-                    }}
-                  >
-                    Recruiter Login
-                  </button>
-                )}
-                <button
-                  className="
-                    w-full 
-                    bg-orange-500
-                    hover:bg-orange-600
-                    text-white 
-                    font-medium 
-                    rounded-full
-                    py-2
-                    transition-all duration-300
-                    shadow-2xl hover:shadow-orange-500/30
-                    transform hover:scale-[1.02]
-                    active:scale-100
-                  "
-                  onClick={() => {
-                    console.log("Navigating to /download");
-                    setIsOpen(false);
-                    navigate("/download");
-                  }}
-                >
-                  Get Started
-                </button>
-              </div>
-            </div>
+            ))}
+
+            <div className="my-3 border-t border-ink-700" />
+
+            <Link to="/hire-drivers" className="flex min-h-11 items-center rounded-xl px-3 text-[15px] hover:bg-white/5 hover:text-white">
+              Hire Drivers
+            </Link>
+            <Link to="/drivers-job-board" className="flex min-h-11 items-center rounded-xl px-3 text-[15px] hover:bg-white/5 hover:text-white">
+              Drivers Job Board
+            </Link>
+            <Link to="/about" className="flex min-h-11 items-center rounded-xl px-3 text-[15px] hover:bg-white/5 hover:text-white">
+              About
+            </Link>
+            <button
+              onClick={() => scrollToSection("faqs")}
+              className="flex min-h-11 w-full items-center rounded-xl px-3 text-left text-[15px] hover:bg-white/5 hover:text-white"
+            >
+              FAQs
+            </button>
+            <button
+              onClick={() => scrollToSection("contact")}
+              className="flex min-h-11 w-full items-center rounded-xl px-3 text-left text-[15px] hover:bg-white/5 hover:text-white"
+            >
+              Contact
+            </button>
           </div>
-        )}
+
+          <div className="space-y-2 border-t border-ink-700 p-4">
+            {currentUser ? (
+              <>
+                <Link to="/company-auth" className="btn-ghost w-full">
+                  Manage Recruiter Access
+                </Link>
+                <button onClick={handleLogout} className="btn-pill w-full text-red-400 hover:bg-red-500/10">
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <Link to="/company-auth" className="btn-ghost w-full">
+                Recruiter Login
+              </Link>
+            )}
+            <a href={SMARTDROP_URL} className="btn-light w-full">
+              Join the Smartdrop pilot
+            </a>
+          </div>
+        </aside>
       </div>
-    </nav>
+    </>
   );
 };
 

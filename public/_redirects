@@ -1,3 +1,8 @@
 /smartdrop  https://smartdrop.africa  301
 /smartdrop/*  https://smartdrop.africa/:splat  301
+/agritruk  /chukua  301
+/cargotruk  /chukua  301
+/brokers  /chukua#transporters  301
+/transporter-enlistment  /chukua#transporters  301
+/download  /  301
 /*  /index.html  200

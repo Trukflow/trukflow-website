@@ -1,398 +1,390 @@
+import { Link } from "react-router-dom";
+import { ArrowRight, ArrowUpRight, Linkedin } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import { Button } from "@/components/ui/button";
-import { Linkedin } from "lucide-react";
-import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import SiteFooter from "@/components/site/SiteFooter";
+import Reveal from "@/components/site/Reveal";
+import { ParallaxImage } from "@/components/site/Parallax";
+import { Accent, SectionHeading, useHashScroll } from "@/components/site/Section";
+import { products, SMARTDROP_URL } from "@/components/site/content";
+import { cn } from "@/lib/utils";
 
-const About = () => {
-  const navigate = useNavigate();
-  const team = [
+type Person = {
+  name: string;
+  role: string;
+  image: string;
+  bio: string;
+  linkedin: string;
+};
+
+const team: Person[] = [
   {
     name: "Abisai Nandi",
     role: "Founder & CEO, TRUKFLOW Ventures",
     image: "/AbisaiPhoto.jpg",
     bio: "Serial entrepreneur with 10+ years building and scaling complex supply chain and distribution operations across East Africa. Grew a multi-branch agribusiness spanning fleet logistics, cold storage, farmer aggregation, distribution and last-mile delivery to over $1M in revenue across 20+ locations. At TRUKFLOW Ventures, Abisai brings that hard-earned operational depth to building East Africa's smartest logistics and commerce infrastructure. His approach is simple: build the backbone first. Every TRUKFLOW product is designed by someone who has lived the inefficiencies and knows exactly how to fix them across the team.",
-    linkedin: "https://www.linkedin.com/in/abisai-nandi-443405145/"
+    linkedin: "https://www.linkedin.com/in/abisai-nandi-443405145/",
   },
   {
     name: "Mumbua Mutuku",
-    role: "Co-founder & Backend Engineer", 
+    role: "Co-founder & Backend Engineer",
     image: "/photo_2025-06-19 23.37.40.jpeg",
     bio: "Senior Software Engineer with 10+ years of experience specializing in scalable backend systems and cloud infrastructure for the logistics platforms.",
-    linkedin: "https://www.linkedin.com/in/mumbuamutuku/"
+    linkedin: "https://www.linkedin.com/in/mumbuamutuku/",
   },
   {
     name: "Mititi Isaac",
     role: "Co-founder, Frontend Engineer & Branding",
     image: "/Official Photo.jpg",
     bio: "Full-stack Software Engineer and UX designer with 5+ years of experience; part of the team building TRUKFLOW's customer-facing interfaces and brand systems.",
-    linkedin: "https://www.linkedin.com/in/io-mititi/"
+    linkedin: "https://www.linkedin.com/in/io-mititi/",
   },
   {
     name: "Ayub Ng'ang'a",
     role: "CTO & Systems Engineer",
     image: "/Ayub Ng'ang'a.jpeg",
     bio: "IoT and embedded systems engineer with 6+ years of experience deploying connected energy storage, PV, and microgrid solutions across emerging markets. Specializes in firmware, telemetry, cloud integration, and secure OTA systems, with hands-on experience delivering scalable diagnostics, monitoring, and remote control infrastructure for distributed ESS fleets across East Africa.",
-    linkedin: "https://www.linkedin.com/in/ayubnganga/"
+    linkedin: "https://www.linkedin.com/in/ayubnganga/",
   },
   {
     name: "Dickson Mumo",
     role: "Lead IoT & Hardware Engineer",
     image: "/Dickson.jpg",
     bio: "Firmware and hardware engineer with 8+ years of experience building embedded systems across automotive, agriculture, medical devices, and consumer electronics. Brings deep expertise in microcontrollers, wireless connectivity, schematic capture, and PCB design, delivering production-ready connected hardware from concept through deployment.",
-    linkedin: "https://www.linkedin.com/in/dickson-mumo-4bba7697/"
+    linkedin: "https://www.linkedin.com/in/dickson-mumo-4bba7697/",
   },
 ];
 
-  const advisors = [
-    {
-      name: "Olum Alex",
-      role: "Board Advisor, Sales & Market Development",
-      image: "/Olum Alex Image.jpeg",
-      bio: "Executive MBA and Bachelor of Education holder with deep experience in sales strategy, trade marketing, distributor management, direct sales, agency operations, team mobilization, promotions, event execution, and data-led decision making.",
-      linkedin: "https://www.linkedin.com/in/olum-alex-a003344b/"
-    },
-    {
-      name: "Joseph Newton Okech",
-      role: "Board Advisor, Agricultural Economics & Operations",
-      image: "/Joseph Newton Image.jpeg",
-      bio: "Agricultural economist with an MSc in Agricultural Economics and operations leadership experience as Director of Operations at Aquarech Ltd. Provides economic evaluation services and develops farmer training materials for fish production and marketing.",
-      linkedin: "https://www.linkedin.com/in/joseph-newton-okech-016b03133/"
-    },
-    {
-      name: "Otieno Omondi",
-      role: "Board Advisor, Technology & Cybersecurity",
-      image: "/Otieno Omondi Image.jpeg",
-      bio: "IT specialist, network administrator, software developer, cybersecurity specialist, and BI consultant with experience leading digital transformation, analytics, AI security solutions, cybersecurity strategy, and technology-enabled operational improvements.",
-      linkedin: "https://www.linkedin.com/in/otieno-omondi/"
-    }
-  ];
+const advisors: Person[] = [
+  {
+    name: "Olum Alex",
+    role: "Board Advisor, Sales & Market Development",
+    image: "/Olum Alex Image.jpeg",
+    bio: "Executive MBA and Bachelor of Education holder with deep experience in sales strategy, trade marketing, distributor management, direct sales, agency operations, team mobilization, promotions, event execution, and data-led decision making.",
+    linkedin: "https://www.linkedin.com/in/olum-alex-a003344b/",
+  },
+  {
+    name: "Joseph Newton Okech",
+    role: "Board Advisor, Agricultural Economics & Operations",
+    image: "/Joseph Newton Image.jpeg",
+    bio: "Agricultural economist with an MSc in Agricultural Economics and operations leadership experience as Director of Operations at Aquarech Ltd. Provides economic evaluation services and develops farmer training materials for fish production and marketing.",
+    linkedin: "https://www.linkedin.com/in/joseph-newton-okech-016b03133/",
+  },
+  {
+    name: "Otieno Omondi",
+    role: "Board Advisor, Technology & Cybersecurity",
+    image: "/Otieno Omondi Image.jpeg",
+    bio: "IT specialist, network administrator, software developer, cybersecurity specialist, and BI consultant with experience leading digital transformation, analytics, AI security solutions, cybersecurity strategy, and technology-enabled operational improvements.",
+    linkedin: "https://www.linkedin.com/in/otieno-omondi/",
+  },
+];
 
 const industryStats = [
-  { 
-    number: "2.5B", 
-    label: "East Africa Logistics Market Value (USD)", 
-    sublabel: "Annual market size (2023)",
-    detail: "Projected to grow at 7.2% CAGR through 2030 due to rising trade and infrastructure investments."
+  {
+    number: "2.5B",
+    label: "East Africa logistics market value (USD)",
+    detail: "Projected to grow at 7.2% CAGR through 2030 due to rising trade and infrastructure investments.",
   },
-  { 
-    number: "15%", 
-    label: "Agricultural GDP Contribution", 
-    sublabel: "Across East African countries",
-    detail: "Agriculture drives logistics demand, but inefficiencies cost the region ~$1.5B yearly."
+  {
+    number: "15%",
+    label: "Agricultural GDP contribution",
+    detail: "Agriculture drives logistics demand, but inefficiencies cost the region ~$1.5B yearly.",
   },
-  { 
-    number: "60%", 
-    label: "Employment in Agriculture", 
-    sublabel: "Regional workforce dependency",
-    detail: "Highlights the need for cold-chain logistics to reduce post-harvest losses."
+  {
+    number: "60%",
+    label: "Employment in agriculture",
+    detail: "Highlights the need for cold-chain logistics to reduce post-harvest losses.",
   },
-  { 
-    number: "80%", 
-    label: "Post-harvest Losses", 
-    sublabel: "Due to poor logistics",
-    detail: "Lack of storage, poor roads, and limited cold transport worsen food insecurity."
+  {
+    number: "40%",
+    label: "Intra-African trade costs above global average",
+    detail: "AfCFTA aims to reduce tariffs, but non-tariff barriers such as customs delays persist.",
   },
-  { 
-    number: "40%", 
-    label: "Intra-African Trade Costs", 
-    sublabel: "Above global average",
-    detail: "AfCFTA aims to reduce tariffs, but non-tariff barriers (e.g., customs delays) persist."
+  {
+    number: "70%",
+    label: "Cargo transported by road",
+    detail: "Rail and maritime are underused; Mombasa and Dar es Salaam ports handle 90% of trade.",
   },
-  { 
-    number: "70%", 
-    label: "Cargo Transported by Road", 
-    sublabel: "Dominant mode in East Africa",
-    detail: "Rail and maritime underutilized; Mombasa and Dar es Salaam ports handle 90% of trade."
-  }
+  {
+    number: "3",
+    label: "Products on one network",
+    detail: "Smartdrop, Smartcold and the Chukua App are built to work together, from first mile to final pickup.",
+  },
 ];
 
-  // Smooth scroll and animation observer
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+const values = [
+  { title: "Reliability", body: "Consistent, dependable infrastructure our customers can build their business on." },
+  { title: "Innovation", body: "We keep improving our hardware and software to serve users better." },
+  { title: "Trust", body: "Lasting relationships built on transparency, security and integrity." },
+];
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate-fade-in');
-          entry.target.classList.remove('opacity-0', 'translate-y-8');
-        }
-      });
-    }, observerOptions);
+const productDots: Record<string, string> = {
+  smartdrop: "bg-flame-500",
+  smartcold: "bg-frost-400",
+  chukua: "bg-leaf-400",
+};
 
-    const animateElements = document.querySelectorAll('.animate-on-scroll');
-    animateElements.forEach((el) => observer.observe(el));
+const PersonCard = ({ person, featured }: { person: Person; featured?: boolean }) => (
+  <article
+    className={cn(
+      "group card-surface h-full overflow-hidden transition-colors hover:border-ink-600",
+      featured && "md:grid md:grid-cols-5"
+    )}
+  >
+    <div className={cn("overflow-hidden bg-ink-800", featured ? "aspect-[4/5] md:col-span-2 md:aspect-auto" : "aspect-[4/5]")}>
+      <img
+        src={person.image}
+        alt={person.name}
+        loading="lazy"
+        className="h-full w-full object-cover object-top grayscale-[35%] transition-all duration-500 group-hover:scale-[1.03] group-hover:grayscale-0"
+      />
+    </div>
+    <div className={cn("p-7", featured && "md:col-span-3 md:p-10")}>
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h3 className={cn("font-normal tracking-[-0.02em] text-white", featured ? "text-3xl" : "text-xl")}>
+            {person.name}
+          </h3>
+          <p className="mt-1 text-sm text-flame-200">{person.role}</p>
+        </div>
+        <a
+          href={person.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${person.name} on LinkedIn`}
+          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border border-ink-700 text-ink-300 transition-colors hover:border-white/30 hover:text-white"
+        >
+          <Linkedin className="h-4 w-4" />
+        </a>
+      </div>
+      <p className="mt-5 text-sm leading-relaxed text-ink-300">{person.bio}</p>
+    </div>
+  </article>
+);
 
-    return () => observer.disconnect();
-  }, []);
+const About = () => {
+  useHashScroll();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-stone-50 via-white to-neutral-100">
-      <style>
-        {`
-          html {
-            scroll-behavior: smooth;
-          }
-          .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(2rem);
-            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-          }
-          .animate-fade-in {
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-          }
-        `}
-      </style>
-      
+    <div className="site">
       <Navbar />
-      
-      {/* Hero Section */}
-      <section className="pt-40 md:pt-44 pb-16 bg-gradient-to-br from-neutral-950 via-neutral-900 to-stone-800 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-on-scroll">
-            About <span className="text-orange-500">TRUKFLOW</span>
-          </h1>
-          <p className="text-xl md:text-2xl max-w-3xl mx-auto animate-on-scroll">
-            We're revolutionizing logistics across East Africa with smart technology 
-            that connects cargo owners with verified transporters.
-          </p>
+
+      {/* Hero */}
+      <section className="relative flex min-h-[80svh] items-end overflow-hidden grain">
+        <ParallaxImage
+          src="/images/doorstep.jpg"
+          alt="Courier delivering a parcel"
+          speed={0.25}
+          priority
+          className="absolute inset-0"
+          overlay={
+            <>
+              <div className="absolute inset-0 bg-ink-950/70" />
+              <div className="absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/30 to-ink-950/60" />
+            </>
+          }
+        />
+        <div className="site-container relative z-10 pb-20 pt-40">
+          <Reveal>
+            <span className="eyebrow">About TRUKFLOW</span>
+          </Reveal>
+          <Reveal delay={80}>
+            <h1 className="display mt-7 max-w-5xl text-[clamp(2.75rem,1.6rem+5vw,6rem)]">
+              Build the backbone <Accent className="text-gradient-flame pr-2">first.</Accent>
+            </h1>
+          </Reveal>
+          <Reveal delay={160}>
+            <p className="mt-7 max-w-2xl text-lg leading-relaxed text-ink-300">
+              We're a Nairobi team of operators and engineers building the physical and digital infrastructure that
+              lets goods change hands reliably: smart lockers, cold storage and on-demand collection.
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* Industry Statistics Section */}
-      <section className="py-16 bg-gradient-to-br from-neutral-950 to-stone-900 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl md:text-4xl font-bold text-orange-500 text-center mb-12 animate-on-scroll">
-            The Challenge We're Solving
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {industryStats.map((stat, index) => (
-              <div key={index} className="text-center animate-on-scroll">
-                <div className="text-2xl md:text-4xl font-bold text-orange-400 mb-2">{stat.number}</div>
-                <div className="text-sm md:text-base font-medium mb-1">{stat.label}</div>
-                <div className="text-xs md:text-sm text-gray-400">{stat.sublabel}</div>
+      {/* Mission & vision */}
+      <section className="py-24 md:py-32">
+        <div className="site-container grid gap-4 md:grid-cols-2">
+          {[
+            {
+              label: "Our mission",
+              body: "To make moving goods in East Africa secure, affordable and predictable, with infrastructure that merchants, farmers, transporters and customers can rely on every day.",
+            },
+            {
+              label: "Our vision",
+              body: "To become the logistics backbone of African commerce: a connected network of lockers, cold storage and collection that powers economic growth for businesses of every size.",
+            },
+          ].map((item, i) => (
+            <Reveal key={item.label} delay={i * 100}>
+              <div className="card-surface h-full p-8 md:p-12">
+                <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-ink-400">{item.label}</span>
+                <p className="mt-6 text-2xl font-light leading-snug tracking-[-0.02em] text-white md:text-3xl">
+                  {item.body}
+                </p>
               </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      {/* What we build */}
+      <section className="border-t border-ink-800 py-24 md:py-32">
+        <div className="site-container">
+          <SectionHeading
+            eyebrow="What we build"
+            title={
+              <>
+                One network. <Accent className="text-ink-300">Three products.</Accent>
+              </>
+            }
+          />
+          <div className="mt-14 divide-y divide-ink-700 border-y border-ink-700">
+            {products.map((product, i) => {
+              const content = (
+                <>
+                  <span className="font-mono text-sm text-ink-400">0{i + 1}</span>
+                  <span className="flex items-center gap-3">
+                    <span className={cn("h-2 w-2 rounded-full", productDots[product.id])} />
+                    <span className="display text-3xl md:text-5xl">{product.name}</span>
+                  </span>
+                  <span className="text-ink-300 md:max-w-md">{product.tagline}</span>
+                  <span className="ml-auto flex items-center gap-3 font-mono text-[11px] uppercase tracking-wider text-ink-400">
+                    {product.statusLabel}
+                    {product.external ? (
+                      <ArrowUpRight className="h-5 w-5 text-ink-300 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-white" />
+                    ) : (
+                      <ArrowRight className="h-5 w-5 text-ink-300 transition-transform group-hover:translate-x-0.5 group-hover:text-white" />
+                    )}
+                  </span>
+                </>
+              );
+              const className =
+                "group flex flex-col gap-4 py-8 transition-colors hover:bg-white/[0.02] md:flex-row md:items-center md:gap-10 md:px-4";
+              return (
+                <Reveal key={product.id} delay={i * 80}>
+                  {product.external ? (
+                    <a href={product.href} className={className}>{content}</a>
+                  ) : (
+                    <Link to={product.href} className={className}>{content}</Link>
+                  )}
+                </Reveal>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Challenge */}
+      <section className="border-t border-ink-800 bg-ink-900/40 py-24 md:py-32">
+        <div className="site-container">
+          <SectionHeading
+            eyebrow="The challenge we're solving"
+            title={
+              <>
+                Goods move slowly, and <Accent className="text-ink-300">value leaks out.</Accent>
+              </>
+            }
+            description="Post-harvest losses and inefficient transport hold back East African trade. We're building the infrastructure to change that."
+          />
+          <div className="mt-14 grid gap-px overflow-hidden rounded-3xl border border-ink-700 bg-ink-700 sm:grid-cols-2 lg:grid-cols-3">
+            {industryStats.map((stat, i) => (
+              <Reveal key={stat.label} delay={(i % 3) * 80} className="bg-ink-950 p-8">
+                <p className="display text-5xl">{stat.number}</p>
+                <p className="mt-4 text-white">{stat.label}</p>
+                <p className="mt-2 text-sm leading-relaxed text-ink-400">{stat.detail}</p>
+              </Reveal>
             ))}
           </div>
-          <p className="text-center text-gray-300 max-w-4xl mx-auto mt-8 animate-on-scroll">
-            East Africa's logistics sector faces significant challenges with massive post-harvest losses 
-            and inefficient transportation systems. TRUKFLOW is transforming this landscape with innovative 
-            technology solutions that connect stakeholders and optimize supply chains.
-          </p>
         </div>
       </section>
 
-      {/* Mission & Vision */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="animate-on-scroll">
-              <h2 className="text-3xl font-bold text-orange-500 mb-6">Our Mission</h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                To transform logistics in East Africa by providing a smart, reliable, 
-                and efficient platform that connects cargo owners with verified transporters, 
-                ensuring seamless movement of goods across the region.
-              </p>
-            </div>
-            <div className="animate-on-scroll">
-              <h2 className="text-3xl font-bold text-orange-500 mb-6">Our Vision</h2>
-              <p className="text-lg text-gray-600 leading-relaxed">
-                To become East Africa's leading logistics platform, enabling economic 
-                growth through efficient transportation solutions that benefit farmers, 
-                businesses, and transporters alike.
-              </p>
-            </div>
+      {/* Leadership */}
+      <section className="py-24 md:py-32">
+        <div className="site-container">
+          <SectionHeading
+            eyebrow="Leadership"
+            title={
+              <>
+                Operators and engineers who've <Accent className="text-ink-300">lived the problem.</Accent>
+              </>
+            }
+          />
+          <Reveal className="mt-14">
+            <PersonCard person={team[0]} featured />
+          </Reveal>
+          <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {team.slice(1).map((member, i) => (
+              <Reveal key={member.name} delay={i * 80}>
+                <PersonCard person={member} />
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Company Hierarchy */}
-      <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-orange-500 text-center mb-16 animate-on-scroll">
-            Our Leadership Team
-          </h2>
-          <div className="max-w-4xl mx-auto">
-            {/* CEO centered */}
-            <div className="flex justify-center mb-10">
-              <div className="w-full sm:w-3/4 md:w-1/2">
-                <div className="bg-white/95 rounded-lg shadow-lg shadow-stone-300/40 overflow-hidden transform hover:scale-105 transition-all duration-300 animate-on-scroll border border-orange-100">
-                  <div className="w-full h-64 overflow-hidden bg-neutral-100">
-                    <img
-                      src={team[0].image}
-                      alt={team[0].name}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-xl font-bold text-gray-900">
-                        {team[0].name}
-                      </h3>
-                      <img 
-                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA3NmIyIj4KPHBhdGggZD0iTTIwLjQ0NyAyMC40NTJoLTMuNTU0di01LjU2OWMwLTEuMzI4LS4wMjctMy4wMzctMS44NTItMy4wMzctMS44NTMgMC0yLjEzNiAxLjQ0NS0yLjEzNiAyLjkzOXY1LjY2N0g5LjM1MVY5aDMuNDE0djEuNTYxaC4wNDZjLjQ3Ny0uOSAxLjYzNy0xLjg1IDMuMzctMS44NSAzLjYwMSAwIDQuMjY3IDIuMzcgNC4yNjcgNS40NTV2Ni4yODZ6TTUuMzM3IDcuNDMzYy0xLjE0NCAwLTIuMDYzLS45MjYtMi4wNjMtMi4wNjUgMC0xLjEzOC45Mi0yLjA2NS0yLjA2NCAyLjA2NXptMS43ODIgMTMuMDE5SDMuNTU1VjloMy41NjR2MTEuNDUyek0yMi4yMjUgMEgxLjc3MUMuNzkyIDAgMCAuNzc0IDAgMS43Mjl2MjAuNTQyQzAgMjMuMjI3Ljc5MiAyNCAxLjc3MSAyNGgyMC40NTFDMjMuMiAyNCAyNCAyMy4yMjcgMjQgMjIuMjcxVjEuNzI5QzI0IC43NzQgMjMuMiAwIDIyLjIyMiAwaDMuMDAzeiIvPgo8L3N2Zz4="
-                        alt="LinkedIn"
-                        className="w-5 h-5 hover:opacity-80 cursor-pointer transition-opacity"
-                        onClick={() => window.open(team[0].linkedin, '_blank')}
-                      />
-                    </div>
-                    <p className="text-orange-500 font-medium mb-3">
-                      {team[0].role}
-                    </p>
-                    <p className="text-gray-600 text-sm">
-                      {team[0].bio}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Other leaders */}
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 gap-8">
-              {team.slice(1).map((member, index) => (
-                <div key={index} className="bg-white/95 rounded-lg shadow-lg shadow-stone-300/40 overflow-hidden transform hover:scale-105 transition-all duration-300 animate-on-scroll border border-orange-100">
-                  <div className="w-full h-64 overflow-hidden bg-neutral-100">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className={`w-full h-full ${
-                        member.name === "Dickson Mumo" ? "object-cover object-top" : "object-contain"
-                      }`}
-                    />
-                  </div>
-                  <div className="p-6">
-                    <div className="flex items-center justify-between mb-2">
-                      <h3 className="text-xl font-bold text-gray-900">
-                        {member.name}
-                      </h3>
-                      <img 
-                        src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjMDA3NmIyIj4KPHBhdGggZD0iTTIwLjQ0NyAyMC40NTJoLTMuNTU0di01LjU2OWMwLTEuMzI4LS4wMjctMy4wMzctMS44NTItMy4wMzctMS44NTMgMC0yLjEzNiAxLjQ0NS0yLjEzNiAyLjkzOXY1LjY2N0g5LjM1MVY5aDMuNDE0djEuNTYxaC4wNDZjLjQ3Ny0uOSAxLjYzNy0xLjg1IDMuMzctMS44NSAzLjYwMSAwIDQuMjY3IDIuMzcgNC4yNjcgNS40NTV2Ni4yODZ6TTUuMzM3IDcuNDMzYy0xLjE0NCAwLTIuMDYzLS45MjYtMi4wNjMtMi4wNjUgMC0xLjEzOC45Mi0yLjA2NS0yLjA2NCAyLjA2NXptMS43ODIgMTMuMDE5SDMuNTU1VjloMy41NjR2MTEuNDUyek0yMi4yMjUgMEgxLjc3MUMuNzkyIDAgMCAuNzc0IDAgMS43Mjl2MjAuNTQyQzAgMjMuMjI3Ljc5MiAyNCAxLjc3MSAyNGgyMC40NTFDMjMuMiAyNCAyNCAyMy4yMjcgMjQgMjIuMjcxVjEuNzI5QzI0IC43NzQgMjMuMiAwIDIyLjIyMiAwaDMuMDAzeiIvPgo8L3N2Zz4="
-                        alt="LinkedIn"
-                        className="w-5 h-5 hover:opacity-80 cursor-pointer transition-opacity"
-                        onClick={() => window.open(member.linkedin, '_blank')}
-                      />
-                    </div>
-                    <p className="text-orange-500 font-medium mb-3">
-                      {member.role}
-                    </p>
-                    <p className="text-gray-600 text-sm">
-                      {member.bio}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Board of Advisors */}
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 animate-on-scroll">
-            <h2 className="text-4xl font-bold text-orange-500 mb-4">
-              Board of Advisors
-            </h2>
-            <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Experienced operators and specialists guiding TRUKFLOW's growth across markets, technology, and agriculture.
-            </p>
-          </div>
-          <div className="grid gap-8 md:grid-cols-3">
-            {advisors.map((advisor) => (
-              <article
-                key={advisor.name}
-                className="bg-white rounded-lg border border-orange-100 shadow-lg shadow-stone-300/40 overflow-hidden animate-on-scroll transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-              >
-                <div className="h-72 bg-neutral-100 overflow-hidden">
-                  <img
-                    src={advisor.image}
-                    alt={advisor.name}
-                    className="w-full h-full object-cover object-top"
-                  />
-                </div>
-                <div className="p-6">
-                  <div className="flex items-start justify-between gap-4 mb-2">
-                    <h3 className="text-xl font-bold text-gray-900">
-                      {advisor.name}
-                    </h3>
-                    <a
-                      href={advisor.linkedin}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label={`${advisor.name} on LinkedIn`}
-                      className="text-[#0076b2] hover:text-[#005f8f] transition-colors"
-                    >
-                      <Linkedin className="w-5 h-5" />
-                    </a>
-                  </div>
-                  <p className="text-orange-500 font-medium mb-3">
-                    {advisor.role}
-                  </p>
-                  <p className="text-gray-600 text-sm leading-relaxed">
-                    {advisor.bio}
-                  </p>
-                </div>
-              </article>
+      {/* Advisors */}
+      <section className="border-t border-ink-800 py-24 md:py-32">
+        <div className="site-container">
+          <SectionHeading
+            eyebrow="Board of advisors"
+            title={
+              <>
+                Guided by <Accent className="text-ink-300">experience.</Accent>
+              </>
+            }
+            description="Experienced operators and specialists guiding TRUKFLOW's growth across markets, technology and agriculture."
+          />
+          <div className="mt-14 grid gap-4 md:grid-cols-3">
+            {advisors.map((advisor, i) => (
+              <Reveal key={advisor.name} delay={i * 80}>
+                <PersonCard person={advisor} />
+              </Reveal>
             ))}
           </div>
         </div>
       </section>
 
       {/* Values */}
-      <section className="py-16 bg-gradient-to-br from-gray-50 to-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-orange-500 text-center mb-16 animate-on-scroll">
-            Our Values
-          </h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="text-center animate-on-scroll">
-              <div className="w-16 h-16 bg-gradient-to-br from-neutral-950 to-stone-800 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <span className="text-white text-2xl font-bold">R</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Reliability</h3>
-              <p className="text-gray-600">
-                We ensure consistent, dependable service that our customers can trust.
-              </p>
-            </div>
-            <div className="text-center animate-on-scroll">
-              <div className="w-16 h-16 bg-gradient-to-br from-neutral-950 to-stone-800 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <span className="text-white text-2xl font-bold">I</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Innovation</h3>
-              <p className="text-gray-600">
-                We continuously improve our technology to serve our users better.
-              </p>
-            </div>
-            <div className="text-center animate-on-scroll">
-              <div className="w-16 h-16 bg-gradient-to-br from-neutral-950 to-stone-800 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <span className="text-white text-2xl font-bold">T</span>
-              </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">Trust</h3>
-              <p className="text-gray-600">
-                We build lasting relationships through transparency and integrity.
-              </p>
-            </div>
+      <section className="border-t border-ink-800 py-24 md:py-32">
+        <div className="site-container">
+          <SectionHeading eyebrow="Our values" title="What we stand for." />
+          <div className="mt-14 grid gap-4 md:grid-cols-3">
+            {values.map((value, i) => (
+              <Reveal key={value.title} delay={i * 80}>
+                <div className="card-surface h-full p-8">
+                  <span className="display text-gradient-flame text-6xl">{value.title[0]}</span>
+                  <h3 className="mt-6 text-xl font-normal tracking-[-0.02em] text-white">{value.title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-ink-300">{value.body}</p>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-gradient-to-br from-neutral-950 via-neutral-900 to-stone-800 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-6 animate-on-scroll">Join Our Mission</h2>
-          <p className="text-xl mb-8 animate-on-scroll">
-            Be part of East Africa's logistics revolution
-          </p>
-          <Button className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-full text-lg font-medium transform hover:scale-105 transition-all duration-200 animate-on-scroll"
-                  onClick={() => navigate('/download')}>
-            Get Started Today
-          </Button>
-        </div>
+      <section className="px-4 pb-24 sm:px-6 lg:px-8">
+        <Reveal className="relative mx-auto max-w-7xl overflow-hidden rounded-[32px] border border-ink-700 bg-ink-900">
+          <div className="absolute -bottom-40 left-1/2 h-96 w-[700px] -translate-x-1/2 rounded-full bg-flame-500/20 blur-[120px]" />
+          <div className="relative px-6 py-20 text-center md:px-16 md:py-24">
+            <h2 className="display mx-auto max-w-3xl text-[clamp(2.25rem,1.4rem+3vw,4rem)]">
+              Join our <Accent className="text-gradient-flame pr-1">mission.</Accent>
+            </h2>
+            <p className="mx-auto mt-6 max-w-xl text-lg text-ink-300">
+              Start with Smartdrop: join the Nairobi merchant pilot or host a locker at your property.
+            </p>
+            <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
+              <a href={SMARTDROP_URL} className="btn-light h-12 px-6">
+                Join the pilot <ArrowUpRight className="h-4 w-4" />
+              </a>
+              <Link to="/#contact" className="btn-ghost h-12 px-6">
+                Contact us
+              </Link>
+            </div>
+          </div>
+        </Reveal>
       </section>
+
+      <SiteFooter />
     </div>
   );
 };

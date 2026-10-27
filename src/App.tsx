@@ -3,15 +3,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 
 const Index = lazy(() => import("./pages/Index"));
 const About = lazy(() => import("./pages/About"));
-const Download = lazy(() => import("./pages/Download"));
-const AgriTruk = lazy(() => import("./pages/AgriTruk"));
-const CargoTruk = lazy(() => import("./pages/CargoTruk"));
-const Brokers = lazy(() => import("./pages/Brokers"));
-const TransporterEnlistment = lazy(() => import("./pages/DriverEnlistment"));
+const Smartcold = lazy(() => import("./pages/Smartcold"));
+const Chukua = lazy(() => import("./pages/Chukua"));
 const CompanyAuth = lazy(() => import("./pages/CompanyAuth"));
 const Payment = lazy(() => import("./pages/Payment"));
 const HireDrivers = lazy(() => import("./pages/HireDrivers"));
@@ -24,7 +21,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 const queryClient = new QueryClient();
 
 const RouteFallback = () => (
-  <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
+  <div className="flex min-h-screen items-center justify-center bg-ink-950 text-ink-300">
     Loading...
   </div>
 );
@@ -35,7 +32,7 @@ const SmartdropRedirect = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background text-foreground">
+    <div className="flex min-h-screen items-center justify-center bg-ink-950 text-ink-300">
       Redirecting to Smartdrop...
     </div>
   );
@@ -51,12 +48,9 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
-            <Route path="/download" element={<Download />} />
-            <Route path="/agritruk" element={<AgriTruk />} />
-            <Route path="/cargotruk" element={<CargoTruk />} />
+            <Route path="/smartcold" element={<Smartcold />} />
+            <Route path="/chukua" element={<Chukua />} />
             <Route path="/smartdrop" element={<SmartdropRedirect />} />
-            <Route path="/brokers" element={<Brokers />} />
-            <Route path="/transporter-enlistment" element={<TransporterEnlistment />} />
             <Route path="/company-auth" element={<CompanyAuth />} />
             <Route path="/payment" element={<Payment />} />
             <Route path="/hire-drivers" element={<HireDrivers />} />
@@ -64,6 +58,12 @@ const App = () => (
             <Route path="/terms-conditions" element={<TermsConditions />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/delete-account" element={<DeleteAccount />} />
+            {/* Retired TRUK app pages */}
+            <Route path="/agritruk" element={<Navigate to="/chukua" replace />} />
+            <Route path="/cargotruk" element={<Navigate to="/chukua" replace />} />
+            <Route path="/brokers" element={<Navigate to="/chukua#transporters" replace />} />
+            <Route path="/transporter-enlistment" element={<Navigate to="/chukua#transporters" replace />} />
+            <Route path="/download" element={<Navigate to="/" replace />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
