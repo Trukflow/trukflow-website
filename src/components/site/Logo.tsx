@@ -6,8 +6,11 @@ import { cn } from "@/lib/utils";
  */
 const Logo = ({ className }: { className?: string }) => (
   <img
-    src="/TRUKFLOW Logo Transparent.png"
+    src="/images/trukflow-logo.png"
     alt="TRUKFLOW"
+    width={318}
+    height={160}
+    decoding="async"
     className={cn("h-11 w-auto [filter:invert(1)_hue-rotate(180deg)]", className)}
   />
 );

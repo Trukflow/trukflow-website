@@ -8,8 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { auth } from "@/lib/firebase";
-import { onAuthStateChanged, signOut, type User } from "firebase/auth";
+import { signOutRecruiter, useRecruiterUser } from "@/lib/authSession";
 import Logo from "@/components/site/Logo";
 import { products, SMARTDROP_URL } from "@/components/site/content";
 import { cn } from "@/lib/utils";
@@ -29,23 +28,15 @@ const navLinkClass =
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
   const navigate = useNavigate();
   const location = useLocation();
+  const currentUser = useRecruiterUser(location.pathname);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 24);
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
-    });
-
-    return () => unsubscribe();
   }, []);
 
   // Close the drawer on navigation and lock page scroll while it's open
@@ -76,9 +67,8 @@ const Navbar = () => {
   };
 
   const handleLogout = async () => {
-    localStorage.removeItem("authToken");
     sessionStorage.removeItem("prefillLoginEmail");
-    await signOut(auth);
+    await signOutRecruiter();
     setIsOpen(false);
     navigate("/company-auth");
   };
