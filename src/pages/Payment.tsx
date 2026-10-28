@@ -14,6 +14,7 @@ import { recruiterApi } from "@/services/recruiterApi";
 import { paymentApi } from "@/services/paymentApi";
 import LoadingSkeleton from "@/components/LoadingSkeleton";
 import { getSubscriptionAccess } from "@/lib/subscriptionAccess";
+import { getPaystackCheckoutUrl } from "@/lib/safeUrl";
 
 interface PricingPlan {
   id: string;
@@ -282,11 +283,12 @@ const Payment = () => {
           callbackUrl: `${window.location.origin}/drivers-job-board`
         });
 
-        if (paystackResponse.authorization_url) {
+        const checkoutUrl = getPaystackCheckoutUrl(paystackResponse.authorization_url);
+        if (checkoutUrl) {
           localStorage.setItem('pendingPlanId', selectedPlan);
-          window.location.href = paystackResponse.authorization_url;
+          window.location.assign(checkoutUrl);
         } else {
-          throw new Error('Failed to get Paystack URL');
+          throw new Error('Failed to get a valid Paystack checkout link');
         }
       }
     } catch (error: any) {

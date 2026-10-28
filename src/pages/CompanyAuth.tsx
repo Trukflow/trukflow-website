@@ -21,6 +21,24 @@ const phoneSchema = z.string().trim()
   .regex(/^(\+?254|0)?[17]\d{8}$/, "Please enter a valid Kenyan phone number (e.g., +254712345678 or 0712345678)")
   .or(z.literal("")) // Allow empty phone
   .optional();
+const passwordSchema = z.string()
+  .min(8, "Password must be at least 8 characters")
+  .max(128, "Password is too long")
+  .regex(/[A-Za-z]/, "Password must include a letter")
+  .regex(/\d/, "Password must include a number");
+const companyNameSchema = z.string().trim().min(2, "Please enter your name or organization").max(120, "Name is too long");
+
+// Firebase error codes that would reveal whether an account exists; show one generic message instead
+const GENERIC_LOGIN_ERROR = "Incorrect email or password.";
+const getLoginErrorMessage = (error: { code?: string }) => {
+  if (error?.code === "auth/too-many-requests") {
+    return "Too many attempts. Please wait a few minutes and try again.";
+  }
+  if (error?.code === "auth/network-request-failed") {
+    return "Network error. Check your connection and try again.";
+  }
+  return GENERIC_LOGIN_ERROR;
+};
 
 const CompanyAuth = () => {
   const navigate = useNavigate();
@@ -47,9 +65,6 @@ const CompanyAuth = () => {
   }, []);
 
   const routeAuthenticatedUser = async (user: User) => {
-    const token = await user.getIdToken();
-    localStorage.setItem('authToken', token);
-
     try {
       const subscriptionData = await recruiterApi.getSubscriptionStatus(user.uid);
       const access = getSubscriptionAccess(subscriptionData);
@@ -166,17 +181,24 @@ const CompanyAuth = () => {
     const formData = new FormData(e.currentTarget);
     const email = (formData.get("signup-email") as string).trim();
     const password = formData.get("signup-password") as string;
-    const companyName = formData.get("company-name") as string;
+    const companyName = ((formData.get("company-name") as string) || "").trim();
     const phone = (formData.get("phone") as string || "").trim();
 
     // Validate fields
     const isEmailValid = validateEmail(email);
     const isPhoneValid = validatePhone(phone);
+    const passwordResult = passwordSchema.safeParse(password);
+    const nameResult = companyNameSchema.safeParse(companyName);
 
-    if (!isEmailValid || !isPhoneValid) {
+    if (!isEmailValid || !isPhoneValid || !passwordResult.success || !nameResult.success) {
+      const detail = !passwordResult.success
+        ? passwordResult.error.errors[0].message
+        : !nameResult.success
+          ? nameResult.error.errors[0].message
+          : "Please fix the errors in the form before submitting.";
       toast({
         title: "Validation Error",
-        description: "Please fix the errors in the form before submitting.",
+        description: detail,
         variant: "destructive",
       });
       suppressAuthRedirectRef.current = false;
@@ -196,10 +218,8 @@ const CompanyAuth = () => {
       };
 
       try {
-        const backendResponse = await recruiterApi.register(registrationPayload);
-        console.log('Successfully registered with external backend:', backendResponse);
+        await recruiterApi.register(registrationPayload);
       } catch (backendError: any) {
-        console.error('Backend registration failed:', backendError);
         toast({
           title: "Signup Failed",
           description: backendError.message || "Backend registration failed. Please try again.",
@@ -237,20 +257,18 @@ const CompanyAuth = () => {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    const email = formData.get("login-email") as string;
+    const email = ((formData.get("login-email") as string) || "").trim();
     const password = formData.get("login-password") as string;
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const currentUser = userCredential.user;
       const token = await currentUser.getIdToken();
-      localStorage.setItem('authToken', token);
 
       try {
         await recruiterApi.login({ email, password }, token);
       } catch (backendError: any) {
-        console.error('Backend login failed:', backendError);
-        localStorage.removeItem('authToken');
+        console.error('Backend login failed');
         await signOut(auth);
         toast({
           title: "Login failed",
@@ -270,7 +288,7 @@ const CompanyAuth = () => {
     } catch (error: any) {
       toast({
         title: "Login failed",
-        description: error.message || "Invalid credentials",
+        description: getLoginErrorMessage(error),
         variant: "destructive",
       });
     } finally {
@@ -426,7 +444,9 @@ const CompanyAuth = () => {
                           placeholder="••••••••"
                           className="pr-10"
                           required
-                          minLength={6}
+                          minLength={8}
+                          maxLength={128}
+                          autoComplete="new-password"
                         />
                         <button
                           type="button"
@@ -446,11 +466,11 @@ const CompanyAuth = () => {
                       />
                       <label htmlFor="terms" className="text-sm text-muted-foreground leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                         I agree to the{' '}
-                        <a href="/terms-conditions" target="_blank" className="text-primary hover:underline">
+                        <a href="/terms-conditions" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                           Terms & Conditions
                         </a>
                         {' '}and{' '}
-                        <a href="/privacy-policy" target="_blank" className="text-primary hover:underline">
+                        <a href="/privacy-policy" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
                           Privacy Policy
                         </a>
                       </label>

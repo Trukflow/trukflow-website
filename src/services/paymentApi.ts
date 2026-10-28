@@ -1,9 +1,7 @@
 // src/services/paymentApi.ts
-import { auth } from "@/lib/firebase";
 import { normalizeFirebaseUID } from "@/lib/utils";
 import { recruiterApi } from "@/services/recruiterApi";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://agritruk.onrender.com';
+import { apiUrl, authHeaders, jsonHeaders } from "@/services/http";
 
 interface PaystackInitializeRequest {
   email: string;
@@ -34,14 +32,9 @@ interface SubscriptionResponse {
 export const paymentApi = {
   // Initialize Paystack payment
   async initializePaystack(data: PaystackInitializeRequest) {
-    const token = await auth.currentUser?.getIdToken();
-
-    const response = await fetch(`${API_BASE_URL}/api/payments/paystack/initialize`, {
+    const response = await fetch(apiUrl('api', 'payments', 'paystack', 'initialize'), {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await jsonHeaders(),
       body: JSON.stringify(data),
     });
 
@@ -55,13 +48,9 @@ export const paymentApi = {
 
   // Get payment details by ID
   async getPaymentDetails(paymentId: string) {
-    const token = await auth.currentUser?.getIdToken();
-
-    const response = await fetch(`${API_BASE_URL}/api/payments/${paymentId}`, {
+    const response = await fetch(apiUrl('api', 'payments', paymentId), {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await authHeaders(),
     });
 
     if (!response.ok) {
@@ -73,13 +62,9 @@ export const paymentApi = {
 
   // Get user's payment history
   async getUserPaymentHistory(userId: string): Promise<PaymentHistory[]> {
-    const token = await auth.currentUser?.getIdToken();
-
-    const response = await fetch(`${API_BASE_URL}/api/payments/user/${userId}`, {
+    const response = await fetch(apiUrl('api', 'payments', 'user', userId), {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await authHeaders(),
     });
 
     if (!response.ok) {
@@ -91,13 +76,9 @@ export const paymentApi = {
 
   // Verify payment transaction
   async verifyPayment(reference: string) {
-    const token = await auth.currentUser?.getIdToken();
-
-    const response = await fetch(`${API_BASE_URL}/api/payments/verify/${reference}`, {
+    const response = await fetch(apiUrl('api', 'payments', 'verify', reference), {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await authHeaders(),
     });
 
     if (!response.ok) {
@@ -120,14 +101,9 @@ export const paymentApi = {
 
   // --- NEW: Start 1-Hour Free Trial ---
   async startTrial(userId: string, planId: string): Promise<SubscriptionResponse> {
-    const token = await auth.currentUser?.getIdToken();
-
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/subscription/trial`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'subscription', 'trial'), {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await jsonHeaders(),
       body: JSON.stringify({ userId, planId }),
     });
 
@@ -141,14 +117,9 @@ export const paymentApi = {
 
   // Process M-PESA payment
   async processMpesaPayment(phone: string, amount: number, accountRef: string) {
-    const token = await auth.currentUser?.getIdToken();
-
-    const response = await fetch(`${API_BASE_URL}/api/payments/mpesa`, {
+    const response = await fetch(apiUrl('api', 'payments', 'mpesa'), {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await jsonHeaders(),
       body: JSON.stringify({ phone, amount, accountRef }),
     });
 

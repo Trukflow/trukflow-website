@@ -23,12 +23,29 @@ const DeleteAccount = () => {
   const [userEmail, setUserEmail] = useState("");
   const [authSource, setAuthSource] = useState<"firebase" | "deeplink" | null>(null);
   
-  // Deep link parameters from mobile app
-  const deepLinkToken = searchParams.get("token");
-  const deepLinkUid = searchParams.get("uid");
-  const deepLinkEmail = searchParams.get("email");
-  const deepLinkTimestamp = searchParams.get("ts"); // Unix timestamp in seconds
-  
+  // Deep link parameters from mobile app, read once so they can be removed from the address bar
+  const [deepLink] = useState(() => {
+    const uid = searchParams.get("uid");
+    const ts = searchParams.get("ts");
+    return {
+      token: searchParams.get("token"),
+      uid: uid && /^[A-Za-z0-9_-]{1,128}$/.test(uid) ? uid : null,
+      email: searchParams.get("email"),
+      timestamp: ts && /^\d{1,12}$/.test(ts) ? ts : null, // Unix timestamp in seconds
+    };
+  });
+  const deepLinkToken = deepLink.token;
+  const deepLinkUid = deepLink.uid;
+  const deepLinkEmail = deepLink.email;
+  const deepLinkTimestamp = deepLink.timestamp;
+
+  // Keep the one-time token out of browser history, bookmarks and screenshots
+  useEffect(() => {
+    if (window.location.search) {
+      window.history.replaceState(window.history.state, "", window.location.pathname);
+    }
+  }, []);
+
   const TOKEN_EXPIRY_MINUTES = 10;
 
   const isTokenExpired = (): boolean => {
