@@ -1,6 +1,4 @@
-import { auth } from "@/lib/firebase";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://agritruk.onrender.com';
+import { apiUrl, authHeaders, jsonHeaders } from "@/services/http";
 
 // Request/Response Types
 interface RegisterRequest {
@@ -208,44 +206,30 @@ export interface ApprovedDriver {
 export const recruiterApi = {
   // Authentication
   async register(data: RegisterRequest, firebaseToken?: string): Promise<UserResponse> {
-    console.log('Sending registration request to:', `${API_BASE_URL}/api/recruiter/register`);
-    console.log('Request payload:', { ...data, password: '***HIDDEN***' });
-    console.log('Firebase token present:', !!firebaseToken);
-    
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-    };
-    
-    if (firebaseToken) {
-      headers['Authorization'] = `Bearer ${firebaseToken}`;
-    }
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/register`, {
+    // Only send a token when one is passed in, so a new registration is never
+    // tied to whichever account happens to be signed in
+    const headers: Record<string, string> = firebaseToken
+      ? await jsonHeaders(firebaseToken)
+      : { 'Content-Type': 'application/json' };
+
+    const response = await fetch(apiUrl('api', 'recruiter', 'register'), {
       method: 'POST',
       headers,
       body: JSON.stringify(data),
     });
 
-    console.log('Registration response status:', response.status);
-
     if (!response.ok) {
       const error = await response.json().catch(() => ({ message: 'Registration failed' }));
-      console.error('Registration error response:', error);
       throw new Error(error.message || 'Failed to register');
     }
 
-    const responseData = await response.json();
-    console.log('Registration successful, response:', responseData);
-    return responseData;
+    return response.json();
   },
 
   async login(data: LoginRequest, firebaseToken?: string): Promise<UserResponse> {
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/login`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'login'), {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(firebaseToken ? { 'Authorization': `Bearer ${firebaseToken}` } : {}),
-      },
+      headers: await jsonHeaders(firebaseToken),
       body: JSON.stringify(data),
     });
 
@@ -259,13 +243,9 @@ export const recruiterApi = {
 
   // Plans
   async getPlans(): Promise<PlansResponse> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/plans`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'plans'), {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await authHeaders(),
     });
 
     if (!response.ok) {
@@ -276,13 +256,9 @@ export const recruiterApi = {
   },
 
   async getPlan(planId: string): Promise<Plan> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/plans/${planId}`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'plans', planId), {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await authHeaders(),
     });
 
     if (!response.ok) {
@@ -294,14 +270,9 @@ export const recruiterApi = {
 
   // Subscriptions
   async startSubscription(data: StartSubscriptionRequest): Promise<SubscriptionResponse> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/subscription/start`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'subscription', 'start'), {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await jsonHeaders(),
       body: JSON.stringify(data),
     });
 
@@ -314,13 +285,9 @@ export const recruiterApi = {
   },
 
   async getSubscriptionStatus(userId: string): Promise<SubscriptionResponse> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/subscription/status/${userId}`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'subscription', 'status', userId), {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await authHeaders(),
     });
 
     if (!response.ok) {
@@ -331,13 +298,9 @@ export const recruiterApi = {
   },
 
   async getSubscriptionHistory(userId: string): Promise<SubscriptionResponse[]> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/subscription/history/${userId}`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'subscription', 'history', userId), {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await authHeaders(),
     });
 
     if (!response.ok) {
@@ -348,14 +311,9 @@ export const recruiterApi = {
   },
 
   async upgradeSubscription(data: UpgradeSubscriptionRequest): Promise<SubscriptionResponse> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/subscription/upgrade`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'subscription', 'upgrade'), {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await jsonHeaders(),
       body: JSON.stringify(data),
     });
 
@@ -368,13 +326,9 @@ export const recruiterApi = {
   },
 
   async cancelSubscription(userId: string): Promise<{ message: string }> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/subscription/cancel/${userId}`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'subscription', 'cancel', userId), {
       method: 'PUT',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await authHeaders(),
     });
 
     if (!response.ok) {
@@ -386,14 +340,9 @@ export const recruiterApi = {
 
   // Admin - Plans Management
   async createPlan(data: CreatePlanRequest): Promise<Plan> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/admin/plans`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'admin', 'plans'), {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await jsonHeaders(),
       body: JSON.stringify(data),
     });
 
@@ -406,14 +355,9 @@ export const recruiterApi = {
   },
 
   async updatePlan(planId: string, data: Partial<CreatePlanRequest>): Promise<Plan> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/admin/plans/${planId}`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'admin', 'plans', planId), {
       method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await jsonHeaders(),
       body: JSON.stringify(data),
     });
 
@@ -426,13 +370,9 @@ export const recruiterApi = {
   },
 
   async deletePlan(planId: string): Promise<{ message: string }> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/admin/plans/${planId}`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'admin', 'plans', planId), {
       method: 'DELETE',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await authHeaders(),
     });
 
     if (!response.ok) {
@@ -448,14 +388,9 @@ export const recruiterApi = {
     amount: number; 
     accountRef: string;
   }): Promise<any> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/payments/mpesa`, {
+    const response = await fetch(apiUrl('api', 'payments', 'mpesa'), {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await jsonHeaders(),
       body: JSON.stringify(data),
     });
 
@@ -478,18 +413,13 @@ export const recruiterApi = {
 
   // Drivers
   async getApprovedDrivers(): Promise<ApprovedDriver[]> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/drivers/approved`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'drivers', 'approved'), {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await authHeaders(),
     });
 
     if (!response.ok) {
-      const errorBody = await response.text();
-      console.error('API Error Response:', response.status, errorBody);
+      console.error('Failed to fetch approved drivers:', response.status);
       throw new Error(`Failed to fetch approved drivers (${response.status})`);
     }
 
@@ -513,18 +443,14 @@ export const recruiterApi = {
       return drivers;
     }
 
-    console.error('Unexpected API response structure:', data);
+    console.error('Unexpected approved drivers response structure');
     throw new Error('Unexpected API response format');
   },
 
   async getDriverDetails(jobSeekerId: string): Promise<ApprovedDriver> {
-    const token = await auth.currentUser?.getIdToken();
-    
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/${jobSeekerId}/details`, {
+    const response = await fetch(apiUrl('api', 'recruiter', jobSeekerId, 'details'), {
       method: 'GET',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await authHeaders(),
     });
 
     if (!response.ok) {
@@ -537,21 +463,13 @@ export const recruiterApi = {
   // Account Deletion Request
   // Supports both Firebase auth (web) and deep link token (mobile app)
   async requestAccountDeletion(reason: string, uid?: string, deepLinkToken?: string): Promise<{ message: string }> {
-    // Use deep link token if provided, otherwise get Firebase token
-    const token = deepLinkToken || await auth.currentUser?.getIdToken();
-    
-    const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
-    };
-    
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
-    }
+    // Use deep link token if provided, otherwise the Firebase token
+    const headers = await jsonHeaders(deepLinkToken);
 
     // Use the endpoint format: POST /api/auth/{uid}/delete/request
     const endpoint = uid 
-      ? `${API_BASE_URL}/api/auth/${uid}/delete/request`
-      : `${API_BASE_URL}/api/auth/delete/request`;
+      ? apiUrl('api', 'auth', uid, 'delete', 'request')
+      : apiUrl('api', 'auth', 'delete', 'request');
     
     const response = await fetch(endpoint, {
       method: 'POST',
@@ -569,13 +487,9 @@ export const recruiterApi = {
 
   // Start Trial
   async startTrial(userId: string, planId: string): Promise<SubscriptionResponse> {
-    const token = await auth.currentUser?.getIdToken();
-    const response = await fetch(`${API_BASE_URL}/api/recruiter/subscription/trial`, {
+    const response = await fetch(apiUrl('api', 'recruiter', 'subscription', 'trial'), {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
+      headers: await jsonHeaders(),
       body: JSON.stringify({ userId, planId }),
     });
 

@@ -17,6 +17,7 @@ import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import UpgradeModal from "@/components/UpgradeModal";
 import { getSubscriptionAccess } from "@/lib/subscriptionAccess";
+import { toTelHref } from "@/lib/safeUrl";
 
 interface Driver {
   id: string;
@@ -155,14 +156,18 @@ const DriversJobBoard = () => {
         return;
       }
 
-      const token = await user.getIdToken(true);
-      localStorage.setItem('authToken', token);
+      // Refresh the token so API calls use current claims
+      await user.getIdToken(true);
 
       setIsAuthenticated(true);
       setCurrentUserId(user.uid);
 
-      const storedContacted = localStorage.getItem(`contacted_drivers_${user.uid}`);
-      if (storedContacted) setContactedDrivers(new Set(JSON.parse(storedContacted)));
+      try {
+        const storedContacted = JSON.parse(localStorage.getItem(`contacted_drivers_${user.uid}`) || "[]");
+        if (Array.isArray(storedContacted)) setContactedDrivers(new Set(storedContacted.map(String)));
+      } catch {
+        localStorage.removeItem(`contacted_drivers_${user.uid}`);
+      }
 
       try {
         // Fetch subscription from external backend (source of truth)
@@ -277,6 +282,12 @@ const DriversJobBoard = () => {
       return;
     }
 
+    const telHref = toTelHref(driver.phone);
+    if (!telHref) {
+      toast({ title: "Unavailable", description: "This driver has no valid phone number on file.", variant: "destructive" });
+      return;
+    }
+
     if (planFeatures) {
       const maxContacts = planFeatures.maxDriverContacts === 'unlimited' ? Infinity : parseInt(planFeatures.maxDriverContacts) || 0;
       if (contactedDrivers.size >= maxContacts) {
@@ -290,7 +301,7 @@ const DriversJobBoard = () => {
     setContactedDrivers(newContacted);
     localStorage.setItem(`contacted_drivers_${currentUserId}`, JSON.stringify(Array.from(newContacted)));
 
-    window.open(`tel:${driver.phone}`, '_self');
+    window.location.href = telHref;
     toast({ title: "Success", description: `Contact initiated with ${driver.name}` });
   };
 

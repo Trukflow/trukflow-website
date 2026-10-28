@@ -1,0 +1,82 @@
+# Render Blueprint for the static site at https://www.trukflow.com
+# Render does not read public/_headers or public/_redirects; headers and routes live here.
+# `name` must match the existing Render service so the Blueprint updates it instead of creating a new one.
+services:
+  - type: web
+    runtime: static
+    name: trukflow-website
+    buildCommand: npm ci && npm run build
+    staticPublishPath: ./dist
+    headers:
+      # Security headers for every page
+      - path: /*
+        name: Strict-Transport-Security
+        value: max-age=31536000
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+      - path: /*
+        name: X-Frame-Options
+        value: DENY
+      - path: /*
+        name: Referrer-Policy
+        value: strict-origin-when-cross-origin
+      - path: /*
+        name: Permissions-Policy
+        value: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
+      - path: /*
+        name: Cross-Origin-Opener-Policy
+        value: same-origin-allow-popups
+      - path: /*
+        name: Content-Security-Policy
+        value: "default-src 'self'; script-src 'self' https://apis.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self'; connect-src 'self' https://agritruk.onrender.com https://identitytoolkit.googleapis.com https://securetoken.googleapis.com https://www.googleapis.com; frame-src https://agritruk-d543b.firebaseapp.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+
+      # Pages that handle accounts or one-time tokens: never cache, never leak the URL
+      - path: /delete-account
+        name: Referrer-Policy
+        value: no-referrer
+      - path: /delete-account
+        name: Cache-Control
+        value: no-store
+      - path: /company-auth
+        name: Cache-Control
+        value: no-store
+      - path: /payment
+        name: Cache-Control
+        value: no-store
+      - path: /drivers-job-board
+        name: Cache-Control
+        value: no-store
+
+      # Hashed build assets can be cached forever
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+    routes:
+      # Smartdrop has its own site
+      - type: redirect
+        source: /smartdrop
+        destination: https://smartdrop.africa
+      - type: redirect
+        source: /smartdrop/*
+        destination: https://smartdrop.africa
+      # Retired TRUK app pages
+      - type: redirect
+        source: /agritruk
+        destination: /chukua
+      - type: redirect
+        source: /cargotruk
+        destination: /chukua
+      - type: redirect
+        source: /brokers
+        destination: /chukua#transporters
+      - type: redirect
+        source: /transporter-enlistment
+        destination: /chukua#transporters
+      - type: redirect
+        source: /download
+        destination: /
+      # Single-page app: let React Router handle every other path
+      - type: rewrite
+        source: /*
+        destination: /index.html
