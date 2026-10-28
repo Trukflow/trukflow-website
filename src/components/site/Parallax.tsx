@@ -13,7 +13,7 @@ export const useParallax = <T extends HTMLElement>(speed = 0.2) => {
 
   useEffect(() => {
     const target = targetRef.current;
-    const container = target?.parentElement;
+    const container = target?.closest<HTMLElement>("[data-parallax]") ?? target?.parentElement;
     if (!target || !container || prefersReducedMotion()) return;
 
     let frame = 0;
@@ -43,6 +43,14 @@ export const useParallax = <T extends HTMLElement>(speed = 0.2) => {
   return targetRef;
 };
 
+// Photos in /images/ have WebP versions at these widths (see public/images)
+const SCENE_WIDTHS = [640, 1280, 1920];
+
+export const sceneSrcSet = (src: string) => {
+  const match = src.match(/^\/images\/([a-z0-9-]+)\.jpg$/);
+  return match ? SCENE_WIDTHS.map((w) => `/images/${match[1]}-${w}.webp ${w}w`).join(", ") : undefined;
+};
+
 type ParallaxImageProps = {
   src: string;
   alt?: string;
@@ -51,6 +59,8 @@ type ParallaxImageProps = {
   imgClassName?: string;
   overlay?: ReactNode;
   priority?: boolean;
+  /** How wide the image renders, so the browser can pick the smallest file */
+  sizes?: string;
 };
 
 export const ParallaxImage = ({
@@ -61,22 +71,28 @@ export const ParallaxImage = ({
   imgClassName,
   overlay,
   priority,
+  sizes = "100vw",
 }: ParallaxImageProps) => {
   const imgRef = useParallax<HTMLImageElement>(speed);
+  const srcSet = sceneSrcSet(src);
 
   return (
-    <div className={cn("relative overflow-hidden", className)}>
-      <img
-        ref={imgRef}
-        src={src}
-        alt={alt}
-        loading={priority ? "eager" : "lazy"}
-        decoding="async"
-        className={cn(
-          "absolute inset-x-0 -top-[20%] h-[140%] w-full object-cover will-change-transform",
-          imgClassName
-        )}
-      />
+    <div data-parallax className={cn("relative overflow-hidden", className)}>
+      <picture>
+        {srcSet && <source type="image/webp" srcSet={srcSet} sizes={sizes} />}
+        <img
+          ref={imgRef}
+          src={src}
+          alt={alt}
+          loading={priority ? "eager" : "lazy"}
+          fetchPriority={priority ? "high" : "auto"}
+          decoding={priority ? "sync" : "async"}
+          className={cn(
+            "absolute inset-x-0 -top-[20%] h-[140%] w-full object-cover will-change-transform",
+            imgClassName
+          )}
+        />
+      </picture>
       {overlay}
     </div>
   );

@@ -12,6 +12,8 @@ type Person = {
   name: string;
   role: string;
   image: string;
+  /** Basename of the WebP versions in /images/team */
+  photo: string;
   bio: string;
   linkedin: string;
 };
@@ -21,6 +23,7 @@ const team: Person[] = [
     name: "Abisai Nandi",
     role: "Founder & CEO, TRUKFLOW Ventures",
     image: "/AbisaiPhoto.jpg",
+    photo: "abisai-nandi",
     bio: "Serial entrepreneur with 10+ years building and scaling complex supply chain and distribution operations across East Africa. Grew a multi-branch agribusiness spanning fleet logistics, cold storage, farmer aggregation, distribution and last-mile delivery to over $1M in revenue across 20+ locations. At TRUKFLOW Ventures, Abisai brings that hard-earned operational depth to building East Africa's smartest logistics and commerce infrastructure. His approach is simple: build the backbone first. Every TRUKFLOW product is designed by someone who has lived the inefficiencies and knows exactly how to fix them across the team.",
     linkedin: "https://www.linkedin.com/in/abisai-nandi-443405145/",
   },
@@ -28,6 +31,7 @@ const team: Person[] = [
     name: "Mumbua Mutuku",
     role: "Co-founder & Backend Engineer",
     image: "/photo_2025-06-19 23.37.40.jpeg",
+    photo: "mumbua-mutuku",
     bio: "Senior Software Engineer with 10+ years of experience specializing in scalable backend systems and cloud infrastructure for the logistics platforms.",
     linkedin: "https://www.linkedin.com/in/mumbuamutuku/",
   },
@@ -35,6 +39,7 @@ const team: Person[] = [
     name: "Mititi Isaac",
     role: "Co-founder, Frontend Engineer & Branding",
     image: "/Official Photo.jpg",
+    photo: "mititi-isaac",
     bio: "Full-stack Software Engineer and UX designer with 5+ years of experience; part of the team building TRUKFLOW's customer-facing interfaces and brand systems.",
     linkedin: "https://www.linkedin.com/in/io-mititi/",
   },
@@ -42,6 +47,7 @@ const team: Person[] = [
     name: "Ayub Ng'ang'a",
     role: "CTO & Systems Engineer",
     image: "/Ayub Ng'ang'a.jpeg",
+    photo: "ayub-nganga",
     bio: "IoT and embedded systems engineer with 6+ years of experience deploying connected energy storage, PV, and microgrid solutions across emerging markets. Specializes in firmware, telemetry, cloud integration, and secure OTA systems, with hands-on experience delivering scalable diagnostics, monitoring, and remote control infrastructure for distributed ESS fleets across East Africa.",
     linkedin: "https://www.linkedin.com/in/ayubnganga/",
   },
@@ -49,6 +55,7 @@ const team: Person[] = [
     name: "Dickson Mumo",
     role: "Lead IoT & Hardware Engineer",
     image: "/Dickson.jpg",
+    photo: "dickson-mumo",
     bio: "Firmware and hardware engineer with 8+ years of experience building embedded systems across automotive, agriculture, medical devices, and consumer electronics. Brings deep expertise in microcontrollers, wireless connectivity, schematic capture, and PCB design, delivering production-ready connected hardware from concept through deployment.",
     linkedin: "https://www.linkedin.com/in/dickson-mumo-4bba7697/",
   },
@@ -59,6 +66,7 @@ const advisors: Person[] = [
     name: "Olum Alex",
     role: "Board Advisor, Sales & Market Development",
     image: "/Olum Alex Image.jpeg",
+    photo: "olum-alex",
     bio: "Executive MBA and Bachelor of Education holder with deep experience in sales strategy, trade marketing, distributor management, direct sales, agency operations, team mobilization, promotions, event execution, and data-led decision making.",
     linkedin: "https://www.linkedin.com/in/olum-alex-a003344b/",
   },
@@ -66,6 +74,7 @@ const advisors: Person[] = [
     name: "Joseph Newton Okech",
     role: "Board Advisor, Agricultural Economics & Operations",
     image: "/Joseph Newton Image.jpeg",
+    photo: "joseph-newton-okech",
     bio: "Agricultural economist with an MSc in Agricultural Economics and operations leadership experience as Director of Operations at Aquarech Ltd. Provides economic evaluation services and develops farmer training materials for fish production and marketing.",
     linkedin: "https://www.linkedin.com/in/joseph-newton-okech-016b03133/",
   },
@@ -73,6 +82,7 @@ const advisors: Person[] = [
     name: "Otieno Omondi",
     role: "Board Advisor, Technology & Cybersecurity",
     image: "/Otieno Omondi Image.jpeg",
+    photo: "otieno-omondi",
     bio: "IT specialist, network administrator, software developer, cybersecurity specialist, and BI consultant with experience leading digital transformation, analytics, AI security solutions, cybersecurity strategy, and technology-enabled operational improvements.",
     linkedin: "https://www.linkedin.com/in/otieno-omondi/",
   },
@@ -131,12 +141,20 @@ const PersonCard = ({ person, featured }: { person: Person; featured?: boolean }
     )}
   >
     <div className={cn("overflow-hidden bg-ink-800", featured ? "aspect-[4/5] md:col-span-2 md:aspect-auto" : "aspect-[4/5]")}>
-      <img
-        src={person.image}
-        alt={person.name}
-        loading="lazy"
-        className="h-full w-full object-cover object-top grayscale-[35%] transition-all duration-500 group-hover:scale-[1.03] group-hover:grayscale-0"
-      />
+      <picture className="block h-full">
+        <source
+          type="image/webp"
+          srcSet={`/images/team/${person.photo}-400.webp 400w, /images/team/${person.photo}-800.webp 800w`}
+          sizes={featured ? "(min-width: 768px) 40vw, 100vw" : "(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"}
+        />
+        <img
+          src={person.image}
+          alt={person.name}
+          loading="lazy"
+          decoding="async"
+          className="h-full w-full object-cover object-top grayscale-[35%] transition-all duration-500 group-hover:scale-[1.03] group-hover:grayscale-0"
+        />
+      </picture>
     </div>
     <div className={cn("p-7", featured && "md:col-span-3 md:p-10")}>
       <div className="flex items-start justify-between gap-4">

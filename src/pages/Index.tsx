@@ -360,6 +360,7 @@ const Index = () => {
             <Reveal className="relative order-2 lg:order-1">
               <ParallaxImage
                 src="/images/fresh-crates.jpg"
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 alt="Crates of fresh produce"
                 speed={0.15}
                 className="aspect-[4/5] rounded-3xl border border-ink-700"
@@ -408,6 +409,7 @@ const Index = () => {
             <Reveal className="relative">
               <ParallaxImage
                 src="/images/produce-load.jpg"
+                sizes="(min-width: 1024px) 50vw, 100vw"
                 alt="Farm produce being loaded onto a pickup truck"
                 speed={0.15}
                 className="aspect-[4/5] rounded-3xl border border-ink-700"

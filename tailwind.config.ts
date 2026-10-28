@@ -19,7 +19,7 @@ export default {
 		},
 		extend: {
 			fontFamily: {
-				sans: ['Geist', 'Inter', 'system-ui', 'sans-serif'],
+				sans: ['"Geist Variable"', 'Geist', 'Inter', 'system-ui', 'sans-serif'],
 				serif: ['"Instrument Serif"', 'Georgia', 'serif'],
 				mono: ['"Geist Mono"', 'ui-monospace', 'monospace']
 			},
